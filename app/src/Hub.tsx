@@ -4,7 +4,7 @@ import {
   seriesOptionsFor, seriesTeams, startNextSeason, swissRecord, teamWagesPerMonth, type Career, type Competition,
 } from "../../engine/src/index.ts";
 import { champName, db } from "./data.ts";
-import { Bar, Card, ConfirmButton, ROLES, ROLE_VI, Stat, money, signed } from "./ui.tsx";
+import { Avatar, Bar, Card, ConfirmButton, ROLES, ROLE_VI, Stat, money, signed } from "./ui.tsx";
 
 type Tab = "home" | "table" | "squad" | "stats" | "news";
 const TABS: [Tab, string][] = [["home", "Tổng quan"], ["table", "Lịch & BXH"], ["squad", "Đội hình"], ["stats", "Thống kê"], ["news", "Tin tức"]];
@@ -229,7 +229,7 @@ function Squad({ career: c }: { career: Career }) {
         return (
           <Card
             key={role}
-            title={<>{p.ign} <small className="muted">{ROLE_VI[role]}{p.nationality ? ` · ${p.nationality}` : ""}</small></>}
+            title={<span className="who"><Avatar id={p.id} ign={p.ign} /><span>{p.ign} <small className="muted">{ROLE_VI[role]}{p.nationality ? ` · ${p.nationality}` : ""}</small></span></span>}
             right={<span className="ovr">{playerOverall(team, role)}</span>}
           >
             <div className="grid2">

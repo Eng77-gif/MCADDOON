@@ -89,6 +89,9 @@ h3 { font-size: 14px; margin: 10px 0 6px; }
 .bar-fill.hi { background: var(--good); }
 .bar-fill.mid { background: var(--accent); }
 .bar-fill.lo { background: var(--muted); }
+.avatar { flex: none; display: inline-grid; place-items: center; border-radius: 10px; background: var(--chip); border: 1px solid var(--line); overflow: hidden; font-weight: 800; color: var(--muted); }
+.avatar img { image-rendering: pixelated; display: block; }
+.who { display: inline-flex; align-items: center; gap: 10px; }
 .ovr { font-size: 22px; font-weight: 800; color: var(--accent); }
 .pool { display: flex; flex-wrap: wrap; gap: 4px; margin: 10px 0 0; }
 .pill { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--chip); border: 1px solid var(--line); margin: 2px; }

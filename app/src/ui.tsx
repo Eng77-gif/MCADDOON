@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { ROLES, type Role } from "../../engine/src/index.ts";
+import { portraitOf } from "./portraits.ts";
 
 export const ROLE_VI: Record<Role, string> = { TOP: "Đường trên", JUNGLE: "Đi rừng", MID: "Đường giữa", ADC: "Xạ thủ", SUPPORT: "Hỗ trợ" };
 export const ROLE_SHORT: Record<Role, string> = { TOP: "TOP", JUNGLE: "JGL", MID: "MID", ADC: "ADC", SUPPORT: "SUP" };
@@ -48,5 +49,15 @@ export function ConfirmButton({ label, confirmLabel, onConfirm, className }: { l
     <button className={className} onClick={() => (armed ? onConfirm() : setArmed(true))} onBlur={() => setArmed(false)}>
       {armed ? confirmLabel : label}
     </button>
+  );
+}
+
+/** Chân dung pixel của tuyển thủ; chưa có ảnh thì hiện chữ cái đầu. */
+export function Avatar({ id, ign, size = 40 }: { id: string; ign: string; size?: number }) {
+  const src = portraitOf(id);
+  return (
+    <span className="avatar" style={{ width: size, height: size, fontSize: size * 0.4 }}>
+      {src ? <img src={src} alt={ign} width={size} height={size} /> : ign.slice(0, 2).toUpperCase()}
+    </span>
   );
 }
