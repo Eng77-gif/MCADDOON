@@ -98,11 +98,21 @@ if (!keys.length) {
 
 async function generate(endpoint: string, req: PortraitRequest | ReturnType<typeof photoRequest>): Promise<{ png: Buffer; usd?: number }> {
   for (let attempt = 0; ; attempt++) {
-    const res = await fetch(`${API}/${endpoint}`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${keys[keyIdx]}`, "Content-Type": "application/json" },
-      body: JSON.stringify(req),
-    });
+    let res: Response;
+    try {
+      res = await fetch(`${API}/${endpoint}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${keys[keyIdx]}`, "Content-Type": "application/json" },
+        body: JSON.stringify(req),
+      });
+    } catch (e) {
+      // Rớt mạng giữa chừng → thử lại
+      if (attempt < 8) {
+        await new Promise((r) => setTimeout(r, 2000 * 2 ** Math.min(attempt, 4)));
+        continue;
+      }
+      throw e;
+    }
     // 429: quá tần suất / quá số job đồng thời, 529: máy chủ quá tải → chờ rồi thử lại
     if ((res.status === 429 || res.status === 529) && attempt < 8) {
       await new Promise((r) => setTimeout(r, 2000 * 2 ** attempt));
