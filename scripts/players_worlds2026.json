@@ -1,0 +1,1199 @@
+[
+ {
+  "id": "Thanatos",
+  "page": "Thanatos (Park Seung-gyu)",
+  "team": "Cloud9",
+  "role": "Top Laner",
+  "country": "South Korea",
+  "name": "Park Seung-gyu (박승규)",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Blaber",
+  "page": "Blaber",
+  "team": "Cloud9",
+  "role": "Jungler",
+  "country": "United States",
+  "name": "Robert Huang",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Loki",
+  "page": "Loki (Lee Sang-min)",
+  "team": "Cloud9",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Lee Sang-min (이상민)",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Tactical",
+  "page": "Tactical",
+  "team": "Cloud9",
+  "role": "Bot Laner",
+  "country": "United States",
+  "name": "Edward Ra (나문용)",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Vulcan",
+  "page": "Vulcan (Philippe Laflamme)",
+  "team": "Cloud9",
+  "role": "Support",
+  "country": "Canada",
+  "name": "Philippe Laflamme",
+  "stage": "Play-In"
+ },
+ {
+  "id": "IWDominate",
+  "page": "IWDominate",
+  "team": "Cloud9",
+  "role": "Coach",
+  "country": "United States",
+  "name": "Christian Rivera",
+  "stage": "Play-In"
+ },
+ {
+  "id": "YamatoCannon",
+  "page": "YamatoCannon",
+  "team": "Cloud9",
+  "role": "Coach",
+  "country": "Sweden",
+  "name": "Jakob Mebdi",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Guigo",
+  "page": "Guigo",
+  "team": "FURIA",
+  "role": "Top Laner",
+  "country": "Brazil",
+  "name": "Guilherme Araújo Ruiz",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Tatu",
+  "page": "Tatu (Pedro Seixas)",
+  "team": "FURIA",
+  "role": "Jungler",
+  "country": "Brazil",
+  "name": "Pedro Seixas Brito",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Tutsz",
+  "page": "Tutsz",
+  "team": "FURIA",
+  "role": "Mid Laner",
+  "country": "Brazil",
+  "name": "Arthur Peixoto Machado",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Ayu",
+  "page": "Ayu (Andrey Saraiva)",
+  "team": "FURIA",
+  "role": "Bot Laner",
+  "country": "Brazil",
+  "name": "Andrey Saraiva",
+  "stage": "Play-In"
+ },
+ {
+  "id": "JoJo",
+  "page": "JoJo (Gabriel Dzelme)",
+  "team": "FURIA",
+  "role": "Support",
+  "country": "Brazil",
+  "name": "Gabriel Dzelme de Oliveira",
+  "stage": "Play-In"
+ },
+ {
+  "id": "furyz",
+  "page": "Furyz",
+  "team": "FURIA",
+  "role": "Coach",
+  "country": "Brazil",
+  "name": "Erick Susin",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Luuukz",
+  "page": "Luuukz",
+  "team": "FURIA",
+  "role": "Coach",
+  "country": "Brazil",
+  "name": "Lucas Yudi Higashi",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Canna",
+  "page": "Canna",
+  "team": "Karmine Corp",
+  "role": "Top Laner",
+  "country": "South Korea",
+  "name": "Kim Chang-dong (김창동)",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Yike",
+  "page": "Yike",
+  "team": "Karmine Corp",
+  "role": "Jungler",
+  "country": "Sweden",
+  "name": "Martin Sundelin",
+  "stage": "Play-In"
+ },
+ {
+  "id": "kyeahoo",
+  "page": "Kyeahoo",
+  "team": "Karmine Corp",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Kang Ye-hoo (강예후)",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Caliste",
+  "page": "Caliste",
+  "team": "Karmine Corp",
+  "role": "Bot Laner",
+  "country": "France",
+  "name": "Caliste Henry-Hennebert",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Busio",
+  "page": "Busio",
+  "team": "Karmine Corp",
+  "role": "Support",
+  "country": "United States",
+  "name": "Alan Cwalina",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Reapered",
+  "page": "Reapered",
+  "team": "Karmine Corp",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Bok Han-gyu (복한규)",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Zeph",
+  "page": "Zeph",
+  "team": "Karmine Corp",
+  "role": "Coach",
+  "country": "France",
+  "name": "Quentin Viguié",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Kratos",
+  "page": "Kratos (Ngô Đức Khánh)",
+  "team": "MVK Esports",
+  "role": "Top Laner",
+  "country": "Vietnam",
+  "name": "Ngô Đức Khánh",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Gury",
+  "page": "Gury",
+  "team": "MVK Esports",
+  "role": "Jungler",
+  "country": "Vietnam",
+  "name": "Lương Hải Long",
+  "stage": "Play-In"
+ },
+ {
+  "id": "SanSan",
+  "page": "SanSan",
+  "team": "MVK Esports",
+  "role": "Jungler",
+  "country": "Vietnam",
+  "name": "Lê Quốc Khánh",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Chika",
+  "page": "Chika",
+  "team": "MVK Esports",
+  "role": "Mid Laner",
+  "country": "Vietnam",
+  "name": "Võ Lê Nhân",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Harky",
+  "page": "Harky",
+  "team": "MVK Esports",
+  "role": "Bot Laner",
+  "country": "Vietnam",
+  "name": "Nguyễn Văn Hữu",
+  "stage": "Play-In"
+ },
+ {
+  "id": "SiuLoong",
+  "page": "SiuLoong",
+  "team": "MVK Esports",
+  "role": "Support",
+  "country": "Vietnam",
+  "name": "Nguyễn Hoàng Lam",
+  "stage": "Play-In"
+ },
+ {
+  "id": "SofM",
+  "page": "SofM",
+  "team": "MVK Esports",
+  "role": "Coach",
+  "country": "Vietnam",
+  "name": "Lê Quang Duy",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Bigkoro",
+  "page": "Bigkoro",
+  "team": "MVK Esports",
+  "role": "Coach",
+  "country": "Vietnam",
+  "name": "Đặng Ngọc Tài",
+  "stage": "Play-In"
+ },
+ {
+  "id": "Breathe",
+  "page": "Breathe",
+  "team": "Anyone's Legend",
+  "role": "Top Laner",
+  "country": "China",
+  "name": "Chen Chen (陈晨)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Tarzan",
+  "page": "Tarzan (Lee Seung-yong)",
+  "team": "Anyone's Legend",
+  "role": "Jungler",
+  "country": "South Korea",
+  "name": "Lee Seung-yong (이승용)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Shanks",
+  "page": "Shanks",
+  "team": "Anyone's Legend",
+  "role": "Mid Laner",
+  "country": "China",
+  "name": "Cui Xiao-Jun (崔校军)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Hope",
+  "page": "Hope (Wang Jie)",
+  "team": "Anyone's Legend",
+  "role": "Bot Laner",
+  "country": "China",
+  "name": "Wang Jie (王杰)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Kael",
+  "page": "Kael (Kim Jin-hong)",
+  "team": "Anyone's Legend",
+  "role": "Support",
+  "country": "South Korea",
+  "name": "Kim Jin-hong (김진홍)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "BigWei",
+  "page": "BigWei",
+  "team": "Anyone's Legend",
+  "role": "Coach",
+  "country": "Taiwan",
+  "name": "Fu Chien-Wei (傅千威)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Teacherma",
+  "page": "Teacherma",
+  "team": "Anyone's Legend",
+  "role": "Coach",
+  "country": "China",
+  "name": "Jiang Chen (姜晨)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Bin",
+  "page": "Bin (Chen Ze-Bin)",
+  "team": "Bilibili Gaming",
+  "role": "Top Laner",
+  "country": "China",
+  "name": "Chen Ze-Bin (陈泽彬)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Xun",
+  "page": "Xun",
+  "team": "Bilibili Gaming",
+  "role": "Jungler",
+  "country": "China",
+  "name": "Peng Li-Xun (彭立勋)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Knight",
+  "page": "Knight (Zhuo Ding)",
+  "team": "Bilibili Gaming",
+  "role": "Mid Laner",
+  "country": "China",
+  "name": "Zhuo Ding (卓定)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Viper",
+  "page": "Viper (Park Do-hyeon)",
+  "team": "Bilibili Gaming",
+  "role": "Bot Laner",
+  "country": "South Korea",
+  "name": "Park Do-hyeon (박도현)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "ON",
+  "page": "ON",
+  "team": "Bilibili Gaming",
+  "role": "Support",
+  "country": "China",
+  "name": "Luo Wen-Jun (骆文俊)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Daeny",
+  "page": "Daeny",
+  "team": "Bilibili Gaming",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Yang Dae-in (양대인)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Chieh",
+  "page": "Chieh",
+  "team": "Bilibili Gaming",
+  "role": "Coach",
+  "country": "Taiwan",
+  "name": "Li Chieh (李杰)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Rest",
+  "page": "Rest",
+  "team": "CTBC Flying Oyster",
+  "role": "Top Laner",
+  "country": "Taiwan",
+  "name": "Hsu Shih-Chieh (徐士傑)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Shad0w",
+  "page": "Shad0w",
+  "team": "CTBC Flying Oyster",
+  "role": "Jungler",
+  "country": "Italy",
+  "name": "Zhao Zhi-Qiang (赵志强)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "POUT",
+  "page": "POUT",
+  "team": "CTBC Flying Oyster",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Han In-woong (한인웅)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Doggo",
+  "page": "Doggo",
+  "team": "CTBC Flying Oyster",
+  "role": "Bot Laner",
+  "country": "Taiwan",
+  "name": "Chiu Tzu-Chuan (邱梓銓)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Kino",
+  "page": "Kino",
+  "team": "CTBC Flying Oyster",
+  "role": "Support",
+  "country": "Taiwan",
+  "name": "Chu Wu Hsin-Jung (朱吳欣榮)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Chawy",
+  "page": "Chawy",
+  "team": "CTBC Flying Oyster",
+  "role": "Coach",
+  "country": "Singapore",
+  "name": "Wong Xing Lei (黃心磊)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Wulala",
+  "page": "Wulala",
+  "team": "CTBC Flying Oyster",
+  "role": "Coach",
+  "country": "Taiwan",
+  "name": "Liu Sheng-Wei (柳勝瑋)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Siwoo",
+  "page": "Siwoo",
+  "team": "Dplus Kia",
+  "role": "Top Laner",
+  "country": "South Korea",
+  "name": "Jeon Si-woo (전시우)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Lucid",
+  "page": "Lucid (Choi Yong-hyeok)",
+  "team": "Dplus Kia",
+  "role": "Jungler",
+  "country": "South Korea",
+  "name": "Choi Yong-hyeok (최용혁)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "ShowMaker",
+  "page": "ShowMaker",
+  "team": "Dplus Kia",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Heo Su (허수)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Smash",
+  "page": "Smash (Shin Geum-jae)",
+  "team": "Dplus Kia",
+  "role": "Bot Laner",
+  "country": "South Korea",
+  "name": "Shin Geum-jae (신금재)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Career",
+  "page": "Career",
+  "team": "Dplus Kia",
+  "role": "Support",
+  "country": "South Korea",
+  "name": "Oh Hyeong-seok (오형석)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "CvMax",
+  "page": "CvMax",
+  "team": "Dplus Kia",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Kim Dae-ho (김대호)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "PoohManDu",
+  "page": "PoohManDu",
+  "team": "Dplus Kia",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Lee Jeong-hyeon (이정현)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "BrokenBlade",
+  "page": "BrokenBlade",
+  "team": "G2 Esports",
+  "role": "Top Laner",
+  "country": "Germany",
+  "name": "Sergen Çelik",
+  "stage": "Main Event"
+ },
+ {
+  "id": "SkewMond",
+  "page": "SkewMond",
+  "team": "G2 Esports",
+  "role": "Jungler",
+  "country": "France",
+  "name": "Rudy Semaan",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Caps",
+  "page": "Caps",
+  "team": "G2 Esports",
+  "role": "Mid Laner",
+  "country": "Denmark",
+  "name": "Rasmus Borregaard Winther",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Hans Sama",
+  "page": "Hans Sama",
+  "team": "G2 Esports",
+  "role": "Bot Laner",
+  "country": "France",
+  "name": "Steven Liv",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Labrov",
+  "page": "Labrov",
+  "team": "G2 Esports",
+  "role": "Support",
+  "country": "Greece",
+  "name": "Lampros Papoutsakis",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Perkz",
+  "page": "Perkz",
+  "team": "G2 Esports",
+  "role": "Coach",
+  "country": "Croatia",
+  "name": "Luka Perković",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Rodrigo",
+  "page": "Rodrigo",
+  "team": "G2 Esports",
+  "role": "Coach",
+  "country": "Portugal",
+  "name": "Rodrigo Domingues Oliveira",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Kiin",
+  "page": "Kiin",
+  "team": "Gen.G",
+  "role": "Top Laner",
+  "country": "South Korea",
+  "name": "Kim Gi-in (김기인)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Canyon",
+  "page": "Canyon",
+  "team": "Gen.G",
+  "role": "Jungler",
+  "country": "South Korea",
+  "name": "Kim Geon-bu (김건부)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Chovy",
+  "page": "Chovy",
+  "team": "Gen.G",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Jeong Ji-hoon (정지훈)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Ruler",
+  "page": "Ruler",
+  "team": "Gen.G",
+  "role": "Bot Laner",
+  "country": "South Korea",
+  "name": "Park Jae-hyuk (박재혁)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Duro",
+  "page": "Duro",
+  "team": "Gen.G",
+  "role": "Support",
+  "country": "South Korea",
+  "name": "Joo Min-kyu (주민규)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Ryu",
+  "page": "Ryu",
+  "team": "Gen.G",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Ryu Sang-wook (류상욱)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Lyn",
+  "page": "Lyn",
+  "team": "Gen.G",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Kim Da-bin (김다빈)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Zeus",
+  "page": "Zeus",
+  "team": "Hanwha Life Esports",
+  "role": "Top Laner",
+  "country": "South Korea",
+  "name": "Choi Woo-je (최우제)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Kanavi",
+  "page": "Kanavi",
+  "team": "Hanwha Life Esports",
+  "role": "Jungler",
+  "country": "South Korea",
+  "name": "Seo Jin-hyeok (서진혁)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Zeka",
+  "page": "Zeka (Kim Geon-woo)",
+  "team": "Hanwha Life Esports",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Kim Geon-woo (김건우)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Gumayusi",
+  "page": "Gumayusi",
+  "team": "Hanwha Life Esports",
+  "role": "Bot Laner",
+  "country": "South Korea",
+  "name": "Lee Min-hyeong (이민형)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Delight",
+  "page": "Delight",
+  "team": "Hanwha Life Esports",
+  "role": "Support",
+  "country": "South Korea",
+  "name": "Yoo Hwan-joong (유환중)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Homme",
+  "page": "Homme",
+  "team": "Hanwha Life Esports",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Yoon Sung-young (윤성영)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Mowgli",
+  "page": "Mowgli",
+  "team": "Hanwha Life Esports",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Lee Jae-ha (이재하)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "TheShy",
+  "page": "TheShy",
+  "team": "Invictus Gaming",
+  "role": "Top Laner",
+  "country": "South Korea",
+  "name": "Kang Seung-lok (강승록)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Wei",
+  "page": "Wei (Yan Yang-Wei)",
+  "team": "Invictus Gaming",
+  "role": "Jungler",
+  "country": "China",
+  "name": "Yan Yang-Wei (闫扬威)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Rookie",
+  "page": "Rookie",
+  "team": "Invictus Gaming",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Song Eui-jin (송의진)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "JiaQi",
+  "page": "JiaQi",
+  "team": "Invictus Gaming",
+  "role": "Bot Laner",
+  "country": "China",
+  "name": "Zi Jia-Qi (资嘉琪)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Meiko",
+  "page": "Meiko",
+  "team": "Invictus Gaming",
+  "role": "Support",
+  "country": "China",
+  "name": "Tian Ye (田野)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Kezman",
+  "page": "Kezman",
+  "team": "Invictus Gaming",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Son Dae-young (손대영)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Helper",
+  "page": "Helper (Kwon Yeong-jae)",
+  "team": "Invictus Gaming",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Kwon Yeong-jae (권영재)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Dhokla",
+  "page": "Dhokla",
+  "team": "LYON",
+  "role": "Top Laner",
+  "country": "United States",
+  "name": "Niship Doshi",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Inspired",
+  "page": "Inspired",
+  "team": "LYON",
+  "role": "Jungler",
+  "country": "Poland",
+  "name": "Kacper Słoma",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Saint",
+  "page": "Saint (Kang Sung-in)",
+  "team": "LYON",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Kang Sung-in (강성인)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Berserker",
+  "page": "Berserker (Kim Min-cheol)",
+  "team": "LYON",
+  "role": "Bot Laner",
+  "country": "South Korea",
+  "name": "Kim Min-cheol (김민철)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Isles",
+  "page": "Isles",
+  "team": "LYON",
+  "role": "Support",
+  "country": "Australia",
+  "name": "Jonah Rosario",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Reignover",
+  "page": "Reignover",
+  "team": "LYON",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Kim Yeu-jin (김의진)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Rigby",
+  "page": "Rigby",
+  "team": "LYON",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Han Earl (한얼)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Zest",
+  "page": "Zest (Kim Dong-min)",
+  "team": "LØS",
+  "role": "Top Laner",
+  "country": "South Korea",
+  "name": "Kim Dong-min (김동민)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Curse",
+  "page": "Curse (Raí Yamada)",
+  "team": "LØS",
+  "role": "Jungler",
+  "country": "Brazil",
+  "name": "Raí Yamada",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Feisty",
+  "page": "Feisty",
+  "team": "LØS",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Jeong Seong-hoon (정성훈)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Duduhh",
+  "page": "Duduhh",
+  "team": "LØS",
+  "role": "Bot Laner",
+  "country": "Brazil",
+  "name": "Wallyson Francisco Queiroz da Silva",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Ackerman",
+  "page": "Ackerman (Gabriel Aparicio)",
+  "team": "LØS",
+  "role": "Support",
+  "country": "Argentina",
+  "name": "Gabriel Agustin Aparicio",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Enatron",
+  "page": "Enatron",
+  "team": "LØS",
+  "role": "Coach",
+  "country": "Greece",
+  "name": "Ilias Theodorou (Ηλίας Θεοδώρου)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Brandão",
+  "page": "Brandão",
+  "team": "LØS",
+  "role": "Coach",
+  "country": "Brazil",
+  "name": "Felipe Brandão",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Myrwn",
+  "page": "Myrwn",
+  "team": "Movistar KOI",
+  "role": "Top Laner",
+  "country": "Spain",
+  "name": "Alex Pastor Villarejo",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Elyoya",
+  "page": "Elyoya",
+  "team": "Movistar KOI",
+  "role": "Jungler",
+  "country": "Spain",
+  "name": "Javier Prades Batalla",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Jojopyun",
+  "page": "Jojopyun",
+  "team": "Movistar KOI",
+  "role": "Mid Laner",
+  "country": "Canada",
+  "name": "Joseph Joon Pyun",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Supa",
+  "page": "Supa",
+  "team": "Movistar KOI",
+  "role": "Bot Laner",
+  "country": "Spain",
+  "name": "David Martínez García",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Alvaro",
+  "page": "Alvaro (Álvaro Fernández)",
+  "team": "Movistar KOI",
+  "role": "Support",
+  "country": "Spain",
+  "name": "Álvaro Fernández del Amo",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Melzhet",
+  "page": "Melzhet",
+  "team": "Movistar KOI",
+  "role": "Coach",
+  "country": "Spain",
+  "name": "Tomás Campelos Fernández",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Independent",
+  "page": "Independent",
+  "team": "Movistar KOI",
+  "role": "Coach",
+  "country": "Spain",
+  "name": "Eric Ruiz Bogurina",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Doran",
+  "page": "Doran (Choi Hyeon-jun)",
+  "team": "T1",
+  "role": "Top Laner",
+  "country": "South Korea",
+  "name": "Choi Hyeon-jun (최현준)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Oner",
+  "page": "Oner",
+  "team": "T1",
+  "role": "Jungler",
+  "country": "South Korea",
+  "name": "Mun Hyeon-jun (문현준)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Faker",
+  "page": "Faker",
+  "team": "T1",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Lee Sang-hyeok (이상혁)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Peyz",
+  "page": "Peyz",
+  "team": "T1",
+  "role": "Bot Laner",
+  "country": "South Korea",
+  "name": "Kim Su-hwan (김수환)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Keria",
+  "page": "Keria",
+  "team": "T1",
+  "role": "Support",
+  "country": "South Korea",
+  "name": "Ryu Min-seok (류민석)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Tom",
+  "page": "Tom (Im Jae-hyeon)",
+  "team": "T1",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Im Jae-hyeon (임재현)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Easyhoon",
+  "page": "Easyhoon",
+  "team": "T1",
+  "role": "Coach",
+  "country": "South Korea",
+  "name": "Lee Ji-hoon (이지훈)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Morgan",
+  "page": "Morgan",
+  "team": "Team Liquid",
+  "role": "Top Laner",
+  "country": "South Korea",
+  "name": "Park Ru-han (박루한)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Josedeodo",
+  "page": "Josedeodo",
+  "team": "Team Liquid",
+  "role": "Jungler",
+  "country": "Argentina",
+  "name": "Brandon Joel Villegas",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Quid",
+  "page": "Quid",
+  "team": "Team Liquid",
+  "role": "Mid Laner",
+  "country": "South Korea",
+  "name": "Lim Hyeon-seung (임현승)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Yeon",
+  "page": "Yeon (Sean Sung)",
+  "team": "Team Liquid",
+  "role": "Bot Laner",
+  "country": "United States",
+  "name": "Sean Sung (성연호)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "CoreJJ",
+  "page": "CoreJJ",
+  "team": "Team Liquid",
+  "role": "Support",
+  "country": "South Korea",
+  "name": "Jo Yong-in (조용인)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Spawn",
+  "page": "Spawn (Jake Tiberi)",
+  "team": "Team Liquid",
+  "role": "Coach",
+  "country": "Australia",
+  "name": "Jake Tiberi",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Spookz",
+  "page": "Spookz",
+  "team": "Team Liquid",
+  "role": "Coach",
+  "country": "Australia",
+  "name": "Samuel Broadley",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Pun",
+  "page": "Pun",
+  "team": "Team Secret Whales",
+  "role": "Top Laner",
+  "country": "Vietnam",
+  "name": "Nguyễn Đăng Khoa",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Hizto",
+  "page": "Hizto",
+  "team": "Team Secret Whales",
+  "role": "Jungler",
+  "country": "Vietnam",
+  "name": "Lê Văn Hoàng Hải",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Dire",
+  "page": "Dire",
+  "team": "Team Secret Whales",
+  "role": "Mid Laner",
+  "country": "Vietnam",
+  "name": "Trần Duy Đức",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Eddie",
+  "page": "Eddie",
+  "team": "Team Secret Whales",
+  "role": "Bot Laner",
+  "country": "Vietnam",
+  "name": "Hoàng Công Nghĩa",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Bie",
+  "page": "Bie",
+  "team": "Team Secret Whales",
+  "role": "Support",
+  "country": "Vietnam",
+  "name": "Trần Đức Hiếu",
+  "stage": "Main Event"
+ },
+ {
+  "id": "WarHorse",
+  "page": "WarHorse",
+  "team": "Team Secret Whales",
+  "role": "Coach",
+  "country": "Taiwan",
+  "name": "Chen Ju-Chih (陳如治)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Ciel",
+  "page": "Ciel (Trần Tiến Thịnh)",
+  "team": "Team Secret Whales",
+  "role": "Coach",
+  "country": "Vietnam",
+  "name": "Trần Tiến Thịnh",
+  "stage": "Main Event"
+ },
+ {
+  "id": "369",
+  "page": "369",
+  "team": "Top Esports",
+  "role": "Top Laner",
+  "country": "China",
+  "name": "Bai Jia-Hao (白家浩)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Tian",
+  "page": "Tian",
+  "team": "Top Esports",
+  "role": "Jungler",
+  "country": "China",
+  "name": "Gao Tian-Liang (高天亮)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Creme",
+  "page": "Creme",
+  "team": "Top Esports",
+  "role": "Mid Laner",
+  "country": "China",
+  "name": "Lin Jian (林坚)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "JackeyLove",
+  "page": "JackeyLove",
+  "team": "Top Esports",
+  "role": "Bot Laner",
+  "country": "China",
+  "name": "Yu Wen-Bo (喻文波)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Zhuo",
+  "page": "Zhuo",
+  "team": "Top Esports",
+  "role": "Support",
+  "country": "China",
+  "name": "Wang Xu-Zhuo (王旭卓)",
+  "stage": "Main Event"
+ },
+ {
+  "id": "Poppy",
+  "page": "Poppy (Chang Po-Hao)",
+  "team": "Top Esports",
+  "role": "Coach",
+  "country": "Taiwan",
+  "name": "Chang Po-Hao (張博皓)",
+  "stage": "Main Event"
+ }
+]
