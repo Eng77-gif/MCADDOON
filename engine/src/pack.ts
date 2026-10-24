@@ -2,6 +2,10 @@
 // Thuần TypeScript, không đọc file: dùng được cả trong tool Node lẫn trình duyệt (người chơi tự nhập CSV).
 import { ROLES, type Champion, type League, type Player, type PlayerAttributes, type Role, type Team, type Tier } from "./types.ts";
 import type { ChampionDb } from "./draft.ts";
+import { monthlySalary } from "./economy.ts";
+
+/** Năm của dữ liệu gốc: tuổi, hợp đồng được tính từ đây */
+export const PACK_YEAR = 2026;
 
 export interface PackCsv {
   champions: string;
@@ -104,6 +108,23 @@ function buildPool(key: string, role: Role, ovr: number, signatures: string[], d
   return pool.sort((a, b) => b.mastery - a.mastery);
 }
 
+/** Năm sinh, tiềm năng, hợp đồng: lấy từ CSV nếu có, nếu không thì ước lượng ổn định theo tên. */
+function careerFields(key: string, r: Record<string, string>): Pick<Player, "birthYear" | "potential" | "contract"> {
+  const ovr = Number(r.ovr);
+  const birthYear = r.birth_year ? Number(r.birth_year) : PACK_YEAR - (18 + Math.floor(hash(`${key}:age`) * 8));
+  const age = PACK_YEAR - birthYear;
+  const room = age <= 19 ? 10 : age <= 21 ? 6 : age <= 23 ? 3 : 1;
+  const potential = r.potential ? Number(r.potential) : clamp(Math.round(ovr + room * (0.4 + hash(`${key}:pot`))));
+  const until = PACK_YEAR + 1 + Math.floor(hash(`${key}:contract`) * 3);
+  return { birthYear, potential: Math.max(potential, ovr), contract: { salary: monthlySalary(ovr), until } };
+}
+
+const PALETTE: [string, string][] = [
+  ["#D7263D", "#1B1B1E"], ["#1B998B", "#F4F4F4"], ["#2E86AB", "#F6AE2D"], ["#6A4C93", "#FFCA3A"],
+  ["#F46036", "#2E294E"], ["#3BB273", "#1D3557"], ["#E1BC29", "#3D348B"], ["#4D9DE0", "#E15554"],
+];
+const teamColors = (id: string): [string, string] => PALETTE[Math.floor(hash(`${id}:color`) * PALETTE.length)];
+
 export function buildPack(csv: PackCsv, patch: string): Pack {
   const warnings: string[] = [];
   const champions = buildChampions(csv, patch);
@@ -121,7 +142,9 @@ export function buildPack(csv: PackCsv, patch: string): Pack {
     teams.set(r.id, {
       id: r.id, name: r.name, short: r.short, league: r.league, verified: r.verified === "Y",
       ...(r.worlds_seed ? { worldsSeed: r.worlds_seed } : {}),
+      colors: r.colors ? (r.colors.split(";") as [string, string]) : teamColors(r.id),
       roster: {} as Team["roster"],
+      bench: [],
     });
   }
 
@@ -143,6 +166,7 @@ export function buildPack(csv: PackCsv, patch: string): Pack {
       attributes: buildAttributes(key, r),
       dynamic_state: { form: 0, morale: 0, fatigue: 20 },
       champion_pool: buildPool(key, role, Number(r.ovr), signatures.filter((s) => champions[s]), champions),
+      ...careerFields(key, r),
     };
   }
 

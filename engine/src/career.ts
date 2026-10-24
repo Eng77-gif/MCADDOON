@@ -1,9 +1,13 @@
 // Chế độ sự nghiệp: một mùa gồm Vòng bảng -> Playoffs -> CKTG (Play-In, Swiss, Loại trực tiếp) -> Nghỉ giữa mùa.
 // Hai vai: HLV (bị ban lãnh đạo đánh giá) hoặc Chủ CLB (tự lo tài chính).
 // Toàn bộ Career là dữ liệu thuần, JSON.stringify được để lưu game.
-import { ROLES, type League, type Role, type Team } from "./types.ts";
+import { ROLES, type League, type Player, type Team } from "./types.ts";
 import type { ChampionDb } from "./draft.ts";
 import type { Pack } from "./pack.ts";
+import { overallOf, teamStrength, teamWagesPerMonth } from "./economy.ts";
+import { shouldRetire, weeklyTraining, yearlyDevelopment, type TrainingFocus } from "./development.ts";
+import { generateProspects, type Prospect } from "./scouting.ts";
+import { MAX_SCOUT_POINTS, allPlayers, fillRole, newRegen, processContracts } from "./market.ts";
 import { createRng } from "./rng.ts";
 import { autoPlaySeries, seriesWinner, type SeriesState } from "./series.ts";
 import {
@@ -34,10 +38,12 @@ export interface PlayerStats {
   csd15: number; // tổng, chia cho games khi hiển thị
   gd15: number;
   champions: Record<string, number>;
+  ign: string;
+  team: string;
 }
 
 export interface Career {
-  version: 1;
+  version: 2;
   packId: string;
   patch: string;
   mode: CareerMode;
@@ -54,48 +60,79 @@ export interface Career {
   leagueRanking: Record<string, string[]>;
   stats: Record<string, PlayerStats>; // theo player id, mùa hiện tại
   finance: { balance: number; lastWeek: { income: number; wages: number } };
-  board: { targetRank: number; text: string; confidence: number };
+  board: { targetRank: number; text: string; confidence: number; transferBudget: number; wageBudget: number };
   news: { year: number; text: string }[];
   gameOver?: string;
+  /** Tuyển thủ tự do (không thuộc CLB nào) */
+  freeAgents: Player[];
+  /** Thần đồng rank Thách Đấu chưa ký hợp đồng */
+  prospects: Prospect[];
+  scouting: { level: number; points: number };
+  training: { focus: TrainingFocus };
+  idCounter: number;
 }
 
 // ------------------------------------------------------------------ Tạo sự nghiệp
-export function teamStrength(t: Team): number {
-  let sum = 0;
-  let n = 0;
-  for (const role of ROLES)
-    for (const group of Object.values(t.roster[role].attributes) as Record<string, number>[])
-      for (const v of Object.values(group)) (sum += v), n++;
-  return sum / n;
+const leagueOf = (c: Career, teamId: string) => c.teams[teamId].league!;
+const tierOf = (c: Career, leagueId: string) => tierOf2(c.leagues, leagueId);
+const tierOf2 = (leagues: League[], leagueId?: string) => leagues.find((l) => l.id === leagueId)?.tier ?? 1;
+
+/** Thị trường ban đầu: 16 tuyển thủ tự do và 10 thần đồng. */
+function seedMarket(c: Career, db: ChampionDb, rng: ReturnType<typeof createRng>) {
+  for (let i = 0; i < 16; i++) {
+    const p = newRegen(c, db, rng, ROLES[i % 5], 64 + Math.round(rng.next() * 14));
+    p.birthYear = c.year - (20 + Math.floor(rng.next() * 7));
+    p.contract = undefined;
+    c.freeAgents.push(p);
+  }
+  const taken = new Set(allPlayers(c).map((p) => p.ign.toLowerCase()));
+  c.prospects = generateProspects(db, c.year, rng, 10, taken);
 }
 
-export const playerOverall = (t: Team, role: Role) => {
-  const vals = (Object.values(t.roster[role].attributes) as Record<string, number>[]).flatMap((g) => Object.values(g));
-  return Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
-};
+/** Ngân sách chuyển nhượng và quỹ lương do ban lãnh đạo cấp (chế độ HLV); với Chủ CLB chỉ là gợi ý. */
+function setBudgets(c: Career) {
+  const team = c.teams[c.teamId];
+  const tier = tierOf(c, leagueOf(c, c.teamId));
+  const strength = teamStrength(team);
+  c.board.transferBudget = tier === 2 ? 40000 : Math.round((150000 + Math.max(0, strength - 75) * 60000) / 10000) * 10000;
+  c.board.wageBudget = Math.round((teamWagesPerMonth(team) * 1.2) / 1000) * 1000;
+}
 
-/** Lương tháng (USD) ước lượng theo trình độ: 70 => ~3.4k, 80 => ~11k, 90 => ~39k */
-export const monthlySalary = (ovr: number) => Math.round((1000 * Math.pow(1.13, ovr - 60)) / 100) * 100;
-
-export const teamWagesPerMonth = (t: Team) => ROLES.reduce((s, r) => s + monthlySalary(playerOverall(t, r)), 0);
-
-const leagueOf = (c: Career, teamId: string) => c.teams[teamId].league!;
-const tierOf = (c: Career, leagueId: string) => c.leagues.find((l) => l.id === leagueId)?.tier ?? 1;
+/** Nâng save cũ (version 1) lên cấu trúc hiện tại. */
+export function migrateCareer(c: Career, db: ChampionDb): Career {
+  if (c.version === 2) return c;
+  const old = c as Career & { version: number };
+  old.freeAgents ??= [];
+  old.prospects ??= [];
+  old.scouting ??= { level: 2, points: 3 };
+  old.training ??= { focus: "BALANCED" };
+  old.idCounter ??= 0;
+  for (const t of Object.values(old.teams)) t.bench ??= [];
+  old.version = 2;
+  if (!old.freeAgents.length) seedMarket(old, db, createRng(old.seed));
+  setBudgets(old);
+  return old;
+}
 
 export function createCareer(pack: Pack & { id: string }, mode: CareerMode, teamId: string, seed = Date.now() % 1e9): Career {
+  const rng = createRng(seed ^ 0x1234567);
   const teams = Object.fromEntries(pack.teams.map((t) => [t.id, structuredClone(t)]));
   if (!teams[teamId]) throw new Error(`Không có đội ${teamId}`);
   const worldsQuota: Record<string, number> = {};
   for (const t of pack.teams) if (t.worldsSeed && t.league) worldsQuota[t.league] = (worldsQuota[t.league] ?? 0) + 1;
 
   const c: Career = {
-    version: 1, packId: pack.id, patch: pack.patch, mode, teamId, year: 2027, seed, stage: "SPLIT",
+    version: 2, packId: pack.id, patch: pack.patch, mode, teamId, year: 2027, seed, stage: "SPLIT",
     teams, leagues: pack.leagues, worldsQuota, competitions: [], leagueRanking: {}, stats: {},
     finance: { balance: 0, lastWeek: { income: 0, wages: 0 } },
-    board: { targetRank: 0, text: "", confidence: 60 },
-    news: [],
+    board: { targetRank: 0, text: "", confidence: 60, transferBudget: 0, wageBudget: 0 },
+    news: [], freeAgents: [], prospects: [],
+    scouting: { level: tierOf2(pack.leagues, teams[teamId].league) === 1 ? 3 : 2, points: 3 },
+    training: { focus: "BALANCED" },
+    idCounter: 0,
   };
   c.finance.balance = teamWagesPerMonth(teams[teamId]) * 6;
+  seedMarket(c, pack.champions, rng);
   startSplit(c);
   return c;
 }
@@ -111,6 +148,7 @@ function startSplit(c: Career) {
     if (ids.length >= 2) c.competitions.push(createLeague(`${c.year}-${lg.id}`, `${lg.id} ${c.year}`, lg.id, ids));
   }
   setBoardObjective(c);
+  setBudgets(c);
   pushNews(c, `Mùa giải ${c.year} bắt đầu. ${c.board.text}`);
 }
 
@@ -174,7 +212,7 @@ export function advance(c: Career, db: ChampionDb): AdvanceStop {
     for (const comp of stageComps(c)) advanceCompetition(comp, rng);
     const pending = pendingFixtures(c);
     if (pending.length === 0) {
-      nextStage(c);
+      nextStage(c, db);
       return (c.stage as Stage) === "OFFSEASON" ? "SEASON_END" : "STAGE_CHANGED"; // nextStage đã đổi stage
     }
     const user = nextUserFixture(c);
@@ -220,8 +258,8 @@ export function recordSeries(c: Career, fixtureId: string, s: SeriesState) {
       const opp = g.result.sides[sideIdx === 0 ? 1 : 0];
       const teamIdx = sideIdx === 0 ? blueTeam : 1 - blueTeam;
       side.lines.forEach((l, i) => {
-        const id = `${ids[teamIdx]}_${l.role}`;
-        const st = (c.stats[id] ??= { games: 0, kills: 0, deaths: 0, assists: 0, cs: 0, damage: 0, minutes: 0, csd15: 0, gd15: 0, champions: {} });
+        const st = (c.stats[l.playerId] ??= { games: 0, kills: 0, deaths: 0, assists: 0, cs: 0, damage: 0, minutes: 0, csd15: 0, gd15: 0, champions: {}, ign: l.ign, team: ids[teamIdx] });
+        st.team = ids[teamIdx];
         st.games++;
         st.kills += l.kills, st.deaths += l.deaths, st.assists += l.assists;
         st.cs += l.cs, st.damage += l.damage, st.minutes += g.result.duration;
@@ -249,6 +287,10 @@ export function recordSeries(c: Career, fixtureId: string, s: SeriesState) {
     const opp = ids[0] === c.teamId ? ids[1] : ids[0];
     pushNews(c, `${comp.name} — ${f.label}: ${c.teams[c.teamId].short} ${wonUser ? "thắng" : "thua"} ${c.teams[opp].short} ${Math.max(...s.wins)}-${Math.min(...s.wins)}.`);
     weeklyFinance(c, wonUser);
+    // Một tuần tập luyện + thêm lượt tuyển trạch
+    const me = c.teams[c.teamId];
+    for (const p of [...ROLES.map((r) => me.roster[r]), ...(me.bench ?? [])]) weeklyTraining(p, c.training.focus, c.year);
+    c.scouting.points = Math.min(MAX_SCOUT_POINTS, c.scouting.points + 1);
     c.board.confidence = clamp(c.board.confidence + (wonUser ? 2 : -3), 0, 100);
   }
 }
@@ -273,7 +315,7 @@ function prize(c: Career, amount: number, why: string) {
 }
 
 // ------------------------------------------------------------------ Chuyển giai đoạn
-function nextStage(c: Career) {
+function nextStage(c: Career, db: ChampionDb) {
   const rng = createRng(c.seed ^ (c.year * 7) ^ c.stage.length);
   if (c.stage === "SPLIT") {
     for (const comp of stageComps(c)) {
@@ -344,11 +386,11 @@ function nextStage(c: Career) {
     if (pos === 0) prize(c, 2000000, "vô địch thế giới");
     else if (pos === 1) prize(c, 750000, "á quân CKTG");
     else if (pos >= 2 && pos <= 3) prize(c, 250000, "vào Bán kết CKTG");
-    endOfSeason(c);
+    endOfSeason(c, db, rng);
   }
 }
 
-function endOfSeason(c: Career) {
+function endOfSeason(c: Career, db: ChampionDb, rng: ReturnType<typeof createRng>) {
   c.stage = "OFFSEASON";
   // Đánh giá của ban lãnh đạo (chế độ HLV)
   const lg = leagueOf(c, c.teamId);
@@ -373,12 +415,43 @@ function endOfSeason(c: Career) {
     c.teams[down].league = lower.id;
     pushNews(c, `${c.teams[up].short} thăng hạng lên ${lower.feedsInto}; ${c.teams[down].short} xuống ${lower.id}.`);
   }
+  developAndRetire(c, db, rng);
+  setBudgets(c);
+  pushNews(c, "Kỳ chuyển nhượng mở cửa. Hợp đồng hết hạn sẽ kết thúc khi sang mùa mới.");
+}
+
+/** Cuối mùa: mọi tuyển thủ phát triển/xuống dốc theo tuổi, một số giải nghệ, lứa thần đồng mới xuất hiện. */
+function developAndRetire(c: Career, db: ChampionDb, rng: ReturnType<typeof createRng>) {
+  const me = c.teams[c.teamId];
+  for (const p of allPlayers(c)) {
+    const delta = yearlyDevelopment(p, c.year, rng);
+    const mine = me.roster[p.role]?.id === p.id || me.bench?.some((b) => b.id === p.id);
+    if (mine && Math.abs(delta) >= 1) pushNews(c, `${p.ign} ${delta > 0 ? "tiến bộ" : "sa sút"} ${delta > 0 ? "+" : ""}${delta.toFixed(1)} (chỉ số ${Math.round(overallOf(p))}).`);
+  }
+  for (const team of Object.values(c.teams)) {
+    for (const role of ROLES) {
+      const p = team.roster[role];
+      if (!shouldRetire(p, c.year, rng)) continue;
+      team.roster[role] = undefined as unknown as Player;
+      fillRole(c, db, team, role, rng);
+      pushNews(c, `${p.ign} (${team.short}) tuyên bố giải nghệ. ${team.roster[role].ign} thay thế.`);
+    }
+    team.bench = (team.bench ?? []).filter((p) => !shouldRetire(p, c.year, rng));
+  }
+  c.freeAgents = c.freeAgents.filter((p) => !shouldRetire(p, c.year, rng));
+  // Thần đồng đủ 19 tuổi mà chưa ai ký thì thành tự do; lứa mới xuất hiện
+  for (const pr of c.prospects.filter((x) => c.year + 1 - (x.player.birthYear ?? 0) >= 19)) c.freeAgents.push(pr.player);
+  c.prospects = c.prospects.filter((x) => c.year + 1 - (x.player.birthYear ?? 0) < 19);
+  const taken = new Set(allPlayers(c).map((p) => p.ign.toLowerCase()));
+  c.prospects.push(...generateProspects(db, c.year + 1, rng, 8, taken));
+  c.scouting.points = MAX_SCOUT_POINTS;
 }
 
 /** Gọi từ UI khi người chơi bấm "Sang mùa mới". */
-export function startNextSeason(c: Career) {
+export function startNextSeason(c: Career, db: ChampionDb) {
   if (c.stage !== "OFFSEASON") throw new Error("Mùa giải chưa kết thúc");
   c.year++;
+  processContracts(c, db, createRng(c.seed ^ c.year));
   for (const t of Object.values(c.teams))
     for (const role of ROLES) c.teams[t.id].roster[role].dynamic_state = { form: 0, morale: 0, fatigue: 20 };
   startSplit(c);

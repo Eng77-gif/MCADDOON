@@ -55,6 +55,18 @@ export interface Player {
   attributes: PlayerAttributes;
   dynamic_state: { form: number; morale: number; fatigue: number };
   champion_pool: PoolEntry[];
+  /** Năm sinh (dữ liệu thật hoặc ước lượng) */
+  birthYear?: number;
+  /** Trần chỉ số ẩn (1-99). Người chơi chỉ thấy ước lượng qua tuyển trạch. */
+  potential?: number;
+  contract?: Contract;
+}
+
+export interface Contract {
+  /** Lương tháng (USD) */
+  salary: number;
+  /** Hợp đồng hết hạn sau mùa giải năm này */
+  until: number;
 }
 
 export interface Team {
@@ -66,6 +78,10 @@ export interface Team {
   worldsSeed?: string;
   verified?: boolean;
   roster: Record<Role, Player>;
+  /** Dự bị / học viện (tối đa 3) */
+  bench?: Player[];
+  /** Màu áo [chính, phụ] dạng hex, dùng cho avatar pixel */
+  colors?: [string, string];
 }
 
 export interface League {

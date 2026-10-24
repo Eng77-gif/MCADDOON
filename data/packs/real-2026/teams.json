@@ -6,6 +6,10 @@
   "league": "LCK",
   "verified": true,
   "worldsSeed": "LCK1",
+  "colors": [
+   "#AA8A00",
+   "#111111"
+  ],
   "roster": {
    "TOP": {
     "id": "GEN_TOP",
@@ -176,7 +180,13 @@
       "champion_id": "TAHMKENCH",
       "mastery": 56
      }
-    ]
+    ],
+    "birthYear": 1999,
+    "potential": 89,
+    "contract": {
+     "salary": 34600,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "GEN_JUNGLE",
@@ -323,7 +333,13 @@
       "champion_id": "NOCTURNE",
       "mastery": 56
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 91,
+    "contract": {
+     "salary": 39100,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "GEN_MID",
@@ -479,7 +495,13 @@
       "champion_id": "SERAPHINE",
       "mastery": 61
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 94,
+    "contract": {
+     "salary": 56400,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "GEN_ADC",
@@ -606,7 +628,13 @@
       "champion_id": "SMOLDER",
       "mastery": 58
      }
-    ]
+    ],
+    "birthYear": 1998,
+    "potential": 92,
+    "contract": {
+     "salary": 44200,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "GEN_SUPPORT",
@@ -749,9 +777,16 @@
       "champion_id": "SERAPHINE",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 90,
+    "contract": {
+     "salary": 24000,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "HLE",
@@ -760,6 +795,10 @@
   "league": "LCK",
   "verified": true,
   "worldsSeed": "LCK2",
+  "colors": [
+   "#FF6B01",
+   "#1A1A1A"
+  ],
   "roster": {
    "TOP": {
     "id": "HLE_TOP",
@@ -930,7 +969,13 @@
       "champion_id": "GRAGAS",
       "mastery": 57
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 92,
+    "contract": {
+     "salary": 39100,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "HLE_JUNGLE",
@@ -1077,7 +1122,13 @@
       "champion_id": "XINZHAO",
       "mastery": 55
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 90,
+    "contract": {
+     "salary": 34600,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "HLE_MID",
@@ -1232,7 +1283,13 @@
       "champion_id": "ZOE",
       "mastery": 56
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 89,
+    "contract": {
+     "salary": 34600,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "HLE_ADC",
@@ -1359,7 +1416,13 @@
       "champion_id": "VAYNE",
       "mastery": 58
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 90,
+    "contract": {
+     "salary": 34600,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "HLE_SUPPORT",
@@ -1502,9 +1565,16 @@
       "champion_id": "KARMA",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 88,
+    "contract": {
+     "salary": 27100,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "T1",
@@ -1513,6 +1583,10 @@
   "league": "LCK",
   "verified": true,
   "worldsSeed": "LCK3",
+  "colors": [
+   "#E2012D",
+   "#111111"
+  ],
   "roster": {
    "TOP": {
     "id": "T1_TOP",
@@ -1683,7 +1757,13 @@
       "champion_id": "FIORA",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 87,
+    "contract": {
+     "salary": 24000,
+     "until": 2029
+    }
    },
    "JUNGLE": {
     "id": "T1_JUNGLE",
@@ -1830,7 +1910,13 @@
       "champion_id": "DRMUNDO",
       "mastery": 56
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 89,
+    "contract": {
+     "salary": 34600,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "T1_MID",
@@ -1986,7 +2072,13 @@
       "champion_id": "CASSIOPEIA",
       "mastery": 59
      }
-    ]
+    ],
+    "birthYear": 1996,
+    "potential": 92,
+    "contract": {
+     "salary": 44200,
+     "until": 2028
+    }
    },
    "ADC": {
     "id": "T1_ADC",
@@ -2113,7 +2205,13 @@
       "champion_id": "VAYNE",
       "mastery": 58
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 97,
+    "contract": {
+     "salary": 34600,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "T1_SUPPORT",
@@ -2257,9 +2355,16 @@
       "champion_id": "NAMI",
       "mastery": 59
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 93,
+    "contract": {
+     "salary": 49900,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "DK",
@@ -2268,6 +2373,10 @@
   "league": "LCK",
   "verified": true,
   "worldsSeed": "LCK4",
+  "colors": [
+   "#1BA39C",
+   "#0B1D3A"
+  ],
   "roster": {
    "TOP": {
     "id": "DK_TOP",
@@ -2437,7 +2546,13 @@
       "champion_id": "AURORA",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 90,
+    "contract": {
+     "salary": 18800,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "DK_JUNGLE",
@@ -2584,7 +2699,13 @@
       "champion_id": "NOCTURNE",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 88,
+    "contract": {
+     "salary": 24000,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "DK_MID",
@@ -2739,7 +2860,13 @@
       "champion_id": "AHRI",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 88,
+    "contract": {
+     "salary": 27100,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "DK_ADC",
@@ -2865,7 +2992,13 @@
       "champion_id": "DRAVEN",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 87,
+    "contract": {
+     "salary": 21200,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "DK_SUPPORT",
@@ -3007,9 +3140,16 @@
       "champion_id": "MILIO",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 85,
+    "contract": {
+     "salary": 18800,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "KT",
@@ -3017,6 +3157,10 @@
   "short": "KT",
   "league": "LCK",
   "verified": true,
+  "colors": [
+   "#E4002B",
+   "#222222"
+  ],
   "roster": {
    "TOP": {
     "id": "KT_TOP",
@@ -3186,7 +3330,13 @@
       "champion_id": "TAHMKENCH",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 85,
+    "contract": {
+     "salary": 21200,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "KT_JUNGLE",
@@ -3332,7 +3482,13 @@
       "champion_id": "LEESIN",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 1999,
+    "potential": 86,
+    "contract": {
+     "salary": 21200,
+     "until": 2028
+    }
    },
    "MID": {
     "id": "KT_MID",
@@ -3487,7 +3643,13 @@
       "champion_id": "ANIVIA",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 1999,
+    "potential": 88,
+    "contract": {
+     "salary": 27100,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "KT_ADC",
@@ -3614,7 +3776,13 @@
       "champion_id": "VAYNE",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 88,
+    "contract": {
+     "salary": 27100,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "KT_SUPPORT",
@@ -3756,9 +3924,16 @@
       "champion_id": "POPPY",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 88,
+    "contract": {
+     "salary": 14700,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "BFX",
@@ -3766,6 +3941,10 @@
   "short": "BFX",
   "league": "LCK",
   "verified": true,
+  "colors": [
+   "#F2C200",
+   "#1A1A1A"
+  ],
   "roster": {
    "TOP": {
     "id": "BFX_TOP",
@@ -3935,7 +4114,13 @@
       "champion_id": "SKARNER",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 83,
+    "contract": {
+     "salary": 14700,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "BFX_JUNGLE",
@@ -4081,7 +4266,13 @@
       "champion_id": "JAX",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 85,
+    "contract": {
+     "salary": 14700,
+     "until": 2028
+    }
    },
    "MID": {
     "id": "BFX_MID",
@@ -4235,7 +4426,13 @@
       "champion_id": "TWISTEDFATE",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 90,
+    "contract": {
+     "salary": 16600,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "BFX_ADC",
@@ -4361,7 +4558,13 @@
       "champion_id": "TRISTANA",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 86,
+    "contract": {
+     "salary": 16600,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "BFX_SUPPORT",
@@ -4503,9 +4706,16 @@
       "champion_id": "YUUMI",
       "mastery": 49
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 86,
+    "contract": {
+     "salary": 14700,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "BRO",
@@ -4513,6 +4723,10 @@
   "short": "BRO",
   "league": "LCK",
   "verified": false,
+  "colors": [
+   "#16A34A",
+   "#0D1B12"
+  ],
   "roster": {
    "TOP": {
     "id": "BRO_TOP",
@@ -4681,7 +4895,13 @@
       "champion_id": "MALPHITE",
       "mastery": 47
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 83,
+    "contract": {
+     "salary": 10200,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "BRO_JUNGLE",
@@ -4826,7 +5046,13 @@
       "champion_id": "DRMUNDO",
       "mastery": 47
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 84,
+    "contract": {
+     "salary": 11500,
+     "until": 2028
+    }
    },
    "MID": {
     "id": "BRO_MID",
@@ -4979,7 +5205,13 @@
       "champion_id": "RUMBLE",
       "mastery": 47
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 87,
+    "contract": {
+     "salary": 11500,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "BRO_ADC",
@@ -5105,7 +5337,13 @@
       "champion_id": "KAISA",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 1998,
+    "potential": 82,
+    "contract": {
+     "salary": 13000,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "BRO_SUPPORT",
@@ -5246,9 +5484,16 @@
       "champion_id": "GALIO",
       "mastery": 49
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 80,
+    "contract": {
+     "salary": 10200,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "DRX",
@@ -5256,6 +5501,10 @@
   "short": "DRX",
   "league": "LCK",
   "verified": false,
+  "colors": [
+   "#2B4BFF",
+   "#0A0A0A"
+  ],
   "roster": {
    "TOP": {
     "id": "DRX_TOP",
@@ -5424,7 +5673,13 @@
       "champion_id": "RENEKTON",
       "mastery": 47
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 84,
+    "contract": {
+     "salary": 11500,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "DRX_JUNGLE",
@@ -5569,7 +5824,13 @@
       "champion_id": "SKARNER",
       "mastery": 47
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 82,
+    "contract": {
+     "salary": 10200,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "DRX_MID",
@@ -5722,7 +5983,13 @@
       "champion_id": "AHRI",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 82,
+    "contract": {
+     "salary": 13000,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "DRX_ADC",
@@ -5847,7 +6114,13 @@
       "champion_id": "MISSFORTUNE",
       "mastery": 47
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 81,
+    "contract": {
+     "salary": 11500,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "DRX_SUPPORT",
@@ -5988,9 +6261,16 @@
       "champion_id": "PANTHEON",
       "mastery": 49
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 82,
+    "contract": {
+     "salary": 11500,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "DNS",
@@ -5998,6 +6278,10 @@
   "short": "DNS",
   "league": "LCK",
   "verified": false,
+  "colors": [
+   "#7C3AED",
+   "#111111"
+  ],
   "roster": {
    "TOP": {
     "id": "DNS_TOP",
@@ -6166,7 +6450,13 @@
       "champion_id": "GWEN",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 90,
+    "contract": {
+     "salary": 14700,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "DNS_JUNGLE",
@@ -6311,7 +6601,13 @@
       "champion_id": "PANTHEON",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 84,
+    "contract": {
+     "salary": 16600,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "DNS_MID",
@@ -6464,7 +6760,13 @@
       "champion_id": "LUCIAN",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 88,
+    "contract": {
+     "salary": 14700,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "DNS_ADC",
@@ -6589,7 +6891,13 @@
       "champion_id": "TRISTANA",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 89,
+    "contract": {
+     "salary": 14700,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "DNS_SUPPORT",
@@ -6730,9 +7038,16 @@
       "champion_id": "SERAPHINE",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 2007,
+    "potential": 90,
+    "contract": {
+     "salary": 13000,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "NS",
@@ -6740,6 +7055,10 @@
   "short": "NS",
   "league": "LCK",
   "verified": true,
+  "colors": [
+   "#C8102E",
+   "#F2F2F2"
+  ],
   "roster": {
    "TOP": {
     "id": "NS_TOP",
@@ -6908,7 +7227,13 @@
       "champion_id": "RYZE",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 84,
+    "contract": {
+     "salary": 16600,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "NS_JUNGLE",
@@ -7053,7 +7378,13 @@
       "champion_id": "RENGAR",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 82,
+    "contract": {
+     "salary": 13000,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "NS_MID",
@@ -7206,7 +7537,13 @@
       "champion_id": "LUCIAN",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 1998,
+    "potential": 85,
+    "contract": {
+     "salary": 18800,
+     "until": 2028
+    }
    },
    "ADC": {
     "id": "NS_ADC",
@@ -7331,7 +7668,13 @@
       "champion_id": "LUCIAN",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 93,
+    "contract": {
+     "salary": 14700,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "NS_SUPPORT",
@@ -7473,9 +7816,16 @@
       "champion_id": "NAMI",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 1998,
+    "potential": 85,
+    "contract": {
+     "salary": 18800,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "AL",
@@ -7484,6 +7834,10 @@
   "league": "LPL",
   "verified": true,
   "worldsSeed": "LPL1",
+  "colors": [
+   "#D4AF37",
+   "#3B0A0A"
+  ],
   "roster": {
    "TOP": {
     "id": "AL_TOP",
@@ -7652,7 +8006,13 @@
       "champion_id": "SION",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 88,
+    "contract": {
+     "salary": 27100,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "AL_JUNGLE",
@@ -7797,7 +8157,13 @@
       "champion_id": "ZAC",
       "mastery": 57
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 90,
+    "contract": {
+     "salary": 34600,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "AL_MID",
@@ -7950,7 +8316,13 @@
       "champion_id": "ZOE",
       "mastery": 55
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 95,
+    "contract": {
+     "salary": 27100,
+     "until": 2028
+    }
    },
    "ADC": {
     "id": "AL_ADC",
@@ -8075,7 +8447,13 @@
       "champion_id": "YUNARA",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 98,
+    "contract": {
+     "salary": 27100,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "AL_SUPPORT",
@@ -8216,9 +8594,16 @@
       "champion_id": "ALISTAR",
       "mastery": 55
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 89,
+    "contract": {
+     "salary": 24000,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "BLG",
@@ -8227,6 +8612,10 @@
   "league": "LPL",
   "verified": true,
   "worldsSeed": "LPL2",
+  "colors": [
+   "#2DA8E0",
+   "#FFFFFF"
+  ],
   "roster": {
    "TOP": {
     "id": "BLG_TOP",
@@ -8397,7 +8786,13 @@
       "champion_id": "JAYCE",
       "mastery": 60
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 93,
+    "contract": {
+     "salary": 44200,
+     "until": 2029
+    }
    },
    "JUNGLE": {
     "id": "BLG_JUNGLE",
@@ -8542,7 +8937,13 @@
       "champion_id": "SEJUANI",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 92,
+    "contract": {
+     "salary": 27100,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "BLG_MID",
@@ -8697,7 +9098,13 @@
       "champion_id": "CASSIOPEIA",
       "mastery": 58
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 92,
+    "contract": {
+     "salary": 44200,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "BLG_ADC",
@@ -8822,7 +9229,13 @@
       "champion_id": "CORKI",
       "mastery": 57
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 91,
+    "contract": {
+     "salary": 39100,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "BLG_SUPPORT",
@@ -8963,9 +9376,16 @@
       "champion_id": "SERAPHINE",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 2007,
+    "potential": 95,
+    "contract": {
+     "salary": 27100,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "TES",
@@ -8974,6 +9394,10 @@
   "league": "LPL",
   "verified": false,
   "worldsSeed": "LPL3",
+  "colors": [
+   "#F05A28",
+   "#111111"
+  ],
   "roster": {
    "TOP": {
     "id": "TES_TOP",
@@ -9142,7 +9566,13 @@
       "champion_id": "AURORA",
       "mastery": 56
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 90,
+    "contract": {
+     "salary": 34600,
+     "until": 2029
+    }
    },
    "JUNGLE": {
     "id": "TES_JUNGLE",
@@ -9287,7 +9717,13 @@
       "champion_id": "KINDRED",
       "mastery": 57
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 87,
+    "contract": {
+     "salary": 24000,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "TES_MID",
@@ -9440,7 +9876,13 @@
       "champion_id": "YONE",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 87,
+    "contract": {
+     "salary": 27100,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "TES_ADC",
@@ -9565,7 +10007,13 @@
       "champion_id": "JINX",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 87,
+    "contract": {
+     "salary": 27100,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "TES_SUPPORT",
@@ -9706,9 +10154,16 @@
       "champion_id": "RELL",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 92,
+    "contract": {
+     "salary": 18800,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "IG",
@@ -9717,6 +10172,10 @@
   "league": "LPL",
   "verified": true,
   "worldsSeed": "LPL4",
+  "colors": [
+   "#2B2B2B",
+   "#E6E6E6"
+  ],
   "roster": {
    "TOP": {
     "id": "IG_TOP",
@@ -9885,7 +10344,13 @@
       "champion_id": "PANTHEON",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 1999,
+    "potential": 86,
+    "contract": {
+     "salary": 21200,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "IG_JUNGLE",
@@ -10030,7 +10495,13 @@
       "champion_id": "ELISE",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 89,
+    "contract": {
+     "salary": 27100,
+     "until": 2028
+    }
    },
    "MID": {
     "id": "IG_MID",
@@ -10183,7 +10654,13 @@
       "champion_id": "SERAPHINE",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 1997,
+    "potential": 87,
+    "contract": {
+     "salary": 24000,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "IG_ADC",
@@ -10308,7 +10785,13 @@
       "champion_id": "VARUS",
       "mastery": 54
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 90,
+    "contract": {
+     "salary": 21200,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "IG_SUPPORT",
@@ -10449,9 +10932,16 @@
       "champion_id": "RENATA",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 95,
+    "contract": {
+     "salary": 24000,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "G2",
@@ -10460,6 +10950,10 @@
   "league": "LEC",
   "verified": true,
   "worldsSeed": "LEC1",
+  "colors": [
+   "#111111",
+   "#E30613"
+  ],
   "roster": {
    "TOP": {
     "id": "G2_TOP",
@@ -10628,7 +11122,13 @@
       "champion_id": "URGOT",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 87,
+    "contract": {
+     "salary": 24000,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "G2_JUNGLE",
@@ -10773,7 +11273,13 @@
       "champion_id": "ZAC",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 86,
+    "contract": {
+     "salary": 21200,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "G2_MID",
@@ -10926,7 +11432,13 @@
       "champion_id": "SYLAS",
       "mastery": 55
      }
-    ]
+    ],
+    "birthYear": 1999,
+    "potential": 89,
+    "contract": {
+     "salary": 34600,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "G2_ADC",
@@ -11051,7 +11563,13 @@
       "champion_id": "APHELIOS",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 1999,
+    "potential": 88,
+    "contract": {
+     "salary": 27100,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "G2_SUPPORT",
@@ -11192,9 +11710,16 @@
       "champion_id": "GALIO",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 86,
+    "contract": {
+     "salary": 21200,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "MKOI",
@@ -11203,6 +11728,10 @@
   "league": "LEC",
   "verified": true,
   "worldsSeed": "LEC2",
+  "colors": [
+   "#6D28D9",
+   "#E5E7EB"
+  ],
   "roster": {
    "TOP": {
     "id": "MKOI_TOP",
@@ -11371,7 +11900,13 @@
       "champion_id": "KSANTE",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 2007,
+    "potential": 96,
+    "contract": {
+     "salary": 16600,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "MKOI_JUNGLE",
@@ -11516,7 +12051,13 @@
       "champion_id": "TRUNDLE",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 86,
+    "contract": {
+     "salary": 21200,
+     "until": 2028
+    }
    },
    "MID": {
     "id": "MKOI_MID",
@@ -11669,7 +12210,13 @@
       "champion_id": "TALIYAH",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 92,
+    "contract": {
+     "salary": 21200,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "MKOI_ADC",
@@ -11794,7 +12341,13 @@
       "champion_id": "KAISA",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 85,
+    "contract": {
+     "salary": 18800,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "MKOI_SUPPORT",
@@ -11935,9 +12488,16 @@
       "champion_id": "MILIO",
       "mastery": 55
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 84,
+    "contract": {
+     "salary": 16600,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "KC",
@@ -11946,6 +12506,10 @@
   "league": "LEC",
   "verified": true,
   "worldsSeed": "LEC3",
+  "colors": [
+   "#00A9E0",
+   "#0A1A2F"
+  ],
   "roster": {
    "TOP": {
     "id": "KC_TOP",
@@ -12114,7 +12678,13 @@
       "champion_id": "SION",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 85,
+    "contract": {
+     "salary": 18800,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "KC_JUNGLE",
@@ -12259,7 +12829,13 @@
       "champion_id": "POPPY",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 90,
+    "contract": {
+     "salary": 18800,
+     "until": 2028
+    }
    },
    "MID": {
     "id": "KC_MID",
@@ -12412,7 +12988,13 @@
       "champion_id": "AHRI",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2007,
+    "potential": 94,
+    "contract": {
+     "salary": 16600,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "KC_ADC",
@@ -12537,7 +13119,13 @@
       "champion_id": "LUCIAN",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 90,
+    "contract": {
+     "salary": 21200,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "KC_SUPPORT",
@@ -12678,9 +13266,16 @@
       "champion_id": "TAHMKENCH",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 82,
+    "contract": {
+     "salary": 14700,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "TL",
@@ -12689,6 +13284,10 @@
   "league": "LCS",
   "verified": true,
   "worldsSeed": "LCS1",
+  "colors": [
+   "#0B2340",
+   "#FFFFFF"
+  ],
   "roster": {
    "TOP": {
     "id": "TL_TOP",
@@ -12857,7 +13456,13 @@
       "champion_id": "TRUNDLE",
       "mastery": 49
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 83,
+    "contract": {
+     "salary": 14700,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "TL_JUNGLE",
@@ -13002,7 +13607,13 @@
       "champion_id": "POPPY",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 2007,
+    "potential": 93,
+    "contract": {
+     "salary": 13000,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "TL_MID",
@@ -13155,7 +13766,13 @@
       "champion_id": "HWEI",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 85,
+    "contract": {
+     "salary": 16600,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "TL_ADC",
@@ -13280,7 +13897,13 @@
       "champion_id": "ZERI",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 90,
+    "contract": {
+     "salary": 16600,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "TL_SUPPORT",
@@ -13421,9 +14044,16 @@
       "champion_id": "GALIO",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 1994,
+    "potential": 84,
+    "contract": {
+     "salary": 18800,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "LYON",
@@ -13432,6 +14062,10 @@
   "league": "LCS",
   "verified": true,
   "worldsSeed": "LCS2",
+  "colors": [
+   "#E11D48",
+   "#1E293B"
+  ],
   "roster": {
    "TOP": {
     "id": "LYON_TOP",
@@ -13600,7 +14234,13 @@
       "champion_id": "YONE",
       "mastery": 49
      }
-    ]
+    ],
+    "birthYear": 1999,
+    "potential": 81,
+    "contract": {
+     "salary": 11500,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "LYON_JUNGLE",
@@ -13745,7 +14385,13 @@
       "champion_id": "NIDALEE",
       "mastery": 52
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 85,
+    "contract": {
+     "salary": 18800,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "LYON_MID",
@@ -13898,7 +14544,13 @@
       "champion_id": "CASSIOPEIA",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 91,
+    "contract": {
+     "salary": 14700,
+     "until": 2028
+    }
    },
    "ADC": {
     "id": "LYON_ADC",
@@ -14023,7 +14675,13 @@
       "champion_id": "SERAPHINE",
       "mastery": 53
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 89,
+    "contract": {
+     "salary": 21200,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "LYON_SUPPORT",
@@ -14164,9 +14822,16 @@
       "champion_id": "SERAPHINE",
       "mastery": 51
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 84,
+    "contract": {
+     "salary": 13000,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "C9",
@@ -14175,6 +14840,10 @@
   "league": "LCS",
   "verified": false,
   "worldsSeed": "LCS3",
+  "colors": [
+   "#1E9DD8",
+   "#FFFFFF"
+  ],
   "roster": {
    "TOP": {
     "id": "C9_TOP",
@@ -14343,7 +15012,13 @@
       "champion_id": "SKARNER",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 87,
+    "contract": {
+     "salary": 13000,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "C9_JUNGLE",
@@ -14488,7 +15163,13 @@
       "champion_id": "PANTHEON",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2000,
+    "potential": 82,
+    "contract": {
+     "salary": 14700,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "C9_MID",
@@ -14641,7 +15322,13 @@
       "champion_id": "RYZE",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 82,
+    "contract": {
+     "salary": 13000,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "C9_ADC",
@@ -14766,7 +15453,13 @@
       "champion_id": "CAITLYN",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 1997,
+    "potential": 81,
+    "contract": {
+     "salary": 13000,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "C9_SUPPORT",
@@ -14907,9 +15600,16 @@
       "champion_id": "KARMA",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 91,
+    "contract": {
+     "salary": 14700,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "TSW",
@@ -14918,6 +15618,10 @@
   "league": "LCP",
   "verified": true,
   "worldsSeed": "LCP1",
+  "colors": [
+   "#0EA5E9",
+   "#0B1220"
+  ],
   "roster": {
    "TOP": {
     "id": "TSW_TOP",
@@ -15086,7 +15790,13 @@
       "champion_id": "AMBESSA",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 82,
+    "contract": {
+     "salary": 11500,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "TSW_JUNGLE",
@@ -15231,7 +15941,13 @@
       "champion_id": "RENGAR",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 88,
+    "contract": {
+     "salary": 13000,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "TSW_MID",
@@ -15384,7 +16100,13 @@
       "champion_id": "CASSIOPEIA",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 82,
+    "contract": {
+     "salary": 11500,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "TSW_ADC",
@@ -15509,7 +16231,13 @@
       "champion_id": "TRISTANA",
       "mastery": 50
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 81,
+    "contract": {
+     "salary": 11500,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "TSW_SUPPORT",
@@ -15650,9 +16378,16 @@
       "champion_id": "MALPHITE",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 80,
+    "contract": {
+     "salary": 10200,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "CFO",
@@ -15661,6 +16396,10 @@
   "league": "LCP",
   "verified": false,
   "worldsSeed": "LCP2",
+  "colors": [
+   "#F97316",
+   "#0F172A"
+  ],
   "roster": {
    "TOP": {
     "id": "CFO_TOP",
@@ -15829,7 +16568,13 @@
       "champion_id": "KENNEN",
       "mastery": 47
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 82,
+    "contract": {
+     "salary": 11500,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "CFO_JUNGLE",
@@ -15974,7 +16719,13 @@
       "champion_id": "BELVETH",
       "mastery": 47
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 80,
+    "contract": {
+     "salary": 10200,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "CFO_MID",
@@ -16127,7 +16878,13 @@
       "champion_id": "AZIR",
       "mastery": 47
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 80,
+    "contract": {
+     "salary": 10200,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "CFO_ADC",
@@ -16252,7 +17009,13 @@
       "champion_id": "SERAPHINE",
       "mastery": 49
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 85,
+    "contract": {
+     "salary": 13000,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "CFO_SUPPORT",
@@ -16392,9 +17155,16 @@
       "champion_id": "KARMA",
       "mastery": 45
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 86,
+    "contract": {
+     "salary": 9000,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "MVK",
@@ -16403,6 +17173,10 @@
   "league": "LCP",
   "verified": false,
   "worldsSeed": "LCP3",
+  "colors": [
+   "#B91C1C",
+   "#F5F5F5"
+  ],
   "roster": {
    "TOP": {
     "id": "MVK_TOP",
@@ -16571,7 +17345,13 @@
       "champion_id": "VOLIBEAR",
       "mastery": 45
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 84,
+    "contract": {
+     "salary": 9000,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "MVK_JUNGLE",
@@ -16716,7 +17496,13 @@
       "champion_id": "RENGAR",
       "mastery": 45
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 89,
+    "contract": {
+     "salary": 8000,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "MVK_MID",
@@ -16869,7 +17655,13 @@
       "champion_id": "AKALI",
       "mastery": 46
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 79,
+    "contract": {
+     "salary": 9000,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "MVK_ADC",
@@ -16994,7 +17786,13 @@
       "champion_id": "JINX",
       "mastery": 48
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 80,
+    "contract": {
+     "salary": 9000,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "MVK_SUPPORT",
@@ -17135,9 +17933,16 @@
       "champion_id": "PYKE",
       "mastery": 44
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 78,
+    "contract": {
+     "salary": 8000,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "LOS",
@@ -17146,6 +17951,10 @@
   "league": "CBLOL",
   "verified": true,
   "worldsSeed": "CBLOL1",
+  "colors": [
+   "#22C55E",
+   "#0A0A0A"
+  ],
   "roster": {
    "TOP": {
     "id": "LOS_TOP",
@@ -17314,7 +18123,13 @@
       "champion_id": "GRAGAS",
       "mastery": 45
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 80,
+    "contract": {
+     "salary": 8000,
+     "until": 2029
+    }
    },
    "JUNGLE": {
     "id": "LOS_JUNGLE",
@@ -17459,7 +18274,13 @@
       "champion_id": "BELVETH",
       "mastery": 44
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 80,
+    "contract": {
+     "salary": 6300,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "LOS_MID",
@@ -17612,7 +18433,13 @@
       "champion_id": "SYLAS",
       "mastery": 45
      }
-    ]
+    ],
+    "birthYear": 1999,
+    "potential": 78,
+    "contract": {
+     "salary": 8000,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "LOS_ADC",
@@ -17737,7 +18564,13 @@
       "champion_id": "ASHE",
       "mastery": 43
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 77,
+    "contract": {
+     "salary": 7100,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "LOS_SUPPORT",
@@ -17878,9 +18711,16 @@
       "champion_id": "LULU",
       "mastery": 44
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 81,
+    "contract": {
+     "salary": 6300,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "FUR",
@@ -17889,6 +18729,10 @@
   "league": "CBLOL",
   "verified": true,
   "worldsSeed": "CBLOL2",
+  "colors": [
+   "#111111",
+   "#F4F4F5"
+  ],
   "roster": {
    "TOP": {
     "id": "FUR_TOP",
@@ -18057,7 +18901,13 @@
       "champion_id": "SKARNER",
       "mastery": 44
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 85,
+    "contract": {
+     "salary": 6300,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "FUR_JUNGLE",
@@ -18202,7 +19052,13 @@
       "champion_id": "KINDRED",
       "mastery": 44
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 76,
+    "contract": {
+     "salary": 6300,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "FUR_MID",
@@ -18355,7 +19211,13 @@
       "champion_id": "AHRI",
       "mastery": 45
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 86,
+    "contract": {
+     "salary": 6300,
+     "until": 2028
+    }
    },
    "ADC": {
     "id": "FUR_ADC",
@@ -18480,7 +19342,13 @@
       "champion_id": "XAYAH",
       "mastery": 44
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 76,
+    "contract": {
+     "salary": 6300,
+     "until": 2027
+    }
    },
    "SUPPORT": {
     "id": "FUR_SUPPORT",
@@ -18621,9 +19489,16 @@
       "champion_id": "POPPY",
       "mastery": 45
      }
-    ]
+    ],
+    "birthYear": 2007,
+    "potential": 84,
+    "contract": {
+     "salary": 5500,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "SGW",
@@ -18631,6 +19506,10 @@
   "short": "SGW",
   "league": "VCS",
   "verified": false,
+  "colors": [
+   "#DC2626",
+   "#FDE68A"
+  ],
   "roster": {
    "TOP": {
     "id": "SGW_TOP",
@@ -18799,7 +19678,13 @@
       "champion_id": "MALPHITE",
       "mastery": 42
      }
-    ]
+    ],
+    "birthYear": 2007,
+    "potential": 79,
+    "contract": {
+     "salary": 4300,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "SGW_JUNGLE",
@@ -18944,7 +19829,13 @@
       "champion_id": "GRAVES",
       "mastery": 41
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 74,
+    "contract": {
+     "salary": 4300,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "SGW_MID",
@@ -19097,7 +19988,13 @@
       "champion_id": "TRISTANA",
       "mastery": 41
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 80,
+    "contract": {
+     "salary": 4300,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "SGW_ADC",
@@ -19222,7 +20119,13 @@
       "champion_id": "SMOLDER",
       "mastery": 40
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 73,
+    "contract": {
+     "salary": 4300,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "SGW_SUPPORT",
@@ -19363,9 +20266,16 @@
       "champion_id": "RAKAN",
       "mastery": 40
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 72,
+    "contract": {
+     "salary": 3800,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "9G",
@@ -19373,6 +20283,10 @@
   "short": "9G",
   "league": "VCS",
   "verified": false,
+  "colors": [
+   "#F59E0B",
+   "#111827"
+  ],
   "roster": {
    "TOP": {
     "id": "9G_TOP",
@@ -19541,7 +20455,13 @@
       "champion_id": "KENNEN",
       "mastery": 43
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 71,
+    "contract": {
+     "salary": 3800,
+     "until": 2027
+    }
    },
    "JUNGLE": {
     "id": "9G_JUNGLE",
@@ -19686,7 +20606,13 @@
       "champion_id": "RENGAR",
       "mastery": 39
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 73,
+    "contract": {
+     "salary": 3800,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "9G_MID",
@@ -19839,7 +20765,13 @@
       "champion_id": "ZOE",
       "mastery": 39
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 79,
+    "contract": {
+     "salary": 3800,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "9G_ADC",
@@ -19964,7 +20896,13 @@
       "champion_id": "XAYAH",
       "mastery": 40
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 77,
+    "contract": {
+     "salary": 3800,
+     "until": 2029
+    }
    },
    "SUPPORT": {
     "id": "9G_SUPPORT",
@@ -20105,9 +21043,16 @@
       "champion_id": "MILIO",
       "mastery": 38
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 71,
+    "contract": {
+     "salary": 3400,
+     "until": 2029
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "MVKA",
@@ -20115,6 +21060,10 @@
   "short": "MVKA",
   "league": "VCS",
   "verified": false,
+  "colors": [
+   "#991B1B",
+   "#E5E5E5"
+  ],
   "roster": {
    "TOP": {
     "id": "MVKA_TOP",
@@ -20283,7 +21232,13 @@
       "champion_id": "VOLIBEAR",
       "mastery": 39
      }
-    ]
+    ],
+    "birthYear": 2007,
+    "potential": 82,
+    "contract": {
+     "salary": 3400,
+     "until": 2029
+    }
    },
    "JUNGLE": {
     "id": "MVKA_JUNGLE",
@@ -20428,7 +21383,13 @@
       "champion_id": "VI",
       "mastery": 38
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 83,
+    "contract": {
+     "salary": 3400,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "MVKA_MID",
@@ -20581,7 +21542,13 @@
       "champion_id": "RUMBLE",
       "mastery": 38
      }
-    ]
+    ],
+    "birthYear": 2001,
+    "potential": 70,
+    "contract": {
+     "salary": 3400,
+     "until": 2027
+    }
    },
    "ADC": {
     "id": "MVKA_ADC",
@@ -20706,7 +21673,13 @@
       "champion_id": "SIVIR",
       "mastery": 41
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 78,
+    "contract": {
+     "salary": 3400,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "MVKA_SUPPORT",
@@ -20847,9 +21820,16 @@
       "champion_id": "ASHE",
       "mastery": 39
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 77,
+    "contract": {
+     "salary": 3000,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "SGD",
@@ -20857,6 +21837,10 @@
   "short": "SGD",
   "league": "VCS",
   "verified": false,
+  "colors": [
+   "#16A34A",
+   "#FACC15"
+  ],
   "roster": {
    "TOP": {
     "id": "SGD_TOP",
@@ -21025,7 +22009,13 @@
       "champion_id": "URGOT",
       "mastery": 38
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 77,
+    "contract": {
+     "salary": 3400,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "SGD_JUNGLE",
@@ -21170,7 +22160,13 @@
       "champion_id": "ZAC",
       "mastery": 38
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 73,
+    "contract": {
+     "salary": 3400,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "SGD_MID",
@@ -21323,7 +22319,13 @@
       "champion_id": "SMOLDER",
       "mastery": 40
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 72,
+    "contract": {
+     "salary": 3400,
+     "until": 2028
+    }
    },
    "ADC": {
     "id": "SGD_ADC",
@@ -21448,7 +22450,13 @@
       "champion_id": "XAYAH",
       "mastery": 42
      }
-    ]
+    ],
+    "birthYear": 2008,
+    "potential": 82,
+    "contract": {
+     "salary": 3400,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "SGD_SUPPORT",
@@ -21589,9 +22597,16 @@
       "champion_id": "PYKE",
       "mastery": 37
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 76,
+    "contract": {
+     "salary": 3000,
+     "until": 2027
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "ZEN",
@@ -21599,6 +22614,10 @@
   "short": "ZEN",
   "league": "VCS",
   "verified": false,
+  "colors": [
+   "#64748B",
+   "#F8FAFC"
+  ],
   "roster": {
    "TOP": {
     "id": "ZEN_TOP",
@@ -21767,7 +22786,13 @@
       "champion_id": "URGOT",
       "mastery": 36
      }
-    ]
+    ],
+    "birthYear": 2003,
+    "potential": 70,
+    "contract": {
+     "salary": 2700,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "ZEN_JUNGLE",
@@ -21912,7 +22937,13 @@
       "champion_id": "TRUNDLE",
       "mastery": 37
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 76,
+    "contract": {
+     "salary": 2700,
+     "until": 2029
+    }
    },
    "MID": {
     "id": "ZEN_MID",
@@ -22065,7 +23096,13 @@
       "champion_id": "HWEI",
       "mastery": 36
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 76,
+    "contract": {
+     "salary": 2700,
+     "until": 2028
+    }
    },
    "ADC": {
     "id": "ZEN_ADC",
@@ -22190,7 +23227,13 @@
       "champion_id": "YUNARA",
       "mastery": 37
      }
-    ]
+    ],
+    "birthYear": 2007,
+    "potential": 75,
+    "contract": {
+     "salary": 2700,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "ZEN_SUPPORT",
@@ -22331,9 +23374,16 @@
       "champion_id": "MALPHITE",
       "mastery": 36
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 75,
+    "contract": {
+     "salary": 2400,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  },
  {
   "id": "CES",
@@ -22341,6 +23391,10 @@
   "short": "CES",
   "league": "VCS",
   "verified": false,
+  "colors": [
+   "#06B6D4",
+   "#111827"
+  ],
   "roster": {
    "TOP": {
     "id": "CES_TOP",
@@ -22509,7 +23563,13 @@
       "champion_id": "MALPHITE",
       "mastery": 38
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 75,
+    "contract": {
+     "salary": 3000,
+     "until": 2028
+    }
    },
    "JUNGLE": {
     "id": "CES_JUNGLE",
@@ -22654,7 +23714,13 @@
       "champion_id": "PANTHEON",
       "mastery": 39
      }
-    ]
+    ],
+    "birthYear": 2006,
+    "potential": 77,
+    "contract": {
+     "salary": 3000,
+     "until": 2027
+    }
    },
    "MID": {
     "id": "CES_MID",
@@ -22807,7 +23873,13 @@
       "champion_id": "LUCIAN",
       "mastery": 37
      }
-    ]
+    ],
+    "birthYear": 2002,
+    "potential": 70,
+    "contract": {
+     "salary": 3000,
+     "until": 2029
+    }
    },
    "ADC": {
     "id": "CES_ADC",
@@ -22932,7 +24004,13 @@
       "champion_id": "ZERI",
       "mastery": 41
      }
-    ]
+    ],
+    "birthYear": 2005,
+    "potential": 77,
+    "contract": {
+     "salary": 3000,
+     "until": 2028
+    }
    },
    "SUPPORT": {
     "id": "CES_SUPPORT",
@@ -23073,8 +24151,15 @@
       "champion_id": "RELL",
       "mastery": 36
      }
-    ]
+    ],
+    "birthYear": 2004,
+    "potential": 72,
+    "contract": {
+     "salary": 2700,
+     "until": 2028
+    }
    }
-  }
+  },
+  "bench": []
  }
 ]

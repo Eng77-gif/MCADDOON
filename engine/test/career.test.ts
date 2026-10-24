@@ -66,7 +66,7 @@ test("một mùa đầy đủ: mọi giải có xếp hạng, CKTG có nhà vô 
   assert.equal(ko.ranking!.length, 8);
   assert.equal(c.competitions.find((x) => x.kind === "SWISS")!.teams.length, 16);
   const restored: Career = JSON.parse(JSON.stringify(c));
-  startNextSeason(restored);
+  startNextSeason(restored, realPack.champions);
   assert.equal(restored.year, c.year + 1);
   assert.equal(restored.stage, "SPLIT");
   // thăng/xuống hạng giữ tổng số đội

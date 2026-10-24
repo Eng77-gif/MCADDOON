@@ -166,6 +166,17 @@ export class MatchSim {
     return report;
   }
 
+  /** Trạng thái hiện tại cho bảng tỉ số / bản đồ mini của UI. */
+  snapshot() {
+    return this.s.map((st, i) => ({
+      kills: this.kills(i as Side),
+      gold: Math.round(this.gold(i as Side)),
+      towers: st.towers,
+      dragons: st.dragons,
+      barons: st.barons,
+    }));
+  }
+
   run(): MatchResult {
     while (!this.isOver) this.playPhase();
     return this.result();
