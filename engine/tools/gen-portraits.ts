@@ -88,8 +88,10 @@ if (opt["dry-run"]) {
   process.exit(0);
 }
 
-const key = process.env.PIXELLAB_API_KEY;
-if (!key) {
+// Nhiều key cách nhau bởi dấu phẩy: key nào hết credit (402) thì tự chuyển sang key kế tiếp
+const keys = (process.env.PIXELLAB_API_KEY ?? "").split(",").map((k) => k.trim()).filter(Boolean);
+let keyIdx = 0;
+if (!keys.length) {
   console.error("Thiếu PIXELLAB_API_KEY (lấy tại https://www.pixellab.ai/account). Chạy thử không cần key: --dry-run");
   process.exit(1);
 }
@@ -98,7 +100,7 @@ async function generate(endpoint: string, req: PortraitRequest | ReturnType<type
   for (let attempt = 0; ; attempt++) {
     const res = await fetch(`${API}/${endpoint}`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      headers: { Authorization: `Bearer ${keys[keyIdx]}`, "Content-Type": "application/json" },
       body: JSON.stringify(req),
     });
     // 429: quá tần suất / quá số job đồng thời, 529: máy chủ quá tải → chờ rồi thử lại
@@ -107,7 +109,15 @@ async function generate(endpoint: string, req: PortraitRequest | ReturnType<type
       continue;
     }
     if (res.status === 401) throw new Error("PIXELLAB_API_KEY không hợp lệ (401)");
-    if (res.status === 402) throw new Error("Hết credit PixelLab (402)");
+    if (res.status === 402) {
+      if (keyIdx + 1 < keys.length) {
+        console.log(`  … key #${keyIdx + 1} hết credit, chuyển sang key #${keyIdx + 2}`);
+        keyIdx++;
+        attempt = -1;
+        continue;
+      }
+      throw new Error("Hết credit PixelLab (402)");
+    }
     if (!res.ok) throw new Error(`PixelLab ${res.status}: ${(await res.text()).slice(0, 300)}`);
     const body = (await res.json()) as { image: { base64: string }; usage?: { usd?: number | null } };
     const b64 = body.image.base64.replace(/^data:image\/\w+;base64,/, "");
@@ -118,7 +128,8 @@ async function generate(endpoint: string, req: PortraitRequest | ReturnType<type
 mkdirSync(outDir, { recursive: true });
 console.log(`Vẽ ${subjects.length} chân dung ${size}x${size} → ${outDir}`);
 let done = 0, failed = 0, usd = 0;
-const queue = [...subjects];
+// Người có ảnh thật vẽ trước: credit có hạn thì ưu tiên ảnh giống người thật
+const queue = [...subjects].sort((a, b) => Number(!photoOf(a.id)) - Number(!photoOf(b.id)));
 async function worker() {
   for (let p = queue.shift(); p; p = queue.shift()) {
     try {

@@ -29,7 +29,7 @@ cd app && npm install && npm run dev   # chơi trên trình duyệt (web/mobile)
 Ảnh pixel của tuyển thủ được vẽ bằng [PixelLab](https://www.pixellab.ai) và lưu ở `data/packs/real-2026/portraits/<playerId>.png`; app tự nhúng ảnh nào có sẵn, chưa có thì hiện chữ cái đầu.
 
 ```bash
-export PIXELLAB_API_KEY=...                 # lấy ở https://www.pixellab.ai/account
+export PIXELLAB_API_KEY=key1,key2         # lấy ở https://www.pixellab.ai/account; key hết credit tự chuyển sang key sau
 npm run portraits -- --dry-run              # xem prompt, không tốn credit
 npm run portraits -- --team GEN,T1          # vẽ ảnh còn thiếu của vài đội (bỏ --team để vẽ cả 155 người)
 npm run portraits -- --player GEN_MID --force   # vẽ lại 1 người
