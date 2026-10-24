@@ -53,7 +53,7 @@ export function ConfirmButton({ label, confirmLabel, onConfirm, className }: { l
 }
 
 /** Chân dung pixel của tuyển thủ; chưa có ảnh thì hiện chữ cái đầu. */
-export function Avatar({ id, ign, size = 40 }: { id: string; ign: string; size?: number }) {
+export function Avatar({ id, ign, size = 64 }: { id: string; ign: string; size?: number }) {
   const src = portraitOf(id);
   return (
     <span className="avatar" style={{ width: size, height: size, fontSize: size * 0.4 }}>

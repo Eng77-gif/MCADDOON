@@ -1,6 +1,6 @@
 """Chép ảnh tuyển thủ (Leaguepedia, nhánh ccr-08f2c8ab-y9pv45: players/players.csv + players/<Team>/<ID>.png)
 vào data/packs/<pack>/portraits/photos/<playerId>.png để `npm run portraits` vẽ pixel art từ ảnh thật.
-Ghép theo IGN (không phân biệt hoa thường), bỏ HLV, crop vuông phần đầu + vai, 256x256.
+Ghép theo IGN (không phân biệt hoa thường), bỏ HLV, crop vuông phần đầu + vai, 512x512 (= 4 lần ảnh pixel 128px, theo khuyến nghị của PixelLab).
 
 Dùng: git archive origin/ccr-08f2c8ab-y9pv45 players | tar -x -C /tmp/lp
       python3 engine/tools/import-photos.py /tmp/lp/players [real-2026]
@@ -29,7 +29,7 @@ for r in csv.DictReader(open(os.path.join(src, "players.csv"), encoding="utf8"))
     w, h = im.size
     s = min(w, h)
     x = (w - s) // 2
-    im.crop((x, 0, x + s, s)).resize((256, 256), Image.LANCZOS).save(os.path.join(out, f"{pid}.png"))
+    im.crop((x, 0, x + s, s)).resize((512, 512), Image.LANCZOS).save(os.path.join(out, f"{pid}.png"))
     matched += 1
 
 print(f"{matched} ảnh → {out}")

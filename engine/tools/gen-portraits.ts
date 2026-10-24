@@ -4,7 +4,7 @@
 //   npm run portraits -- --team GEN,T1                     # chỉ vài đội
 //   npm run portraits -- --player GEN_MID --force          # vẽ lại 1 người
 //   npm run portraits -- --dry-run                         # chỉ in prompt, không gọi API
-//   npm run portraits -- --pack demo --size 96
+//   npm run portraits -- --pack demo --size 96 --strength 350
 // Giống người thật nhất: đặt ảnh chụp (crop vuông, thấy mặt + vai) vào data/packs/<id>/portraits/photos/<playerId>.jpg|.png
 //   → dùng image-to-pixelart của PixelLab thay vì vẽ từ chữ. Ảnh gốc không được commit (xem .gitignore).
 // Không có ảnh: vẽ từ chữ, thêm mô tả ngoại hình riêng ở data/packs/<id>/portraits/prompts.json  { "GEN_MID": "short black hair, round glasses" }
@@ -21,7 +21,8 @@ const { values: opt } = parseArgs({
     pack: { type: "string", default: "real-2026" },
     team: { type: "string" },
     player: { type: "string" },
-    size: { type: "string", default: "64" },
+    size: { type: "string", default: "128" },
+    strength: { type: "string", default: "300" }, // ảnh thật: 100–450, càng cao càng giống ảnh gốc
     force: { type: "boolean", default: false },
     "dry-run": { type: "boolean", default: false },
     concurrency: { type: "string", default: "1" }, // gói Free của PixelLab: 1 ảnh mỗi lần
@@ -70,7 +71,8 @@ function photoRequest(file: string) {
     image: { type: "base64", base64: buf.toString("base64") },
     image_size: src,
     output_size: { width: Math.max(16, Math.round(src.width * k)), height: Math.max(16, Math.round(src.height * k)) },
-    init_image_strength: 200, // 100–300: vẫn ra pixel art nhưng giữ gương mặt
+    init_image_strength: Number(opt.strength), // 300: vẫn là pixel art nhưng nhận ra mặt; >450 gần như ảnh chụp
+    fixer: true, // bám sát ảnh gốc thay vì vẽ lại
   };
 }
 
