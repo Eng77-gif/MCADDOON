@@ -2,13 +2,14 @@
 import type { MatchEvent, MatchResult, PhaseReport } from "./match.ts";
 
 const AROUND: Record<string, string> = { BARON: "Baron", DRAGON: "Rồng", ELDER: "Rồng Ngàn Tuổi", SKIRMISH: "giữa bản đồ" };
+const WHERE: Record<string, string> = { TOP: "ở đường trên", MID: "ở đường giữa", BOT: "ở đường dưới", JUNGLE: "trong rừng", TEAMFIGHT: "trong giao tranh" };
 const PHASE: Record<string, string> = { EARLY: "Đầu trận", MID: "Giữa trận", LATE: "Cuối trận" };
 
 export function describeEvent(e: MatchEvent, names: [string, string]): string {
   const t = `[${String(Math.floor(e.minute)).padStart(2, "0")}']`;
   switch (e.type) {
     case "FIRST_BLOOD":
-      return `${t} CHẾT ĐẦU TIÊN! ${e.killer} (${names[e.side]}) hạ ${e.victim} ở đường ${e.lane}.`;
+      return `${t} CHẾT ĐẦU TIÊN! ${e.killer} (${names[e.side]}) hạ ${e.victim} ${WHERE[e.lane] ?? `ở ${e.lane}`}.`;
     case "KILL":
       return `${t} ${e.killer} hạ gục ${e.victim}.`;
     case "LANE_REPORT":

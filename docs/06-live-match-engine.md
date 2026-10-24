@@ -73,3 +73,29 @@ Kiểm tra cân bằng: `npm run live-balance [số trận]`.
 - Tầm nhìn/mắt, Sứ Giả, nhà lính hồi sinh, lính siêu cấp.
 - Sprite tướng hoặc tuyển thủ 4 hướng có hoạt ảnh (PixelLab `rotate` và `animate-with-text`), khi phần chân dung bên phiên kia xong.
 - Tối ưu: lưới không gian để dò mục tiêu, chạy mô phỏng trong Web Worker.
+
+## 6. Giao diện kiểu Teamfight Manager 2
+
+**Khung ứng dụng** (`app/src/Hub.tsx`):
+- **Menu trái:** Tin tức, Đội hình & Tập luyện, Lịch thi đấu, Xếp hạng, Chuyển nhượng, Tuyển trạch, Thống kê, Ban lãnh đạo / Tài chính.
+- **Thanh dưới cùng:** mùa giải và giai đoạn, kèm nút **Tiến hành ▶**. Nút này tự làm việc tiếp theo: vào trận, mô phỏng tiếp, hoặc sang mùa mới.
+- **Xếp hạng:**
+  - Có tab theo khu vực (LCK… VCS, CKTG).
+  - Bảng gồm Trận / Thắng / Bại / Hiệu số ván / Hạ gục / Chết / Hỗ trợ / Ghi chú (Vào Playoffs, Vô địch, Á quân, Bị loại).
+  - Playoffs và vòng loại trực tiếp CKTG hiện dạng sơ đồ nhánh; các vòng chưa đấu hiện "Chưa xác định".
+  - Vòng Swiss hiện theo nhóm thành tích (3-0, 2-1…).
+- **Huy hiệu đội:** hình khiên pixel theo màu áo đội và chữ viết tắt (`art/sprites.ts`). Không dùng logo thật.
+- Trên màn hình hẹp, menu chuyển thành thanh cuộn ngang ở trên cùng.
+
+**Màn hình trận** (`app/src/LiveViewer.tsx`):
+
+| Thành phần | Mô tả |
+|---|---|
+| Địa hình | Ô gạch pixel vẽ bằng code (`art/terrain.ts`): đường lát đá, sông có gợn nước, rừng cây rậm làm tường, cỏ có hoa, hang quái, nền nhà theo màu phe |
+| Nhân vật | Chibi 18×20 theo từng tuyển thủ (da, tóc, áo màu đội). Vũ khí theo nhóm tướng: khiên, kiếm, dao găm, trượng, cung, gậy phép, móc xích. Có bước chân và quay hướng |
+| Công trình, quái | Trụ pha lê có chân đá; trụ vỡ thành đống đá. Nhà chính, quái rừng, Rồng và Baron đều có sprite riêng |
+| Hiệu ứng | Đạn bay, nhát chém, vòng chiêu thường / chiêu cuối theo màu nhóm tướng, vòng hồi máu. Engine chỉ ghi các hiệu ứng này khi bật `recordFx` |
+| Camera | Tự động kiểu truyền hình: bám cụm giao tranh ít nhất 4 giây; đổi sang điểm xa thì cắt cảnh thay vì trượt ngang. Kéo để tự di chuyển, nút ＋/－ để phóng to/thu nhỏ, bấm bản đồ mini để nhảy tới |
+| Bảng hai bên | Cấp độ, tên tuyển thủ (tướng), thanh máu, đồng hồ hồi sinh |
+| Nhật ký | Ý định của tuyển thủ ("Giao tranh, mục tiêu Azir!", "Đi gank đường giữa", "Máu thấp, lùi lại", "Tập trung đánh Rồng"…) và các pha hạ gục |
+| Điều khiển | Tạm dừng, tốc độ x1–x16, Xem kết quả ngay, chỉ đạo của HLV ngay trong trận |

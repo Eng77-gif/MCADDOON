@@ -49,8 +49,8 @@ export function OfferForm({ career: c, player, onDone, label = "Gửi đề ngh�
   );
 }
 
-export function Market({ career: c, onChange }: { career: Career; onChange: () => void }) {
-  const [view, setView] = useState<"transfer" | "scout">("transfer");
+export function Market({ career: c, onChange, view: initial = "transfer" }: { career: Career; onChange: () => void; view?: "transfer" | "scout" }) {
+  const [view, setView] = useState<"transfer" | "scout">(initial);
   return (
     <>
       <div className="chips">

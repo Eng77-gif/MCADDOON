@@ -10,7 +10,7 @@ export const NEXUS: [Vec, Vec] = [{ x: 22, y: 178 }, { x: 178, y: 22 }];
 export const FOUNTAIN: [Vec, Vec] = [{ x: 10, y: 190 }, { x: 190, y: 10 }];
 
 /** Đường đi từ nhà xanh tới nhà đỏ */
-const LANE_PATHS: Record<Lane, Vec[]> = {
+export const LANE_PATHS: Record<Lane, Vec[]> = {
   TOP: [NEXUS[0], { x: 20, y: 100 }, { x: 22, y: 22 }, { x: 100, y: 20 }, NEXUS[1]],
   MID: [NEXUS[0], { x: 100, y: 100 }, NEXUS[1]],
   BOT: [NEXUS[0], { x: 100, y: 180 }, { x: 178, y: 178 }, { x: 180, y: 100 }, NEXUS[1]],

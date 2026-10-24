@@ -39,6 +39,23 @@ export const LIVE = {
 /** Mỗi lính trong mô phỏng tượng trưng cho 4 lính thật (thời gian nén 3 lần, đợt lính thưa hơn) */
 const CS_PER_MINION = 4;
 
+/** Hiệu ứng hình ảnh cho trình xem (chỉ ghi khi recordFx = true) */
+export interface Fx {
+  t: number;
+  kind: "hit" | "shot" | "skill" | "ult" | "heal";
+  side: 0 | 1 | 2;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  arch?: Archetype;
+}
+
+/** Nhật ký ý định của tuyển thủ, kiểu "Giao tranh, mục tiêu Ahri!" */
+export interface IntentLog { t: number; side: 0 | 1; ign: string; text: string }
+
+const LANE_VI: Record<Lane, string> = { TOP: "đường trên", MID: "đường giữa", BOT: "đường dưới" };
+
 export type UnitKind = "CHAMP" | "MINION" | "TOWER" | "NEXUS" | "CAMP" | "DRAGON" | "BARON";
 
 export interface Unit {
@@ -126,6 +143,11 @@ export class LiveMatch {
   readonly champs: ChampUnit[] = [];
   readonly teams: [TeamState, TeamState];
   readonly events: MatchEvent[] = [];
+  /** Bật để ghi hiệu ứng và nhật ký cho trình xem (tắt khi chạy nhanh để tiết kiệm bộ nhớ) */
+  recordFx = false;
+  readonly fx: Fx[] = [];
+  readonly intents: IntentLog[] = [];
+  private lastIntentAt = new Map<number, number>();
   private nextId = 1;
   private readonly byId = new Map<number, Unit>();
   private nextWave: number = LIVE.firstWave;
@@ -375,10 +397,36 @@ export class LiveMatch {
     }
 
     if (this.t >= c.decideAt) {
+      const before = c.state;
+      const focus = c.focus;
       this.decide(c);
       c.decideAt = this.t + 0.5;
+      if (this.recordFx && (c.state !== before || (c.state === "FIGHT" && c.focus !== focus))) this.logIntent(c);
     }
     this.act(c);
+  }
+
+  private logIntent(c: ChampUnit) {
+    if (this.t - (this.lastIntentAt.get(c.id) ?? -10) < 3) return;
+    const call = this.teams[c.side].call;
+    const target = this.champs.find((e) => e.id === c.focus);
+    let text: string | null = null;
+    if (c.state === "FIGHT" && target) text = `Giao tranh, mục tiêu ${target.champion.name}!`;
+    else if (c.state === "GANK") text = target?.homeLane ? `Đi gank ${LANE_VI[target.homeLane]}` : "Đi gank";
+    else if (c.state === "RETREAT") text = c.hp / c.maxHp < 0.5 ? "Máu thấp, lùi lại" : "Bất lợi, lùi lại";
+    else if (c.state === "RECALL") text = "Về nhà hồi máu";
+    else if (c.state === "GROUP")
+      text = call.kind === "DRAGON" ? "Tập trung đánh Rồng" : call.kind === "BARON" ? "Tập trung đánh Baron" : call.dive ? "Dồn trụ sau giao tranh!" : call.lane ? `Dồn ${LANE_VI[call.lane]}` : null;
+    if (!text) return;
+    this.lastIntentAt.set(c.id, this.t);
+    this.intents.push({ t: this.t, side: c.side, ign: c.player.ign, text });
+    if (this.intents.length > 60) this.intents.splice(0, this.intents.length - 60);
+  }
+
+  private pushFx(f: Omit<Fx, "t">) {
+    if (!this.recordFx) return;
+    this.fx.push({ t: this.t, ...f });
+    if (this.fx.length > 400) this.fx.splice(0, this.fx.length - 400);
   }
 
   /** Độ "nhiễu" khi đánh giá tình huống: kém nhận thức, mất bình tĩnh, áp lực trận lớn => sai nhiều hơn. */
@@ -691,6 +739,7 @@ export class LiveMatch {
         crowd >= 2 || target.hp / target.maxHp < 0.35;
       if (want) {
         c.ultCd = S.ult.cooldown;
+        this.pushFx({ kind: c.arch === "ENCHANTER" ? "heal" : "ult", side: c.side, x1: c.x, y1: c.y, x2: target.x, y2: target.y, arch: c.arch });
         switch (c.arch) {
           case "TANK":
           case "CATCHER":
@@ -727,6 +776,7 @@ export class LiveMatch {
       const ally = alliesNear(S.skill.range).sort((a, b) => a.hp / a.maxHp - b.hp / b.maxHp)[0];
       if (ally && ally.hp / ally.maxHp < 0.75) {
         c.skillCd = S.skill.cooldown;
+        this.pushFx({ kind: "heal", side: c.side, x1: c.x, y1: c.y, x2: ally.x, y2: ally.y, arch: c.arch });
         this.heal(ally, 60 + p * 1.8);
         ally.shield += 40 + p;
       }
@@ -734,6 +784,7 @@ export class LiveMatch {
     }
     if (d > S.skill.range) return;
     c.skillCd = S.skill.cooldown;
+    this.pushFx({ kind: "skill", side: c.side, x1: c.x, y1: c.y, x2: target.x, y2: target.y, arch: c.arch });
     switch (c.arch) {
       case "TANK":
         this.blink(c, target, 4);
@@ -789,6 +840,7 @@ export class LiveMatch {
     if (u.atkTimer > 0) return;
     u.atkTimer = 1 / Math.max(0.1, u.aspd * (u.kind === "CHAMP" && this.t < (u as ChampUnit).buffUntil && (u as ChampUnit).arch === "MARKSMAN" ? 1.5 : 1));
     u.targetId = target.id;
+    if (this.recordFx) this.pushFx({ kind: u.range > 15 || u.kind === "TOWER" ? "shot" : "hit", side: u.side, x1: u.x, y1: u.y, x2: target.x, y2: target.y });
     let amount = u.kind === "CHAMP" ? this.effPower(u as ChampUnit) : u.power;
     // Lính đánh lính chậm để tướng còn ăn lính; tướng dọn lính theo chỉ số waveclear của tướng
     if (target.kind === "MINION") amount *= u.kind === "MINION" ? 0.3 : 1.3 + (u.kind === "CHAMP" ? (u as ChampUnit).champion.profile.waveclear * 0.06 : 0);

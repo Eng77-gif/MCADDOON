@@ -57,7 +57,7 @@ export function MatchDay({ career: c, fixtureId, onDone, onCancel }: Props) {
   const names: [string, string] = [game.draft.teams[0].short, game.draft.teams[1].short];
 
   return (
-    <main className="screen">
+    <main className="screen wide">
       <header className="topbar">
         <ConfirmButton className="link" label="← Thoát" confirmLabel="Thoát? (mất series)" onConfirm={onCancel} />
         <div className="grow center">
