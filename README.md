@@ -35,7 +35,7 @@ npm run portraits -- --team GEN,T1          # vẽ ảnh còn thiếu của vài
 npm run portraits -- --player GEN_MID --force   # vẽ lại 1 người
 ```
 
-**Giống người thật nhất:** đặt ảnh chụp tuyển thủ (crop vuông, thấy mặt + vai, PNG/JPEG ≤ 2048px) vào `data/packs/real-2026/portraits/photos/<playerId>.jpg` rồi chạy lại với `--force`; script sẽ dùng *image-to-pixelart* của PixelLab để chuyển ảnh thật sang pixel. Ảnh gốc không được commit.
+**Giống người thật nhất:** ảnh Leaguepedia của các đội dự Worlds 2026 nằm ở nhánh `ccr-08f2c8ab-y9pv45`; chép sang bằng `python3 engine/tools/import-photos.py <thư mục players>` (xem đầu file). Hoặc tự đặt ảnh chụp tuyển thủ (crop vuông, thấy mặt + vai, PNG/JPEG ≤ 2048px) vào `data/packs/real-2026/portraits/photos/<playerId>.jpg` rồi chạy lại với `--force`; script sẽ dùng *image-to-pixelart* của PixelLab để chuyển ảnh thật sang pixel. Ảnh gốc không được commit.
 
 Không có ảnh thì vẽ từ chữ: prompt + seed cố định theo tuyển thủ, có quốc tịch, cả đội cùng màu áo. Thêm mô tả ngoại hình vào `data/packs/real-2026/portraits/prompts.json`, ví dụ `{ "GEN_MID": "short black hair, round glasses" }`.
 
