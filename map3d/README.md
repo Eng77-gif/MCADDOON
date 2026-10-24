@@ -1,15 +1,19 @@
-# Summoner's Rift (voxel / pixel 3D)
+# Summoner's Rift (stylised low-poly 3D)
 
-- `summoners_rift.glb` — model glTF 2.0 (vertex colours, no textures). Opens in Unity (glTFast), Godot, Blender, three.js.
-  - 1 unit = 1 voxel, 192 x 192 voxels, y is up, map centred at the origin; blue base south-west, red base north-east (north = -z).
-  - Node `Terrain` plus one node per structure: `Turret_<Blue|Red>_<Top|Mid|Bot>_<Outer|Inner|Inhibitor>`,
-    `Turret_<Team>_Nexus_<Top|Bot>`, `Inhibitor_<Team>_<Lane>`, `Nexus_<Team>`. Hide a node when it is destroyed.
-  - Monster nodes (half-size voxels for extra detail): `Monster_Baron`, `Monster_Dragon`, `Monster_Scuttle_<Top|Bot>`,
-    and per side `Monster_<Blue_Sentinel|Red_Brambleback|Gromp|Murk_Wolves|Raptors|Krugs>_<Blue|Red>`.
-    Hide a node while that camp is dead.
-- `map_data.json` — lane waypoints, river, fountains, Baron/Dragon/Scuttle, jungle camps and structures,
-  in game coordinates (0–14870) and model coordinates, for match simulation and minion/champion movement.
-- `viewer.html` — preview (serve the folder, e.g. `python3 -m http.server`, then open `viewer.html`; `?top` for a top-down view,
-  `?cam=x,y,z&target=x,y,z` for a fixed camera).
-- `preview/` — rendered screenshots.
-- `build_rift.py` — regenerates everything: `python3 build_rift.py`. Layout, colours, sizes are constants at the top.
+- `summoners_rift.glb`: a glTF 2.0 model using vertex colours and no textures. It opens in Unity (glTFast), Godot, Blender and three.js.
+  - The map spans -96..96 on x and z, y is up, and the map is centred at the origin. The blue base is south-west and the red base north-east (north = -z).
+  - Scenery nodes: `Terrain` (smooth heightmap with a rock skirt), `Water` (transparent plane at `water_level`),
+    `Trees`, `Brush`, `Rocks` and `Flowers`.
+  - Structure nodes: `Turret_<Blue|Red>_<Top|Mid|Bot>_<Outer|Inner|Inhibitor>`, `Turret_<Team>_Nexus_<Top|Bot>`,
+    `Inhibitor_<Team>_<Lane>`, `Nexus_<Team>` and `Fountain_<Team>`. Hide a node when the structure is destroyed.
+  - Monster nodes: `Monster_Baron`, `Monster_Dragon`, `Monster_Scuttle_<Top|Bot>`, and per side
+    `Monster_<Blue_Sentinel|Red_Brambleback|Gromp|Murk_Wolves|Raptors|Krugs>_<Blue|Red>`. Hide a node while that camp is dead.
+  - Materials: `Base` (vertex colour), `Water` (alpha blend) and `Glow_*` (emissive crystals, eyes and runes).
+  - Size: about 320k triangles, of which trees are about 130k. Lower the tree density in `build_props` if you need it lighter.
+- `map_data.json`: lane waypoints, river, fountains, Baron/Dragon/Scuttle, jungle camps, monsters and structures,
+  in game coordinates (0–14870) and model coordinates (y = ground height), for match simulation and movement.
+- `viewer.html`: a preview with shadows. Serve the folder (for example `python3 -m http.server`) and open `viewer.html`. Add `?top` for a top-down view,
+  or `?cam=x,y,z&target=x,y,z` for a fixed camera.
+- `preview/`: rendered screenshots.
+- `build_rift.py` + `geometry.py`: run `python3 build_rift.py` to regenerate everything. Layout, colours and sizes
+  are constants at the top of `build_rift.py`, and each monster and structure is its own function.

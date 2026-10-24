@@ -1,26 +1,29 @@
-"""Generate a voxel (pixel-art 3D) model of Summoner's Rift for the manager game.
+"""Generate a stylised low-poly 3D model of Summoner's Rift for the manager game.
 
 Usage: python3 build_rift.py [OUT_DIR]
 
 Writes:
-  summoners_rift.glb   terrain mesh + one named node per structure and per monster camp
-                       (Turret_Blue_Top_Outer, Inhibitor_Red_Mid, Nexus_Blue, Monster_Baron,
-                       Monster_Blue_Sentinel_Red, ...) so the game can hide a structure when it
-                       is destroyed or a monster while it is dead.
-  map_data.json        lane waypoints, structures, jungle camps and objectives in
-                       both Leaguepedia/game coordinates and model coordinates.
+  summoners_rift.glb   smooth terrain, water, trees/brush/rocks, plus one named node per
+                       structure and monster camp (Turret_Blue_Top_Outer, Inhibitor_Red_Mid,
+                       Nexus_Blue, Monster_Baron, Monster_Blue_Sentinel_Red, ...) so the game
+                       can hide a structure when it is destroyed or a camp while it is dead.
+  map_data.json        lane waypoints, structures, jungle camps and objectives in both
+                       Leaguepedia/game coordinates and model coordinates.
 
 Layout follows the real map in game units (0..14870 on each axis, blue base at the
 bottom-left, red base at the top-right). The red half is the blue half mirrored
 through the map centre, so both sides are identical.
 """
-import json, os, struct, sys
+import json, math, os, sys
 
 import numpy as np
 
+from geometry import (Model, align_y, catmull_rom, fan, frustum, icosphere, octahedron, rot_y,
+                      scale, srgb_to_linear, translate, tube, uv_sphere, write_glb)
+
 W = 14870.0          # map size in game units
-N = 192              # voxels per side
-CELL = W / N         # game units per voxel
+S = 192.0            # map size in model units (x and z span -S/2..S/2, y is up, north is -z)
+G = 241              # terrain vertices per side
 SEED = 7
 CENTER = (W / 2, W / 2)
 
@@ -34,11 +37,11 @@ LANES = {
     "Mid": [(2500, 2500), (12370, 12370)],
     "Bot": [(2500, 1100), (12500, 1100), (13750, 2350), (13770, 12370)],
 }
-LANE_RADIUS = 380
+LANE_RADIUS = 400
 
 RIVER = [(1500, 13400), (3000, 12000), (5000, 10450), (7435, 7435),
          (9870, 4420), (11870, 2870), (13370, 1470)]
-RIVER_RADIUS = 620
+RIVER_RADIUS = 640
 
 BLUE_JUNGLE_PATHS = [
     [(1100, 5200), (2600, 5600), (3800, 6500)],
@@ -54,24 +57,24 @@ BLUE_JUNGLE_PATHS = [
     [(7800, 4000), (9000, 4900), (9700, 5100)],
     [(4600, 4300), (5500, 3300), (5700, 2700)],
 ]
-PATH_RADIUS = 260
+PATH_RADIUS = 300
 
 BLUE_CAMPS = {
     "Blue_Sentinel": (3800, 7900), "Gromp": (2100, 8400), "Murk_Wolves": (3800, 6500),
     "Raptors": (7000, 5400), "Red_Brambleback": (7800, 4000), "Krugs": (8400, 2700),
 }
-CAMP_RADIUS = 520
+CAMP_RADIUS = 560
 
 OBJECTIVES = {
     "Baron_Pit": (5000, 10450), "Dragon_Pit": (9870, 4420),
     "Scuttle_Top": (4400, 9800), "Scuttle_Bot": (10470, 5070),
 }
-PIT_RADIUS = 760
+PIT_RADIUS = 800
 
 BLUE_BRUSH = [(4500, 8700), (2600, 8100), (6200, 5600), (8800, 5300), (9300, 3000),
               (2200, 9900), (3200, 11400), (6400, 8000), (1700, 10800), (10800, 1700),
               (8100, 6700), (11400, 3200)]
-BRUSH_RADIUS = 300
+BRUSH_RADIUS = 320
 
 BASE_CENTER = (300, 300)
 BASE_RADIUS = 4300
@@ -86,27 +89,40 @@ BLUE_TURRETS = {
 BLUE_INHIBITORS = {"Top": (1171, 3571), "Mid": (3203, 3208), "Bot": (3452, 1236)}
 BLUE_NEXUS = (1551, 1561)
 
-# --- terrain classes ---------------------------------------------------------------
+# --- look --------------------------------------------------------------------------
 
 WALL, GROUND, LANE, RIVER_C, PIT, BRUSH, BASE_B, BASE_R, FOUNT_B, FOUNT_R, BASE_WALL, EDGE = range(12)
-HEIGHT = {WALL: 4, GROUND: 2, LANE: 2, RIVER_C: 1, PIT: 1, BRUSH: 3, BASE_B: 3, BASE_R: 3,
-          FOUNT_B: 3, FOUNT_R: 3, BASE_WALL: 5, EDGE: 7}
+HEIGHT = {WALL: 2.4, GROUND: 0.0, LANE: 0.05, RIVER_C: -1.0, PIT: -0.2, BRUSH: 0.0, BASE_B: 0.5, BASE_R: 0.5,
+          FOUNT_B: 0.7, FOUNT_R: 0.7, BASE_WALL: 2.6, EDGE: 5.0}
+WATER_LEVEL = -0.45
 
-TEAM = {"Blue": {"base": BASE_B, "fountain": FOUNT_B, "crystal": (70, 170, 255), "trim": (40, 70, 140),
-                 "tile": (120, 140, 168), "glow": (96, 196, 230)},
-        "Red": {"base": BASE_R, "fountain": FOUNT_R, "crystal": (255, 80, 70), "trim": (140, 40, 40),
-                "tile": (168, 128, 120), "glow": (236, 120, 96)}}
-STONE = (150, 150, 158)
-EARTH = (100, 76, 52)
-CANOPY = [(46, 98, 52), (58, 112, 50), (38, 86, 58), (72, 118, 46)]
+TEAM = {"Blue": {"base": BASE_B, "fountain": FOUNT_B, "glow": "Glow_Blue", "trim": (52, 84, 150),
+                 "tile": (104, 120, 148), "fountain_rgb": (110, 200, 235)},
+        "Red": {"base": BASE_R, "fountain": FOUNT_R, "glow": "Glow_Red", "trim": (150, 52, 48),
+                "tile": (150, 112, 104), "fountain_rgb": (236, 130, 104)}}
+STONE, STONE_DARK, GOLD = (162, 160, 166), (112, 110, 118), (214, 180, 96)
+CANOPY = [(48, 104, 54), (62, 120, 52), (40, 92, 64), (78, 126, 48), (56, 112, 72)]
+TRUNK = (96, 70, 46)
+GLOWS = {"Glow_Blue": (80, 180, 255), "Glow_Red": (255, 86, 70), "Glow_Purple": (200, 110, 255),
+         "Glow_Yellow": (255, 220, 90), "Glow_Orange": (255, 140, 50), "Glow_Cyan": (150, 235, 255)}
+MATERIALS = {
+    "Base": {"pbrMetallicRoughness": {"baseColorFactor": [1, 1, 1, 1], "metallicFactor": 0, "roughnessFactor": 0.9}},
+    "Water": {"pbrMetallicRoughness": {"baseColorFactor": [0.08, 0.3, 0.55, 0.7], "metallicFactor": 0,
+                                       "roughnessFactor": 0.15}, "alphaMode": "BLEND"},
+    **{name: {"pbrMetallicRoughness": {"baseColorFactor": srgb_to_linear(rgb).tolist() + [1], "metallicFactor": 0,
+                                       "roughnessFactor": 0.4},
+              "emissiveFactor": (srgb_to_linear(rgb) * 0.8).tolist()} for name, rgb in GLOWS.items()},
+}
+
+# --- coordinates -------------------------------------------------------------------
+
+lin = np.linspace(0, W, G)
+X, Y = np.meshgrid(lin, lin, indexing="ij")   # game coords of terrain vertex (i east, j north)
+CELL = W / (G - 1)                             # game units between terrain vertices
 
 
-def cell_centers():
-    c = (np.arange(N) + 0.5) * CELL
-    return np.meshgrid(c, c, indexing="ij")  # X[i, j] = x of column i, Y[i, j] = y of row j
-
-
-X, Y = cell_centers()
+def to_model(p):
+    return p[0] / W * S - S / 2, S / 2 - p[1] / W * S
 
 
 def dist_to_polyline(pts):
@@ -130,12 +146,12 @@ def both_sides(points):
     return list(points) + [mirror(p) for p in points]
 
 
-def smooth_noise(scale, seed):
-    """Value noise in [0, 1] with features roughly `scale` voxels wide."""
+def smooth_noise(scale_, seed):
+    """Value noise in [0, 1] with features roughly `scale_` vertices wide."""
     rng = np.random.default_rng(seed)
-    k = N // scale + 2
+    k = G // scale_ + 3
     g = rng.random((k, k))
-    t = np.arange(N) / scale
+    t = np.arange(G) / scale_
     i0 = t.astype(int)
     f = t - i0
     f = f * f * (3 - 2 * f)
@@ -144,16 +160,24 @@ def smooth_noise(scale, seed):
     return a * (1 - f)[None, :] + b * f[None, :]
 
 
+def blur(a, sigma):
+    r = int(3 * sigma) + 1
+    k = np.exp(-0.5 * (np.arange(-r, r + 1) / sigma) ** 2)
+    k /= k.sum()
+    a = np.pad(a, [(r, r), (r, r)] + [(0, 0)] * (a.ndim - 2), mode="edge")
+    a = np.apply_along_axis(lambda v: np.convolve(v, k, "valid"), 0, a)
+    return np.apply_along_axis(lambda v: np.convolve(v, k, "valid"), 1, a)
+
+
 def lerp(c1, c2, t):
-    t = np.asarray(t)[..., None]
-    return np.array(c1) * (1 - t) + np.array(c2) * t
+    t = np.asarray(t, float)[..., None]
+    return np.array(c1, float) * (1 - t) + np.array(c2, float) * t
 
 
-def build_terrain():
-    """Returns class map, column heights, top colours, side colours and how many top
-    layers of each column use the top colour on their sides (tree canopy, grass)."""
-    rng = np.random.default_rng(SEED)
-    cls = np.full((N, N), WALL)
+# --- terrain -----------------------------------------------------------------------
+
+def classify():
+    cls = np.full((G, G), WALL)
     for path in BLUE_JUNGLE_PATHS:
         cls[dist_to_polyline(path) <= PATH_RADIUS] = GROUND
         cls[dist_to_polyline([mirror(p) for p in path]) <= PATH_RADIUS] = GROUND
@@ -171,421 +195,478 @@ def build_terrain():
     for team, centre in (("Blue", BASE_CENTER), ("Red", mirror(BASE_CENTER))):
         d = dist_to(centre)
         cls[d <= BASE_RADIUS] = TEAM[team]["base"]
-        # stone rampart where the base meets jungle wall; lanes and jungle paths stay open
-        cls[(d <= BASE_RADIUS) & (d > BASE_RADIUS - 2.2 * CELL) & (before_base == WALL)] = BASE_WALL
-    cls[disc(FOUNTAIN, 450)] = FOUNT_B
-    cls[disc(mirror(FOUNTAIN), 450)] = FOUNT_R
-    edge = np.zeros((N, N), bool)
-    edge[:2, :] = edge[-2:, :] = edge[:, :2] = edge[:, -2:] = True
+        cls[(d <= BASE_RADIUS) & (d > BASE_RADIUS - 2.5 * CELL) & (before_base == WALL)] = BASE_WALL
+    cls[disc(FOUNTAIN, 480)] = FOUNT_B
+    cls[disc(mirror(FOUNTAIN), 480)] = FOUNT_R
+    edge = (X < 260) | (X > W - 260) | (Y < 260) | (Y > W - 260)
     cls[edge] = EDGE
+    return cls, river_d, lane_d
 
-    height = np.vectorize(HEIGHT.get)(cls).astype(int)
-    top = np.zeros((N, N, 3))
-    side = np.zeros((N, N, 3))
-    cap = np.zeros((N, N), int)
-    r = rng.random((N, N))
-    n1, n2, n3 = smooth_noise(12, SEED + 10), smooth_noise(6, SEED + 11), smooth_noise(20, SEED + 12)
 
-    # jungle walls: rolling height, clustered tree colours, scattered rocks
-    m = cls == WALL
-    height[m] += (n3[m] * 2.4).astype(int)
-    tone = (n1 * len(CANOPY)).astype(int).clip(0, len(CANOPY) - 1)
-    top[m] = np.array(CANOPY)[tone[m]]
-    side[m] = EARTH
-    trees = m & (rng.random((N, N)) < 0.22)
-    grow = rng.integers(1, 3, size=(N, N))
-    height[trees] += grow[trees]
-    top[trees] = np.array(CANOPY)[(tone[trees] + 1) % len(CANOPY)] * 0.9
-    cap[m] = 1
-    cap[trees] = grow[trees] + 1
-    rocks = m & ~trees & (r < 0.035)
-    top[rocks] = (122, 120, 116)
-    side[rocks] = (104, 102, 100)
-    cap[rocks] = 2
+def build_terrain(rng):
+    cls, river_d, lane_d = classify()
+    n1, n2, n3 = smooth_noise(14, SEED + 10), smooth_noise(5, SEED + 11), smooth_noise(30, SEED + 12)
 
-    # jungle floor: grass and dirt patches with a few flowers
+    h = np.vectorize(HEIGHT.get)(cls).astype(float)
+    h[cls == WALL] += n3[cls == WALL] * 1.2
+    h[cls == EDGE] += n1[cls == EDGE] * 2.0
+    for name in ("Baron_Pit", "Dragon_Pit"):        # raised rocky rim around each pit
+        d = dist_to(OBJECTIVES[name])
+        rim = (d > PIT_RADIUS - 2 * CELL) & (d <= PIT_RADIUS + CELL)
+        h[rim] = 0.7
+    h = blur(h, 1.3)
+    rough = (cls == WALL) | (cls == EDGE)
+    h += (n2 - 0.5) * np.where(rough, 0.8, 0.08)
+
+    col = np.zeros((G, G, 3))
+    col[cls == WALL] = lerp((58, 84, 44), (82, 74, 50), n1[cls == WALL])
     m = cls == GROUND
-    top[m] = lerp((92, 132, 62), (130, 104, 66), (n2[m] > 0.62).astype(float) * 0.8)
-    side[m] = EARTH
-    flowers = m & (r < 0.025)
-    top[flowers] = np.array([(236, 214, 80), (230, 130, 170), (240, 240, 230)])[rng.integers(0, 3, flowers.sum())]
-
-    # brush: tall grass with uneven tufts
+    col[m] = lerp((96, 134, 64), (134, 108, 70), np.clip((n2[m] - 0.45) * 3, 0, 1))
     m = cls == BRUSH
-    top[m] = lerp((62, 146, 84), (88, 168, 92), n2[m])
-    side[m] = (52, 112, 64)
-    tufts = m & (r < 0.35)
-    height[tufts] += 1
-    cap[m] = 1
-    cap[tufts] = 2
-
-    # lanes: checker stone tiles, darker worn shoulders
+    col[m] = (70, 128, 62)
     m = cls == LANE
-    ii, jj = np.meshgrid(np.arange(N), np.arange(N), indexing="ij")
-    checker = ((ii // 3 + jj // 3) % 2).astype(float)
-    top[m] = lerp((182, 166, 124), (168, 152, 112), checker[m])
-    shoulder = m & (lane_d > LANE_RADIUS - 1.4 * CELL)
-    top[shoulder] = (140, 124, 92)
-    cracks = m & (r < 0.03)
-    top[cracks] = (128, 114, 86)
-    side[m] = (126, 108, 80)
-
-    # river: deep channel, light shallows, rocks and lily pads
+    col[m] = lerp((188, 172, 132), (150, 132, 98), np.clip((lane_d[m] - LANE_RADIUS * 0.6) / (LANE_RADIUS * 0.4), 0, 1))
     m = cls == RIVER_C
-    depth = np.clip(1 - river_d / RIVER_RADIUS, 0, 1)
-    top[m] = lerp((92, 168, 196), (40, 92, 150), depth[m] ** 0.7)
-    side[m] = (48, 88, 120)
-    stones = m & (r < 0.012) & (depth < 0.6)
-    height[stones] = 2
-    top[stones] = (128, 132, 136)
-    side[stones] = (100, 104, 108)
-    pads = m & ~stones & (r > 0.988)
-    top[pads] = (70, 150, 70)
-
-    # Baron and Dragon pits: patterned floor inside a raised rock rim
-    for name, floor, rim in (("Baron_Pit", (98, 82, 126), (84, 70, 104)),
-                             ("Dragon_Pit", (134, 100, 76), (112, 80, 60))):
+    col[m] = lerp((170, 160, 120), (64, 96, 104), np.clip(1 - river_d[m] / RIVER_RADIUS, 0, 1) ** 0.6)
+    for name, floor in (("Baron_Pit", (108, 92, 132)), ("Dragon_Pit", (150, 112, 84))):
         d = dist_to(OBJECTIVES[name])
         m = (cls == PIT) & (d <= PIT_RADIUS)
-        ring = ((d / CELL).astype(int) % 3 == 0).astype(float)
-        top[m] = lerp(floor, np.array(floor) * 1.15, ring[m])
-        side[m] = rim
-        rim_m = m & (d > PIT_RADIUS - 1.6 * CELL)
-        height[rim_m] = 2 + (r[rim_m] < 0.4)
-        top[rim_m] = rim
-        cap[rim_m] = 1
-
-    # bases: tiled floor with grout lines, glowing fountains, stone ramparts
+        ring = (np.sin(d[m] / CELL * 1.6) > 0.6).astype(float)
+        col[m] = lerp(floor, np.array(floor) * 1.18, ring)
+    ii, jj = np.meshgrid(np.arange(G), np.arange(G), indexing="ij")
+    grout = ((ii % 4 == 0) | (jj % 4 == 0)).astype(float)
     for team in ("Blue", "Red"):
         t = TEAM[team]
         m = cls == t["base"]
-        grout = ((ii % 5 == 0) | (jj % 5 == 0)).astype(float)
-        top[m] = lerp(t["tile"], np.array(t["tile"]) * 0.82, grout[m])
-        side[m] = np.array(t["tile"]) * 0.7
-        m = cls == t["fountain"]
-        centre = FOUNTAIN if team == "Blue" else mirror(FOUNTAIN)
-        d = dist_to(centre)
-        top[m] = t["glow"]
-        side[m] = np.array(t["glow"]) * 0.75
-        rim_m = m & (d > 450 - 1.2 * CELL)
-        top[rim_m] = t["trim"]
-        core = m & (d < 1.6 * CELL)
-        height[core] = 4
-        top[core] = (240, 250, 255)
-    m = cls == BASE_WALL
-    top[m] = lerp((150, 150, 156), (124, 124, 132), n2[m])
-    side[m] = (118, 118, 126)
-    crenel = m & ((ii + jj) % 2 == 0)
-    height[crenel] += 1
+        col[m] = lerp(t["tile"], np.array(t["tile"]) * 0.84, grout[m])
+        col[cls == t["fountain"]] = t["fountain_rgb"]
+    col[cls == BASE_WALL] = (150, 148, 152)
+    col[cls == EDGE] = lerp((118, 116, 110), (78, 108, 62), n2[cls == EDGE])
+    col = blur(col, 0.6)
 
-    # outer cliffs: mossy stone
-    m = cls == EDGE
-    height[m] += (r[m] < 0.3)
-    top[m] = lerp((112, 116, 110), (70, 110, 60), (n2[m] > 0.5).astype(float))
-    side[m] = (96, 92, 88)
+    # cliffs: steep slopes read as rock
+    gx, gy = np.gradient(h, S / (G - 1))
+    slope = np.clip((np.hypot(gx, gy) - 0.6) / 1.2, 0, 1)
+    col = lerp(col.reshape(-1, 3), (112, 102, 92), slope.reshape(-1)).reshape(G, G, 3)
+    col += rng.integers(-6, 7, size=(G, G, 1))
 
-    # per-voxel pixel noise so large areas don't look flat
-    top = top + rng.integers(-7, 8, size=(N, N, 1))
-    return cls, height, np.clip(top, 0, 255).astype(int), np.clip(side, 0, 255).astype(int), cap
+    # mesh: vertex (i, j) -> model (x, h, z)
+    mx = lin / W * S - S / 2
+    mz = S / 2 - lin / W * S
+    pos = np.stack([np.repeat(mx, G), h.reshape(-1), np.tile(mz, G)], -1)
+    a = (ii[:-1, :-1] * G + jj[:-1, :-1]).reshape(-1)
+    idx = np.concatenate([np.stack([a, a + G, a + 1], -1), np.stack([a + 1, a + G, a + G + 1], -1)])
+    terrain = Model(rng)
+    terrain.add((pos, idx), col.reshape(-1, 3))
 
-
-# --- meshing ---------------------------------------------------------------------
-
-class Mesh:
-    def __init__(self):
-        self.pos, self.nrm, self.col, self.idx = [], [], [], []
-
-    def quad(self, corners, normal, rgb):
-        base = len(self.pos)
-        self.pos.extend(corners)
-        self.nrm.extend([normal] * 4)
-        self.col.extend([tuple(int(c) for c in rgb) + (255,)] * 4)
-        self.idx.extend([base, base + 1, base + 2, base, base + 2, base + 3])
-
-    def cube_face(self, x, y, z, face, rgb, size=1):
-        """Voxel of side `size` with its min corner at model coords (x, y, z), y up.
-        face in +x -x +y -y +z -z."""
-        X0, Y0, Z0, X1, Y1, Z1 = x, y, z, x + size, y + size, z + size
-        f = {
-            "+y": ([(X0, Y1, Z0), (X0, Y1, Z1), (X1, Y1, Z1), (X1, Y1, Z0)], (0, 1, 0)),
-            "-y": ([(X0, Y0, Z0), (X1, Y0, Z0), (X1, Y0, Z1), (X0, Y0, Z1)], (0, -1, 0)),
-            "+x": ([(X1, Y0, Z0), (X1, Y1, Z0), (X1, Y1, Z1), (X1, Y0, Z1)], (1, 0, 0)),
-            "-x": ([(X0, Y0, Z0), (X0, Y0, Z1), (X0, Y1, Z1), (X0, Y1, Z0)], (-1, 0, 0)),
-            "+z": ([(X0, Y0, Z1), (X1, Y0, Z1), (X1, Y1, Z1), (X0, Y1, Z1)], (0, 0, 1)),
-            "-z": ([(X0, Y0, Z0), (X0, Y1, Z0), (X1, Y1, Z0), (X1, Y0, Z0)], (0, 0, -1)),
-        }[face]
-        self.quad(f[0], f[1], rgb)
+    # skirt: rock sides so the map reads as a solid slab
+    grid = pos.reshape(G, G, 3)
+    for line in (grid[:, 0], grid[:, -1][::-1], grid[0][::-1], grid[-1]):
+        low = line.copy()
+        low[:, 1] = -4.0
+        k = len(line)
+        tri = [(t, k + t, t + 1) for t in range(k - 1)] + [(t + 1, k + t, k + t + 1) for t in range(k - 1)]
+        terrain.add((np.concatenate([line, low]), tri), (92, 84, 76), smooth=False, jitter=6)
+    return cls, h, terrain
 
 
-def to_model(i, j):
-    """Grid column i (east) / row j (north) -> model x, z. North is -z, origin at map centre."""
-    return i - N / 2, (N / 2) - j - 1
+def sampler(h):
+    def height_at(p):
+        fx, fy = p[0] / W * (G - 1), p[1] / W * (G - 1)
+        i, j = min(int(fx), G - 2), min(int(fy), G - 2)
+        u, v = fx - i, fy - j
+        return float(h[i, j] * (1 - u) * (1 - v) + h[i + 1, j] * u * (1 - v) + h[i, j + 1] * (1 - u) * v
+                     + h[i + 1, j + 1] * u * v)
+    return height_at
 
 
-def terrain_mesh(height, top, side, cap):
-    rng = np.random.default_rng(SEED + 1)
-    m = Mesh()
-    padded = np.pad(height, 1, constant_values=0)
-    for i in range(N):
-        for j in range(N):
-            h = int(height[i, j])
-            x, z = to_model(i, j)
-            m.cube_face(x, h - 1, z, "+y", top[i, j])
-            # neighbours: east (+x) is i+1, west i-1, north (-z) is j+1, south (+z) j-1
-            for face, (di, dj) in (("+x", (1, 0)), ("-x", (-1, 0)), ("-z", (0, 1)), ("+z", (0, -1))):
-                nh = int(padded[i + 1 + di, j + 1 + dj])
-                for y in range(nh, h):
-                    rgb = top[i, j] if y >= h - cap[i, j] else side[i, j]
-                    shade = 0.82 if face in ("+x", "-x") else 0.92
-                    rgb = np.clip(np.array(rgb) * shade + rng.integers(-5, 6), 0, 255)
-                    m.cube_face(x, y, z, face, rgb)
+def class_at(cls, p):
+    return cls[min(G - 1, int(round(p[0] / W * (G - 1)))), min(G - 1, int(round(p[1] / W * (G - 1))))]
+
+
+def scatter(spacing, rng):
+    """Jittered grid of game-coordinate points `spacing` model units apart."""
+    step = spacing / S * W
+    g = np.arange(step / 2, W, step)
+    pts = np.stack(np.meshgrid(g, g, indexing="ij"), -1).reshape(-1, 2)
+    return np.clip(pts + rng.uniform(-0.45, 0.45, pts.shape) * step, 0, W)
+
+
+def build_water():
+    m = Model()
+    s = S / 2 - 1
+    pos = np.array([(-s, WATER_LEVEL, -s), (s, WATER_LEVEL, -s), (s, WATER_LEVEL, s), (-s, WATER_LEVEL, s)])
+    m.add((pos, [(0, 2, 1), (0, 3, 2)]), (255, 255, 255), material="Water", normals=(0, 1, 0))
     return m
 
 
-DIRS = {"+x": (1, 0, 0), "-x": (-1, 0, 0), "+y": (0, 1, 0), "-y": (0, -1, 0), "+z": (0, 0, 1), "-z": (0, 0, -1)}
+def tree(m, x, y, z, rng):
+    s = rng.uniform(0.8, 1.35)
+    canopy = np.array(CANOPY[rng.integers(len(CANOPY))]) + rng.integers(-8, 9)
+    m.add(frustum(0.2 * s, 0.14 * s, 0.9 * s, 4, caps=False), TRUNK, smooth=False, m=translate(x, y - 0.2, z))
+    if rng.random() < 0.55:      # pine: stacked cones
+        for k, (r, hgt, y0) in enumerate(((1.15, 1.8, 0.6), (0.85, 1.5, 1.5), (0.55, 1.1, 2.3))):
+            m.add(frustum(r * s, 0, hgt * s, 7, caps=False), canopy * (1 + 0.06 * k), smooth=False, jitter=5,
+                  m=translate(x, y + y0 * s, z) @ rot_y(rng.uniform(0, 6.3)))
+    else:                        # broadleaf: two lumpy low-poly balls
+        for dx, dy, dz, r in ((0, 1.6, 0, 1.2), (rng.uniform(-0.5, 0.5), 2.3, rng.uniform(-0.5, 0.5), 0.8)):
+            p, f = icosphere(0)
+            p = p * (1 + rng.uniform(-0.15, 0.15, (len(p), 1)))
+            m.add((p, f), canopy * (1.08 if dy > 2 else 1), smooth=False, jitter=6,
+                  m=translate(x + dx * s, y + dy * s, z + dz * s) @ rot_y(rng.uniform(0, 6.3)) @ scale(r * s, 0.9 * r * s, r * s))
 
 
-def voxel_object(voxels, scale=1.0, offset=(0, 0, 0)):
-    """voxels: dict {(x, y, z): rgb} on an integer grid -> Mesh with hidden faces removed.
-    Each voxel becomes a cube of side `scale` placed at offset + (x, y, z) * scale."""
-    m = Mesh()
-    for (x, y, z), rgb in voxels.items():
-        for face, (dx, dy, dz) in DIRS.items():
-            if (x + dx, y + dy, z + dz) not in voxels:
-                shade = {"+y": 1.0, "-y": 0.6, "+x": 0.8, "-x": 0.8}.get(face, 0.9)
-                m.cube_face(offset[0] + x * scale, offset[1] + y * scale, offset[2] + z * scale, face,
-                            np.clip(np.array(rgb) * shade, 0, 255).astype(int), scale)
-    return m
+def rock(m, x, y, z, size, rng, rgb=(124, 120, 116)):
+    p, f = icosphere(0)
+    p = p * (1 + rng.uniform(-0.25, 0.25, (len(p), 1)))
+    m.add((p, f), np.array(rgb) + rng.integers(-10, 11), smooth=False, jitter=8,
+          m=translate(x, y, z) @ rot_y(rng.uniform(0, 6.3)) @ scale(size, size * 0.7, size))
 
 
-def grid_index(p):
-    return min(N - 1, int(p[0] / CELL)), min(N - 1, int(p[1] / CELL))
+def build_props(cls, h, rng):
+    height_at = sampler(h)
+    trees, brush, rocks, small = Model(rng), Model(rng), Model(rng), Model(rng)
+    for p in scatter(2.1, rng):
+        c = class_at(cls, p)
+        hh = height_at(p)
+        if (c == WALL and hh > 1.7) or (c == EDGE and rng.random() < 0.7):
+            x, z = to_model(p)
+            tree(trees, x, hh, z, rng)
+    for p in scatter(0.5, rng):
+        if class_at(cls, p) == BRUSH:
+            x, z = to_model(p)
+            y = height_at(p)
+            for _ in range(3):   # three grass blades per tuft
+                a = rng.uniform(0, 6.3)
+                lean = np.array([np.cos(a), 0, np.sin(a)]) * 0.25
+                tip = np.array([x, y + rng.uniform(0.7, 1.2), z]) + lean
+                side = np.array([-np.sin(a), 0, np.cos(a)]) * 0.12
+                base = np.array([x, y - 0.05, z])
+                brush.add(([base - side, base + side, tip], [(0, 1, 2)]),
+                          np.array((64, 150, 70)) + rng.integers(-14, 15), normals=(0, 1, 0), double=True)
+    for p in scatter(2.6, rng):
+        c = class_at(cls, p)
+        hh = height_at(p)
+        x, z = to_model(p)
+        if c == WALL and 0.4 < hh < 1.7 and rng.random() < 0.5:
+            rock(rocks, x, hh, z, rng.uniform(0.5, 1.1), rng)
+        elif c == RIVER_C and rng.random() < 0.12:
+            rock(rocks, x, hh + 0.2, z, rng.uniform(0.35, 0.7), rng, (130, 134, 132))
+        elif c == RIVER_C and rng.random() < 0.15:     # lily pads
+            a = np.linspace(0, 2 * np.pi, 8)[:-1]
+            r = rng.uniform(0.25, 0.45)
+            pts = [(x, WATER_LEVEL + 0.02, z)] + [(x + r * np.cos(t), WATER_LEVEL + 0.02, z + r * np.sin(t)) for t in a]
+            small.add((pts, [(0, k % 7 + 1, k) for k in range(1, 8)]), (70, 150, 70), normals=(0, 1, 0))
+        elif c == GROUND and rng.random() < 0.35:     # flowers
+            col = [(240, 214, 80), (232, 130, 170), (244, 244, 236), (150, 130, 230)][rng.integers(4)]
+            for _ in range(rng.integers(2, 5)):
+                ox, oz = rng.uniform(-0.5, 0.5, 2)
+                small.add(octahedron(), col, smooth=False,
+                          m=translate(x + ox, hh + 0.15, z + oz) @ scale(0.13, 0.13, 0.13))
+    return [("Trees", trees), ("Brush", brush), ("Rocks", rocks), ("Flowers", small)]
 
 
-class Voxels(dict):
-    """Voxel sculpting helpers. Coordinates are in terrain-voxel units; the model is stored
-    on a grid `res` times finer, so monsters get more detail than the terrain.
-    The front of a model faces +x."""
+# --- structures --------------------------------------------------------------------
 
-    def __init__(self, res=1):
-        super().__init__()
-        self.res = res
-
-    def _fill(self, x0, x1, y0, y1, z0, z1, rgb):
-        for x in range(x0, x1 + 1):
-            for y in range(y0, y1 + 1):
-                for z in range(z0, z1 + 1):
-                    self[(x, y, z)] = rgb
-
-    def box(self, x0, x1, y0, y1, z0, z1, rgb):
-        r = self.res
-        self._fill(x0 * r, (x1 + 1) * r - 1, y0 * r, (y1 + 1) * r - 1, z0 * r, (z1 + 1) * r - 1, rgb)
-
-    def put(self, pts, rgb):
-        """Whole terrain-sized voxels."""
-        for x, y, z in pts:
-            self.box(x, x, y, y, z, z, rgb)
-
-    def fine(self, pts, rgb):
-        """Single fine voxels at terrain-unit coordinates (e.g. 3.5 = second half of voxel 3)."""
-        for x, y, z in pts:
-            self[(int(np.floor(x * self.res)), int(np.floor(y * self.res)), int(np.floor(z * self.res)))] = rgb
-
-    def blob(self, c, r, rgb, under=None):
-        """Ellipsoid centred at c with radii r. `under` = (y, rgb) recolours the part below y."""
-        k = self.res
-        for x in range(int(np.floor((c[0] - r[0]) * k)), int(np.ceil((c[0] + r[0]) * k)) + 1):
-            for y in range(max(0, int(np.floor((c[1] - r[1]) * k))), int(np.ceil((c[1] + r[1]) * k)) + 1):
-                for z in range(int(np.floor((c[2] - r[2]) * k)), int(np.ceil((c[2] + r[2]) * k)) + 1):
-                    px, py, pz = (x + 0.5) / k, (y + 0.5) / k, (z + 0.5) / k
-                    if ((px - c[0]) / r[0]) ** 2 + ((py - c[1]) / r[1]) ** 2 + ((pz - c[2]) / r[2]) ** 2 <= 1:
-                        self[(x, y, z)] = under[1] if under and py <= under[0] else rgb
-
-    def speckle(self, rgb, chance, rng, only=None):
-        for key, v in list(self.items()):
-            if (only is None or v == only) and rng.random() < chance:
-                self[key] = rgb
-
-
-def structure(kind, team, p, height):
-    i, j = grid_index(p)
-    ground = int(height[i, j])
-    cx, cz = to_model(i, j)
-    cx, cz = int(cx), int(cz)
+def turret(team, rng):
     t = TEAM[team]
-    v = Voxels()
-    if kind == "Turret":
-        v.box(-1, 1, 0, 0, -1, 1, t["trim"])
-        v.box(-1, 1, 1, 4, -1, 1, STONE)
-        v.box(-1, 1, 5, 5, -1, 1, t["trim"])
-        v.box(0, 0, 6, 7, 0, 0, t["crystal"])
-    elif kind == "Inhibitor":
-        v.box(-1, 1, 0, 0, -1, 1, STONE)
-        v.box(-1, 1, 1, 1, -1, 1, t["crystal"])
-        v.box(0, 0, 2, 2, 0, 0, t["crystal"])
-    elif kind == "Nexus":
-        v.box(-2, 2, 0, 0, -2, 2, STONE)
-        v.box(-2, 2, 1, 1, -2, 2, t["trim"])
-        v.box(-1, 1, 2, 4, -1, 1, t["crystal"])
-        v.box(0, 0, 5, 6, 0, 0, t["crystal"])
-    placed = {(cx + x, ground + y, cz + z): rgb for (x, y, z), rgb in v.items()}
-    return voxel_object(placed), (cx + 0.5, ground, cz + 0.5)
+    m = Model(rng)
+    m.add(frustum(1.7, 1.45, 0.6, 8), STONE_DARK, smooth=False, jitter=4)
+    m.add(frustum(1.15, 0.9, 4.6, 8), STONE, smooth=False, jitter=4, m=translate(0, 0.6, 0))
+    for y in (1.6, 3.2):
+        m.add(frustum(1.12, 1.08, 0.25, 8), t["trim"], smooth=False, m=translate(0, y, 0))
+    m.add(frustum(0.95, 1.5, 0.7, 8), t["trim"], smooth=False, m=translate(0, 5.2, 0))
+    m.add(frustum(1.5, 1.2, 0.35, 8), GOLD, smooth=False, m=translate(0, 5.9, 0))
+    for k in range(4):           # corner spikes
+        a = k * np.pi / 2 + np.pi / 4
+        m.add(frustum(0.18, 0, 0.9, 4), GOLD, smooth=False, m=translate(1.2 * np.cos(a), 6.2, 1.2 * np.sin(a)))
+    m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False,
+          m=translate(0, 7.4, 0) @ scale(0.55, 0.9, 0.55))
+    return m
 
 
-# --- monsters --------------------------------------------------------------------
-# Built at MONSTER_RES voxels per terrain voxel; coordinates below are terrain units,
-# origin on the ground at the camp centre, facing +x.
+def inhibitor(team, rng):
+    t = TEAM[team]
+    m = Model(rng)
+    m.add(frustum(1.6, 1.4, 0.4, 10), STONE_DARK, smooth=False, jitter=4)
+    m.add(frustum(1.3, 1.2, 0.3, 10), t["trim"], smooth=False, m=translate(0, 0.4, 0))
+    for k in range(6):
+        a = k * np.pi / 3
+        m.add(frustum(0.14, 0.08, 1.3, 5), GOLD, smooth=False, m=translate(1.05 * np.cos(a), 0.7, 1.05 * np.sin(a)))
+    m.add(icosphere(1), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 1.7, 0) @ scale(0.75, 0.75, 0.75))
+    return m
 
-MONSTER_RES = 2
-EYE = (255, 226, 90)
-PUPIL = (40, 20, 20)
+
+def nexus(team, rng):
+    t = TEAM[team]
+    m = Model(rng)
+    for k, (r, hgt, c) in enumerate(((3.0, 0.5, STONE_DARK), (2.4, 0.5, STONE), (1.8, 0.4, t["trim"]))):
+        m.add(frustum(r, r * 0.95, hgt, 12), c, smooth=False, jitter=4, m=translate(0, 0.5 * k, 0))
+    for k in range(4):
+        a = k * np.pi / 2 + np.pi / 4
+        m.add(frustum(0.25, 0.18, 2.6, 6), GOLD, smooth=False, m=translate(2.2 * np.cos(a), 1.0, 2.2 * np.sin(a)))
+        m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False,
+              m=translate(2.2 * np.cos(a), 4.0, 2.2 * np.sin(a)) @ scale(0.3, 0.5, 0.3))
+    m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False,
+          m=translate(0, 4.2, 0) @ rot_y(0.4) @ scale(1.4, 2.8, 1.4))
+    return m
+
+
+def fountain(team, rng):
+    t = TEAM[team]
+    m = Model(rng)
+    m.add(frustum(2.8, 2.6, 0.3, 16), STONE, smooth=False)
+    m.add(frustum(2.4, 2.4, 0.05, 16), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 0.3, 0))
+    m.add(frustum(0.5, 0.35, 2.4, 8), GOLD, smooth=False, m=translate(0, 0.3, 0))
+    m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 3.2, 0) @ scale(0.5, 0.8, 0.5))
+    return m
+
+
+# --- monsters ----------------------------------------------------------------------
+# Built facing +x with the origin on the ground, then turned toward the map centre.
+
+def ell(m, c, r, rgb, material="Base", seg=14, rings=10, jitter=3):
+    m.add(uv_sphere(seg, rings), rgb, material=material, jitter=jitter, m=translate(*c) @ scale(*r))
+
+
+def limb(m, ctrl, r0, r1, rgb, material="Base", n=10, seg=8):
+    pts = catmull_rom(ctrl, n)
+    m.add(tube(pts, np.linspace(r0, r1, n), seg), rgb, material=material, jitter=2)
+
+
+def spike(m, base, direction, length, radius, rgb, material="Base", seg=6):
+    m.add(frustum(radius, 0, length, seg), rgb, material=material, smooth=False,
+          m=translate(*base) @ align_y(direction))
+
+
+def crystal(m, c, r, h, direction, material):
+    m.add(octahedron(), (255, 255, 255), material=material, smooth=False,
+          m=translate(*c) @ align_y(direction) @ scale(r, h, r))
+
+
+def rocky(m, c, r, rgb, rng, subdiv=1, rough=0.15):
+    p, f = icosphere(subdiv)
+    p = p * (1 + rng.uniform(-rough, rough, (len(p), 1)))
+    m.add((p, f), rgb, smooth=False, jitter=8, m=translate(*c) @ rot_y(rng.uniform(0, 6.3)) @ scale(*r))
+
+
+def glow_dot(m, c, r, material, seg=8):
+    ell(m, c, (r, r, r), (255, 255, 255), material, seg, max(4, seg // 2 + 1), jitter=0)
 
 
 def baron(rng):
-    v = Voxels(MONSTER_RES)
-    dark, body, light, glow, belly = (74, 40, 104), (116, 60, 154), (146, 82, 186), (214, 124, 244), (176, 120, 196)
-    v.blob((-2.5, 1.0, 0), (4.8, 1.6, 4.0), dark)                     # coiled tail on the pit floor
-    v.blob((-0.4, 4.0, 0), (2.6, 3.4, 2.4), body, under=(2.2, dark))  # rising body
-    v.blob((0.9, 4.0, 0), (1.8, 2.8, 1.6), belly)                     # lighter underside
-    v.blob((1.4, 7.6, 0), (2.9, 2.0, 2.4), light)                     # head
-    v.blob((3.6, 6.9, 0), (1.0, 0.8, 1.6), (226, 86, 150))            # open mouth
-    v.fine([(3.5, 7.5, z) for z in (-1.5, -0.5, 0, 1.0)], (250, 240, 230))  # teeth
-    v.fine([(3.5, 8.5, -1.5), (3.5, 8.5, 1.0), (4.0, 8.5, -1.5), (4.0, 8.5, 1.0)], EYE)
-    for s in (-1, 1):                                                   # curved horns
-        for k, (x, y) in enumerate(((0, 9.5), (-0.5, 10), (-1, 10.5), (-1.5, 11), (-2, 11), (-2.5, 10.5))):
-            v.fine([(x, y, s * 1.6), (x, y, s * 1.6 - 0.5 * s)], dark if k < 5 else glow)
-    for k in range(6):                                                  # spikes down the back
-        v.fine([(-2.4 - k * 0.3, 8 - k, 0), (-2.9 - k * 0.3, 8 - k, 0), (-2.9 - k * 0.3, 8.5 - k, 0)], dark)
-    for dz, dx in ((-4.5, -1.5), (4.5, -1.5), (-3.5, 2.5), (3.5, 2.5), (0, -5.5)):  # tentacles
-        for y in range(4):
-            v.fine([(dx, y * 0.5, dz), (dx + 0.5, y * 0.5, dz)], dark)
-        v.fine([(dx, 2, dz), (dx + 0.5, 2, dz)], glow)
-    v.speckle(glow, 0.05, rng, only=body)
-    return v
+    m = Model(rng)
+    dark, body, light, belly, mouth = (64, 34, 94), (116, 62, 156), (146, 84, 186), (190, 146, 210), (120, 30, 78)
+    a = np.linspace(0.2, 2.0 * np.pi, 12)       # coiled tail spiralling into the body
+    coil = [(-1.6 + (3.6 - 0.25 * k) * np.cos(t), 0.7 + 0.05 * k, (3.6 - 0.25 * k) * np.sin(t)) for k, t in enumerate(a)]
+    limb(m, coil[::-1] + [(-0.6, 1.0, 0)], 0.25, 1.4, dark, n=26, seg=10)
+    limb(m, [(-0.6, 0.8, 0), (-0.4, 3.0, 0), (0.4, 5.6, 0), (1.6, 7.2, 0)], 2.2, 1.6, body, n=14, seg=14)
+    spine = catmull_rom([(-0.6, 0.8, 0), (-0.4, 3.0, 0), (0.4, 5.6, 0), (1.6, 7.2, 0)], 9)
+    for k, p in enumerate(spine[1:-1]):                              # armour plates down the back
+        tan = spine[k + 2] - spine[k]
+        back = np.array([-tan[1], tan[0], 0]) / np.linalg.norm(tan)
+        r = 2.1 - 0.06 * k
+        m.add(uv_sphere(10, 7), dark, jitter=3,
+              m=translate(*(p + back * r * 0.75)) @ rot_y(0) @ align_y(tan) @ scale(r * 0.75, 0.55, r * 1.05))
+    for k, p in enumerate(spine[1:-2]):                              # pale belly scales on the front
+        tan = spine[k + 2] - spine[k]
+        front = np.array([tan[1], -tan[0], 0]) / np.linalg.norm(tan)
+        m.add(uv_sphere(10, 7), belly, jitter=3,
+              m=translate(*(p + front * 1.55)) @ align_y(tan) @ scale(1.1, 0.5, 1.3))
+    ell(m, (2.6, 7.9, 0), (2.5, 1.35, 1.8), light)                   # head
+    ell(m, (3.1, 6.6, 0), (2.0, 0.55, 1.45), body)                   # lower jaw, hanging open
+    ell(m, (3.4, 7.25, 0), (1.6, 0.45, 1.2), mouth)                  # inside of the mouth
+    for k in range(7):                                               # teeth
+        z = -0.9 + k * 0.3
+        spike(m, (4.6 - abs(z) * 0.5, 7.6, z), (0.15, -1, 0), 0.5, 0.09, (246, 238, 226))
+        spike(m, (4.4 - abs(z) * 0.5, 6.9, z), (0.15, 1, 0), 0.35, 0.08, (246, 238, 226))
+    for s in (-1, 1):
+        ell(m, (3.9, 8.45, s * 0.95), (0.34, 0.24, 0.3), (255, 255, 255), "Glow_Yellow", 10, 6, 0)
+        limb(m, [(1.4, 8.8, s * 1.2), (0.6, 10.0, s * 1.8), (-0.8, 10.8, s * 2.0), (-2.0, 10.4, s * 1.6)],
+             0.45, 0.05, dark, n=10, seg=7)                          # curved horns
+    for k in range(9):                                               # spikes down the back
+        t = k / 8
+        base = (-0.6 - 1.4 * t, 8.6 - 7.2 * t, 0)
+        spike(m, base, (-1, 0.6, 0), 1.2 - 0.6 * t, 0.32 - 0.12 * t, dark)
+    for ang in (0.6, 1.9, 3.3, 4.4, 5.6):                            # tentacles around the pit
+        x, z = 5.6 * np.cos(ang), 5.6 * np.sin(ang)
+        tip = (x * 1.05 + 0.6 * np.cos(ang + 1), 3.6 + 0.6 * np.sin(ang * 3), z * 1.05 + 0.6 * np.sin(ang + 1))
+        limb(m, [(x * 0.9, -0.3, z * 0.9), (x, 1.6, z), tip], 0.55, 0.12, dark, n=10, seg=8)
+        glow_dot(m, tip, 0.22, "Glow_Purple")
+    for _ in range(14):                                              # glowing spots on the body
+        t = rng.uniform(0.15, 0.75)
+        a2 = rng.uniform(-2.0, 2.0)
+        cx = -0.6 + 2.2 * t * t
+        glow_dot(m, (cx - 2.0 * np.cos(a2) * 0.9, 0.8 + 6.4 * t, 2.0 * np.sin(a2)), 0.16, "Glow_Purple", 6)
+    return m
 
 
 def dragon(rng):
-    v = Voxels(MONSTER_RES)
-    scale, belly, wing, membrane, horn = (198, 92, 50), (240, 172, 92), (146, 52, 40), (220, 120, 70), (236, 222, 190)
-    v.blob((0, 2.8, 0), (2.7, 1.7, 1.7), scale, under=(2.2, belly))   # body
-    v.blob((2.3, 3.9, 0), (1.0, 1.1, 0.8), scale)                     # neck
-    v.blob((3.5, 4.7, 0), (1.3, 0.9, 0.9), scale)                     # head
-    v.blob((4.7, 4.4, 0), (0.7, 0.5, 0.6), scale)                     # snout
-    v.fine([(5.0, 4.5, -0.5), (5.0, 4.5, 0)], PUPIL)                  # nostrils
-    v.fine([(4.0, 5.0, -1.0), (4.0, 5.0, 0.5)], EYE)
-    for s in (-0.5, 0.0):                                             # horns sweeping back
-        z = s * 2.5 if s else 0.75
-        v.fine([(3.0, 5.5, z), (2.5, 6.0, z), (2.0, 6.5, z)], horn)
-    for s in (-1, 1):                                                 # wings: bone edge + membrane
-        for k in range(10):
-            zz = s * (1.5 + k * 0.5)
-            span = max(0, 4 - k // 2)
-            for t in range(span * 2):
-                x = 1.0 - t * 0.5 - k * 0.2
-                y = 4.0 + k * 0.25
-                v.fine([(x, y, zz)], wing if t == 0 else membrane)
-        for lx in (-1.0, 1.0):                                        # legs with claws
-            v.box(int(lx), int(lx), 0, 1, s, s, scale)
-            v.fine([(lx + 1, 0, s), (lx + 1, 0, s + 0.5)], horn)
-    for k in range(9):                                                # tail
-        v.fine([(-2.5 - k * 0.5, 2.5 - k * 0.2, 0), (-2.5 - k * 0.5, 2.5 - k * 0.2, -0.5)], scale)
-    v.fine([(-7.0, 0.5, 0), (-7.0, 1.0, 0), (-7.5, 0.5, 0)], (255, 140, 60))
-    for k in range(8):                                                # spine ridge
-        v.fine([(1.5 - k * 0.5, 4.5, 0)], wing)
-    return v
+    m = Model(rng)
+    scale_, belly, wing, membrane, horn = (196, 88, 48), (238, 176, 98), (140, 50, 38), (214, 112, 66), (238, 226, 196)
+    ell(m, (0, 2.8, 0), (2.7, 1.5, 1.55), scale_)                    # body
+    ell(m, (0.3, 2.35, 0), (2.4, 1.05, 1.3), belly)
+    limb(m, [(1.8, 3.2, 0), (2.9, 4.2, 0), (3.7, 4.8, 0)], 0.95, 0.6, scale_)   # neck
+    ell(m, (4.3, 5.0, 0), (1.0, 0.68, 0.7), scale_)                  # head
+    ell(m, (5.3, 4.78, 0), (0.75, 0.38, 0.46), scale_)               # snout
+    ell(m, (5.0, 4.5, 0), (0.8, 0.22, 0.42), belly)                  # jaw
+    for s in (-1, 1):
+        glow_dot(m, (4.65, 5.25, s * 0.48), 0.15, "Glow_Yellow")
+        spike(m, (3.9, 5.4, s * 0.35), (-1, 0.7, s * 0.25), 1.2, 0.17, horn)
+        spike(m, (4.3, 5.55, s * 0.25), (-0.6, 1, s * 0.2), 0.6, 0.1, horn)
+        shoulder, elbow, tip = (0.6, 3.9, s * 1.2), (-0.3, 5.8, s * 3.6), (-1.6, 6.4, s * 6.8)
+        limb(m, [shoulder, elbow, tip], 0.28, 0.06, wing, n=10, seg=6)        # wing bone
+        trail = [(-2.8, 4.6, s * 5.6), (-2.4, 4.1, s * 3.4), (-1.4, 3.7, s * 1.5)]
+        m.add(fan([elbow, tip] + trail + [shoulder]), membrane, smooth=False, jitter=6, double=True)
+        for k in range(3):                                           # wing fingers
+            limb(m, [elbow, trail[k]], 0.1, 0.04, wing, n=4, seg=5)
+        for lx in (-1.3, 1.2):                                       # legs and claws
+            limb(m, [(lx, 2.2, s * 0.9), (lx + 0.3, 1.1, s * 1.2), (lx + 0.2, 0.25, s * 1.15)], 0.42, 0.26, scale_, n=8)
+            for c in (-0.15, 0.15):
+                spike(m, (lx + 0.35, 0.15, s * 1.15 + c), (1, -0.2, 0), 0.4, 0.08, horn, seg=4)
+    limb(m, [(-2.3, 2.6, 0), (-4.5, 2.0, 0.7), (-6.4, 1.2, -0.4), (-8.3, 0.7, 0.4)], 0.95, 0.12, scale_, n=16)
+    spike(m, (-8.3, 0.7, 0.4), (-1, 0.3, 0), 0.9, 0.3, (255, 255, 255), "Glow_Orange")
+    for k in range(10):                                              # spine plates
+        x = 3.2 - k * 0.75
+        y = 4.7 - k * 0.12 if k < 3 else 4.3 - (k - 3) * 0.32
+        spike(m, (x, y, 0), (-0.3, 1, 0), 0.6 - 0.03 * k, 0.2, wing, seg=4)
+    return m
 
 
 def blue_sentinel(rng):
-    v = Voxels(MONSTER_RES)
-    stone, rock, crystal, glow = (104, 114, 138), (82, 90, 110), (80, 182, 255), (180, 230, 255)
+    m = Model(rng)
+    stone, rock_, moss = (104, 116, 140), (84, 94, 116), (90, 130, 90)
     for s in (-1, 1):
-        v.blob((0, 0.9, s * 1.1), (0.7, 1.0, 0.6), rock)                # legs
-        v.blob((0.6, 3.0, s * 2.6), (0.8, 1.4, 0.7), rock)              # big arms
-        v.blob((1.0, 1.5, s * 2.6), (0.9, 0.6, 0.8), stone)             # fists
-    v.blob((0, 3.4, 0), (1.9, 1.7, 2.1), stone)                         # torso
-    v.blob((1.6, 4.9, 0), (0.9, 0.7, 0.9), stone)                       # head
-    v.fine([(2.5, 5.0, -0.5), (2.5, 5.0, 0.0)], glow)                   # eyes
-    for x, y, z in ((-1, 5, 0), (-1, 5.5, 0), (-1, 6, 0), (-1, 6.5, 0), (-1.5, 5.5, -0.5),
-                    (-1.5, 6, 0.5), (-0.5, 5.5, 0.5), (-1, 7, 0), (-2, 5, 0)):  # crystal cluster on its back
-        v.fine([(x, y, z), (x + 0.5, y, z)], crystal)
-    v.fine([(-1, 7.5, 0)], glow)
-    v.speckle((140, 200, 240), 0.05, rng, only=stone)
-    return v
+        rocky(m, (0, 0.6, s * 1.1), (0.75, 0.9, 0.7), rock_, rng)                 # legs
+        rocky(m, (0.6, 3.5, s * 2.7), (0.9, 1.1, 0.8), rock_, rng)                # shoulders
+        rocky(m, (0.9, 2.1, s * 2.9), (0.8, 1.0, 0.75), stone, rng)               # forearms
+        rocky(m, (1.4, 0.8, s * 2.9), (1.0, 0.8, 0.9), stone, rng)                # fists on the ground
+    rocky(m, (0, 3.4, 0), (2.0, 1.8, 2.2), stone, rng, subdiv=2, rough=0.08)     # torso
+    rocky(m, (-0.4, 4.6, 0), (1.5, 0.6, 1.7), moss, rng, rough=0.1)              # moss on the back
+    rocky(m, (1.9, 4.8, 0), (0.9, 0.75, 0.95), stone, rng)                        # head
+    for s in (-1, 1):
+        glow_dot(m, (2.7, 4.95, s * 0.38), 0.13, "Glow_Cyan")
+    for c, d, r, hh in (((-0.6, 5.2, 0), (0, 1, 0), 0.38, 1.6), ((-1.0, 4.9, -0.7), (-0.4, 1, -0.5), 0.3, 1.2),
+                        ((-0.9, 5.0, 0.8), (-0.3, 1, 0.6), 0.32, 1.3), ((-1.6, 4.4, 0), (-1, 0.8, 0), 0.26, 1.0),
+                        ((0.0, 5.1, 0.5), (0.3, 1, 0.3), 0.22, 0.8), ((0.0, 5.1, -0.5), (0.3, 1, -0.4), 0.2, 0.7)):
+        crystal(m, c, r, hh, d, "Glow_Blue")
+    ell(m, (1.95, 3.3, 0), (0.25, 0.4, 0.4), (255, 255, 255), "Glow_Blue", 8, 6, 0)   # chest rune
+    return m
 
 
 def red_brambleback(rng):
-    v = Voxels(MONSTER_RES)
-    hide, dark, thorn, tip = (156, 62, 42), (110, 42, 30), (210, 70, 40), (255, 150, 70)
-    for lx in (-1.2, 1.0):
+    m = Model(rng)
+    hide, dark, thorn, tusk = (154, 60, 42), (100, 40, 30), (122, 46, 34), (238, 228, 204)
+    for lx in (-1.4, 1.2):
         for s in (-1, 1):
-            v.blob((lx, 0.7, s * 1.0), (0.5, 0.8, 0.5), dark)           # legs
-    v.blob((-0.2, 2.6, 0), (2.4, 1.6, 1.7), hide)                       # body
-    v.blob((2.2, 2.6, 0), (1.1, 1.0, 1.0), hide)                        # head
-    v.fine([(3.0, 3.0, -0.6), (3.0, 3.0, 0.5)], EYE)
-    v.fine([(3.5, 2.0, -0.7), (3.5, 2.5, -0.7), (3.5, 2.0, 0.6), (3.5, 2.5, 0.6)], (236, 226, 200))  # tusks
-    for x, z in ((-2, 0), (-1.5, -1), (-1, 0.5), (-0.5, -0.5), (0, 0.8), (0.5, -1), (1, 0), (-1, -1.4), (0.2, 1.4)):
-        v.fine([(x, 4.0, z)], thorn)                                     # thorns along the back
-        v.fine([(x, 4.5, z)], tip)
-    v.speckle(dark, 0.08, rng, only=hide)
-    return v
+            limb(m, [(lx, 2.0, s * 1.0), (lx + 0.2, 1.0, s * 1.15), (lx + 0.1, 0.2, s * 1.1)], 0.5, 0.36, dark, n=7)
+    ell(m, (-0.2, 2.6, 0), (2.5, 1.55, 1.7), hide)                    # body
+    ell(m, (2.4, 2.5, 0), (1.15, 1.0, 1.0), hide)                     # head
+    ell(m, (3.4, 2.2, 0), (0.6, 0.5, 0.62), dark)                     # snout
+    for s in (-1, 1):
+        glow_dot(m, (3.1, 2.95, s * 0.55), 0.14, "Glow_Yellow")
+        limb(m, [(3.6, 2.0, s * 0.5), (4.1, 2.3, s * 0.65), (4.3, 2.9, s * 0.55)], 0.16, 0.03, tusk, n=6, seg=6)
+        spike(m, (2.2, 3.3, s * 0.6), (-0.6, 1, s * 0.5), 0.8, 0.18, dark)   # ears
+    for _ in range(18):                                               # thorns with glowing tips
+        a = rng.uniform(-1.1, 1.1)
+        x = rng.uniform(-2.2, 1.4)
+        k = np.sqrt(max(0.0, 1 - ((x + 0.2) / 2.5) ** 2))
+        base = np.array((x, 2.6 + 1.45 * np.cos(a) * k, 1.6 * np.sin(a) * k))
+        d = np.array((-0.5, np.cos(a), np.sin(a)))
+        d /= np.linalg.norm(d)
+        L = rng.uniform(0.6, 1.1)
+        spike(m, base, d, L, 0.16, thorn)
+        glow_dot(m, base + d * L, 0.09, "Glow_Orange", 6)
+    limb(m, [(-2.6, 2.6, 0), (-3.3, 2.9, 0), (-3.7, 2.4, 0)], 0.25, 0.06, dark, n=6)
+    return m
 
 
 def gromp(rng):
-    v = Voxels(MONSTER_RES)
-    skin = (92, 122, 58)
-    v.blob((0, 1.5, 0), (2.0, 1.5, 1.9), skin, under=(0.9, (150, 168, 96)))
-    v.blob((1.6, 2.6, -0.8), (0.4, 0.4, 0.4), EYE)
-    v.blob((1.6, 2.6, 0.8), (0.4, 0.4, 0.4), EYE)
-    v.speckle((70, 96, 44), 0.12, rng, only=skin)
-    return v
+    m = Model(rng)
+    skin, belly = (88, 122, 58), (162, 176, 104)
+    ell(m, (0, 1.4, 0), (2.0, 1.4, 1.9), skin)
+    ell(m, (0.5, 1.0, 0), (1.6, 0.95, 1.6), belly)
+    for s in (-1, 1):
+        ell(m, (1.2, 2.6, s * 0.85), (0.45, 0.45, 0.45), (255, 255, 255), "Glow_Yellow", 10, 6, 0)
+        ell(m, (1.6, 2.65, s * 0.85), (0.12, 0.22, 0.15), (30, 20, 20), seg=8, rings=5)
+        limb(m, [(-0.8, 0.8, s * 1.4), (-0.6, 0.2, s * 2.0), (0.2, 0.1, s * 2.1)], 0.45, 0.3, skin, n=6)
+        limb(m, [(1.3, 0.8, s * 1.0), (1.8, 0.1, s * 1.2)], 0.3, 0.22, skin, n=4)
+    for _ in range(12):                                               # warts
+        a, b = rng.uniform(0, 6.3), rng.uniform(0.2, 1.2)
+        ell(m, (1.9 * np.cos(a) * np.sin(b), 1.4 + 1.3 * np.cos(b), 1.8 * np.sin(a) * np.sin(b)),
+            (0.18, 0.12, 0.18), (70, 98, 46), seg=8, rings=5)
+    return m
 
 
-def critter(v, ox, oz, size, body, head, accent=None):
-    """Small four-legged camp monster (wolf, raptor) at local offset (ox, oz)."""
-    v.blob((ox, 0.8 + size * 0.5, oz), (1.1 * size, 0.55 * size, 0.55 * size), body)
-    v.blob((ox + 1.2 * size, 0.9 + size * 0.9, oz), (0.5 * size, 0.4 * size, 0.4 * size), head)
-    if accent:
-        v.fine([(ox + 1.2 * size, 1.4 + size * 0.9, oz)], accent)
-    for lx in (-0.5 * size, 0.5 * size):
-        for lz in (-0.25 * size, 0.25 * size):
-            v.fine([(ox + lx, 0, oz + lz), (ox + lx, 0.5, oz + lz)], body)
+def wolf(m, ox, oz, s, fur, eye):
+    ell(m, (ox, 1.2 * s, oz), (1.1 * s, 0.55 * s, 0.5 * s), fur)
+    ell(m, (ox + 1.2 * s, 1.55 * s, oz), (0.45 * s, 0.4 * s, 0.38 * s), fur)
+    ell(m, (ox + 1.65 * s, 1.45 * s, oz), (0.35 * s, 0.18 * s, 0.2 * s), fur)
+    for z in (-0.18, 0.18):
+        spike(m, (ox + 1.1 * s, 1.85 * s, oz + z * s), (0, 1, z), 0.4 * s, 0.12 * s, fur, seg=4)
+        glow_dot(m, (ox + 1.55 * s, 1.65 * s, oz + z * 1.2 * s), 0.07 * s, eye, 6)
+    for lx in (-0.7, 0.7):
+        for z in (-0.25, 0.25):
+            limb(m, [(ox + lx * s, 1.0 * s, oz + z * s), (ox + lx * s, 0.0, oz + z * s)], 0.14 * s, 0.1 * s, fur, n=3, seg=5)
+    limb(m, [(ox - 1.0 * s, 1.3 * s, oz), (ox - 1.6 * s, 1.5 * s, oz), (ox - 1.9 * s, 1.2 * s, oz)],
+         0.18 * s, 0.05 * s, fur, n=6, seg=5)
 
 
 def wolves(rng):
-    v = Voxels(MONSTER_RES)
-    critter(v, 0, 0, 1.6, (88, 90, 108), (70, 72, 90), (190, 190, 210))
-    critter(v, -2.8, -2, 1.0, (100, 100, 116), (80, 80, 96))
-    critter(v, -2.8, 2, 1.0, (100, 100, 116), (80, 80, 96))
-    return v
+    m = Model(rng)
+    wolf(m, 0, 0, 1.5, (80, 82, 100), "Glow_Cyan")
+    wolf(m, -2.6, -2.0, 1.0, (104, 104, 120), "Glow_Cyan")
+    wolf(m, -2.6, 2.0, 1.0, (104, 104, 120), "Glow_Cyan")
+    return m
+
+
+def raptor(m, ox, oz, s, body, crest):
+    ell(m, (ox, 1.3 * s, oz), (0.8 * s, 0.55 * s, 0.5 * s), body)
+    limb(m, [(ox + 0.5 * s, 1.5 * s, oz), (ox + 0.9 * s, 2.0 * s, oz)], 0.25 * s, 0.2 * s, body, n=4, seg=6)
+    ell(m, (ox + 1.05 * s, 2.15 * s, oz), (0.32 * s, 0.26 * s, 0.24 * s), body)
+    spike(m, (ox + 1.3 * s, 2.1 * s, oz), (1, -0.3, 0), 0.4 * s, 0.1 * s, (236, 200, 90), seg=4)
+    for k in range(3):
+        spike(m, (ox + (0.95 - 0.2 * k) * s, 2.3 * s, oz), (-0.5, 1, 0), (0.5 - 0.1 * k) * s, 0.08 * s, crest, seg=4)
+    for z in (-0.2, 0.2):
+        limb(m, [(ox, 1.0 * s, oz + z * s), (ox - 0.1 * s, 0.5 * s, oz + z * s), (ox + 0.1 * s, 0, oz + z * s)],
+             0.1 * s, 0.07 * s, (200, 150, 80), n=4, seg=5)
+    limb(m, [(ox - 0.7 * s, 1.35 * s, oz), (ox - 1.4 * s, 1.6 * s, oz)], 0.2 * s, 0.05 * s, crest, n=4, seg=5)
 
 
 def raptors(rng):
-    v = Voxels(MONSTER_RES)
-    critter(v, 0, 0, 1.4, (226, 224, 232), (214, 60, 60), (240, 90, 60))
-    for ox, oz in ((-2.5, -1.8), (-2.5, 1.8), (-1.5, -3.5), (-1.5, 3.5), (-4.2, 0)):
-        critter(v, ox, oz, 0.8, (214, 212, 222), (200, 60, 60))
-    return v
+    m = Model(rng)
+    raptor(m, 0, 0, 1.6, (232, 230, 238), (214, 62, 58))
+    for ox, oz in ((-2.4, -1.8), (-2.4, 1.8), (-1.2, -3.4), (-1.2, 3.4), (-3.8, 0)):
+        raptor(m, ox, oz, 0.9, (220, 218, 228), (200, 60, 60))
+    return m
 
 
 def krugs(rng):
-    v = Voxels(MONSTER_RES)
-    rock, lava = (128, 108, 88), (255, 140, 50)
-    v.blob((0, 1.6, 0), (1.8, 1.6, 1.8), rock)
-    v.blob((-2.6, 0.9, 2), (1, 0.9, 1), rock)
-    v.speckle(lava, 0.1, rng, only=rock)
-    v.fine([(1.5, 2.0, -0.5), (1.5, 2.0, 0.5)], EYE)
-    return v
+    m = Model(rng)
+    rock_ = (128, 108, 88)
+    for c, r in (((0, 1.6, 0), 1.8), ((-2.6, 0.9, 2.0), 1.0)):
+        rocky(m, c, (r, r * 0.9, r), rock_, rng, subdiv=1, rough=0.18)
+        for _ in range(7):                                            # glowing lava cracks
+            a, b = rng.uniform(0, 6.3), rng.uniform(0.3, 1.4)
+            ell(m, (c[0] + r * np.cos(a) * np.sin(b), c[1] + r * 0.85 * np.cos(b), c[2] + r * np.sin(a) * np.sin(b)),
+                (0.2, 0.08, 0.2), (255, 255, 255), "Glow_Orange", 6, 4, 0)
+    for s in (-1, 1):
+        glow_dot(m, (1.75, 2.0, s * 0.5), 0.14, "Glow_Yellow", 6)
+    return m
 
 
 def scuttle(rng):
-    v = Voxels(MONSTER_RES)
-    shell, leg = (84, 172, 168), (214, 150, 170)
-    v.blob((0, 1.0, 0), (1.6, 0.7, 1.3), shell)
-    v.blob((0, 1.6, 0), (0.8, 0.4, 0.7), (240, 200, 220))
-    for x, z in ((-0.5, -1.5), (0.5, -1.5), (-0.5, 1.5), (0.5, 1.5)):
-        v.fine([(x, 0, z), (x, 0.5, z)], leg)
-    v.fine([(1.5, 1.0, -0.5), (1.5, 1.0, 0.5)], EYE)
-    return v
+    m = Model(rng)
+    shell, top, leg = (82, 170, 166), (238, 198, 222), (210, 150, 170)
+    ell(m, (0, 1.0, 0), (1.6, 0.65, 1.3), shell)
+    ell(m, (0, 1.45, 0), (0.95, 0.4, 0.8), top)
+    for x in (-0.6, 0, 0.6):
+        for s in (-1, 1):
+            limb(m, [(x, 0.8, s * 1.0), (x, 0.7, s * 1.7), (x + 0.1, 0.0, s * 1.9)], 0.11, 0.06, leg, n=5, seg=5)
+    for s in (-1, 1):
+        limb(m, [(1.2, 1.3, s * 0.4), (1.6, 1.8, s * 0.45)], 0.06, 0.05, leg, n=3, seg=4)
+        glow_dot(m, (1.6, 1.85, s * 0.45), 0.13, "Glow_Yellow", 6)
+    return m
 
 
 MONSTERS = {"Baron": baron, "Dragon": dragon, "Blue_Sentinel": blue_sentinel,
@@ -593,137 +674,71 @@ MONSTERS = {"Baron": baron, "Dragon": dragon, "Blue_Sentinel": blue_sentinel,
             "Raptors": raptors, "Krugs": krugs, "Scuttle": scuttle}
 
 
-def facing_rotation(p):
-    """Turn a +x-facing model toward the map centre, in 90 degree steps (model coords)."""
-    dx, dy = CENTER[0] - p[0], CENTER[1] - p[1]
-    if abs(dx) >= abs(dy):
-        return (lambda x, z: (x, z)) if dx > 0 else (lambda x, z: (-x, -z))
-    return (lambda x, z: (z, -x)) if dy > 0 else (lambda x, z: (-z, x))
+def facing(p):
+    """Rotation about y that turns a +x-facing model toward the map centre."""
+    dx = CENTER[0] - p[0]
+    dz = -(CENTER[1] - p[1])          # game north is model -z
+    return rot_y(math.atan2(-dz, dx))
 
 
-def monster(kind, p, height, seed):
-    i, j = grid_index(p)
-    ground = int(height[i, j])
-    cx, cz = to_model(i, j)
-    rot = facing_rotation(p)
-    placed = {}
-    for (x, y, z), rgb in MONSTERS[kind](np.random.default_rng(seed)).items():
-        rx, rz = rot(x + 0.5, z + 0.5)          # rotate voxel centres, then snap back to the grid
-        placed[(int(round(rx - 0.5)), y, int(round(rz - 0.5)))] = rgb
-    origin = (cx + 0.5, ground, cz + 0.5)
-    return voxel_object(placed, 1 / MONSTER_RES, origin), origin
-
-
-# --- glTF writer -----------------------------------------------------------------
-
-def write_glb(path, named_meshes):
-    """named_meshes: list of (name, Mesh). Each becomes a node; vertex colours, flat normals."""
-    bin_chunks, buffer_views, accessors, meshes, nodes = [], [], [], [], []
-    offset = 0
-
-    def add(data, target, comp, count, typ, normalized=False, minmax=None):
-        nonlocal offset
-        raw = data.tobytes()
-        pad = (-len(raw)) % 4
-        bin_chunks.append(raw + b"\0" * pad)
-        buffer_views.append({"buffer": 0, "byteOffset": offset, "byteLength": len(raw), "target": target})
-        offset += len(raw) + pad
-        acc = {"bufferView": len(buffer_views) - 1, "componentType": comp, "count": count, "type": typ}
-        if normalized:
-            acc["normalized"] = True
-        if minmax:
-            acc["min"], acc["max"] = minmax
-        accessors.append(acc)
-        return len(accessors) - 1
-
-    material = {"name": "Voxel", "pbrMetallicRoughness": {"baseColorFactor": [1, 1, 1, 1],
-                "metallicFactor": 0, "roughnessFactor": 1}}
-    for name, m in named_meshes:
-        pos = np.array(m.pos, np.float32)
-        a_pos = add(pos, 34962, 5126, len(pos), "VEC3", minmax=(pos.min(0).tolist(), pos.max(0).tolist()))
-        a_nrm = add(np.array(m.nrm, np.float32), 34962, 5126, len(pos), "VEC3")
-        a_col = add(np.array(m.col, np.uint8), 34962, 5121, len(pos), "VEC4", normalized=True)
-        idx = np.array(m.idx, np.uint32)
-        a_idx = add(idx, 34963, 5125, len(idx), "SCALAR")
-        meshes.append({"name": name, "primitives": [{"attributes": {"POSITION": a_pos, "NORMAL": a_nrm, "COLOR_0": a_col},
-                                                       "indices": a_idx, "material": 0}]})
-        nodes.append({"name": name, "mesh": len(meshes) - 1})
-
-    gltf = {"asset": {"version": "2.0", "generator": "MCADDOON build_rift.py"},
-            "scene": 0, "scenes": [{"name": "SummonersRift", "nodes": list(range(len(nodes)))}],
-            "nodes": nodes, "meshes": meshes, "materials": [material],
-            "accessors": accessors, "bufferViews": buffer_views, "buffers": [{"byteLength": offset}]}
-    js = json.dumps(gltf, separators=(",", ":")).encode()
-    js += b" " * ((-len(js)) % 4)
-    binary = b"".join(bin_chunks)
-    with open(path, "wb") as f:
-        f.write(struct.pack("<III", 0x46546C67, 2, 12 + 8 + len(js) + 8 + len(binary)))
-        f.write(struct.pack("<II", len(js), 0x4E4F534A) + js)
-        f.write(struct.pack("<II", len(binary), 0x004E4942) + binary)
-
-
-# --- main ------------------------------------------------------------------------
-
-def model_point(p, height=None):
-    i, j = grid_index(p)
-    x, z = to_model(i, j)
-    y = int(height[i, j]) if height is not None else 0
-    return [round(x + 0.5, 2), y, round(z + 0.5, 2)]
-
+# --- main --------------------------------------------------------------------------
 
 def main(out_dir):
     os.makedirs(out_dir, exist_ok=True)
-    cls, height, top, side, cap = build_terrain()
-    meshes = [("Terrain", terrain_mesh(height, top, side, cap))]
+    rng = np.random.default_rng(SEED)
+    cls, h, terrain = build_terrain(rng)
+    height_at = sampler(h)
+    nodes = [("Terrain", terrain), ("Water", build_water())] + build_props(cls, h, rng)
     structures, monsters = [], []
 
-    def place(kind, team, name, p):
-        mesh, origin = structure(kind, team, p, height)
-        node = f"{kind}_{team}_{name}" if name else f"{kind}_{team}"
-        meshes.append((node, mesh))
-        structures.append({"node": node, "kind": kind, "team": team, "game_pos": [round(p[0]), round(p[1])],
-                           "model_pos": [origin[0], origin[1], origin[2]]})
+    def model_pos(p):
+        x, z = to_model(p)
+        return [round(x, 3), round(height_at(p), 3), round(z, 3)]
 
-    def spawn(kind, node, side_name, p):
-        mesh, origin = monster(kind, p, height, SEED + len(monsters))
-        meshes.append((node, mesh))
-        monsters.append({"node": node, "kind": kind, "side": side_name, "game_pos": [round(p[0]), round(p[1])],
-                         "model_pos": [origin[0], origin[1], origin[2]]})
+    def place(name, mdl, p, kind, team, record, key):
+        x, y, z = model_pos(p)
+        nodes.append((name, mdl.transform(translate(x, y, z) @ facing(p))))
+        record.append({"node": name, "kind": kind, key: team,
+                       "game_pos": [round(p[0]), round(p[1])], "model_pos": [x, y, z]})
 
     for team, f in (("Blue", lambda p: p), ("Red", mirror)):
         for name, p in BLUE_TURRETS.items():
-            place("Turret", team, name, f(p))
+            place(f"Turret_{team}_{name}", turret(team, rng), f(p), "Turret", team, structures, "team")
         for name, p in BLUE_INHIBITORS.items():
-            place("Inhibitor", team, name, f(p))
-        place("Nexus", team, "", f(BLUE_NEXUS))
+            place(f"Inhibitor_{team}_{name}", inhibitor(team, rng), f(p), "Inhibitor", team, structures, "team")
+        place(f"Nexus_{team}", nexus(team, rng), f(BLUE_NEXUS), "Nexus", team, structures, "team")
+        place(f"Fountain_{team}", fountain(team, rng), f(FOUNTAIN), "Fountain", team, structures, "team")
         for name, p in BLUE_CAMPS.items():
-            spawn(name, f"Monster_{name}_{team}", team, f(p))
-    spawn("Baron", "Monster_Baron", "Neutral", OBJECTIVES["Baron_Pit"])
-    spawn("Dragon", "Monster_Dragon", "Neutral", OBJECTIVES["Dragon_Pit"])
-    spawn("Scuttle", "Monster_Scuttle_Top", "Neutral", OBJECTIVES["Scuttle_Top"])
-    spawn("Scuttle", "Monster_Scuttle_Bot", "Neutral", OBJECTIVES["Scuttle_Bot"])
+            place(f"Monster_{name}_{team}", MONSTERS[name](rng), f(p), name, team, monsters, "side")
+    for node, kind, p in (("Monster_Baron", "Baron", OBJECTIVES["Baron_Pit"]),
+                          ("Monster_Dragon", "Dragon", OBJECTIVES["Dragon_Pit"]),
+                          ("Monster_Scuttle_Top", "Scuttle", OBJECTIVES["Scuttle_Top"]),
+                          ("Monster_Scuttle_Bot", "Scuttle", OBJECTIVES["Scuttle_Bot"])):
+        place(node, MONSTERS[kind](rng), p, kind, "Neutral", monsters, "side")
 
-    write_glb(os.path.join(out_dir, "summoners_rift.glb"), meshes)
+    write_glb(os.path.join(out_dir, "summoners_rift.glb"), nodes, MATERIALS)
 
-    camps = [{"name": n, "side": "Blue", "game_pos": list(p), "model_pos": model_point(p, height),
-              "node": f"Monster_{n}_Blue"} for n, p in BLUE_CAMPS.items()]
-    camps += [{"name": n, "side": "Red", "game_pos": [round(v) for v in mirror(p)],
-               "model_pos": model_point(mirror(p), height), "node": f"Monster_{n}_Red"} for n, p in BLUE_CAMPS.items()]
+    camps = [{"name": n, "side": side, "game_pos": [round(v) for v in f(p)], "model_pos": model_pos(f(p)),
+              "node": f"Monster_{n}_{side}"}
+             for side, f in (("Blue", lambda p: p), ("Red", mirror)) for n, p in BLUE_CAMPS.items()]
     data = {
-        "description": "Summoner's Rift voxel map. Model units: 1 = one voxel; y is up, north (red side) is -z.",
-        "game_units_per_voxel": round(CELL, 3), "grid_size": N, "map_game_units": W,
-        "lanes": {name: {"game": pts, "model": [model_point(p, height) for p in pts]} for name, pts in LANES.items()},
-        "river": {"game": RIVER, "model": [model_point(p, height) for p in RIVER]},
-        "fountains": {"Blue": model_point(FOUNTAIN, height), "Red": model_point(mirror(FOUNTAIN), height)},
-        "objectives": {n: {"game_pos": list(p), "model_pos": model_point(p, height)} for n, p in OBJECTIVES.items()},
+        "description": "Summoner's Rift low-poly 3D map. Model units: the map spans -96..96 on x and z; "
+                       "y is up, north (red side) is -z.",
+        "model_units_per_game_unit": S / W, "map_game_units": W, "water_level": WATER_LEVEL,
+        "lanes": {name: {"game": pts, "model": [model_pos(p) for p in pts]} for name, pts in LANES.items()},
+        "river": {"game": RIVER, "model": [model_pos(p) for p in RIVER]},
+        "fountains": {"Blue": model_pos(FOUNTAIN), "Red": model_pos(mirror(FOUNTAIN))},
+        "objectives": {n: {"game_pos": list(p), "model_pos": model_pos(p)} for n, p in OBJECTIVES.items()},
         "jungle_camps": camps,
         "monsters": monsters,
         "structures": structures,
     }
     with open(os.path.join(out_dir, "map_data.json"), "w", encoding="utf-8") as f:
         json.dump(data, f, indent=1)
-    tris = sum(len(m.idx) for _, m in meshes) // 3
-    print(f"{len(meshes)} nodes, {tris} triangles -> {out_dir}")
+    tris = sum(m.triangles() for _, m in nodes)
+    print(f"{len(nodes)} nodes, {tris} triangles -> {out_dir}")
+    for name, m in nodes[:6]:
+        print(f"  {name}: {m.triangles()}")
 
 
 if __name__ == "__main__":
