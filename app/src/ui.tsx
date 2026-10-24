@@ -57,7 +57,7 @@ export function Avatar({ id, ign, size = 40 }: { id: string; ign: string; size?:
   const src = portraitOf(id);
   return (
     <span className="avatar" style={{ width: size, height: size, fontSize: size * 0.4 }}>
-      {src ? <img src={src} alt={ign} width={size} height={size} /> : ign.slice(0, 2).toUpperCase()}
+      {src ? <img src={src} alt={ign} /> : ign.slice(0, 2).toUpperCase()}
     </span>
   );
 }

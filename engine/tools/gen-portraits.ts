@@ -5,7 +5,9 @@
 //   npm run portraits -- --player GEN_MID --force          # vẽ lại 1 người
 //   npm run portraits -- --dry-run                         # chỉ in prompt, không gọi API
 //   npm run portraits -- --pack demo --size 96
-// Mô tả ngoại hình riêng (tuỳ chọn): data/packs/<id>/portraits/prompts.json  { "GEN_MID": "short black hair, round glasses" }
+// Giống người thật nhất: đặt ảnh chụp (crop vuông, thấy mặt + vai) vào data/packs/<id>/portraits/photos/<playerId>.jpg|.png
+//   → dùng image-to-pixelart của PixelLab thay vì vẽ từ chữ. Ảnh gốc không được commit (xem .gitignore).
+// Không có ảnh: vẽ từ chữ, thêm mô tả ngoại hình riêng ở data/packs/<id>/portraits/prompts.json  { "GEN_MID": "short black hair, round glasses" }
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
@@ -36,15 +38,50 @@ const teamFilter = opt.team?.split(",").map((s) => s.trim().toUpperCase());
 const playerFilter = opt.player?.split(",").map((s) => s.trim().toUpperCase());
 const subjects: PortraitSubject[] = teams
   .filter((t) => !teamFilter || teamFilter.includes(t.id))
-  .flatMap((t) => Object.values(t.roster).map((p) => ({ id: p.id, ign: p.ign, role: p.role, teamId: t.id })))
+  .flatMap((t) => Object.values(t.roster).map((p) => ({ id: p.id, ign: p.ign, role: p.role, teamId: t.id, nationality: p.nationality })))
   .filter((p) => !playerFilter || playerFilter.includes(p.id))
   .filter((p) => opt.force || !existsSync(join(outDir, `${p.id}.png`)));
+
+const photoDir = join(outDir, "photos");
+const photoOf = (id: string) => [".png", ".jpg", ".jpeg"].map((ext) => join(photoDir, id + ext)).find(existsSync);
+
+/** Kích thước ảnh PNG/JPEG, đọc thẳng từ header (không cần thư viện ảnh). */
+export function imageSize(buf: Buffer): { width: number; height: number } {
+  if (buf.readUInt32BE(0) === 0x89504e47) return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+  if (buf[0] === 0xff && buf[1] === 0xd8) {
+    for (let i = 2; i + 9 < buf.length; ) {
+      if (buf[i] !== 0xff) { i++; continue; }
+      const marker = buf[i + 1];
+      // SOF0..SOF15 (trừ DHT/JPG/DAC) chứa kích thước
+      if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker)) return { width: buf.readUInt16BE(i + 7), height: buf.readUInt16BE(i + 5) };
+      i += 2 + buf.readUInt16BE(i + 2);
+    }
+  }
+  throw new Error("chỉ hỗ trợ ảnh PNG hoặc JPEG");
+}
+
+function photoRequest(file: string) {
+  const buf = readFileSync(file);
+  const src = imageSize(buf);
+  if (Math.max(src.width, src.height) > 2048 || Math.min(src.width, src.height) < 16) throw new Error(`ảnh ${src.width}x${src.height} phải trong khoảng 16..2048`);
+  // Giữ tỉ lệ ảnh gốc, cạnh dài = size
+  const k = size / Math.max(src.width, src.height);
+  return {
+    image: { type: "base64", base64: buf.toString("base64") },
+    image_size: src,
+    output_size: { width: Math.max(16, Math.round(src.width * k)), height: Math.max(16, Math.round(src.height * k)) },
+    init_image_strength: 200, // 100–300: vẫn ra pixel art nhưng giữ gương mặt
+  };
+}
 
 const size = Number(opt.size);
 if (!(size >= 16 && size <= 400)) throw new Error("--size phải trong khoảng 16..400");
 
 if (opt["dry-run"]) {
-  for (const p of subjects) console.log(`${p.id} (${p.ign}):`, JSON.stringify(portraitRequest(p, size, custom[p.id])));
+  for (const p of subjects) {
+    const photo = photoOf(p.id);
+    console.log(`${p.id} (${p.ign}):`, photo ? `từ ảnh ${photo}` : JSON.stringify(portraitRequest(p, size, custom[p.id])));
+  }
   console.log(`${subjects.length} chân dung sẽ được vẽ.`);
   process.exit(0);
 }
@@ -55,15 +92,15 @@ if (!key) {
   process.exit(1);
 }
 
-async function generate(req: PortraitRequest): Promise<{ png: Buffer; usd?: number }> {
+async function generate(endpoint: string, req: PortraitRequest | ReturnType<typeof photoRequest>): Promise<{ png: Buffer; usd?: number }> {
   for (let attempt = 0; ; attempt++) {
-    const res = await fetch(`${API}/create-image-pixflux`, {
+    const res = await fetch(`${API}/${endpoint}`, {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify(req),
     });
-    // 429: quá tần suất, 529: máy chủ quá tải → chờ rồi thử lại
-    if ((res.status === 429 || res.status === 529) && attempt < 5) {
+    // 429: quá tần suất / quá số job đồng thời, 529: máy chủ quá tải → chờ rồi thử lại
+    if ((res.status === 429 || res.status === 529) && attempt < 8) {
       await new Promise((r) => setTimeout(r, 2000 * 2 ** attempt));
       continue;
     }
@@ -83,10 +120,11 @@ const queue = [...subjects];
 async function worker() {
   for (let p = queue.shift(); p; p = queue.shift()) {
     try {
-      const r = await generate(portraitRequest(p, size, custom[p.id]));
+      const photo = photoOf(p.id);
+      const r = photo ? await generate("image-to-pixelart", photoRequest(photo)) : await generate("create-image-pixflux", portraitRequest(p, size, custom[p.id]));
       writeFileSync(join(outDir, `${p.id}.png`), r.png);
       usd += r.usd ?? 0;
-      console.log(`  ✓ ${p.id} (${p.ign}) [${++done}/${subjects.length}]`);
+      console.log(`  ✓ ${p.id} (${p.ign})${photo ? " từ ảnh" : ""} [${++done}/${subjects.length}]`);
     } catch (e) {
       failed++;
       console.error(`  ✗ ${p.id} (${p.ign}): ${(e as Error).message}`);

@@ -35,7 +35,9 @@ npm run portraits -- --team GEN,T1          # vẽ ảnh còn thiếu của vài
 npm run portraits -- --player GEN_MID --force   # vẽ lại 1 người
 ```
 
-Mỗi tuyển thủ có prompt + seed cố định (cả đội cùng màu áo). Muốn sát ngoại hình thật thì ghi mô tả vào `data/packs/real-2026/portraits/prompts.json`, ví dụ `{ "GEN_MID": "short black hair, round glasses" }`.
+**Giống người thật nhất:** đặt ảnh chụp tuyển thủ (crop vuông, thấy mặt + vai, PNG/JPEG ≤ 2048px) vào `data/packs/real-2026/portraits/photos/<playerId>.jpg` rồi chạy lại với `--force`; script sẽ dùng *image-to-pixelart* của PixelLab để chuyển ảnh thật sang pixel. Ảnh gốc không được commit.
+
+Không có ảnh thì vẽ từ chữ: prompt + seed cố định theo tuyển thủ, có quốc tịch, cả đội cùng màu áo. Thêm mô tả ngoại hình vào `data/packs/real-2026/portraits/prompts.json`, ví dụ `{ "GEN_MID": "short black hair, round glasses" }`.
 
 `.mcp.json` cũng khai báo MCP server của PixelLab (dùng cùng biến `PIXELLAB_API_KEY`) để Claude Code vẽ/chỉnh nhân vật trực tiếp trong phiên làm việc.
 

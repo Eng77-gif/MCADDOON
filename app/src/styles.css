@@ -90,7 +90,7 @@ h3 { font-size: 14px; margin: 10px 0 6px; }
 .bar-fill.mid { background: var(--accent); }
 .bar-fill.lo { background: var(--muted); }
 .avatar { flex: none; display: inline-grid; place-items: center; border-radius: 10px; background: var(--chip); border: 1px solid var(--line); overflow: hidden; font-weight: 800; color: var(--muted); }
-.avatar img { image-rendering: pixelated; display: block; }
+.avatar img { image-rendering: pixelated; display: block; width: 100%; height: 100%; object-fit: cover; }
 .who { display: inline-flex; align-items: center; gap: 10px; }
 .ovr { font-size: 22px; font-weight: 800; color: var(--accent); }
 .pool { display: flex; flex-wrap: wrap; gap: 4px; margin: 10px 0 0; }

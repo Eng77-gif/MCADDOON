@@ -2,7 +2,14 @@
 // Thuần hàm, không gọi mạng: cùng tuyển thủ luôn ra cùng prompt + seed → vẽ lại vẫn giữ "gương mặt".
 import type { Role } from "../src/types.ts";
 
-export interface PortraitSubject { id: string; ign: string; role: Role; teamId: string }
+export interface PortraitSubject { id: string; ign: string; role: Role; teamId: string; nationality?: string }
+
+// Quốc tịch → gợi ý ngoại hình, giúp ảnh vẽ từ chữ gần người thật hơn
+const NATIONALITY: Record<string, string> = {
+  KR: "Korean", CN: "Chinese", TW: "Taiwanese", VN: "Vietnamese", JP: "Japanese",
+  US: "American", CA: "Canadian", BR: "Brazilian", AR: "Argentinian",
+  DE: "German", FR: "French", DK: "Danish", SE: "Swedish", ES: "Spanish", GR: "Greek", PL: "Polish", IT: "Italian",
+};
 
 export interface PortraitRequest {
   description: string;
@@ -37,7 +44,7 @@ const ROLE_FLAVOR: Record<Role, string> = {
   SUPPORT: "friendly warm smile",
 };
 
-const HAIR = ["short black hair", "messy dark brown hair", "buzz cut", "side-parted black hair", "dyed blonde hair", "wavy brown hair", "short undercut", "long hair tied back", "spiky black hair", "dyed silver hair"];
+const HAIR = ["short hair", "messy hair", "buzz cut", "side-parted hair", "neat short hair with fringe", "wavy hair", "short undercut", "long hair tied back", "spiky hair", "short tidy hair"];
 const EXTRA = ["", "", "", "round glasses", "thin glasses", "light stubble", "small earring", "cap worn backwards"];
 const JERSEY = ["black and gold", "red and white", "navy blue and white", "teal and black", "purple and white", "orange and black", "crimson and black", "sky blue and white", "green and black", "white and gold", "pink and black", "dark grey and red"];
 
@@ -49,7 +56,7 @@ export function portraitRequest(p: PortraitSubject, size = 64, custom?: string):
   const h = hash32(p.id);
   const extra = pick(EXTRA, h, 11);
   const description = [
-    "pixel art bust portrait of a young esports pro gamer",
+    `pixel art bust portrait of a young ${p.nationality && NATIONALITY[p.nationality] ? `${NATIONALITY[p.nationality]} ` : ""}man, esports pro gamer`,
     ...(custom ? [custom] : [pick(HAIR, h, 3), extra]),
     ROLE_FLAVOR[p.role],
     `wearing a ${jerseyColors(p.teamId)} team jersey`,
