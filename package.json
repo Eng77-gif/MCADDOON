@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit",
     "demo": "node engine/demo.ts",
     "balance": "node engine/balance.ts",
+    "live-balance": "node engine/live-balance.ts",
     "import-pack": "node engine/tools/import-pack.ts",
     "portraits": "node engine/tools/pixellab/portraits.ts"
   },

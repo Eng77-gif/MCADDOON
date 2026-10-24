@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import {
-  MatchSim, ROLES, TACTIC_KEYS, aiDraftStep, applyDraft, autoPlayGame, bestTactic, createRng, currentStep, describeEvent,
+  LiveMatch, MatchSim, ROLES, TACTIC_KEYS, aiDraftStep, applyDraft, autoPlayGame, bestTactic, createRng, currentStep, describeEvent,
   describePhase, draftForNextGame, gameContext, isAvailable, isDraftDone, isSeriesOver, newSeries, openRoles, recordGame,
   seriesOptionsFor, seriesTeams, suggest,
   type Career, type CoachOrders, type Team, type DraftState, type MatchResult, type PhaseReport, type Picks, type Role, type SeriesState, type Tactic,
@@ -8,6 +8,7 @@ import {
 import { champName, db } from "./data.ts";
 import { Card, ConfirmButton, ROLE_SHORT, ROLE_VI } from "./ui.tsx";
 import { Minimap } from "./Minimap.tsx";
+import { LiveViewer } from "./LiveViewer.tsx";
 import { Avatar } from "./avatar.tsx";
 
 /** Màu ô tướng theo loại sát thương */
@@ -228,10 +229,24 @@ function Live({ draft, userSide, names, seed, pressure, patch, onStart, onEnd }:
   const [tactic, setTactic] = useState<Tactic>(() => bestTactic(db, picks[userSide]));
   const [orders, setOrders] = useState<CoachOrders>({ laneFocus: "MID", objective: "DRAGON", risk: "NORMAL" });
   const [sim, setSim] = useState<MatchSim | null>(null);
+  const [mode, setMode] = useState<"LIVE" | "PHASE">("LIVE");
+  const [live, setLive] = useState<LiveMatch | null>(null);
+  const [liveResult, setLiveResult] = useState<MatchResult | null>(null);
   const [, force] = useState(0);
   const ai: 0 | 1 = userSide === 0 ? 1 : 0;
 
   const start = () => {
+    if (mode === "LIVE") {
+      const setups = [0, 1].map((side) => ({
+        team: draft.teams[side],
+        picks: picks[side],
+        tactic: side === userSide ? tactic : bestTactic(db, picks[side]),
+        orders: side === userSide ? orders : DEFAULT_ORDERS,
+      })) as ConstructorParameters<typeof LiveMatch>[2];
+      setLive(new LiveMatch(db, { patch, stagePressure: pressure, seed }, setups));
+      onStart();
+      return;
+    }
     const setups = [0, 1].map((side) => ({
       team: draft.teams[side],
       picks: picks[side],
@@ -257,7 +272,34 @@ function Live({ draft, userSide, names, seed, pressure, patch, onStart, onEnd }:
 
   return (
     <>
-      {!sim && (
+      {live && !liveResult && (
+        <LiveViewer
+          match={live}
+          names={names}
+          colors={[draft.teams[0].colors, draft.teams[1].colors]}
+          userSide={userSide}
+          orders={orders}
+          onOrders={(o) => { setOrders(o); live.setOrders(userSide, o); }}
+          onEnd={setLiveResult}
+        />
+      )}
+      {liveResult && (
+        <Card title={liveResult.winner === userSide ? "CHIẾN THẮNG!" : "Thất bại"}>
+          <BoxScore result={liveResult} names={names} teams={draft.teams} />
+          <button className="primary" onClick={() => onEnd(liveResult)}>Tiếp tục</button>
+        </Card>
+      )}
+
+      {!sim && !live && (
+        <Card title="Cách xem trận">
+          <div className="chips">
+            <button className={`chip ${mode === "LIVE" ? "on" : ""}`} onClick={() => setMode("LIVE")}>Xem trực tiếp trên bản đồ</button>
+            <button className={`chip ${mode === "PHASE" ? "on" : ""}`} onClick={() => setMode("PHASE")}>Nhanh theo 3 giai đoạn</button>
+          </div>
+        </Card>
+      )}
+
+      {!sim && !live && (
         <Card title="Lối chơi">
           <div className="chips">
             {(Object.keys(TACTIC_KEYS) as Tactic[]).map((t) => (
@@ -286,7 +328,7 @@ function Live({ draft, userSide, names, seed, pressure, patch, onStart, onEnd }:
         </Card>
       )}
 
-      {(!sim || !sim.isOver) && (
+      {!live && (!sim || !sim.isOver) && (
         <Card title={`Chỉ đạo: ${phaseName}`}>
           <OrderRow label="Camp đường" value={orders.laneFocus} options={[["TOP", "Trên"], ["MID", "Giữa"], ["BOT", "Dưới"], ["NONE", "Farm"]]} onChange={(v) => setOrders({ ...orders, laneFocus: v })} />
           <OrderRow label="Mục tiêu" value={orders.objective} options={[["DRAGON", "Rồng"], ["HERALD_BARON", "Sứ Giả/Baron"], ["BALANCED", "Cân bằng"]]} onChange={(v) => setOrders({ ...orders, objective: v })} />

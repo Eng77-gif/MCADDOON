@@ -9,6 +9,7 @@ Giả lập quản lý đội tuyển LMHT chuyên nghiệp (Web + Mobile). Ngư
 3. [Kiến trúc kỹ thuật, Data Pack và hai chế độ chơi](docs/03-architecture-and-modes.md)
 4. [Dữ liệu thật, AI Ban/Pick, mùa giải và giao diện](docs/04-data-draft-season-ui.md)
 5. [Chuyển nhượng, tuyển trạch, phát triển, pixel art và PixelLab](docs/05-market-dev-pixel-art.md)
+6. [Trận đấu thời gian thực trên bản đồ 3 đường](docs/06-live-match-engine.md)
 
 ## Chạy thử
 
@@ -19,7 +20,8 @@ npm install
 npm test            # test engine
 npm run typecheck
 npm run demo 42     # 1 trận mẫu kèm bình luận và bảng chỉ số (seed 42)
-npm run balance     # 2000 trận để kiểm tra cân bằng
+npm run balance     # 2000 trận để kiểm tra cân bằng (engine theo giai đoạn)
+npm run live-balance 20   # cân bằng engine trận thời gian thực
 npm run import-pack real-2026   # dựng lại dữ liệu từ CSV
 PIXELLAB_SECRET=... npm run portraits -- --team T1   # chân dung pixel art bằng PixelLab
 

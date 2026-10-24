@@ -13,3 +13,6 @@ export * from "./economy.ts";
 export * from "./development.ts";
 export * from "./scouting.ts";
 export * from "./market.ts";
+export * from "./live/map.ts";
+export * from "./live/kits.ts";
+export * from "./live/sim.ts";
