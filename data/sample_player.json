@@ -1,0 +1,97 @@
+{
+  "id": "PLY_000123",
+  "schema_version": 1,
+  "identity": {
+    "ign": "Kiyo",
+    "real_name": "Nguyễn Văn A",
+    "nationality": "VN",
+    "birth_date": "2007-03-14",
+    "primary_role": "MID",
+    "secondary_roles": ["TOP"],
+    "playstyle_tags": ["ROAMER", "CARRY"]
+  },
+
+  "attributes": {
+    "_comment": "Thang 1-100. 'potential' là trần chỉ số ẩn, người chơi chỉ thấy ước lượng qua scouting.",
+    "mechanics": {
+      "laning": 78,
+      "cs_efficiency": 82,
+      "mechanical_outplay": 85,
+      "skillshot_accuracy": 74
+    },
+    "macro": {
+      "map_awareness": 70,
+      "vision_control": 62,
+      "objective_control": 68,
+      "rotation": 75
+    },
+    "teamfight": {
+      "positioning": 72,
+      "target_selection": 69,
+      "engage_timing": 66,
+      "synergy_communication": 71
+    },
+    "mental": {
+      "composure": 64,
+      "consistency": 58,
+      "big_match": 55,
+      "leadership": 40,
+      "tilt_resistance": 60
+    },
+    "physical": {
+      "stamina": 80,
+      "injury_risk": 10
+    }
+  },
+
+  "hidden": {
+    "potential": 92,
+    "growth_rate": 1.15,
+    "peak_age": 21,
+    "professionalism": 75,
+    "ambition": 88,
+    "loyalty": 45
+  },
+
+  "dynamic_state": {
+    "_comment": "Thay đổi theo tuần/trận. form & morale: -10..+10 tác động trực tiếp lên chỉ số hiệu dụng.",
+    "form": 4,
+    "morale": 6,
+    "fatigue": 22,
+    "confidence": 70,
+    "solo_queue_lp": 1450
+  },
+
+  "champion_pool": [
+    { "champion_id": "AHRI",    "mastery": 92, "games_pro": 41, "is_signature": true  },
+    { "champion_id": "SYLAS",   "mastery": 85, "games_pro": 22, "is_signature": false },
+    { "champion_id": "ORIANNA", "mastery": 74, "games_pro": 15, "is_signature": false },
+    { "champion_id": "AZIR",    "mastery": 58, "games_pro": 3,  "is_signature": false }
+  ],
+
+  "contract": {
+    "team_id": "TEAM_GAM",
+    "salary_monthly_usd": 12000,
+    "signing_bonus_usd": 20000,
+    "start_date": "2026-01-01",
+    "end_date": "2027-11-30",
+    "buyout_usd": 250000,
+    "clauses": ["PERFORMANCE_BONUS_PLAYOFFS", "STARTER_GUARANTEE"],
+    "wage_demand_next_usd": 18000
+  },
+
+  "career_stats": {
+    "games": 120,
+    "kda": 4.3,
+    "dpm": 612,
+    "csd15": 9.4,
+    "gd15": 210,
+    "kill_participation": 0.68,
+    "vision_score_pm": 1.1
+  },
+
+  "relationships": [
+    { "player_id": "PLY_000210", "chemistry": 72 },
+    { "player_id": "PLY_000305", "chemistry": -15 }
+  ]
+}

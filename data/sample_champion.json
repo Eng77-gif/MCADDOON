@@ -1,0 +1,49 @@
+{
+  "id": "AHRI",
+  "schema_version": 1,
+  "name": "Ahri",
+  "roles": ["MID"],
+  "damage_type": "AP",
+  "difficulty": 5,
+
+  "profile": {
+    "_comment": "Thang 0-10. Dùng để chấm điểm đội hình và độ phù hợp với Lối chơi (Tactic).",
+    "early_power": 6,
+    "mid_power": 8,
+    "late_power": 6,
+    "engage": 4,
+    "disengage": 5,
+    "pick_potential": 9,
+    "poke": 5,
+    "teamfight": 6,
+    "split_push": 3,
+    "waveclear": 8,
+    "mobility": 9,
+    "frontline": 0,
+    "objective_dps": 3
+  },
+
+  "patch_stats": {
+    "_comment": "Ghi theo từng patch. tier được suy ra từ pro_win_rate + presence, hoặc do designer đặt tay.",
+    "26.21": {
+      "tier": "A",
+      "pro_win_rate": 0.53,
+      "pick_ban_presence": 0.61,
+      "base_stat_delta": { "q_damage": "+10" }
+    }
+  },
+
+  "matchups": {
+    "_comment": "Điểm khắc chế khi đối đầu cùng đường: -5 (bị khắc chế nặng) .. +5 (khắc chế nặng). Đối xứng: m[A][B] = -m[B][A].",
+    "SYLAS": -2,
+    "ORIANNA": 1,
+    "AZIR": 2,
+    "LEBLANC": -1
+  },
+
+  "synergies": {
+    "_comment": "Điểm cộng khi cùng đội: 0..+3.",
+    "WUKONG": 2,
+    "NAUTILUS": 1
+  }
+}
