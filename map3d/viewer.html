@@ -39,6 +39,9 @@ const params = new URLSearchParams(location.search);
 camera.position.set(params.has("top") ? 0 : -110, params.has("top") ? 250 : 150, params.has("top") ? 1 : 140);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
+// ?cam=x,y,z&target=x,y,z for a fixed close-up (model coordinates)
+if (params.has("cam")) camera.position.set(...params.get("cam").split(",").map(Number));
+if (params.has("target")) controls.target.set(...params.get("target").split(",").map(Number));
 controls.update();
 
 scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x3a3020, 1.6));
