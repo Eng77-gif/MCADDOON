@@ -1,0 +1,632 @@
+[
+ {
+  "id": "PerfecT",
+  "page": "PerfecT (Lee Seung-min)",
+  "team": "KT Rolster",
+  "role": "Top Laner",
+  "country": "",
+  "name": "",
+  "stage": "Extra (game roster)",
+  "code": "KT"
+ },
+ {
+  "id": "Cuzz",
+  "page": "Cuzz",
+  "team": "KT Rolster",
+  "role": "Jungler",
+  "country": "",
+  "name": "Moon Woo-chan (문우찬)",
+  "stage": "Extra (game roster)",
+  "code": "KT"
+ },
+ {
+  "id": "Bdd",
+  "page": "Bdd",
+  "team": "KT Rolster",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Gwak Bo-seong (곽보성)",
+  "stage": "Extra (game roster)",
+  "code": "KT"
+ },
+ {
+  "id": "Aiming",
+  "page": "Aiming",
+  "team": "KT Rolster",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Kim Ha-ram (김하람)",
+  "stage": "Extra (game roster)",
+  "code": "KT"
+ },
+ {
+  "id": "Ghost",
+  "page": "Ghost (Jang Yong-jun)",
+  "team": "KT Rolster",
+  "role": "Support",
+  "country": "",
+  "name": "Jang Yong-jun (장용준)",
+  "stage": "Extra (game roster)",
+  "code": "KT"
+ },
+ {
+  "id": "Clear",
+  "page": "Clear (Song Hyeon-min)",
+  "team": "BNK FEARX",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Song Hyeon-min (송현민)",
+  "stage": "Extra (game roster)",
+  "code": "BFX"
+ },
+ {
+  "id": "Raptor",
+  "page": "Raptor (Jeon Eo-jin)",
+  "team": "BNK FEARX",
+  "role": "Jungler",
+  "country": "",
+  "name": "",
+  "stage": "Extra (game roster)",
+  "code": "BFX"
+ },
+ {
+  "id": "VicLa",
+  "page": "VicLa",
+  "team": "BNK FEARX",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Lee Dae-kwang (이대광)",
+  "stage": "Extra (game roster)",
+  "code": "BFX"
+ },
+ {
+  "id": "Diable",
+  "page": "Diable",
+  "team": "BNK FEARX",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Nam Dae-geun (남대근)",
+  "stage": "Extra (game roster)",
+  "code": "BFX"
+ },
+ {
+  "id": "Kellin",
+  "page": "Kellin",
+  "team": "BNK FEARX",
+  "role": "Support",
+  "country": "",
+  "name": "Kim Hyeong-gyu (김형규)",
+  "stage": "Extra (game roster)",
+  "code": "BFX"
+ },
+ {
+  "id": "Casting",
+  "page": "Casting",
+  "team": "HANJIN BRION",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Shin Min-je (신민제)",
+  "stage": "Extra (game roster)",
+  "code": "BRO"
+ },
+ {
+  "id": "GIDEON",
+  "page": "GIDEON",
+  "team": "HANJIN BRION",
+  "role": "Jungler",
+  "country": "",
+  "name": "Kim Min-seong (김민성)",
+  "stage": "Extra (game roster)",
+  "code": "BRO"
+ },
+ {
+  "id": "Fisher",
+  "page": "Fisher (Lee Jeong-tae)",
+  "team": "HANJIN BRION",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Lee Jeong-tae (이정태)",
+  "stage": "Extra (game roster)",
+  "code": "BRO"
+ },
+ {
+  "id": "Teddy",
+  "page": "Teddy",
+  "team": "HANJIN BRION",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Park Jin-seong (박진성)",
+  "stage": "Extra (game roster)",
+  "code": "BRO"
+ },
+ {
+  "id": "Namgung",
+  "page": "Namgung",
+  "team": "HANJIN BRION",
+  "role": "Support",
+  "country": "",
+  "name": "Namgung Seong-hoon (남궁성훈)",
+  "stage": "Extra (game roster)",
+  "code": "BRO"
+ },
+ {
+  "id": "Rich",
+  "page": "Rich (Lee Jae-won)",
+  "team": "Kiwoom DRX",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Lee Jae-won (이재원)",
+  "stage": "Extra (game roster)",
+  "code": "DRX"
+ },
+ {
+  "id": "Vincenzo",
+  "page": "Vincenzo (Ha Seung-min)",
+  "team": "Kiwoom DRX",
+  "role": "Jungler",
+  "country": "",
+  "name": "Ha Seung-min (하승민)",
+  "stage": "Extra (game roster)",
+  "code": "DRX"
+ },
+ {
+  "id": "ucal",
+  "page": "Ucal",
+  "team": "Kiwoom DRX",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Son Woo-hyeon (손우현)",
+  "stage": "Extra (game roster)",
+  "code": "DRX"
+ },
+ {
+  "id": "Jiwoo",
+  "page": "Jiwoo",
+  "team": "Kiwoom DRX",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Jung Ji-woo (정지우)",
+  "stage": "Extra (game roster)",
+  "code": "DRX"
+ },
+ {
+  "id": "Andil",
+  "page": "Andil",
+  "team": "Kiwoom DRX",
+  "role": "Support",
+  "country": "",
+  "name": "Moon Gwan-bin (문관빈)",
+  "stage": "Extra (game roster)",
+  "code": "DRX"
+ },
+ {
+  "id": "DuDu",
+  "page": "DuDu (Lee Dong-ju)",
+  "team": "DN SOOPers",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Lee Dong-ju (이동주)",
+  "stage": "Extra (game roster)",
+  "code": "DNS"
+ },
+ {
+  "id": "Pyosik",
+  "page": "Pyosik",
+  "team": "DN SOOPers",
+  "role": "Jungler",
+  "country": "",
+  "name": "Hong Chang-hyeon (홍창현)",
+  "stage": "Extra (game roster)",
+  "code": "DNS"
+ },
+ {
+  "id": "Clozer",
+  "page": "Clozer",
+  "team": "DN SOOPers",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Lee Ju-hyeon (이주현)",
+  "stage": "Extra (game roster)",
+  "code": "DNS"
+ },
+ {
+  "id": "deokdam",
+  "page": "Deokdam",
+  "team": "DN SOOPers",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Seo Dae-gil (서대길)",
+  "stage": "Extra (game roster)",
+  "code": "DNS"
+ },
+ {
+  "id": "Peter",
+  "page": "Peter (Jeong Yoon-su)",
+  "team": "DN SOOPers",
+  "role": "Support",
+  "country": "",
+  "name": "Jeong Yoon-su (정윤수)",
+  "stage": "Extra (game roster)",
+  "code": "DNS"
+ },
+ {
+  "id": "Kingen",
+  "page": "Kingen",
+  "team": "NS RedForce",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Hwang Seong-hoon (황성훈)",
+  "stage": "Extra (game roster)",
+  "code": "NS"
+ },
+ {
+  "id": "Sponge",
+  "page": "Sponge",
+  "team": "NS RedForce",
+  "role": "Jungler",
+  "country": "",
+  "name": "Bae Young-jun (배영준)",
+  "stage": "Extra (game roster)",
+  "code": "NS"
+ },
+ {
+  "id": "Scout",
+  "page": "Scout",
+  "team": "NS RedForce",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Lee Ye-chan (이예찬)",
+  "stage": "Extra (game roster)",
+  "code": "NS"
+ },
+ {
+  "id": "Taeyoon",
+  "page": "Taeyoon (Kim Tae-yoon)",
+  "team": "NS RedForce",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Kim Tae-yoon (김태윤)",
+  "stage": "Extra (game roster)",
+  "code": "NS"
+ },
+ {
+  "id": "Lehends",
+  "page": "Lehends",
+  "team": "NS RedForce",
+  "role": "Support",
+  "country": "",
+  "name": "Son Si-woo (손시우)",
+  "stage": "Extra (game roster)",
+  "code": "NS"
+ },
+ {
+  "id": "APA",
+  "page": "APA (Eain Stearns)",
+  "team": "Cloud9",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Eain Stearns",
+  "stage": "Extra (game roster)",
+  "code": "C9"
+ },
+ {
+  "id": "Zven",
+  "page": "Zven",
+  "team": "Cloud9",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Jesper Svenningsen",
+  "stage": "Extra (game roster)",
+  "code": "C9"
+ },
+ {
+  "id": "Pungyeon",
+  "page": "Pungyeon",
+  "team": "CTBC Flying Oyster",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Lee Jong-hyuk (이종혁)",
+  "stage": "Extra (game roster)",
+  "code": "CFO"
+ },
+ {
+  "id": "Orca",
+  "page": "Orca (Kuo Cheng-Han)",
+  "team": "CTBC Flying Oyster",
+  "role": "Support",
+  "country": "",
+  "name": "Kuo Cheng-Han (郭承翰)",
+  "stage": "Extra (game roster)",
+  "code": "CFO"
+ },
+ {
+  "id": "Nern",
+  "page": "Nern",
+  "team": "Saigon Warriors",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Đồng Nguyễn Tấn Lộc",
+  "stage": "Extra (game roster)",
+  "code": "SGW"
+ },
+ {
+  "id": "j1n5",
+  "page": "J1n5",
+  "team": "Saigon Warriors",
+  "role": "Jungler",
+  "country": "",
+  "name": "Lê Đình Tấn",
+  "stage": "Extra (game roster)",
+  "code": "SGW"
+ },
+ {
+  "id": "AisyL",
+  "page": "AisyL",
+  "team": "Saigon Warriors",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Nguyễn Hoàng Phú",
+  "stage": "Extra (game roster)",
+  "code": "SGW"
+ },
+ {
+  "id": "Aomine",
+  "page": "Aomine",
+  "team": "Saigon Warriors",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Huỳnh Thiếc Tuấn",
+  "stage": "Extra (game roster)",
+  "code": "SGW"
+ },
+ {
+  "id": "Kairi",
+  "page": "Kairi",
+  "team": "Saigon Warriors",
+  "role": "Support",
+  "country": "",
+  "name": "Võ Văn Phi",
+  "stage": "Extra (game roster)",
+  "code": "SGW"
+ },
+ {
+  "id": "Nanaue",
+  "page": "Nanaue (Phùng Đức Tài)",
+  "team": "9Gaming",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Phùng Đức Tài",
+  "stage": "Extra (game roster)",
+  "code": "9G"
+ },
+ {
+  "id": "666",
+  "page": "666 (Kiều Minh Huy)",
+  "team": "9Gaming",
+  "role": "Jungler",
+  "country": "",
+  "name": "",
+  "stage": "Extra (game roster)",
+  "code": "9G"
+ },
+ {
+  "id": "Baymaxxx",
+  "page": "BayMaxxx",
+  "team": "9Gaming",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Nguyễn Quang Tú",
+  "stage": "Extra (game roster)",
+  "code": "9G"
+ },
+ {
+  "id": "Nuna",
+  "page": "Nuna",
+  "team": "9Gaming",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Lê Quốc Anh",
+  "stage": "Extra (game roster)",
+  "code": "9G"
+ },
+ {
+  "id": "Tahahy",
+  "page": "Tahahy",
+  "team": "9Gaming",
+  "role": "Support",
+  "country": "",
+  "name": "Trần Hoàng Huy",
+  "stage": "Extra (game roster)",
+  "code": "9G"
+ },
+ {
+  "id": "Copper",
+  "page": "Copper",
+  "team": "MVK Academy",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Phùng Khánh Đồng",
+  "stage": "Extra (game roster)",
+  "code": "MVKA"
+ },
+ {
+  "id": "NPC",
+  "page": "NPC",
+  "team": "MVK Academy",
+  "role": "Jungler",
+  "country": "",
+  "name": "Bùi Phan Thành Nhân",
+  "stage": "Extra (game roster)",
+  "code": "MVKA"
+ },
+ {
+  "id": "Hy",
+  "page": "Hy",
+  "team": "MVK Academy",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Han Xing (韩兴)",
+  "stage": "Extra (game roster)",
+  "code": "MVKA"
+ },
+ {
+  "id": "SkyK",
+  "page": "SkyK",
+  "team": "MVK Academy",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Nguyễn Thái Kiệt",
+  "stage": "Extra (game roster)",
+  "code": "MVKA"
+ },
+ {
+  "id": "Virgo2",
+  "page": "Virgo (Đào Châu Trí Cường)",
+  "team": "Saigon Dino",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Đào Châu Trí Cường",
+  "stage": "Extra (game roster)",
+  "code": "SGD"
+ },
+ {
+  "id": "RayQ",
+  "page": "Rayq",
+  "team": "Saigon Dino",
+  "role": "Jungler",
+  "country": "",
+  "name": "",
+  "stage": "Extra (game roster)",
+  "code": "SGD"
+ },
+ {
+  "id": "Emo",
+  "page": "Emo",
+  "team": "Saigon Dino",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Nguyễn Thái Vinh",
+  "stage": "Extra (game roster)",
+  "code": "SGD"
+ },
+ {
+  "id": "Easylove",
+  "page": "Easylove",
+  "team": "Saigon Dino",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Hứa Thành An",
+  "stage": "Extra (game roster)",
+  "code": "SGD"
+ },
+ {
+  "id": "Elio",
+  "page": "Elio",
+  "team": "Saigon Dino",
+  "role": "Support",
+  "country": "",
+  "name": "Phạm Thạch Nhân Băng",
+  "stage": "Extra (game roster)",
+  "code": "SGD"
+ },
+ {
+  "id": "Solis",
+  "page": "Solis",
+  "team": "ZEN Esports",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Huỳnh Nguyễn Duy Thức",
+  "stage": "Extra (game roster)",
+  "code": "ZEN"
+ },
+ {
+  "id": "SCP",
+  "page": "SCP",
+  "team": "ZEN Esports",
+  "role": "Jungler",
+  "country": "",
+  "name": "Lê Tấn Tỷ",
+  "stage": "Extra (game roster)",
+  "code": "ZEN"
+ },
+ {
+  "id": "GiaQui",
+  "page": "GiaQui",
+  "team": "ZEN Esports",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Nguyễn Gia Qui",
+  "stage": "Extra (game roster)",
+  "code": "ZEN"
+ },
+ {
+  "id": "Charlington",
+  "page": "Charlington",
+  "team": "ZEN Esports",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Lâm Tiểu Minh",
+  "stage": "Extra (game roster)",
+  "code": "ZEN"
+ },
+ {
+  "id": "Zin",
+  "page": "Zin",
+  "team": "ZEN Esports",
+  "role": "Support",
+  "country": "",
+  "name": "Nguyễn Tuấn Thọ",
+  "stage": "Extra (game roster)",
+  "code": "ZEN"
+ },
+ {
+  "id": "RyuK2",
+  "page": "Ryuk (Võ Hoàng Lê Khang)",
+  "team": "CES",
+  "role": "Top Laner",
+  "country": "",
+  "name": "Võ Hoàng Lê Khang",
+  "stage": "Extra (game roster)",
+  "code": "CES"
+ },
+ {
+  "id": "nTnT",
+  "page": "NtNt",
+  "team": "CES",
+  "role": "Jungler",
+  "country": "",
+  "name": "Nguyễn Nhật Trường",
+  "stage": "Extra (game roster)",
+  "code": "CES"
+ },
+ {
+  "id": "Vin",
+  "page": "Vin (Trần Hoài Vinh)",
+  "team": "CES",
+  "role": "Mid Laner",
+  "country": "",
+  "name": "Trần Hoài Vinh",
+  "stage": "Extra (game roster)",
+  "code": "CES"
+ },
+ {
+  "id": "Vit",
+  "page": "Vit (Lê Hoài An)",
+  "team": "CES",
+  "role": "Bot Laner",
+  "country": "",
+  "name": "Lê Hoài An",
+  "stage": "Extra (game roster)",
+  "code": "CES"
+ },
+ {
+  "id": "Shogun",
+  "page": "Shogun (Nguyễn Văn Huy)",
+  "team": "CES",
+  "role": "Support",
+  "country": "",
+  "name": "Nguyễn Văn Huy",
+  "stage": "Extra (game roster)",
+  "code": "CES"
+ }
+]

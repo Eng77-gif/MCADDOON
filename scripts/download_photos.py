@@ -49,7 +49,8 @@ def main(players_path, out_dir):
                 dest = os.path.join(out_dir, rel)
                 os.makedirs(os.path.dirname(dest), exist_ok=True)
                 if not os.path.exists(dest):
-                    data = get(url)
+                    # Without format=original the CDN serves WebP regardless of the file extension.
+                    data = get(url + ("&" if "?" in url else "?") + "format=original")
                     with open(dest, "wb") as f:
                         f.write(data)
                 file = rel
