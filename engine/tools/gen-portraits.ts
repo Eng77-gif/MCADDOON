@@ -22,7 +22,7 @@ const { values: opt } = parseArgs({
     size: { type: "string", default: "64" },
     force: { type: "boolean", default: false },
     "dry-run": { type: "boolean", default: false },
-    concurrency: { type: "string", default: "2" },
+    concurrency: { type: "string", default: "1" }, // gói Free của PixelLab: 1 ảnh mỗi lần
   },
 });
 
