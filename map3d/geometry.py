@@ -25,43 +25,11 @@ def rot_y(a):
     return np.array([[c, 0, s, 0], [0, 1, 0, 0], [-s, 0, c, 0], [0, 0, 0, 1.0]])
 
 
-def align_y(d):
-    """Rotation taking +y onto direction d."""
-    d = np.asarray(d, float)
-    d = d / np.linalg.norm(d)
-    y = np.array([0.0, 1.0, 0.0])
-    v, c = np.cross(y, d), float(np.dot(y, d))
-    m = np.eye(4)
-    if np.linalg.norm(v) < 1e-9:
-        if c < 0:
-            m[:3, :3] = np.diag([1.0, -1.0, -1.0])
-        return m
-    k = np.array([[0, -v[2], v[1]], [v[2], 0, -v[0]], [-v[1], v[0], 0]])
-    m[:3, :3] = np.eye(3) + k + k @ k / (1 + c)
-    return m
-
-
 def apply(m, pos):
     return pos @ m[:3, :3].T + m[:3, 3]
 
 
 # --- primitives ------------------------------------------------------------------
-
-def uv_sphere(seg=14, rings=10):
-    th = np.linspace(0, np.pi, rings + 1)
-    ph = np.linspace(0, 2 * np.pi, seg + 1)
-    T, P = np.meshgrid(th, ph, indexing="ij")
-    pos = np.stack([np.sin(T) * np.cos(P), np.cos(T), np.sin(T) * np.sin(P)], -1).reshape(-1, 3)
-    idx = []
-    for r in range(rings):
-        for s in range(seg):
-            a, b = r * (seg + 1) + s, (r + 1) * (seg + 1) + s
-            if r > 0:
-                idx.append((a, a + 1, b))
-            if r < rings - 1:
-                idx.append((a + 1, b + 1, b))
-    return pos, np.array(idx)
-
 
 def frustum(r0, r1, h, seg=8, caps=True):
     """Cylinder / cone along +y from y=0 (radius r0) to y=h (radius r1)."""
@@ -111,58 +79,6 @@ def octahedron():
     pos = np.array([(1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)], float)
     idx = np.array([(2, 4, 0), (2, 1, 4), (2, 5, 1), (2, 0, 5), (3, 0, 4), (3, 4, 1), (3, 1, 5), (3, 5, 0)])
     return pos, idx
-
-
-def catmull_rom(ctrl, n):
-    ctrl = np.asarray(ctrl, float)
-    p = np.concatenate([[2 * ctrl[0] - ctrl[1]], ctrl, [2 * ctrl[-1] - ctrl[-2]]])
-    out = []
-    segs = len(ctrl) - 1
-    for k in range(n):
-        u = k / (n - 1) * segs
-        i = min(int(u), segs - 1)
-        t = u - i
-        p0, p1, p2, p3 = p[i], p[i + 1], p[i + 2], p[i + 3]
-        out.append(0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t
-                          + (-p0 + 3 * p1 - 3 * p2 + p3) * t ** 3))
-    return np.array(out)
-
-
-def tube(points, radii, seg=8):
-    """Tube through `points` with per-point `radii`, capped at both ends."""
-    P = np.asarray(points, float)
-    R = np.asarray(radii, float)
-    k = len(P)
-    T = np.gradient(P, axis=0)
-    T /= np.linalg.norm(T, axis=1, keepdims=True)
-    a = np.array([0.0, 1.0, 0.0]) if abs(T[0, 1]) < 0.9 else np.array([1.0, 0.0, 0.0])
-    Nrm = np.cross(T[0], a)
-    Nrm /= np.linalg.norm(Nrm)
-    ang = np.linspace(0, 2 * np.pi, seg, endpoint=False)
-    rings = []
-    for i in range(k):
-        Nrm = Nrm - np.dot(Nrm, T[i]) * T[i]
-        Nrm /= np.linalg.norm(Nrm)
-        B = np.cross(T[i], Nrm)
-        rings.append(P[i] + R[i] * (np.cos(ang)[:, None] * Nrm + np.sin(ang)[:, None] * B))
-    pos = np.concatenate(rings + [[P[0], P[-1]]])
-    idx = []
-    for i in range(k - 1):
-        for s in range(seg):
-            t = (s + 1) % seg
-            a0, a1, b0, b1 = i * seg + s, i * seg + t, (i + 1) * seg + s, (i + 1) * seg + t
-            idx += [(a0, b0, a1), (a1, b0, b1)]
-    c0, c1 = k * seg, k * seg + 1
-    for s in range(seg):
-        t = (s + 1) % seg
-        idx += [(c0, s, t), (c1, (k - 1) * seg + t, (k - 1) * seg + s)]
-    return pos, np.array(idx)
-
-
-def fan(points):
-    """Flat polygon (convex-ish) from a list of 3D points; use a double-sided material."""
-    pos = np.asarray(points, float)
-    return pos, np.array([(0, i, i + 1) for i in range(1, len(pos) - 1)])
 
 
 # --- model container -------------------------------------------------------------

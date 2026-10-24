@@ -4,9 +4,9 @@ Usage: python3 build_rift.py [OUT_DIR]
 
 Writes:
   summoners_rift.glb   smooth terrain, water, trees/brush/rocks, plus one named node per
-                       structure and monster camp (Turret_Blue_Top_Outer, Inhibitor_Red_Mid,
-                       Nexus_Blue, Monster_Baron, Monster_Blue_Sentinel_Red, ...) so the game
-                       can hide a structure when it is destroyed or a camp while it is dead.
+                       structure (Turret_Blue_Top_Outer, Inhibitor_Red_Mid, Nexus_Blue, ...)
+                       so the game can hide a structure when it is destroyed. No monsters:
+                       jungle camp and objective positions are in map_data.json.
   map_data.json        lane waypoints, structures, jungle camps and objectives in both
                        Leaguepedia/game coordinates and model coordinates.
 
@@ -18,8 +18,8 @@ import json, math, os, sys
 
 import numpy as np
 
-from geometry import (Model, align_y, catmull_rom, fan, frustum, icosphere, octahedron, rot_y,
-                      scale, srgb_to_linear, translate, tube, uv_sphere, write_glb)
+from geometry import (Model, frustum, icosphere, octahedron, rot_y, scale, srgb_to_linear, translate,
+                      write_glb)
 
 W = 14870.0          # map size in game units
 S = 192.0            # map size in model units (x and z span -S/2..S/2, y is up, north is -z)
@@ -103,8 +103,7 @@ TEAM = {"Blue": {"base": BASE_B, "fountain": FOUNT_B, "glow": "Glow_Blue", "trim
 STONE, STONE_DARK, GOLD = (162, 160, 166), (112, 110, 118), (214, 180, 96)
 CANOPY = [(48, 104, 54), (62, 120, 52), (40, 92, 64), (78, 126, 48), (56, 112, 72)]
 TRUNK = (96, 70, 46)
-GLOWS = {"Glow_Blue": (80, 180, 255), "Glow_Red": (255, 86, 70), "Glow_Purple": (200, 110, 255),
-         "Glow_Yellow": (255, 220, 90), "Glow_Orange": (255, 140, 50), "Glow_Cyan": (150, 235, 255)}
+GLOWS = {"Glow_Blue": (80, 180, 255), "Glow_Red": (255, 86, 70)}
 MATERIALS = {
     "Base": {"pbrMetallicRoughness": {"baseColorFactor": [1, 1, 1, 1], "metallicFactor": 0, "roughnessFactor": 0.9}},
     "Water": {"pbrMetallicRoughness": {"baseColorFactor": [0.08, 0.3, 0.55, 0.7], "metallicFactor": 0,
@@ -422,260 +421,8 @@ def fountain(team, rng):
     return m
 
 
-# --- monsters ----------------------------------------------------------------------
-# Built facing +x with the origin on the ground, then turned toward the map centre.
-
-def ell(m, c, r, rgb, material="Base", seg=14, rings=10, jitter=3):
-    m.add(uv_sphere(seg, rings), rgb, material=material, jitter=jitter, m=translate(*c) @ scale(*r))
-
-
-def limb(m, ctrl, r0, r1, rgb, material="Base", n=10, seg=8):
-    pts = catmull_rom(ctrl, n)
-    m.add(tube(pts, np.linspace(r0, r1, n), seg), rgb, material=material, jitter=2)
-
-
-def spike(m, base, direction, length, radius, rgb, material="Base", seg=6):
-    m.add(frustum(radius, 0, length, seg), rgb, material=material, smooth=False,
-          m=translate(*base) @ align_y(direction))
-
-
-def crystal(m, c, r, h, direction, material):
-    m.add(octahedron(), (255, 255, 255), material=material, smooth=False,
-          m=translate(*c) @ align_y(direction) @ scale(r, h, r))
-
-
-def rocky(m, c, r, rgb, rng, subdiv=1, rough=0.15):
-    p, f = icosphere(subdiv)
-    p = p * (1 + rng.uniform(-rough, rough, (len(p), 1)))
-    m.add((p, f), rgb, smooth=False, jitter=8, m=translate(*c) @ rot_y(rng.uniform(0, 6.3)) @ scale(*r))
-
-
-def glow_dot(m, c, r, material, seg=8):
-    ell(m, c, (r, r, r), (255, 255, 255), material, seg, max(4, seg // 2 + 1), jitter=0)
-
-
-def baron(rng):
-    m = Model(rng)
-    dark, body, light, belly, mouth = (64, 34, 94), (116, 62, 156), (146, 84, 186), (190, 146, 210), (120, 30, 78)
-    a = np.linspace(0.2, 2.0 * np.pi, 12)       # coiled tail spiralling into the body
-    coil = [(-1.6 + (3.6 - 0.25 * k) * np.cos(t), 0.7 + 0.05 * k, (3.6 - 0.25 * k) * np.sin(t)) for k, t in enumerate(a)]
-    limb(m, coil[::-1] + [(-0.6, 1.0, 0)], 0.25, 1.4, dark, n=26, seg=10)
-    limb(m, [(-0.6, 0.8, 0), (-0.4, 3.0, 0), (0.4, 5.6, 0), (1.6, 7.2, 0)], 2.2, 1.6, body, n=14, seg=14)
-    spine = catmull_rom([(-0.6, 0.8, 0), (-0.4, 3.0, 0), (0.4, 5.6, 0), (1.6, 7.2, 0)], 9)
-    for k, p in enumerate(spine[1:-1]):                              # armour plates down the back
-        tan = spine[k + 2] - spine[k]
-        back = np.array([-tan[1], tan[0], 0]) / np.linalg.norm(tan)
-        r = 2.1 - 0.06 * k
-        m.add(uv_sphere(10, 7), dark, jitter=3,
-              m=translate(*(p + back * r * 0.75)) @ rot_y(0) @ align_y(tan) @ scale(r * 0.75, 0.55, r * 1.05))
-    for k, p in enumerate(spine[1:-2]):                              # pale belly scales on the front
-        tan = spine[k + 2] - spine[k]
-        front = np.array([tan[1], -tan[0], 0]) / np.linalg.norm(tan)
-        m.add(uv_sphere(10, 7), belly, jitter=3,
-              m=translate(*(p + front * 1.55)) @ align_y(tan) @ scale(1.1, 0.5, 1.3))
-    ell(m, (2.6, 7.9, 0), (2.5, 1.35, 1.8), light)                   # head
-    ell(m, (3.1, 6.6, 0), (2.0, 0.55, 1.45), body)                   # lower jaw, hanging open
-    ell(m, (3.4, 7.25, 0), (1.6, 0.45, 1.2), mouth)                  # inside of the mouth
-    for k in range(7):                                               # teeth
-        z = -0.9 + k * 0.3
-        spike(m, (4.6 - abs(z) * 0.5, 7.6, z), (0.15, -1, 0), 0.5, 0.09, (246, 238, 226))
-        spike(m, (4.4 - abs(z) * 0.5, 6.9, z), (0.15, 1, 0), 0.35, 0.08, (246, 238, 226))
-    for s in (-1, 1):
-        ell(m, (3.9, 8.45, s * 0.95), (0.34, 0.24, 0.3), (255, 255, 255), "Glow_Yellow", 10, 6, 0)
-        limb(m, [(1.4, 8.8, s * 1.2), (0.6, 10.0, s * 1.8), (-0.8, 10.8, s * 2.0), (-2.0, 10.4, s * 1.6)],
-             0.45, 0.05, dark, n=10, seg=7)                          # curved horns
-    for k in range(9):                                               # spikes down the back
-        t = k / 8
-        base = (-0.6 - 1.4 * t, 8.6 - 7.2 * t, 0)
-        spike(m, base, (-1, 0.6, 0), 1.2 - 0.6 * t, 0.32 - 0.12 * t, dark)
-    for ang in (0.6, 1.9, 3.3, 4.4, 5.6):                            # tentacles around the pit
-        x, z = 5.6 * np.cos(ang), 5.6 * np.sin(ang)
-        tip = (x * 1.05 + 0.6 * np.cos(ang + 1), 3.6 + 0.6 * np.sin(ang * 3), z * 1.05 + 0.6 * np.sin(ang + 1))
-        limb(m, [(x * 0.9, -0.3, z * 0.9), (x, 1.6, z), tip], 0.55, 0.12, dark, n=10, seg=8)
-        glow_dot(m, tip, 0.22, "Glow_Purple")
-    for _ in range(14):                                              # glowing spots on the body
-        t = rng.uniform(0.15, 0.75)
-        a2 = rng.uniform(-2.0, 2.0)
-        cx = -0.6 + 2.2 * t * t
-        glow_dot(m, (cx - 2.0 * np.cos(a2) * 0.9, 0.8 + 6.4 * t, 2.0 * np.sin(a2)), 0.16, "Glow_Purple", 6)
-    return m
-
-
-def dragon(rng):
-    m = Model(rng)
-    scale_, belly, wing, membrane, horn = (196, 88, 48), (238, 176, 98), (140, 50, 38), (214, 112, 66), (238, 226, 196)
-    ell(m, (0, 2.8, 0), (2.7, 1.5, 1.55), scale_)                    # body
-    ell(m, (0.3, 2.35, 0), (2.4, 1.05, 1.3), belly)
-    limb(m, [(1.8, 3.2, 0), (2.9, 4.2, 0), (3.7, 4.8, 0)], 0.95, 0.6, scale_)   # neck
-    ell(m, (4.3, 5.0, 0), (1.0, 0.68, 0.7), scale_)                  # head
-    ell(m, (5.3, 4.78, 0), (0.75, 0.38, 0.46), scale_)               # snout
-    ell(m, (5.0, 4.5, 0), (0.8, 0.22, 0.42), belly)                  # jaw
-    for s in (-1, 1):
-        glow_dot(m, (4.65, 5.25, s * 0.48), 0.15, "Glow_Yellow")
-        spike(m, (3.9, 5.4, s * 0.35), (-1, 0.7, s * 0.25), 1.2, 0.17, horn)
-        spike(m, (4.3, 5.55, s * 0.25), (-0.6, 1, s * 0.2), 0.6, 0.1, horn)
-        shoulder, elbow, tip = (0.6, 3.9, s * 1.2), (-0.3, 5.8, s * 3.6), (-1.6, 6.4, s * 6.8)
-        limb(m, [shoulder, elbow, tip], 0.28, 0.06, wing, n=10, seg=6)        # wing bone
-        trail = [(-2.8, 4.6, s * 5.6), (-2.4, 4.1, s * 3.4), (-1.4, 3.7, s * 1.5)]
-        m.add(fan([elbow, tip] + trail + [shoulder]), membrane, smooth=False, jitter=6, double=True)
-        for k in range(3):                                           # wing fingers
-            limb(m, [elbow, trail[k]], 0.1, 0.04, wing, n=4, seg=5)
-        for lx in (-1.3, 1.2):                                       # legs and claws
-            limb(m, [(lx, 2.2, s * 0.9), (lx + 0.3, 1.1, s * 1.2), (lx + 0.2, 0.25, s * 1.15)], 0.42, 0.26, scale_, n=8)
-            for c in (-0.15, 0.15):
-                spike(m, (lx + 0.35, 0.15, s * 1.15 + c), (1, -0.2, 0), 0.4, 0.08, horn, seg=4)
-    limb(m, [(-2.3, 2.6, 0), (-4.5, 2.0, 0.7), (-6.4, 1.2, -0.4), (-8.3, 0.7, 0.4)], 0.95, 0.12, scale_, n=16)
-    spike(m, (-8.3, 0.7, 0.4), (-1, 0.3, 0), 0.9, 0.3, (255, 255, 255), "Glow_Orange")
-    for k in range(10):                                              # spine plates
-        x = 3.2 - k * 0.75
-        y = 4.7 - k * 0.12 if k < 3 else 4.3 - (k - 3) * 0.32
-        spike(m, (x, y, 0), (-0.3, 1, 0), 0.6 - 0.03 * k, 0.2, wing, seg=4)
-    return m
-
-
-def blue_sentinel(rng):
-    m = Model(rng)
-    stone, rock_, moss = (104, 116, 140), (84, 94, 116), (90, 130, 90)
-    for s in (-1, 1):
-        rocky(m, (0, 0.6, s * 1.1), (0.75, 0.9, 0.7), rock_, rng)                 # legs
-        rocky(m, (0.6, 3.5, s * 2.7), (0.9, 1.1, 0.8), rock_, rng)                # shoulders
-        rocky(m, (0.9, 2.1, s * 2.9), (0.8, 1.0, 0.75), stone, rng)               # forearms
-        rocky(m, (1.4, 0.8, s * 2.9), (1.0, 0.8, 0.9), stone, rng)                # fists on the ground
-    rocky(m, (0, 3.4, 0), (2.0, 1.8, 2.2), stone, rng, subdiv=2, rough=0.08)     # torso
-    rocky(m, (-0.4, 4.6, 0), (1.5, 0.6, 1.7), moss, rng, rough=0.1)              # moss on the back
-    rocky(m, (1.9, 4.8, 0), (0.9, 0.75, 0.95), stone, rng)                        # head
-    for s in (-1, 1):
-        glow_dot(m, (2.7, 4.95, s * 0.38), 0.13, "Glow_Cyan")
-    for c, d, r, hh in (((-0.6, 5.2, 0), (0, 1, 0), 0.38, 1.6), ((-1.0, 4.9, -0.7), (-0.4, 1, -0.5), 0.3, 1.2),
-                        ((-0.9, 5.0, 0.8), (-0.3, 1, 0.6), 0.32, 1.3), ((-1.6, 4.4, 0), (-1, 0.8, 0), 0.26, 1.0),
-                        ((0.0, 5.1, 0.5), (0.3, 1, 0.3), 0.22, 0.8), ((0.0, 5.1, -0.5), (0.3, 1, -0.4), 0.2, 0.7)):
-        crystal(m, c, r, hh, d, "Glow_Blue")
-    ell(m, (1.95, 3.3, 0), (0.25, 0.4, 0.4), (255, 255, 255), "Glow_Blue", 8, 6, 0)   # chest rune
-    return m
-
-
-def red_brambleback(rng):
-    m = Model(rng)
-    hide, dark, thorn, tusk = (154, 60, 42), (100, 40, 30), (122, 46, 34), (238, 228, 204)
-    for lx in (-1.4, 1.2):
-        for s in (-1, 1):
-            limb(m, [(lx, 2.0, s * 1.0), (lx + 0.2, 1.0, s * 1.15), (lx + 0.1, 0.2, s * 1.1)], 0.5, 0.36, dark, n=7)
-    ell(m, (-0.2, 2.6, 0), (2.5, 1.55, 1.7), hide)                    # body
-    ell(m, (2.4, 2.5, 0), (1.15, 1.0, 1.0), hide)                     # head
-    ell(m, (3.4, 2.2, 0), (0.6, 0.5, 0.62), dark)                     # snout
-    for s in (-1, 1):
-        glow_dot(m, (3.1, 2.95, s * 0.55), 0.14, "Glow_Yellow")
-        limb(m, [(3.6, 2.0, s * 0.5), (4.1, 2.3, s * 0.65), (4.3, 2.9, s * 0.55)], 0.16, 0.03, tusk, n=6, seg=6)
-        spike(m, (2.2, 3.3, s * 0.6), (-0.6, 1, s * 0.5), 0.8, 0.18, dark)   # ears
-    for _ in range(18):                                               # thorns with glowing tips
-        a = rng.uniform(-1.1, 1.1)
-        x = rng.uniform(-2.2, 1.4)
-        k = np.sqrt(max(0.0, 1 - ((x + 0.2) / 2.5) ** 2))
-        base = np.array((x, 2.6 + 1.45 * np.cos(a) * k, 1.6 * np.sin(a) * k))
-        d = np.array((-0.5, np.cos(a), np.sin(a)))
-        d /= np.linalg.norm(d)
-        L = rng.uniform(0.6, 1.1)
-        spike(m, base, d, L, 0.16, thorn)
-        glow_dot(m, base + d * L, 0.09, "Glow_Orange", 6)
-    limb(m, [(-2.6, 2.6, 0), (-3.3, 2.9, 0), (-3.7, 2.4, 0)], 0.25, 0.06, dark, n=6)
-    return m
-
-
-def gromp(rng):
-    m = Model(rng)
-    skin, belly = (88, 122, 58), (162, 176, 104)
-    ell(m, (0, 1.4, 0), (2.0, 1.4, 1.9), skin)
-    ell(m, (0.5, 1.0, 0), (1.6, 0.95, 1.6), belly)
-    for s in (-1, 1):
-        ell(m, (1.2, 2.6, s * 0.85), (0.45, 0.45, 0.45), (255, 255, 255), "Glow_Yellow", 10, 6, 0)
-        ell(m, (1.6, 2.65, s * 0.85), (0.12, 0.22, 0.15), (30, 20, 20), seg=8, rings=5)
-        limb(m, [(-0.8, 0.8, s * 1.4), (-0.6, 0.2, s * 2.0), (0.2, 0.1, s * 2.1)], 0.45, 0.3, skin, n=6)
-        limb(m, [(1.3, 0.8, s * 1.0), (1.8, 0.1, s * 1.2)], 0.3, 0.22, skin, n=4)
-    for _ in range(12):                                               # warts
-        a, b = rng.uniform(0, 6.3), rng.uniform(0.2, 1.2)
-        ell(m, (1.9 * np.cos(a) * np.sin(b), 1.4 + 1.3 * np.cos(b), 1.8 * np.sin(a) * np.sin(b)),
-            (0.18, 0.12, 0.18), (70, 98, 46), seg=8, rings=5)
-    return m
-
-
-def wolf(m, ox, oz, s, fur, eye):
-    ell(m, (ox, 1.2 * s, oz), (1.1 * s, 0.55 * s, 0.5 * s), fur)
-    ell(m, (ox + 1.2 * s, 1.55 * s, oz), (0.45 * s, 0.4 * s, 0.38 * s), fur)
-    ell(m, (ox + 1.65 * s, 1.45 * s, oz), (0.35 * s, 0.18 * s, 0.2 * s), fur)
-    for z in (-0.18, 0.18):
-        spike(m, (ox + 1.1 * s, 1.85 * s, oz + z * s), (0, 1, z), 0.4 * s, 0.12 * s, fur, seg=4)
-        glow_dot(m, (ox + 1.55 * s, 1.65 * s, oz + z * 1.2 * s), 0.07 * s, eye, 6)
-    for lx in (-0.7, 0.7):
-        for z in (-0.25, 0.25):
-            limb(m, [(ox + lx * s, 1.0 * s, oz + z * s), (ox + lx * s, 0.0, oz + z * s)], 0.14 * s, 0.1 * s, fur, n=3, seg=5)
-    limb(m, [(ox - 1.0 * s, 1.3 * s, oz), (ox - 1.6 * s, 1.5 * s, oz), (ox - 1.9 * s, 1.2 * s, oz)],
-         0.18 * s, 0.05 * s, fur, n=6, seg=5)
-
-
-def wolves(rng):
-    m = Model(rng)
-    wolf(m, 0, 0, 1.5, (80, 82, 100), "Glow_Cyan")
-    wolf(m, -2.6, -2.0, 1.0, (104, 104, 120), "Glow_Cyan")
-    wolf(m, -2.6, 2.0, 1.0, (104, 104, 120), "Glow_Cyan")
-    return m
-
-
-def raptor(m, ox, oz, s, body, crest):
-    ell(m, (ox, 1.3 * s, oz), (0.8 * s, 0.55 * s, 0.5 * s), body)
-    limb(m, [(ox + 0.5 * s, 1.5 * s, oz), (ox + 0.9 * s, 2.0 * s, oz)], 0.25 * s, 0.2 * s, body, n=4, seg=6)
-    ell(m, (ox + 1.05 * s, 2.15 * s, oz), (0.32 * s, 0.26 * s, 0.24 * s), body)
-    spike(m, (ox + 1.3 * s, 2.1 * s, oz), (1, -0.3, 0), 0.4 * s, 0.1 * s, (236, 200, 90), seg=4)
-    for k in range(3):
-        spike(m, (ox + (0.95 - 0.2 * k) * s, 2.3 * s, oz), (-0.5, 1, 0), (0.5 - 0.1 * k) * s, 0.08 * s, crest, seg=4)
-    for z in (-0.2, 0.2):
-        limb(m, [(ox, 1.0 * s, oz + z * s), (ox - 0.1 * s, 0.5 * s, oz + z * s), (ox + 0.1 * s, 0, oz + z * s)],
-             0.1 * s, 0.07 * s, (200, 150, 80), n=4, seg=5)
-    limb(m, [(ox - 0.7 * s, 1.35 * s, oz), (ox - 1.4 * s, 1.6 * s, oz)], 0.2 * s, 0.05 * s, crest, n=4, seg=5)
-
-
-def raptors(rng):
-    m = Model(rng)
-    raptor(m, 0, 0, 1.6, (232, 230, 238), (214, 62, 58))
-    for ox, oz in ((-2.4, -1.8), (-2.4, 1.8), (-1.2, -3.4), (-1.2, 3.4), (-3.8, 0)):
-        raptor(m, ox, oz, 0.9, (220, 218, 228), (200, 60, 60))
-    return m
-
-
-def krugs(rng):
-    m = Model(rng)
-    rock_ = (128, 108, 88)
-    for c, r in (((0, 1.6, 0), 1.8), ((-2.6, 0.9, 2.0), 1.0)):
-        rocky(m, c, (r, r * 0.9, r), rock_, rng, subdiv=1, rough=0.18)
-        for _ in range(7):                                            # glowing lava cracks
-            a, b = rng.uniform(0, 6.3), rng.uniform(0.3, 1.4)
-            ell(m, (c[0] + r * np.cos(a) * np.sin(b), c[1] + r * 0.85 * np.cos(b), c[2] + r * np.sin(a) * np.sin(b)),
-                (0.2, 0.08, 0.2), (255, 255, 255), "Glow_Orange", 6, 4, 0)
-    for s in (-1, 1):
-        glow_dot(m, (1.75, 2.0, s * 0.5), 0.14, "Glow_Yellow", 6)
-    return m
-
-
-def scuttle(rng):
-    m = Model(rng)
-    shell, top, leg = (82, 170, 166), (238, 198, 222), (210, 150, 170)
-    ell(m, (0, 1.0, 0), (1.6, 0.65, 1.3), shell)
-    ell(m, (0, 1.45, 0), (0.95, 0.4, 0.8), top)
-    for x in (-0.6, 0, 0.6):
-        for s in (-1, 1):
-            limb(m, [(x, 0.8, s * 1.0), (x, 0.7, s * 1.7), (x + 0.1, 0.0, s * 1.9)], 0.11, 0.06, leg, n=5, seg=5)
-    for s in (-1, 1):
-        limb(m, [(1.2, 1.3, s * 0.4), (1.6, 1.8, s * 0.45)], 0.06, 0.05, leg, n=3, seg=4)
-        glow_dot(m, (1.6, 1.85, s * 0.45), 0.13, "Glow_Yellow", 6)
-    return m
-
-
-MONSTERS = {"Baron": baron, "Dragon": dragon, "Blue_Sentinel": blue_sentinel,
-            "Red_Brambleback": red_brambleback, "Gromp": gromp, "Murk_Wolves": wolves,
-            "Raptors": raptors, "Krugs": krugs, "Scuttle": scuttle}
-
-
 def facing(p):
-    """Rotation about y that turns a +x-facing model toward the map centre."""
+    """Rotation about y that turns a +x-facing structure toward the map centre."""
     dx = CENTER[0] - p[0]
     dz = -(CENTER[1] - p[1])          # game north is model -z
     return rot_y(math.atan2(-dz, dx))
@@ -689,37 +436,29 @@ def main(out_dir):
     cls, h, terrain = build_terrain(rng)
     height_at = sampler(h)
     nodes = [("Terrain", terrain), ("Water", build_water())] + build_props(cls, h, rng)
-    structures, monsters = [], []
+    structures = []
 
     def model_pos(p):
         x, z = to_model(p)
         return [round(x, 3), round(height_at(p), 3), round(z, 3)]
 
-    def place(name, mdl, p, kind, team, record, key):
+    def place(name, mdl, p, kind, team):
         x, y, z = model_pos(p)
         nodes.append((name, mdl.transform(translate(x, y, z) @ facing(p))))
-        record.append({"node": name, "kind": kind, key: team,
-                       "game_pos": [round(p[0]), round(p[1])], "model_pos": [x, y, z]})
+        structures.append({"node": name, "kind": kind, "team": team,
+                           "game_pos": [round(p[0]), round(p[1])], "model_pos": [x, y, z]})
 
     for team, f in (("Blue", lambda p: p), ("Red", mirror)):
         for name, p in BLUE_TURRETS.items():
-            place(f"Turret_{team}_{name}", turret(team, rng), f(p), "Turret", team, structures, "team")
+            place(f"Turret_{team}_{name}", turret(team, rng), f(p), "Turret", team)
         for name, p in BLUE_INHIBITORS.items():
-            place(f"Inhibitor_{team}_{name}", inhibitor(team, rng), f(p), "Inhibitor", team, structures, "team")
-        place(f"Nexus_{team}", nexus(team, rng), f(BLUE_NEXUS), "Nexus", team, structures, "team")
-        place(f"Fountain_{team}", fountain(team, rng), f(FOUNTAIN), "Fountain", team, structures, "team")
-        for name, p in BLUE_CAMPS.items():
-            place(f"Monster_{name}_{team}", MONSTERS[name](rng), f(p), name, team, monsters, "side")
-    for node, kind, p in (("Monster_Baron", "Baron", OBJECTIVES["Baron_Pit"]),
-                          ("Monster_Dragon", "Dragon", OBJECTIVES["Dragon_Pit"]),
-                          ("Monster_Scuttle_Top", "Scuttle", OBJECTIVES["Scuttle_Top"]),
-                          ("Monster_Scuttle_Bot", "Scuttle", OBJECTIVES["Scuttle_Bot"])):
-        place(node, MONSTERS[kind](rng), p, kind, "Neutral", monsters, "side")
+            place(f"Inhibitor_{team}_{name}", inhibitor(team, rng), f(p), "Inhibitor", team)
+        place(f"Nexus_{team}", nexus(team, rng), f(BLUE_NEXUS), "Nexus", team)
+        place(f"Fountain_{team}", fountain(team, rng), f(FOUNTAIN), "Fountain", team)
 
     write_glb(os.path.join(out_dir, "summoners_rift.glb"), nodes, MATERIALS)
 
-    camps = [{"name": n, "side": side, "game_pos": [round(v) for v in f(p)], "model_pos": model_pos(f(p)),
-              "node": f"Monster_{n}_{side}"}
+    camps = [{"name": n, "side": side, "game_pos": [round(v) for v in f(p)], "model_pos": model_pos(f(p))}
              for side, f in (("Blue", lambda p: p), ("Red", mirror)) for n, p in BLUE_CAMPS.items()]
     data = {
         "description": "Summoner's Rift low-poly 3D map. Model units: the map spans -96..96 on x and z; "
@@ -730,7 +469,6 @@ def main(out_dir):
         "fountains": {"Blue": model_pos(FOUNTAIN), "Red": model_pos(mirror(FOUNTAIN))},
         "objectives": {n: {"game_pos": list(p), "model_pos": model_pos(p)} for n, p in OBJECTIVES.items()},
         "jungle_camps": camps,
-        "monsters": monsters,
         "structures": structures,
     }
     with open(os.path.join(out_dir, "map_data.json"), "w", encoding="utf-8") as f:

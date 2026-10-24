@@ -252,8 +252,7 @@
     -46.935,
     0.021,
     -6.004
-   ],
-   "node": "Monster_Blue_Sentinel_Blue"
+   ]
   },
   {
    "name": "Gromp",
@@ -266,8 +265,7 @@
     -68.885,
     -0.029,
     -12.46
-   ],
-   "node": "Monster_Gromp_Blue"
+   ]
   },
   {
    "name": "Murk_Wolves",
@@ -280,8 +278,7 @@
     -46.935,
     0.016,
     12.073
-   ],
-   "node": "Monster_Murk_Wolves_Blue"
+   ]
   },
   {
    "name": "Raptors",
@@ -294,8 +291,7 @@
     -5.617,
     -0.022,
     26.276
-   ],
-   "node": "Monster_Raptors_Blue"
+   ]
   },
   {
    "name": "Red_Brambleback",
@@ -308,8 +304,7 @@
     4.713,
     0.001,
     44.352
-   ],
-   "node": "Monster_Red_Brambleback_Blue"
+   ]
   },
   {
    "name": "Krugs",
@@ -322,8 +317,7 @@
     12.46,
     0.016,
     61.138
-   ],
-   "node": "Monster_Krugs_Blue"
+   ]
   },
   {
    "name": "Blue_Sentinel",
@@ -336,8 +330,7 @@
     46.935,
     -0.017,
     6.004
-   ],
-   "node": "Monster_Blue_Sentinel_Red"
+   ]
   },
   {
    "name": "Gromp",
@@ -350,8 +343,7 @@
     68.885,
     -0.033,
     12.46
-   ],
-   "node": "Monster_Gromp_Red"
+   ]
   },
   {
    "name": "Murk_Wolves",
@@ -364,8 +356,7 @@
     46.935,
     0.01,
     -12.073
-   ],
-   "node": "Monster_Murk_Wolves_Red"
+   ]
   },
   {
    "name": "Raptors",
@@ -378,8 +369,7 @@
     5.617,
     0.013,
     -26.276
-   ],
-   "node": "Monster_Raptors_Red"
+   ]
   },
   {
    "name": "Red_Brambleback",
@@ -392,8 +382,7 @@
     -4.713,
     -0.012,
     -44.352
-   ],
-   "node": "Monster_Red_Brambleback_Red"
+   ]
   },
   {
    "name": "Krugs",
@@ -406,233 +395,6 @@
     -12.46,
     0.033,
     -61.138
-   ],
-   "node": "Monster_Krugs_Red"
-  }
- ],
- "monsters": [
-  {
-   "node": "Monster_Blue_Sentinel_Blue",
-   "kind": "Blue_Sentinel",
-   "side": "Blue",
-   "game_pos": [
-    3800,
-    7900
-   ],
-   "model_pos": [
-    -46.935,
-    0.021,
-    -6.004
-   ]
-  },
-  {
-   "node": "Monster_Gromp_Blue",
-   "kind": "Gromp",
-   "side": "Blue",
-   "game_pos": [
-    2100,
-    8400
-   ],
-   "model_pos": [
-    -68.885,
-    -0.029,
-    -12.46
-   ]
-  },
-  {
-   "node": "Monster_Murk_Wolves_Blue",
-   "kind": "Murk_Wolves",
-   "side": "Blue",
-   "game_pos": [
-    3800,
-    6500
-   ],
-   "model_pos": [
-    -46.935,
-    0.016,
-    12.073
-   ]
-  },
-  {
-   "node": "Monster_Raptors_Blue",
-   "kind": "Raptors",
-   "side": "Blue",
-   "game_pos": [
-    7000,
-    5400
-   ],
-   "model_pos": [
-    -5.617,
-    -0.022,
-    26.276
-   ]
-  },
-  {
-   "node": "Monster_Red_Brambleback_Blue",
-   "kind": "Red_Brambleback",
-   "side": "Blue",
-   "game_pos": [
-    7800,
-    4000
-   ],
-   "model_pos": [
-    4.713,
-    0.001,
-    44.352
-   ]
-  },
-  {
-   "node": "Monster_Krugs_Blue",
-   "kind": "Krugs",
-   "side": "Blue",
-   "game_pos": [
-    8400,
-    2700
-   ],
-   "model_pos": [
-    12.46,
-    0.016,
-    61.138
-   ]
-  },
-  {
-   "node": "Monster_Blue_Sentinel_Red",
-   "kind": "Blue_Sentinel",
-   "side": "Red",
-   "game_pos": [
-    11070,
-    6970
-   ],
-   "model_pos": [
-    46.935,
-    -0.017,
-    6.004
-   ]
-  },
-  {
-   "node": "Monster_Gromp_Red",
-   "kind": "Gromp",
-   "side": "Red",
-   "game_pos": [
-    12770,
-    6470
-   ],
-   "model_pos": [
-    68.885,
-    -0.033,
-    12.46
-   ]
-  },
-  {
-   "node": "Monster_Murk_Wolves_Red",
-   "kind": "Murk_Wolves",
-   "side": "Red",
-   "game_pos": [
-    11070,
-    8370
-   ],
-   "model_pos": [
-    46.935,
-    0.01,
-    -12.073
-   ]
-  },
-  {
-   "node": "Monster_Raptors_Red",
-   "kind": "Raptors",
-   "side": "Red",
-   "game_pos": [
-    7870,
-    9470
-   ],
-   "model_pos": [
-    5.617,
-    0.013,
-    -26.276
-   ]
-  },
-  {
-   "node": "Monster_Red_Brambleback_Red",
-   "kind": "Red_Brambleback",
-   "side": "Red",
-   "game_pos": [
-    7070,
-    10870
-   ],
-   "model_pos": [
-    -4.713,
-    -0.012,
-    -44.352
-   ]
-  },
-  {
-   "node": "Monster_Krugs_Red",
-   "kind": "Krugs",
-   "side": "Red",
-   "game_pos": [
-    6470,
-    12170
-   ],
-   "model_pos": [
-    -12.46,
-    0.033,
-    -61.138
-   ]
-  },
-  {
-   "node": "Monster_Baron",
-   "kind": "Baron",
-   "side": "Neutral",
-   "game_pos": [
-    5000,
-    10450
-   ],
-   "model_pos": [
-    -31.44,
-    -0.206,
-    -38.929
-   ]
-  },
-  {
-   "node": "Monster_Dragon",
-   "kind": "Dragon",
-   "side": "Neutral",
-   "game_pos": [
-    9870,
-    4420
-   ],
-   "model_pos": [
-    31.44,
-    -0.169,
-    38.929
-   ]
-  },
-  {
-   "node": "Monster_Scuttle_Top",
-   "kind": "Scuttle",
-   "side": "Neutral",
-   "game_pos": [
-    4400,
-    9800
-   ],
-   "model_pos": [
-    -39.188,
-    2.514,
-    -30.537
-   ]
-  },
-  {
-   "node": "Monster_Scuttle_Bot",
-   "kind": "Scuttle",
-   "side": "Neutral",
-   "game_pos": [
-    10470,
-    5070
-   ],
-   "model_pos": [
-    39.188,
-    2.078,
-    30.537
    ]
   }
  ],
