@@ -1,0 +1,6 @@
+{
+  "id": "demo",
+  "name": "Demo pack (tướng thật, đội/tuyển thủ hư cấu)",
+  "patch": "26.21",
+  "files": { "champions": "champions.json", "teams": "teams.json" }
+}

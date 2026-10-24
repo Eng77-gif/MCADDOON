@@ -1,0 +1,531 @@
+[
+ {
+  "id": "DEMO_BLUE",
+  "name": "Demo Blue Esports",
+  "short": "DBE",
+  "roster": {
+   "TOP": {
+    "id": "DBE_TOP",
+    "ign": "Ironwall",
+    "role": "TOP",
+    "attributes": {
+     "mechanics": {
+      "laning": 72,
+      "cs_efficiency": 87,
+      "mechanical_outplay": 77,
+      "skillshot_accuracy": 75
+     },
+     "macro": {
+      "map_awareness": 84,
+      "vision_control": 81,
+      "objective_control": 77,
+      "rotation": 84
+     },
+     "teamfight": {
+      "positioning": 84,
+      "target_selection": 81,
+      "engage_timing": 83,
+      "synergy_communication": 82
+     },
+     "mental": {
+      "composure": 85,
+      "consistency": 76,
+      "big_match": 78,
+      "leadership": 73,
+      "tilt_resistance": 83
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "KSANTE",
+      "mastery": 88
+     },
+     {
+      "champion_id": "GNAR",
+      "mastery": 80
+     },
+     {
+      "champion_id": "JAX",
+      "mastery": 72
+     }
+    ]
+   },
+   "JUNGLE": {
+    "id": "DBE_JUNGLE",
+    "ign": "Shadowstep",
+    "role": "JUNGLE",
+    "attributes": {
+     "mechanics": {
+      "laning": 73,
+      "cs_efficiency": 83,
+      "mechanical_outplay": 79,
+      "skillshot_accuracy": 87
+     },
+     "macro": {
+      "map_awareness": 85,
+      "vision_control": 74,
+      "objective_control": 80,
+      "rotation": 87
+     },
+     "teamfight": {
+      "positioning": 83,
+      "target_selection": 82,
+      "engage_timing": 81,
+      "synergy_communication": 87
+     },
+     "mental": {
+      "composure": 87,
+      "consistency": 78,
+      "big_match": 77,
+      "leadership": 75,
+      "tilt_resistance": 77
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "VI",
+      "mastery": 84
+     },
+     {
+      "champion_id": "WUKONG",
+      "mastery": 86,
+      "is_signature": true
+     },
+     {
+      "champion_id": "SEJUANI",
+      "mastery": 70
+     }
+    ]
+   },
+   "MID": {
+    "id": "DBE_MID",
+    "ign": "Lumen",
+    "role": "MID",
+    "attributes": {
+     "mechanics": {
+      "laning": 74,
+      "cs_efficiency": 77,
+      "mechanical_outplay": 79,
+      "skillshot_accuracy": 77
+     },
+     "macro": {
+      "map_awareness": 87,
+      "vision_control": 81,
+      "objective_control": 84,
+      "rotation": 86
+     },
+     "teamfight": {
+      "positioning": 73,
+      "target_selection": 76,
+      "engage_timing": 81,
+      "synergy_communication": 80
+     },
+     "mental": {
+      "composure": 79,
+      "consistency": 75,
+      "big_match": 87,
+      "leadership": 63,
+      "tilt_resistance": 78
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "AHRI",
+      "mastery": 92,
+      "is_signature": true
+     },
+     {
+      "champion_id": "SYLAS",
+      "mastery": 85
+     },
+     {
+      "champion_id": "ORIANNA",
+      "mastery": 74
+     }
+    ]
+   },
+   "ADC": {
+    "id": "DBE_ADC",
+    "ign": "Volley",
+    "role": "ADC",
+    "attributes": {
+     "mechanics": {
+      "laning": 78,
+      "cs_efficiency": 83,
+      "mechanical_outplay": 87,
+      "skillshot_accuracy": 80
+     },
+     "macro": {
+      "map_awareness": 75,
+      "vision_control": 78,
+      "objective_control": 77,
+      "rotation": 78
+     },
+     "teamfight": {
+      "positioning": 79,
+      "target_selection": 77,
+      "engage_timing": 81,
+      "synergy_communication": 82
+     },
+     "mental": {
+      "composure": 76,
+      "consistency": 87,
+      "big_match": 79,
+      "leadership": 76,
+      "tilt_resistance": 82
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "KAISA",
+      "mastery": 88
+     },
+     {
+      "champion_id": "XAYAH",
+      "mastery": 80
+     },
+     {
+      "champion_id": "VARUS",
+      "mastery": 75
+     }
+    ]
+   },
+   "SUPPORT": {
+    "id": "DBE_SUPPORT",
+    "ign": "Anchor",
+    "role": "SUPPORT",
+    "attributes": {
+     "mechanics": {
+      "laning": 82,
+      "cs_efficiency": 80,
+      "mechanical_outplay": 80,
+      "skillshot_accuracy": 83
+     },
+     "macro": {
+      "map_awareness": 87,
+      "vision_control": 78,
+      "objective_control": 83,
+      "rotation": 76
+     },
+     "teamfight": {
+      "positioning": 81,
+      "target_selection": 78,
+      "engage_timing": 77,
+      "synergy_communication": 78
+     },
+     "mental": {
+      "composure": 85,
+      "consistency": 86,
+      "big_match": 74,
+      "leadership": 75,
+      "tilt_resistance": 73
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "NAUTILUS",
+      "mastery": 82
+     },
+     {
+      "champion_id": "RAKAN",
+      "mastery": 78
+     },
+     {
+      "champion_id": "RELL",
+      "mastery": 72
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "DEMO_RED",
+  "name": "Demo Red Gaming",
+  "short": "DRG",
+  "roster": {
+   "TOP": {
+    "id": "DRG_TOP",
+    "ign": "Bastion",
+    "role": "TOP",
+    "attributes": {
+     "mechanics": {
+      "laning": 75,
+      "cs_efficiency": 70,
+      "mechanical_outplay": 69,
+      "skillshot_accuracy": 84
+     },
+     "macro": {
+      "map_awareness": 72,
+      "vision_control": 78,
+      "objective_control": 70,
+      "rotation": 75
+     },
+     "teamfight": {
+      "positioning": 77,
+      "target_selection": 70,
+      "engage_timing": 83,
+      "synergy_communication": 82
+     },
+     "mental": {
+      "composure": 82,
+      "consistency": 82,
+      "big_match": 83,
+      "leadership": 70,
+      "tilt_resistance": 72
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "GNAR",
+      "mastery": 84,
+      "is_signature": true
+     },
+     {
+      "champion_id": "RUMBLE",
+      "mastery": 78
+     },
+     {
+      "champion_id": "AATROX",
+      "mastery": 75
+     }
+    ]
+   },
+   "JUNGLE": {
+    "id": "DRG_JUNGLE",
+    "ign": "Thicket",
+    "role": "JUNGLE",
+    "attributes": {
+     "mechanics": {
+      "laning": 68,
+      "cs_efficiency": 72,
+      "mechanical_outplay": 69,
+      "skillshot_accuracy": 68
+     },
+     "macro": {
+      "map_awareness": 78,
+      "vision_control": 72,
+      "objective_control": 80,
+      "rotation": 76
+     },
+     "teamfight": {
+      "positioning": 79,
+      "target_selection": 72,
+      "engage_timing": 82,
+      "synergy_communication": 72
+     },
+     "mental": {
+      "composure": 74,
+      "consistency": 82,
+      "big_match": 70,
+      "leadership": 66,
+      "tilt_resistance": 68
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "MAOKAI",
+      "mastery": 82
+     },
+     {
+      "champion_id": "LEESIN",
+      "mastery": 86,
+      "is_signature": true
+     },
+     {
+      "champion_id": "XINZHAO",
+      "mastery": 74
+     }
+    ]
+   },
+   "MID": {
+    "id": "DRG_MID",
+    "ign": "Sage",
+    "role": "MID",
+    "attributes": {
+     "mechanics": {
+      "laning": 83,
+      "cs_efficiency": 78,
+      "mechanical_outplay": 83,
+      "skillshot_accuracy": 68
+     },
+     "macro": {
+      "map_awareness": 82,
+      "vision_control": 71,
+      "objective_control": 83,
+      "rotation": 77
+     },
+     "teamfight": {
+      "positioning": 79,
+      "target_selection": 72,
+      "engage_timing": 72,
+      "synergy_communication": 71
+     },
+     "mental": {
+      "composure": 77,
+      "consistency": 69,
+      "big_match": 80,
+      "leadership": 69,
+      "tilt_resistance": 79
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "AZIR",
+      "mastery": 90,
+      "is_signature": true
+     },
+     {
+      "champion_id": "TALIYAH",
+      "mastery": 82
+     },
+     {
+      "champion_id": "LEBLANC",
+      "mastery": 76
+     }
+    ]
+   },
+   "ADC": {
+    "id": "DRG_ADC",
+    "ign": "Quiver",
+    "role": "ADC",
+    "attributes": {
+     "mechanics": {
+      "laning": 76,
+      "cs_efficiency": 69,
+      "mechanical_outplay": 70,
+      "skillshot_accuracy": 83
+     },
+     "macro": {
+      "map_awareness": 70,
+      "vision_control": 79,
+      "objective_control": 82,
+      "rotation": 69
+     },
+     "teamfight": {
+      "positioning": 82,
+      "target_selection": 82,
+      "engage_timing": 84,
+      "synergy_communication": 83
+     },
+     "mental": {
+      "composure": 80,
+      "consistency": 75,
+      "big_match": 72,
+      "leadership": 70,
+      "tilt_resistance": 82
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "VARUS",
+      "mastery": 84
+     },
+     {
+      "champion_id": "ZERI",
+      "mastery": 80
+     },
+     {
+      "champion_id": "JINX",
+      "mastery": 78
+     }
+    ]
+   },
+   "SUPPORT": {
+    "id": "DRG_SUPPORT",
+    "ign": "Halo",
+    "role": "SUPPORT",
+    "attributes": {
+     "mechanics": {
+      "laning": 74,
+      "cs_efficiency": 72,
+      "mechanical_outplay": 74,
+      "skillshot_accuracy": 82
+     },
+     "macro": {
+      "map_awareness": 77,
+      "vision_control": 74,
+      "objective_control": 78,
+      "rotation": 80
+     },
+     "teamfight": {
+      "positioning": 73,
+      "target_selection": 80,
+      "engage_timing": 75,
+      "synergy_communication": 71
+     },
+     "mental": {
+      "composure": 73,
+      "consistency": 84,
+      "big_match": 84,
+      "leadership": 68,
+      "tilt_resistance": 82
+     }
+    },
+    "dynamic_state": {
+     "form": 0,
+     "morale": 0,
+     "fatigue": 20
+    },
+    "champion_pool": [
+     {
+      "champion_id": "KARMA",
+      "mastery": 80
+     },
+     {
+      "champion_id": "LULU",
+      "mastery": 78
+     },
+     {
+      "champion_id": "ALISTAR",
+      "mastery": 74
+     }
+    ]
+   }
+  }
+ }
+]

@@ -1,0 +1,16 @@
+{
+  "name": "mcaddoon",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "test": "node --test \"engine/test/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "demo": "node engine/demo.ts",
+    "balance": "node engine/balance.ts"
+  },
+  "devDependencies": {
+    "@types/node": "22.18.0",
+    "typescript": "5.9.3"
+  }
+}
