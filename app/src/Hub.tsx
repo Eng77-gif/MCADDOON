@@ -1,13 +1,15 @@
 import { useState } from "react";
 import {
-  STAGE_NAMES, advance, autoPlaySeries, leagueTable, monthlySalary, nextUserFixture, playerOverall, recordSeries,
+  STAGE_NAMES, advance, autoPlaySeries, isTransferWindow, leagueTable, nextUserFixture, recordSeries,
   seriesOptionsFor, seriesTeams, startNextSeason, swissRecord, teamWagesPerMonth, type Career, type Competition,
 } from "../../engine/src/index.ts";
-import { champName, db } from "./data.ts";
-import { Bar, Card, ConfirmButton, ROLES, ROLE_VI, Stat, money, signed } from "./ui.tsx";
+import { db } from "./data.ts";
+import { Bar, Card, ConfirmButton, Stat, TeamTag, money, signed } from "./ui.tsx";
+import { Squad } from "./Squad.tsx";
+import { Market } from "./Market.tsx";
 
-type Tab = "home" | "table" | "squad" | "stats" | "news";
-const TABS: [Tab, string][] = [["home", "Tổng quan"], ["table", "Lịch & BXH"], ["squad", "Đội hình"], ["stats", "Thống kê"], ["news", "Tin tức"]];
+type Tab = "home" | "table" | "squad" | "market" | "stats";
+const TABS: [Tab, string][] = [["home", "Tổng quan"], ["table", "Lịch&BXH"], ["squad", "Đội hình"], ["market", "Thị trường"], ["stats", "Thống kê"]];
 
 interface Props {
   career: Career;
@@ -23,7 +25,7 @@ export function Hub(props: Props) {
   return (
     <main className="screen with-tabs">
       <header className="topbar">
-        <span className="badge big">{team.short}</span>
+        <TeamTag team={team} big />
         <div className="grow">
           <b>{team.name}</b>
           <small className="muted">
@@ -33,9 +35,9 @@ export function Hub(props: Props) {
       </header>
       {tab === "home" && <Home {...props} />}
       {tab === "table" && <Tables career={c} />}
-      {tab === "squad" && <Squad career={c} />}
+      {tab === "squad" && <Squad career={c} onChange={props.onChange} />}
+      {tab === "market" && <Market career={c} onChange={props.onChange} />}
       {tab === "stats" && <Stats career={c} />}
-      {tab === "news" && <News career={c} onQuit={props.onQuit} />}
       <nav className="tabs">
         {TABS.map(([id, label]) => (
           <button key={id} className={tab === id ? "on" : ""} onClick={() => setTab(id)}>
@@ -47,7 +49,7 @@ export function Hub(props: Props) {
   );
 }
 
-function Home({ career: c, onChange, onPlay }: Props) {
+function Home({ career: c, onChange, onPlay, onQuit }: Props) {
   const [busy, setBusy] = useState(false);
   const next = nextUserFixture(c);
   const team = c.teams[c.teamId];
@@ -76,7 +78,7 @@ function Home({ career: c, onChange, onPlay }: Props) {
     return (
       <Card title="Sự nghiệp kết thúc">
         <p>{c.gameOver === "FIRED" ? "Ban lãnh đạo đã sa thải bạn." : "CLB phá sản."}</p>
-        <p className="muted">Vào tab Tin tức để bắt đầu sự nghiệp mới.</p>
+        <ConfirmButton className="danger" label="Bắt đầu sự nghiệp mới" confirmLabel="Bấm lần nữa để xác nhận" onConfirm={onQuit} />
       </Card>
     );
 
@@ -88,9 +90,9 @@ function Home({ career: c, onChange, onPlay }: Props) {
         ) : next ? (
           <>
             <div className="versus">
-              <span className="badge big">{c.teams[next.fixture.home].short}</span>
-              <span className="muted">vs</span>
-              <span className="badge big">{c.teams[next.fixture.away].short}</span>
+              <TeamTag team={c.teams[next.fixture.home]} big />
+              <span className="big">VS</span>
+              <TeamTag team={c.teams[next.fixture.away]} big />
             </div>
             <p className="center muted">
               {next.comp.name} · {next.fixture.label} · Bo{next.fixture.bestOf}
@@ -102,8 +104,8 @@ function Home({ career: c, onChange, onPlay }: Props) {
           </>
         ) : c.stage === "OFFSEASON" ? (
           <>
-            <p>Mùa {c.year} đã kết thúc.</p>
-            <button className="primary" onClick={() => run(() => startNextSeason(c))}>Sang mùa {c.year + 1}</button>
+            <p>Mùa {c.year} đã kết thúc. {isTransferWindow(c) && "Kỳ chuyển nhượng đang mở: gia hạn hợp đồng, mua bán ở tab Thị trường trước khi sang mùa."}</p>
+            <button className="primary" onClick={() => run(() => startNextSeason(c, db))}>Sang mùa {c.year + 1}</button>
           </>
         ) : (
           <>
@@ -129,11 +131,12 @@ function Home({ career: c, onChange, onPlay }: Props) {
         )}
       </Card>
 
-      <Card title="Tin mới">
+      <Card title="Tin tức">
         <ul className="news">
-          {c.news.slice(0, 5).map((n, i) => <li key={i}>{n.text}</li>)}
+          {c.news.slice(0, 40).map((n, i) => <li key={i}>{n.text}</li>)}
         </ul>
       </Card>
+      <ConfirmButton className="danger" label="Bắt đầu sự nghiệp mới" confirmLabel="Bấm lần nữa để xoá sự nghiệp hiện tại" onConfirm={onQuit} />
     </>
   );
 }
@@ -218,50 +221,14 @@ function Fixtures({ career: c, comp }: { career: Career; comp: Competition }) {
   );
 }
 
-function Squad({ career: c }: { career: Career }) {
-  const team = c.teams[c.teamId];
-  return (
-    <>
-      {ROLES.map((role) => {
-        const p = team.roster[role];
-        const a = p.attributes;
-        const avg = (o: Record<string, number>) => Math.round(Object.values(o).reduce((x, y) => x + y, 0) / Object.values(o).length);
-        return (
-          <Card
-            key={role}
-            title={<>{p.ign} <small className="muted">{ROLE_VI[role]}{p.nationality ? ` · ${p.nationality}` : ""}</small></>}
-            right={<span className="ovr">{playerOverall(team, role)}</span>}
-          >
-            <div className="grid2">
-              <Stat label="Kỹ năng" value={<><Bar value={avg(a.mechanics)} /> {avg(a.mechanics)}</>} />
-              <Stat label="Tư duy" value={<><Bar value={avg(a.macro)} /> {avg(a.macro)}</>} />
-              <Stat label="Giao tranh" value={<><Bar value={avg(a.teamfight)} /> {avg(a.teamfight)}</>} />
-              <Stat label="Tâm lý" value={<><Bar value={avg(a.mental)} /> {avg(a.mental)}</>} />
-              <Stat label="Phong độ" value={signed(p.dynamic_state.form)} tone={p.dynamic_state.form >= 0 ? "good" : "bad"} />
-              <Stat label="Tinh thần" value={signed(p.dynamic_state.morale)} tone={p.dynamic_state.morale >= 0 ? "good" : "bad"} />
-            </div>
-            <p className="pool">
-              {p.champion_pool.slice(0, 5).map((e) => (
-                <span key={e.champion_id} className={`pill ${e.is_signature ? "sig" : ""}`}>{champName(e.champion_id)} {e.mastery}</span>
-              ))}
-            </p>
-            {c.mode === "OWNER" && <p className="muted small">Lương: {money(monthlySalary(playerOverall(team, role)))}/tháng</p>}
-          </Card>
-        );
-      })}
-    </>
-  );
-}
-
 function Stats({ career: c }: { career: Career }) {
   const [league, setLeague] = useState(c.teams[c.teamId].league!);
   const [sort, setSort] = useState<"kda" | "dpm" | "csd">("kda");
   const rows = Object.entries(c.stats)
     .map(([id, s]) => {
-      const [teamId, role] = [id.slice(0, id.lastIndexOf("_")), id.slice(id.lastIndexOf("_") + 1)];
-      const team = c.teams[teamId];
+      const team = c.teams[s.team];
       return {
-        id, team, role, ign: team?.roster[role as keyof typeof team.roster]?.ign ?? id, games: s.games,
+        id, team, ign: s.ign, games: s.games,
         kda: (s.kills + s.assists) / Math.max(1, s.deaths),
         dpm: s.damage / Math.max(1, s.minutes),
         csd: s.csd15 / Math.max(1, s.games),
@@ -301,18 +268,5 @@ function Stats({ career: c }: { career: Career }) {
       </table>
       {!rows.length && <p className="muted">Chưa có dữ liệu.</p>}
     </Card>
-  );
-}
-
-function News({ career: c, onQuit }: { career: Career; onQuit: () => void }) {
-  return (
-    <>
-      <Card title="Tin tức">
-        <ul className="news">
-          {c.news.slice(0, 80).map((n, i) => <li key={i}><small className="muted">{n.year}</small> {n.text}</li>)}
-        </ul>
-      </Card>
-      <ConfirmButton className="danger" label="Bắt đầu sự nghiệp mới" confirmLabel="Bấm lần nữa để xoá sự nghiệp hiện tại" onConfirm={onQuit} />
-    </>
   );
 }

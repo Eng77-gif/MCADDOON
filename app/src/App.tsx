@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { recordSeries, type Career, type SeriesState } from "../../engine/src/index.ts";
+import { migrateCareer, recordSeries, type Career, type SeriesState } from "../../engine/src/index.ts";
+import { db } from "./data.ts";
 import { NewCareer } from "./NewCareer.tsx";
 import { Hub } from "./Hub.tsx";
 import { MatchDay } from "./MatchDay.tsx";
 import { clearCareer, loadCareer, saveCareer } from "./save.ts";
 
 export function App() {
-  const [career, setCareer] = useState<Career | null>(() => loadCareer());
+  const [career, setCareer] = useState<Career | null>(() => {
+    const saved = loadCareer();
+    return saved ? migrateCareer(saved, db) : null;
+  });
   const [, setVersion] = useState(0);
   const [playing, setPlaying] = useState<string | null>(null); // fixture id đang đấu
 

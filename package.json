@@ -8,7 +8,8 @@
     "typecheck": "tsc --noEmit",
     "demo": "node engine/demo.ts",
     "balance": "node engine/balance.ts",
-    "import-pack": "node engine/tools/import-pack.ts"
+    "import-pack": "node engine/tools/import-pack.ts",
+    "portraits": "node engine/tools/pixellab/portraits.ts"
   },
   "devDependencies": {
     "@types/node": "22.18.0",

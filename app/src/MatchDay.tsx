@@ -3,10 +3,15 @@ import {
   MatchSim, ROLES, TACTIC_KEYS, aiDraftStep, applyDraft, autoPlayGame, bestTactic, createRng, currentStep, describeEvent,
   describePhase, draftForNextGame, gameContext, isAvailable, isDraftDone, isSeriesOver, newSeries, openRoles, recordGame,
   seriesOptionsFor, seriesTeams, suggest,
-  type Career, type CoachOrders, type DraftState, type MatchResult, type PhaseReport, type Picks, type Role, type SeriesState, type Tactic,
+  type Career, type CoachOrders, type Team, type DraftState, type MatchResult, type PhaseReport, type Picks, type Role, type SeriesState, type Tactic,
 } from "../../engine/src/index.ts";
 import { champName, db } from "./data.ts";
 import { Card, ConfirmButton, ROLE_SHORT, ROLE_VI } from "./ui.tsx";
+import { Minimap } from "./Minimap.tsx";
+import { Avatar } from "./avatar.tsx";
+
+/** Màu ô tướng theo loại sát thương */
+const GLYPH: Record<string, string> = { AD: "#c8323f", AP: "#5b4bd8", MIXED: "#1f8a4c" };
 
 const TACTIC_VI: Record<Tactic, string> = { TEAMFIGHT: "Giao tranh tổng", SPLIT_1_4: "Đẩy lẻ 1-4", POKE: "Cấu rỉa", PICK_OFF: "Bắt lẻ" };
 const AI_QUALITY = 0.8;
@@ -188,9 +193,12 @@ function Draft({ draft, userSide, locked, onPick, onAuto }: {
               ? Math.max(0, ...open.map((r) => draft.teams[userSide].roster[r].champion_pool.find((e) => e.champion_id === ch.id)?.mastery ?? 0))
               : 0;
             return (
-              <button key={ch.id} className={`champ tier-${ch.patch_stats[draft.patch]?.tier ?? "B"}`} disabled={!ok} onClick={() => pick(ch.id)}>
-                <span>{ch.name}</span>
-                <small>{ch.patch_stats[draft.patch]?.tier}{mastery ? ` · ${mastery}` : ""}</small>
+              <button key={ch.id} className="champ" disabled={!ok} onClick={() => pick(ch.id)}>
+                <span className="glyph" style={{ ["--glyph" as string]: GLYPH[ch.damage_type] }}>{ch.name.slice(0, 2).toUpperCase()}</span>
+                <span className="grow">
+                  <span className="name">{ch.name}</span>
+                  <small>Tier {ch.patch_stats[draft.patch]?.tier}{mastery ? ` · ${mastery}` : ""}</small>
+                </span>
               </button>
             );
           })}
@@ -262,6 +270,8 @@ function Live({ draft, userSide, names, seed, pressure, patch, onStart, onEnd }:
         </Card>
       )}
 
+      {sim && <Broadcast sim={sim} names={names} />}
+
       {sim && (
         <Card title="Diễn biến">
           {sim.phases.map((r, i) => (
@@ -287,7 +297,7 @@ function Live({ draft, userSide, names, seed, pressure, patch, onStart, onEnd }:
 
       {sim?.isOver && (
         <Card title={sim.winner === userSide ? "CHIẾN THẮNG!" : "Thất bại"}>
-          <BoxScore result={sim.result()} names={names} />
+          <BoxScore result={sim.result()} names={names} teams={draft.teams} />
           <button className="primary" onClick={() => onEnd(sim.result())}>Tiếp tục</button>
         </Card>
       )}
@@ -306,7 +316,7 @@ function OrderRow<T extends string>({ label, value, options, onChange }: { label
   );
 }
 
-function BoxScore({ result, names }: { result: MatchResult; names: [string, string] }) {
+function BoxScore({ result, names, teams }: { result: MatchResult; names: [string, string]; teams?: [Team, Team] }) {
   return (
     <>
       {result.sides.map((side, i) => {
@@ -319,7 +329,7 @@ function BoxScore({ result, names }: { result: MatchResult; names: [string, stri
               <tbody>
                 {side.lines.map((l, j) => (
                   <tr key={j}>
-                    <td>{l.ign}</td>
+                    <td>{teams && <Avatar player={teams[i].roster[l.role]} team={teams[i]} size={24} />} {l.ign}</td>
                     <td>{champName(l.champion)}</td>
                     <td>{l.kills}/{l.deaths}/{l.assists}</td>
                     <td>{l.cs}</td>
@@ -347,6 +357,35 @@ function GameEnd({ series, userTeamIdx, onNext }: { series: SeriesState; userTea
       <p className="big center">{series.teams[0].short} {series.wins[0]} - {series.wins[1]} {series.teams[1].short}</p>
       <BoxScore result={g.result} names={names} />
       <button className="primary" onClick={onNext}>{over ? "Về trang chính" : "Ván tiếp theo"}</button>
+    </Card>
+  );
+}
+
+/** Bảng tỉ số kiểu truyền hình + bản đồ mini */
+function Broadcast({ sim, names }: { sim: MatchSim; names: [string, string] }) {
+  const [b, r] = sim.snapshot();
+  const share = b.gold / Math.max(1, b.gold + r.gold);
+  const minute = Math.round(sim.minute);
+  return (
+    <Card>
+      <div className="broadcast">
+        <div className="side blue">
+          <b>{names[0]}</b>
+          <span className="k">{b.kills}</span>
+          <small className="muted">{(b.gold / 1000).toFixed(1)}k · Trụ {b.towers} · Rồng {b.dragons}{b.barons ? ` · B${b.barons}` : ""}</small>
+        </div>
+        <span className="pixel-num">{String(minute).padStart(2, "0")}:00</span>
+        <div className="side red">
+          <b>{names[1]}</b>
+          <span className="k">{r.kills}</span>
+          <small className="muted">{(r.gold / 1000).toFixed(1)}k · Trụ {r.towers} · Rồng {r.dragons}{r.barons ? ` · B${r.barons}` : ""}</small>
+        </div>
+      </div>
+      <div className="goldbar" aria-label="Tương quan vàng"><i style={{ width: `calc(${share * 100}% - 4px)` }} /></div>
+      <div className="minimap-wrap" style={{ marginTop: 10 }}>
+        <Minimap lost={[r.towers, b.towers]} />
+        <p className="small muted grow">Trụ còn đứng mang màu đội. Đội xanh ở góc dưới trái, đội đỏ ở góc trên phải. Ô tím là Baron, ô cam là Rồng.</p>
+      </div>
     </Card>
   );
 }

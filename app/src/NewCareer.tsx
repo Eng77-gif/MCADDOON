@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
 import { createCareer, teamStrength, type Career, type CareerMode } from "../../engine/src/index.ts";
 import { pack } from "./data.ts";
-import { Card } from "./ui.tsx";
+import { Card, TeamTag } from "./ui.tsx";
+import { Avatar } from "./avatar.tsx";
+import { ROLES } from "../../engine/src/index.ts";
 
 export function NewCareer({ onStart }: { onStart: (c: Career) => void }) {
   const [mode, setMode] = useState<CareerMode>("COACH");
@@ -17,6 +19,9 @@ export function NewCareer({ onStart }: { onStart: (c: Career) => void }) {
       <header className="hero">
         <h1>MCADDOON</h1>
         <p>Giả lập quản lý đội tuyển LMHT</p>
+        <div className="chips">
+          {ROLES.map((r) => <Avatar key={r} player={pack.teams[0].roster[r]} team={pack.teams[0]} size={48} />)}
+        </div>
       </header>
 
       <Card title="1. Chọn vai trò">
@@ -52,7 +57,7 @@ export function NewCareer({ onStart }: { onStart: (c: Career) => void }) {
                 className="row-btn"
                 onClick={() => onStart(createCareer(pack, mode, t.id, Math.floor(Math.random() * 1e9)))}
               >
-                <span className="badge">{t.short}</span>
+                <TeamTag team={t} />
                 <span className="grow">
                   {t.name}
                   {!t.verified && <small className="warn"> · roster chưa xác minh</small>}
