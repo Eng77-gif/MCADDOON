@@ -12,13 +12,13 @@
 | Mobile | **PWA trước**, sau đó đóng gói **Capacitor** lên App Store / Google Play | Một codebase. Thiết kế UI từ khổ 360px trở lên |
 | Backend (sau này) | Supabase hoặc tương tự | Chỉ cần khi có cloud save, bảng xếp hạng online, cập nhật data pack |
 
-Hiện tại repo mới có `engine/`. Bước sau sẽ thêm `app/` (React) dùng chung engine này.
+`app/` (React + Vite) import trực tiếp `engine/src`. Xem docs/04.
 
 ```
 MCADDOON/
 ├─ engine/          lõi mô phỏng (TS thuần) + test + script cân bằng
 ├─ data/packs/      dữ liệu tướng, đội, tuyển thủ, giải đấu (JSON)
-├─ app/             (sắp có) React + Vite + PWA + Capacitor
+├─ app/             React + Vite (PWA + Capacitor ở bước sau)
 └─ docs/
 ```
 
