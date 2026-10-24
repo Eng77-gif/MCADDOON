@@ -6,6 +6,7 @@ import {
   type Career, type CoachOrders, type DraftState, type MatchResult, type PhaseReport, type Picks, type Role, type SeriesState, type Tactic,
 } from "../../engine/src/index.ts";
 import { champName, db } from "./data.ts";
+import { ChampSprite } from "./champSprites.tsx";
 import { Card, ConfirmButton, ROLE_SHORT, ROLE_VI } from "./ui.tsx";
 
 const TACTIC_VI: Record<Tactic, string> = { TEAMFIGHT: "Giao tranh tổng", SPLIT_1_4: "Đẩy lẻ 1-4", POKE: "Cấu rỉa", PICK_OFF: "Bắt lẻ" };
@@ -142,7 +143,9 @@ function Draft({ draft, userSide, locked, onPick, onAuto }: {
               <div className="bans">{draft.bans[side].map((b) => <span key={b} className="ban">{champName(b)}</span>)}</div>
               {ROLES.map((r) => (
                 <div key={r} className="slot">
-                  <small>{ROLE_SHORT[r]}</small> {draft.picks[side][r] ? champName(draft.picks[side][r]!) : "—"}
+                  <small>{ROLE_SHORT[r]}</small>
+                  {draft.picks[side][r] && <ChampSprite id={draft.picks[side][r]!} size={32} flip={side === 1} />}
+                  {draft.picks[side][r] ? champName(draft.picks[side][r]!) : "—"}
                 </div>
               ))}
             </div>
@@ -189,6 +192,7 @@ function Draft({ draft, userSide, locked, onPick, onAuto }: {
               : 0;
             return (
               <button key={ch.id} className={`champ tier-${ch.patch_stats[draft.patch]?.tier ?? "B"}`} disabled={!ok} onClick={() => pick(ch.id)}>
+                <ChampSprite id={ch.id} anim="base" size={48} />
                 <span>{ch.name}</span>
                 <small>{ch.patch_stats[draft.patch]?.tier}{mastery ? ` · ${mastery}` : ""}</small>
               </button>

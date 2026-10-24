@@ -12,9 +12,8 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import type { Team } from "../src/types.ts";
+import { call, requireKey, toPng, type B64Image } from "./pixellab.ts";
 import { portraitRequest, type PortraitRequest, type PortraitSubject } from "./portraitPrompt.ts";
-
-const API = "https://api.pixellab.ai/v2";
 
 const { values: opt } = parseArgs({
   options: {
@@ -88,51 +87,11 @@ if (opt["dry-run"]) {
   process.exit(0);
 }
 
-// Nhiều key cách nhau bởi dấu phẩy: key nào hết credit (402) thì tự chuyển sang key kế tiếp
-const keys = (process.env.PIXELLAB_API_KEY ?? "").split(",").map((k) => k.trim()).filter(Boolean);
-let keyIdx = 0;
-if (!keys.length) {
-  console.error("Thiếu PIXELLAB_API_KEY (lấy tại https://www.pixellab.ai/account). Chạy thử không cần key: --dry-run");
-  process.exit(1);
-}
+requireKey();
 
 async function generate(endpoint: string, req: PortraitRequest | ReturnType<typeof photoRequest>): Promise<{ png: Buffer; usd?: number }> {
-  for (let attempt = 0; ; attempt++) {
-    let res: Response;
-    try {
-      res = await fetch(`${API}/${endpoint}`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${keys[keyIdx]}`, "Content-Type": "application/json" },
-        body: JSON.stringify(req),
-      });
-    } catch (e) {
-      // Rớt mạng giữa chừng → thử lại
-      if (attempt < 8) {
-        await new Promise((r) => setTimeout(r, 2000 * 2 ** Math.min(attempt, 4)));
-        continue;
-      }
-      throw e;
-    }
-    // 429: quá tần suất / quá số job đồng thời, 529: máy chủ quá tải → chờ rồi thử lại
-    if ((res.status === 429 || res.status === 529) && attempt < 8) {
-      await new Promise((r) => setTimeout(r, 2000 * 2 ** attempt));
-      continue;
-    }
-    if (res.status === 401) throw new Error("PIXELLAB_API_KEY không hợp lệ (401)");
-    if (res.status === 402) {
-      if (keyIdx + 1 < keys.length) {
-        console.log(`  … key #${keyIdx + 1} hết credit, chuyển sang key #${keyIdx + 2}`);
-        keyIdx++;
-        attempt = -1;
-        continue;
-      }
-      throw new Error("Hết credit PixelLab (402)");
-    }
-    if (!res.ok) throw new Error(`PixelLab ${res.status}: ${(await res.text()).slice(0, 300)}`);
-    const body = (await res.json()) as { image: { base64: string }; usage?: { usd?: number | null } };
-    const b64 = body.image.base64.replace(/^data:image\/\w+;base64,/, "");
-    return { png: Buffer.from(b64, "base64"), usd: body.usage?.usd ?? undefined };
-  }
+  const body = await call<{ image: B64Image; usage?: { usd?: number | null } }>("POST", endpoint, req);
+  return { png: toPng(body.image), usd: body.usage?.usd ?? undefined };
 }
 
 mkdirSync(outDir, { recursive: true });

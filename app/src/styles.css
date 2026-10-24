@@ -117,6 +117,8 @@ h3 { font-size: 14px; margin: 10px 0 6px; }
 .draft-side.red { border-top: 3px solid var(--red); }
 .bans { display: flex; flex-wrap: wrap; gap: 3px; margin: 4px 0; min-height: 20px; }
 .ban { font-size: 11px; text-decoration: line-through; color: var(--muted); }
+.sprite { image-rendering: pixelated; vertical-align: middle; flex: none; }
+.slot { display: flex; align-items: center; gap: 4px; }
 .slot small { display: inline-block; width: 30px; color: var(--muted); }
 .turn { margin: 10px 0 4px; }
 .turn.blue b { color: var(--blue); }

@@ -9,7 +9,8 @@
     "demo": "node engine/demo.ts",
     "balance": "node engine/balance.ts",
     "import-pack": "node engine/tools/import-pack.ts",
-    "portraits": "node engine/tools/gen-portraits.ts"
+    "portraits": "node engine/tools/gen-portraits.ts",
+    "champ-sprites": "node engine/tools/gen-champion-sprites.ts"
   },
   "devDependencies": {
     "@types/node": "22.18.0",
