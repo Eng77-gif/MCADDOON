@@ -7,7 +7,8 @@
     "test": "node --test \"engine/test/*.test.ts\"",
     "typecheck": "tsc --noEmit",
     "demo": "node engine/demo.ts",
-    "balance": "node engine/balance.ts"
+    "balance": "node engine/balance.ts",
+    "import-pack": "node engine/tools/import-pack.ts"
   },
   "devDependencies": {
     "@types/node": "22.18.0",

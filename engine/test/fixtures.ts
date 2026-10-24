@@ -26,3 +26,14 @@ export function buffTeam(team: Team, delta: number): Team {
       for (const k of Object.keys(group)) group[k] = Math.min(100, group[k] + delta);
   return copy;
 }
+
+const real = (f: string) => JSON.parse(readFileSync(new URL(`../../data/packs/real-2026/${f}`, import.meta.url), "utf8"));
+export const realPack = {
+  id: "real-2026",
+  patch: PATCH,
+  champions: real("champions.json") as ChampionDb,
+  leagues: real("leagues.json"),
+  teams: real("teams.json") as Team[],
+  warnings: [] as string[],
+};
+export const realTeam = (id: string) => realPack.teams.find((t) => t.id === id)!;

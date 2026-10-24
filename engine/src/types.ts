@@ -49,6 +49,9 @@ export interface Player {
   id: string;
   ign: string;
   role: Role;
+  nationality?: string;
+  /** false = dữ liệu roster chưa xác minh được từ nguồn tin */
+  verified?: boolean;
   attributes: PlayerAttributes;
   dynamic_state: { form: number; morale: number; fatigue: number };
   champion_pool: PoolEntry[];
@@ -58,7 +61,20 @@ export interface Team {
   id: string;
   name: string;
   short: string;
+  league?: string;
+  /** Hạt giống CKTG, ví dụ "LCK1" */
+  worldsSeed?: string;
+  verified?: boolean;
   roster: Record<Role, Player>;
+}
+
+export interface League {
+  id: string;
+  name: string;
+  region: string;
+  /** 0 = quốc tế, 1 = giải quốc nội hàng đầu, 2 = giải hạng dưới */
+  tier: number;
+  feedsInto?: string;
 }
 
 export type Picks = Record<Role, string>;

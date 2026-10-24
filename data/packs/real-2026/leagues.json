@@ -1,0 +1,57 @@
+[
+ {
+  "id": "WORLDS",
+  "name": "Chung Kết Thế Giới 2026",
+  "region": "INTL",
+  "tier": 0
+ },
+ {
+  "id": "LCK",
+  "name": "LoL Champions Korea",
+  "region": "KR",
+  "tier": 1,
+  "feedsInto": "WORLDS"
+ },
+ {
+  "id": "LPL",
+  "name": "LoL Pro League",
+  "region": "CN",
+  "tier": 1,
+  "feedsInto": "WORLDS"
+ },
+ {
+  "id": "LEC",
+  "name": "LoL EMEA Championship",
+  "region": "EU",
+  "tier": 1,
+  "feedsInto": "WORLDS"
+ },
+ {
+  "id": "LCS",
+  "name": "LoL Championship Series",
+  "region": "NA",
+  "tier": 1,
+  "feedsInto": "WORLDS"
+ },
+ {
+  "id": "LCP",
+  "name": "LoL Championship Pacific",
+  "region": "APAC",
+  "tier": 1,
+  "feedsInto": "WORLDS"
+ },
+ {
+  "id": "CBLOL",
+  "name": "Campeonato Brasileiro de LoL",
+  "region": "BR",
+  "tier": 1,
+  "feedsInto": "WORLDS"
+ },
+ {
+  "id": "VCS",
+  "name": "Vietnam Championship Series",
+  "region": "VN",
+  "tier": 2,
+  "feedsInto": "LCP"
+ }
+]

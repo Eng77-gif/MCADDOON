@@ -1,0 +1,3073 @@
+{
+ "KSANTE": {
+  "id": "KSANTE",
+  "name": "K'Sante",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 7,
+   "disengage": 5,
+   "pick_potential": 6,
+   "poke": 1,
+   "teamfight": 7,
+   "split_push": 6,
+   "waveclear": 5,
+   "mobility": 5,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "S"
+   }
+  },
+  "matchups": {
+   "GNAR": 1
+  },
+  "synergies": {}
+ },
+ "GNAR": {
+  "id": "GNAR",
+  "name": "Gnar",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 6,
+   "late_power": 7,
+   "engage": 7,
+   "disengage": 5,
+   "pick_potential": 4,
+   "poke": 4,
+   "teamfight": 9,
+   "split_push": 6,
+   "waveclear": 5,
+   "mobility": 5,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "JAX": {
+  "id": "JAX",
+  "name": "Jax",
+  "roles": [
+   "TOP",
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 4,
+   "disengage": 3,
+   "pick_potential": 4,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 10,
+   "waveclear": 5,
+   "mobility": 6,
+   "objective_dps": 7
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "RENEKTON": -1,
+   "KSANTE": 2
+  },
+  "synergies": {}
+ },
+ "RENEKTON": {
+  "id": "RENEKTON",
+  "name": "Renekton",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 9,
+   "mid_power": 7,
+   "late_power": 4,
+   "engage": 6,
+   "disengage": 2,
+   "pick_potential": 5,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 6,
+   "waveclear": 5,
+   "mobility": 6,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "GNAR": 2
+  },
+  "synergies": {}
+ },
+ "AATROX": {
+  "id": "AATROX",
+  "name": "Aatrox",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 5,
+   "disengage": 2,
+   "pick_potential": 4,
+   "poke": 3,
+   "teamfight": 8,
+   "split_push": 6,
+   "waveclear": 6,
+   "mobility": 4,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "KSANTE": 1
+  },
+  "synergies": {}
+ },
+ "RUMBLE": {
+  "id": "RUMBLE",
+  "name": "Rumble",
+  "roles": [
+   "TOP",
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 5,
+   "disengage": 3,
+   "pick_potential": 3,
+   "poke": 3,
+   "teamfight": 9,
+   "split_push": 4,
+   "waveclear": 7,
+   "mobility": 3,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "JAX": 1
+  },
+  "synergies": {}
+ },
+ "AMBESSA": {
+  "id": "AMBESSA",
+  "name": "Ambessa",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 7,
+   "disengage": 2,
+   "pick_potential": 6,
+   "poke": 0,
+   "teamfight": 7,
+   "split_push": 7,
+   "waveclear": 5,
+   "mobility": 8,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "S"
+   }
+  },
+  "matchups": {
+   "KSANTE": 1
+  },
+  "synergies": {}
+ },
+ "CAMILLE": {
+  "id": "CAMILLE",
+  "name": "Camille",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 5,
+   "disengage": 2,
+   "pick_potential": 8,
+   "poke": 0,
+   "teamfight": 5,
+   "split_push": 10,
+   "waveclear": 4,
+   "mobility": 7,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "ORNN": 2
+  },
+  "synergies": {}
+ },
+ "ORNN": {
+  "id": "ORNN",
+  "name": "Ornn",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 9,
+   "disengage": 6,
+   "pick_potential": 5,
+   "poke": 1,
+   "teamfight": 9,
+   "split_push": 2,
+   "waveclear": 5,
+   "mobility": 2,
+   "objective_dps": 3
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "SION": {
+  "id": "SION",
+  "name": "Sion",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 8,
+   "disengage": 5,
+   "pick_potential": 4,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 4,
+   "waveclear": 6,
+   "mobility": 3,
+   "objective_dps": 3
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "JAX": -2
+  },
+  "synergies": {}
+ },
+ "GWEN": {
+  "id": "GWEN",
+  "name": "Gwen",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 4,
+   "disengage": 3,
+   "pick_potential": 4,
+   "poke": 0,
+   "teamfight": 7,
+   "split_push": 8,
+   "waveclear": 6,
+   "mobility": 5,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "KSANTE": 2
+  },
+  "synergies": {}
+ },
+ "JAYCE": {
+  "id": "JAYCE",
+  "name": "Jayce",
+  "roles": [
+   "TOP",
+   "MID"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 7,
+   "late_power": 5,
+   "engage": 2,
+   "disengage": 4,
+   "pick_potential": 5,
+   "poke": 9,
+   "teamfight": 5,
+   "split_push": 6,
+   "waveclear": 7,
+   "mobility": 5,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "ORNN": 2
+  },
+  "synergies": {}
+ },
+ "GRAGAS": {
+  "id": "GRAGAS",
+  "name": "Gragas",
+  "roles": [
+   "TOP",
+   "JUNGLE"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 8,
+   "disengage": 8,
+   "pick_potential": 6,
+   "poke": 4,
+   "teamfight": 8,
+   "split_push": 3,
+   "waveclear": 6,
+   "mobility": 5,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "VI": {
+  "id": "VI",
+  "name": "Vi",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 7,
+   "late_power": 5,
+   "engage": 8,
+   "disengage": 1,
+   "pick_potential": 8,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 3,
+   "waveclear": 4,
+   "mobility": 6,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "MAOKAI": -1
+  },
+  "synergies": {}
+ },
+ "WUKONG": {
+  "id": "WUKONG",
+  "name": "Wukong",
+  "roles": [
+   "JUNGLE",
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 8,
+   "disengage": 2,
+   "pick_potential": 5,
+   "poke": 0,
+   "teamfight": 9,
+   "split_push": 4,
+   "waveclear": 4,
+   "mobility": 5,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "VI": 1
+  },
+  "synergies": {
+   "AHRI": 2
+  }
+ },
+ "LEESIN": {
+  "id": "LEESIN",
+  "name": "Lee Sin",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 9,
+   "mid_power": 7,
+   "late_power": 3,
+   "engage": 6,
+   "disengage": 4,
+   "pick_potential": 9,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 3,
+   "waveclear": 4,
+   "mobility": 9,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "SEJUANI": 2
+  },
+  "synergies": {}
+ },
+ "SEJUANI": {
+  "id": "SEJUANI",
+  "name": "Sejuani",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 8,
+   "disengage": 4,
+   "pick_potential": 5,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 1,
+   "waveclear": 4,
+   "mobility": 3,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "MAOKAI": {
+  "id": "MAOKAI",
+  "name": "Maokai",
+  "roles": [
+   "JUNGLE",
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 8,
+   "disengage": 6,
+   "pick_potential": 5,
+   "poke": 2,
+   "teamfight": 8,
+   "split_push": 2,
+   "waveclear": 5,
+   "mobility": 2,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "S"
+   }
+  },
+  "matchups": {},
+  "synergies": {
+   "AZIR": 1
+  }
+ },
+ "XINZHAO": {
+  "id": "XINZHAO",
+  "name": "Xin Zhao",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 7,
+   "late_power": 5,
+   "engage": 7,
+   "disengage": 2,
+   "pick_potential": 6,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 4,
+   "waveclear": 4,
+   "mobility": 5,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "LEESIN": 1
+  },
+  "synergies": {}
+ },
+ "NIDALEE": {
+  "id": "NIDALEE",
+  "name": "Nidalee",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 9,
+   "mid_power": 7,
+   "late_power": 3,
+   "engage": 2,
+   "disengage": 3,
+   "pick_potential": 7,
+   "poke": 8,
+   "teamfight": 4,
+   "split_push": 3,
+   "waveclear": 5,
+   "mobility": 8,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {
+   "SEJUANI": 2
+  },
+  "synergies": {}
+ },
+ "VIEGO": {
+  "id": "VIEGO",
+  "name": "Viego",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 8,
+   "engage": 5,
+   "disengage": 2,
+   "pick_potential": 7,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 4,
+   "waveclear": 5,
+   "mobility": 7,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "XINZHAO": 1
+  },
+  "synergies": {
+   "TALIYAH": 1
+  }
+ },
+ "SKARNER": {
+  "id": "SKARNER",
+  "name": "Skarner",
+  "roles": [
+   "JUNGLE",
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 9,
+   "disengage": 5,
+   "pick_potential": 9,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 2,
+   "waveclear": 4,
+   "mobility": 6,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "LEESIN": 1
+  },
+  "synergies": {}
+ },
+ "TRUNDLE": {
+  "id": "TRUNDLE",
+  "name": "Trundle",
+  "roles": [
+   "JUNGLE",
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 5,
+   "disengage": 4,
+   "pick_potential": 5,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 8,
+   "waveclear": 4,
+   "mobility": 4,
+   "objective_dps": 9
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "SEJUANI": 2
+  },
+  "synergies": {}
+ },
+ "PANTHEON": {
+  "id": "PANTHEON",
+  "name": "Pantheon",
+  "roles": [
+   "JUNGLE",
+   "SUPPORT",
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 9,
+   "mid_power": 7,
+   "late_power": 3,
+   "engage": 7,
+   "disengage": 2,
+   "pick_potential": 8,
+   "poke": 3,
+   "teamfight": 6,
+   "split_push": 4,
+   "waveclear": 4,
+   "mobility": 7,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "NIDALEE": 1
+  },
+  "synergies": {}
+ },
+ "JARVANIV": {
+  "id": "JARVANIV",
+  "name": "Jarvan IV",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 9,
+   "disengage": 2,
+   "pick_potential": 7,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 3,
+   "waveclear": 4,
+   "mobility": 6,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {
+   "GALIO": 2
+  }
+ },
+ "AHRI": {
+  "id": "AHRI",
+  "name": "Ahri",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 4,
+   "disengage": 5,
+   "pick_potential": 9,
+   "poke": 5,
+   "teamfight": 6,
+   "split_push": 3,
+   "waveclear": 8,
+   "mobility": 9,
+   "objective_dps": 3
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "SYLAS": -2,
+   "AZIR": 2,
+   "ORIANNA": 1,
+   "LEBLANC": -1
+  },
+  "synergies": {}
+ },
+ "AZIR": {
+  "id": "AZIR",
+  "name": "Azir",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 6,
+   "disengage": 6,
+   "pick_potential": 4,
+   "poke": 6,
+   "teamfight": 8,
+   "split_push": 4,
+   "waveclear": 8,
+   "mobility": 5,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "SYLAS": {
+  "id": "SYLAS",
+  "name": "Sylas",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 7,
+   "engage": 7,
+   "disengage": 3,
+   "pick_potential": 6,
+   "poke": 2,
+   "teamfight": 7,
+   "split_push": 4,
+   "waveclear": 6,
+   "mobility": 6,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "S"
+   }
+  },
+  "matchups": {
+   "ORIANNA": 2,
+   "AZIR": 1
+  },
+  "synergies": {}
+ },
+ "ORIANNA": {
+  "id": "ORIANNA",
+  "name": "Orianna",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 8,
+   "disengage": 6,
+   "pick_potential": 4,
+   "poke": 6,
+   "teamfight": 9,
+   "split_push": 2,
+   "waveclear": 8,
+   "mobility": 2,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {
+   "WUKONG": 2
+  }
+ },
+ "TALIYAH": {
+  "id": "TALIYAH",
+  "name": "Taliyah",
+  "roles": [
+   "MID",
+   "JUNGLE"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 6,
+   "disengage": 6,
+   "pick_potential": 7,
+   "poke": 6,
+   "teamfight": 7,
+   "split_push": 3,
+   "waveclear": 9,
+   "mobility": 7,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "AZIR": 1
+  },
+  "synergies": {}
+ },
+ "LEBLANC": {
+  "id": "LEBLANC",
+  "name": "LeBlanc",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 8,
+   "late_power": 4,
+   "engage": 3,
+   "disengage": 2,
+   "pick_potential": 10,
+   "poke": 4,
+   "teamfight": 4,
+   "split_push": 4,
+   "waveclear": 6,
+   "mobility": 10,
+   "objective_dps": 2
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "AZIR": 2
+  },
+  "synergies": {}
+ },
+ "YONE": {
+  "id": "YONE",
+  "name": "Yone",
+  "roles": [
+   "MID",
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 7,
+   "disengage": 2,
+   "pick_potential": 6,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 7,
+   "waveclear": 7,
+   "mobility": 8,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "AZIR": 1
+  },
+  "synergies": {
+   "RAKAN": 2
+  }
+ },
+ "VIKTOR": {
+  "id": "VIKTOR",
+  "name": "Viktor",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 3,
+   "disengage": 6,
+   "pick_potential": 3,
+   "poke": 7,
+   "teamfight": 8,
+   "split_push": 3,
+   "waveclear": 9,
+   "mobility": 3,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "YONE": 1
+  },
+  "synergies": {}
+ },
+ "CORKI": {
+  "id": "CORKI",
+  "name": "Corki",
+  "roles": [
+   "MID",
+   "ADC"
+  ],
+  "damage_type": "MIXED",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 8,
+   "late_power": 8,
+   "engage": 2,
+   "disengage": 3,
+   "pick_potential": 4,
+   "poke": 8,
+   "teamfight": 6,
+   "split_push": 5,
+   "waveclear": 7,
+   "mobility": 6,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "ORIANNA": 1
+  },
+  "synergies": {}
+ },
+ "HWEI": {
+  "id": "HWEI",
+  "name": "Hwei",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 5,
+   "disengage": 6,
+   "pick_potential": 6,
+   "poke": 9,
+   "teamfight": 8,
+   "split_push": 2,
+   "waveclear": 9,
+   "mobility": 2,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "RYZE": 1
+  },
+  "synergies": {}
+ },
+ "RYZE": {
+  "id": "RYZE",
+  "name": "Ryze",
+  "roles": [
+   "MID",
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 3,
+   "disengage": 4,
+   "pick_potential": 4,
+   "poke": 3,
+   "teamfight": 7,
+   "split_push": 7,
+   "waveclear": 8,
+   "mobility": 6,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "GALIO": {
+  "id": "GALIO",
+  "name": "Galio",
+  "roles": [
+   "MID",
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 9,
+   "disengage": 7,
+   "pick_potential": 6,
+   "poke": 2,
+   "teamfight": 8,
+   "split_push": 2,
+   "waveclear": 7,
+   "mobility": 5,
+   "objective_dps": 3
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "LEBLANC": 2
+  },
+  "synergies": {}
+ },
+ "AKALI": {
+  "id": "AKALI",
+  "name": "Akali",
+  "roles": [
+   "MID",
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 7,
+   "engage": 4,
+   "disengage": 2,
+   "pick_potential": 9,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 6,
+   "waveclear": 5,
+   "mobility": 9,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "VIKTOR": 2
+  },
+  "synergies": {}
+ },
+ "AURORA": {
+  "id": "AURORA",
+  "name": "Aurora",
+  "roles": [
+   "MID",
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 8,
+   "late_power": 7,
+   "engage": 6,
+   "disengage": 6,
+   "pick_potential": 7,
+   "poke": 6,
+   "teamfight": 7,
+   "split_push": 5,
+   "waveclear": 8,
+   "mobility": 8,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "S"
+   }
+  },
+  "matchups": {
+   "AHRI": 1
+  },
+  "synergies": {}
+ },
+ "KAISA": {
+  "id": "KAISA",
+  "name": "Kai'Sa",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "MIXED",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 2,
+   "disengage": 2,
+   "pick_potential": 6,
+   "poke": 3,
+   "teamfight": 7,
+   "split_push": 3,
+   "waveclear": 6,
+   "mobility": 7,
+   "objective_dps": 7
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "S"
+   }
+  },
+  "matchups": {
+   "VARUS": 0
+  },
+  "synergies": {}
+ },
+ "VARUS": {
+  "id": "VARUS",
+  "name": "Varus",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "MIXED",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 4,
+   "disengage": 4,
+   "pick_potential": 6,
+   "poke": 9,
+   "teamfight": 7,
+   "split_push": 2,
+   "waveclear": 7,
+   "mobility": 2,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "JINX": 2
+  },
+  "synergies": {}
+ },
+ "XAYAH": {
+  "id": "XAYAH",
+  "name": "Xayah",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 3,
+   "disengage": 6,
+   "pick_potential": 4,
+   "poke": 2,
+   "teamfight": 8,
+   "split_push": 2,
+   "waveclear": 6,
+   "mobility": 4,
+   "objective_dps": 8
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "KAISA": 1
+  },
+  "synergies": {}
+ },
+ "JINX": {
+  "id": "JINX",
+  "name": "Jinx",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 6,
+   "late_power": 10,
+   "engage": 1,
+   "disengage": 2,
+   "pick_potential": 3,
+   "poke": 4,
+   "teamfight": 9,
+   "split_push": 3,
+   "waveclear": 7,
+   "mobility": 3,
+   "objective_dps": 9
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "EZREAL": {
+  "id": "EZREAL",
+  "name": "Ezreal",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 6,
+   "engage": 1,
+   "disengage": 4,
+   "pick_potential": 4,
+   "poke": 8,
+   "teamfight": 5,
+   "split_push": 4,
+   "waveclear": 5,
+   "mobility": 8,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "JINX": 1
+  },
+  "synergies": {}
+ },
+ "ZERI": {
+  "id": "ZERI",
+  "name": "Zeri",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 1,
+   "disengage": 3,
+   "pick_potential": 3,
+   "poke": 3,
+   "teamfight": 8,
+   "split_push": 3,
+   "waveclear": 8,
+   "mobility": 8,
+   "objective_dps": 8
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "EZREAL": 1
+  },
+  "synergies": {}
+ },
+ "APHELIOS": {
+  "id": "APHELIOS",
+  "name": "Aphelios",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 10,
+   "engage": 1,
+   "disengage": 3,
+   "pick_potential": 3,
+   "poke": 4,
+   "teamfight": 9,
+   "split_push": 2,
+   "waveclear": 8,
+   "mobility": 1,
+   "objective_dps": 8
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {
+   "THRESH": 1
+  }
+ },
+ "ASHE": {
+  "id": "ASHE",
+  "name": "Ashe",
+  "roles": [
+   "ADC",
+   "SUPPORT"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 7,
+   "disengage": 6,
+   "pick_potential": 8,
+   "poke": 6,
+   "teamfight": 8,
+   "split_push": 2,
+   "waveclear": 6,
+   "mobility": 1,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "JINX": 1
+  },
+  "synergies": {
+   "SEJUANI": 1
+  }
+ },
+ "KALISTA": {
+  "id": "KALISTA",
+  "name": "Kalista",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 7,
+   "late_power": 5,
+   "engage": 6,
+   "disengage": 4,
+   "pick_potential": 5,
+   "poke": 2,
+   "teamfight": 6,
+   "split_push": 3,
+   "waveclear": 5,
+   "mobility": 7,
+   "objective_dps": 8
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "ZERI": 1
+  },
+  "synergies": {
+   "RENATA": 2
+  }
+ },
+ "SMOLDER": {
+  "id": "SMOLDER",
+  "name": "Smolder",
+  "roles": [
+   "ADC",
+   "MID"
+  ],
+  "damage_type": "MIXED",
+  "profile": {
+   "early_power": 3,
+   "mid_power": 6,
+   "late_power": 10,
+   "engage": 1,
+   "disengage": 2,
+   "pick_potential": 3,
+   "poke": 6,
+   "teamfight": 8,
+   "split_push": 4,
+   "waveclear": 7,
+   "mobility": 4,
+   "objective_dps": 8
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "CAITLYN": {
+  "id": "CAITLYN",
+  "name": "Caitlyn",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 9,
+   "mid_power": 7,
+   "late_power": 6,
+   "engage": 1,
+   "disengage": 6,
+   "pick_potential": 5,
+   "poke": 8,
+   "teamfight": 5,
+   "split_push": 5,
+   "waveclear": 6,
+   "mobility": 3,
+   "objective_dps": 8
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "APHELIOS": 2
+  },
+  "synergies": {}
+ },
+ "LUCIAN": {
+  "id": "LUCIAN",
+  "name": "Lucian",
+  "roles": [
+   "ADC",
+   "MID"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 7,
+   "late_power": 5,
+   "engage": 2,
+   "disengage": 3,
+   "pick_potential": 6,
+   "poke": 4,
+   "teamfight": 5,
+   "split_push": 4,
+   "waveclear": 6,
+   "mobility": 7,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "SMOLDER": 2
+  },
+  "synergies": {
+   "BRAUM": 2
+  }
+ },
+ "SIVIR": {
+  "id": "SIVIR",
+  "name": "Sivir",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 4,
+   "disengage": 6,
+   "pick_potential": 2,
+   "poke": 4,
+   "teamfight": 8,
+   "split_push": 3,
+   "waveclear": 10,
+   "mobility": 5,
+   "objective_dps": 7
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "NAUTILUS": {
+  "id": "NAUTILUS",
+  "name": "Nautilus",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 7,
+   "late_power": 5,
+   "engage": 9,
+   "disengage": 3,
+   "pick_potential": 8,
+   "poke": 0,
+   "teamfight": 7,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 2,
+   "objective_dps": 2
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "KARMA": 1
+  },
+  "synergies": {
+   "KAISA": 2
+  }
+ },
+ "RAKAN": {
+  "id": "RAKAN",
+  "name": "Rakan",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 9,
+   "disengage": 6,
+   "pick_potential": 7,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 9,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "S"
+   }
+  },
+  "matchups": {
+   "NAUTILUS": 1
+  },
+  "synergies": {
+   "XAYAH": 3
+  }
+ },
+ "KARMA": {
+  "id": "KARMA",
+  "name": "Karma",
+  "roles": [
+   "SUPPORT",
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 6,
+   "late_power": 5,
+   "engage": 2,
+   "disengage": 7,
+   "pick_potential": 3,
+   "poke": 8,
+   "teamfight": 6,
+   "split_push": 1,
+   "waveclear": 6,
+   "mobility": 5,
+   "objective_dps": 2
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "RELL": 2
+  },
+  "synergies": {
+   "VARUS": 1
+  }
+ },
+ "RELL": {
+  "id": "RELL",
+  "name": "Rell",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 10,
+   "disengage": 3,
+   "pick_potential": 6,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 4,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {
+   "SEJUANI": 1
+  }
+ },
+ "ALISTAR": {
+  "id": "ALISTAR",
+  "name": "Alistar",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 6,
+   "late_power": 6,
+   "engage": 9,
+   "disengage": 8,
+   "pick_potential": 6,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 4,
+   "objective_dps": 2
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "LULU": 1
+  },
+  "synergies": {}
+ },
+ "LULU": {
+  "id": "LULU",
+  "name": "Lulu",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 6,
+   "late_power": 6,
+   "engage": 1,
+   "disengage": 8,
+   "pick_potential": 2,
+   "poke": 5,
+   "teamfight": 6,
+   "split_push": 0,
+   "waveclear": 3,
+   "mobility": 3,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "RELL": -1
+  },
+  "synergies": {
+   "ZERI": 2
+  }
+ },
+ "BRAUM": {
+  "id": "BRAUM",
+  "name": "Braum",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 6,
+   "late_power": 6,
+   "engage": 4,
+   "disengage": 9,
+   "pick_potential": 4,
+   "poke": 0,
+   "teamfight": 7,
+   "split_push": 0,
+   "waveclear": 1,
+   "mobility": 3,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "LEONA": 2
+  },
+  "synergies": {}
+ },
+ "LEONA": {
+  "id": "LEONA",
+  "name": "Leona",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 7,
+   "late_power": 5,
+   "engage": 10,
+   "disengage": 2,
+   "pick_potential": 8,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 0,
+   "waveclear": 1,
+   "mobility": 3,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "KARMA": 1
+  },
+  "synergies": {
+   "KALISTA": 1
+  }
+ },
+ "RENATA": {
+  "id": "RENATA",
+  "name": "Renata Glasc",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 5,
+   "disengage": 8,
+   "pick_potential": 4,
+   "poke": 2,
+   "teamfight": 8,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 3,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "RAKAN": 1
+  },
+  "synergies": {}
+ },
+ "POPPY": {
+  "id": "POPPY",
+  "name": "Poppy",
+  "roles": [
+   "SUPPORT",
+   "JUNGLE",
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 7,
+   "late_power": 6,
+   "engage": 6,
+   "disengage": 9,
+   "pick_potential": 6,
+   "poke": 0,
+   "teamfight": 7,
+   "split_push": 2,
+   "waveclear": 4,
+   "mobility": 4,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {
+   "RELL": 2
+  },
+  "synergies": {}
+ },
+ "THRESH": {
+  "id": "THRESH",
+  "name": "Thresh",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 8,
+   "disengage": 7,
+   "pick_potential": 9,
+   "poke": 1,
+   "teamfight": 7,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 4,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "LULU": 1
+  },
+  "synergies": {}
+ },
+ "BARD": {
+  "id": "BARD",
+  "name": "Bard",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 6,
+   "engage": 6,
+   "disengage": 6,
+   "pick_potential": 8,
+   "poke": 4,
+   "teamfight": 6,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 8,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {
+   "BRAUM": 1
+  },
+  "synergies": {}
+ },
+ "NEEKO": {
+  "id": "NEEKO",
+  "name": "Neeko",
+  "roles": [
+   "SUPPORT",
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 7,
+   "late_power": 6,
+   "engage": 9,
+   "disengage": 4,
+   "pick_potential": 7,
+   "poke": 4,
+   "teamfight": 8,
+   "split_push": 1,
+   "waveclear": 6,
+   "mobility": 4,
+   "objective_dps": 2
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {
+   "JARVANIV": 2
+  }
+ },
+ "SHEN": {
+  "id": "SHEN",
+  "name": "Shen",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 7,
+   "disengage": 7,
+   "pick_potential": 5,
+   "poke": 0,
+   "teamfight": 7,
+   "split_push": 8,
+   "waveclear": 4,
+   "mobility": 4,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "MALPHITE": {
+  "id": "MALPHITE",
+  "name": "Malphite",
+  "roles": [
+   "TOP",
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 10,
+   "disengage": 4,
+   "pick_potential": 5,
+   "poke": 2,
+   "teamfight": 9,
+   "split_push": 2,
+   "waveclear": 5,
+   "mobility": 3,
+   "objective_dps": 3
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "CHOGATH": {
+  "id": "CHOGATH",
+  "name": "Cho'Gath",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 7,
+   "disengage": 5,
+   "pick_potential": 5,
+   "poke": 3,
+   "teamfight": 7,
+   "split_push": 3,
+   "waveclear": 6,
+   "mobility": 1,
+   "objective_dps": 8
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "FIORA": {
+  "id": "FIORA",
+  "name": "Fiora",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 1,
+   "disengage": 2,
+   "pick_potential": 5,
+   "poke": 0,
+   "teamfight": 3,
+   "split_push": 10,
+   "waveclear": 4,
+   "mobility": 6,
+   "objective_dps": 7
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "KENNEN": {
+  "id": "KENNEN",
+  "name": "Kennen",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 7,
+   "late_power": 6,
+   "engage": 9,
+   "disengage": 3,
+   "pick_potential": 4,
+   "poke": 6,
+   "teamfight": 9,
+   "split_push": 3,
+   "waveclear": 6,
+   "mobility": 6,
+   "objective_dps": 3
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "DRMUNDO": {
+  "id": "DRMUNDO",
+  "name": "Dr. Mundo",
+  "roles": [
+   "TOP",
+   "JUNGLE"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 4,
+   "disengage": 4,
+   "pick_potential": 3,
+   "poke": 4,
+   "teamfight": 6,
+   "split_push": 6,
+   "waveclear": 5,
+   "mobility": 2,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "VOLIBEAR": {
+  "id": "VOLIBEAR",
+  "name": "Volibear",
+  "roles": [
+   "TOP",
+   "JUNGLE"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 7,
+   "late_power": 5,
+   "engage": 7,
+   "disengage": 2,
+   "pick_potential": 6,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 6,
+   "waveclear": 5,
+   "mobility": 4,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "URGOT": {
+  "id": "URGOT",
+  "name": "Urgot",
+  "roles": [
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 4,
+   "disengage": 3,
+   "pick_potential": 6,
+   "poke": 2,
+   "teamfight": 6,
+   "split_push": 7,
+   "waveclear": 6,
+   "mobility": 3,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "GRAVES": {
+  "id": "GRAVES",
+  "name": "Graves",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 3,
+   "disengage": 5,
+   "pick_potential": 5,
+   "poke": 3,
+   "teamfight": 6,
+   "split_push": 5,
+   "waveclear": 7,
+   "mobility": 6,
+   "objective_dps": 7
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "KINDRED": {
+  "id": "KINDRED",
+  "name": "Kindred",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 2,
+   "disengage": 6,
+   "pick_potential": 5,
+   "poke": 4,
+   "teamfight": 6,
+   "split_push": 4,
+   "waveclear": 6,
+   "mobility": 6,
+   "objective_dps": 7
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "ELISE": {
+  "id": "ELISE",
+  "name": "Elise",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 9,
+   "mid_power": 6,
+   "late_power": 3,
+   "engage": 6,
+   "disengage": 3,
+   "pick_potential": 8,
+   "poke": 3,
+   "teamfight": 5,
+   "split_push": 3,
+   "waveclear": 5,
+   "mobility": 6,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "NOCTURNE": {
+  "id": "NOCTURNE",
+  "name": "Nocturne",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 8,
+   "disengage": 1,
+   "pick_potential": 9,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 6,
+   "waveclear": 5,
+   "mobility": 6,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "IVERN": {
+  "id": "IVERN",
+  "name": "Ivern",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 3,
+   "disengage": 8,
+   "pick_potential": 4,
+   "poke": 0,
+   "teamfight": 7,
+   "split_push": 0,
+   "waveclear": 5,
+   "mobility": 3,
+   "objective_dps": 5
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "ZAC": {
+  "id": "ZAC",
+  "name": "Zac",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 10,
+   "disengage": 4,
+   "pick_potential": 7,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 1,
+   "waveclear": 4,
+   "mobility": 6,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "RENGAR": {
+  "id": "RENGAR",
+  "name": "Rengar",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 8,
+   "late_power": 5,
+   "engage": 6,
+   "disengage": 1,
+   "pick_potential": 10,
+   "poke": 0,
+   "teamfight": 4,
+   "split_push": 5,
+   "waveclear": 4,
+   "mobility": 8,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "BELVETH": {
+  "id": "BELVETH",
+  "name": "Bel'Veth",
+  "roles": [
+   "JUNGLE"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 4,
+   "disengage": 2,
+   "pick_potential": 5,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 7,
+   "waveclear": 6,
+   "mobility": 6,
+   "objective_dps": 9
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "SYNDRA": {
+  "id": "SYNDRA",
+  "name": "Syndra",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 7,
+   "engage": 4,
+   "disengage": 5,
+   "pick_potential": 8,
+   "poke": 6,
+   "teamfight": 7,
+   "split_push": 2,
+   "waveclear": 7,
+   "mobility": 2,
+   "objective_dps": 3
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "A"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "TWISTEDFATE": {
+  "id": "TWISTEDFATE",
+  "name": "Twisted Fate",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 3,
+   "disengage": 3,
+   "pick_potential": 8,
+   "poke": 4,
+   "teamfight": 5,
+   "split_push": 6,
+   "waveclear": 8,
+   "mobility": 7,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "CASSIOPEIA": {
+  "id": "CASSIOPEIA",
+  "name": "Cassiopeia",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 4,
+   "disengage": 5,
+   "pick_potential": 4,
+   "poke": 4,
+   "teamfight": 8,
+   "split_push": 4,
+   "waveclear": 8,
+   "mobility": 3,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "ANIVIA": {
+  "id": "ANIVIA",
+  "name": "Anivia",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 7,
+   "late_power": 9,
+   "engage": 4,
+   "disengage": 8,
+   "pick_potential": 4,
+   "poke": 5,
+   "teamfight": 8,
+   "split_push": 2,
+   "waveclear": 10,
+   "mobility": 1,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "ZOE": {
+  "id": "ZOE",
+  "name": "Zoe",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 8,
+   "late_power": 6,
+   "engage": 2,
+   "disengage": 4,
+   "pick_potential": 8,
+   "poke": 10,
+   "teamfight": 5,
+   "split_push": 2,
+   "waveclear": 6,
+   "mobility": 4,
+   "objective_dps": 3
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "VEX": {
+  "id": "VEX",
+  "name": "Vex",
+  "roles": [
+   "MID"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 7,
+   "disengage": 6,
+   "pick_potential": 6,
+   "poke": 5,
+   "teamfight": 8,
+   "split_push": 2,
+   "waveclear": 7,
+   "mobility": 3,
+   "objective_dps": 3
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "MISSFORTUNE": {
+  "id": "MISSFORTUNE",
+  "name": "Miss Fortune",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 1,
+   "disengage": 3,
+   "pick_potential": 4,
+   "poke": 6,
+   "teamfight": 9,
+   "split_push": 2,
+   "waveclear": 7,
+   "mobility": 2,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "DRAVEN": {
+  "id": "DRAVEN",
+  "name": "Draven",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 10,
+   "mid_power": 7,
+   "late_power": 5,
+   "engage": 1,
+   "disengage": 2,
+   "pick_potential": 5,
+   "poke": 2,
+   "teamfight": 5,
+   "split_push": 3,
+   "waveclear": 5,
+   "mobility": 3,
+   "objective_dps": 8
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "TRISTANA": {
+  "id": "TRISTANA",
+  "name": "Tristana",
+  "roles": [
+   "ADC",
+   "MID"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 3,
+   "disengage": 3,
+   "pick_potential": 5,
+   "poke": 3,
+   "teamfight": 6,
+   "split_push": 6,
+   "waveclear": 7,
+   "mobility": 6,
+   "objective_dps": 9
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "NILAH": {
+  "id": "NILAH",
+  "name": "Nilah",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 7,
+   "late_power": 7,
+   "engage": 6,
+   "disengage": 3,
+   "pick_potential": 4,
+   "poke": 0,
+   "teamfight": 8,
+   "split_push": 2,
+   "waveclear": 6,
+   "mobility": 5,
+   "objective_dps": 6
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "VAYNE": {
+  "id": "VAYNE",
+  "name": "Vayne",
+  "roles": [
+   "ADC",
+   "TOP"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 6,
+   "late_power": 10,
+   "engage": 1,
+   "disengage": 4,
+   "pick_potential": 5,
+   "poke": 0,
+   "teamfight": 6,
+   "split_push": 8,
+   "waveclear": 4,
+   "mobility": 6,
+   "objective_dps": 9
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "YUNARA": {
+  "id": "YUNARA",
+  "name": "Yunara",
+  "roles": [
+   "ADC"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 5,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 1,
+   "disengage": 3,
+   "pick_potential": 3,
+   "poke": 2,
+   "teamfight": 7,
+   "split_push": 3,
+   "waveclear": 7,
+   "mobility": 5,
+   "objective_dps": 8
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "MILIO": {
+  "id": "MILIO",
+  "name": "Milio",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 6,
+   "late_power": 7,
+   "engage": 1,
+   "disengage": 9,
+   "pick_potential": 2,
+   "poke": 3,
+   "teamfight": 7,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 3,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "TAHMKENCH": {
+  "id": "TAHMKENCH",
+  "name": "Tahm Kench",
+  "roles": [
+   "SUPPORT",
+   "TOP"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 7,
+   "late_power": 6,
+   "engage": 5,
+   "disengage": 9,
+   "pick_potential": 6,
+   "poke": 1,
+   "teamfight": 6,
+   "split_push": 3,
+   "waveclear": 3,
+   "mobility": 3,
+   "objective_dps": 4
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "BLITZCRANK": {
+  "id": "BLITZCRANK",
+  "name": "Blitzcrank",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 6,
+   "late_power": 5,
+   "engage": 7,
+   "disengage": 3,
+   "pick_potential": 10,
+   "poke": 0,
+   "teamfight": 5,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 4,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "PYKE": {
+  "id": "PYKE",
+  "name": "Pyke",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AD",
+  "profile": {
+   "early_power": 8,
+   "mid_power": 7,
+   "late_power": 4,
+   "engage": 7,
+   "disengage": 2,
+   "pick_potential": 9,
+   "poke": 0,
+   "teamfight": 5,
+   "split_push": 0,
+   "waveclear": 1,
+   "mobility": 8,
+   "objective_dps": 2
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "C"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "SERAPHINE": {
+  "id": "SERAPHINE",
+  "name": "Seraphine",
+  "roles": [
+   "SUPPORT",
+   "MID",
+   "ADC"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 6,
+   "mid_power": 7,
+   "late_power": 8,
+   "engage": 6,
+   "disengage": 7,
+   "pick_potential": 3,
+   "poke": 6,
+   "teamfight": 9,
+   "split_push": 0,
+   "waveclear": 6,
+   "mobility": 2,
+   "objective_dps": 2
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "NAMI": {
+  "id": "NAMI",
+  "name": "Nami",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 7,
+   "mid_power": 6,
+   "late_power": 6,
+   "engage": 6,
+   "disengage": 7,
+   "pick_potential": 5,
+   "poke": 4,
+   "teamfight": 7,
+   "split_push": 0,
+   "waveclear": 2,
+   "mobility": 3,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "B"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ },
+ "YUUMI": {
+  "id": "YUUMI",
+  "name": "Yuumi",
+  "roles": [
+   "SUPPORT"
+  ],
+  "damage_type": "AP",
+  "profile": {
+   "early_power": 4,
+   "mid_power": 6,
+   "late_power": 7,
+   "engage": 1,
+   "disengage": 6,
+   "pick_potential": 2,
+   "poke": 3,
+   "teamfight": 6,
+   "split_push": 0,
+   "waveclear": 1,
+   "mobility": 9,
+   "objective_dps": 1
+  },
+  "patch_stats": {
+   "26.21": {
+    "tier": "D"
+   }
+  },
+  "matchups": {},
+  "synergies": {}
+ }
+}

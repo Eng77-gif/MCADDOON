@@ -1,0 +1,9 @@
+id,name,region,tier,feeds_into
+WORLDS,Chung Kết Thế Giới 2026,INTL,0,
+LCK,LoL Champions Korea,KR,1,WORLDS
+LPL,LoL Pro League,CN,1,WORLDS
+LEC,LoL EMEA Championship,EU,1,WORLDS
+LCS,LoL Championship Series,NA,1,WORLDS
+LCP,LoL Championship Pacific,APAC,1,WORLDS
+CBLOL,Campeonato Brasileiro de LoL,BR,1,WORLDS
+VCS,Vietnam Championship Series,VN,2,LCP

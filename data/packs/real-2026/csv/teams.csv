@@ -1,0 +1,32 @@
+id,name,short,league,worlds_seed,verified
+GEN,Gen.G,GEN,LCK,LCK1,Y
+HLE,Hanwha Life Esports,HLE,LCK,LCK2,Y
+T1,T1,T1,LCK,LCK3,Y
+DK,Dplus KIA,DK,LCK,LCK4,Y
+KT,KT Rolster,KT,LCK,,Y
+BFX,BNK FearX,BFX,LCK,,Y
+BRO,OK BRION,BRO,LCK,,N
+DRX,DRX,DRX,LCK,,N
+DNS,DN SOOPers,DNS,LCK,,N
+NS,Nongshim RedForce,NS,LCK,,Y
+AL,Anyone's Legend,AL,LPL,LPL1,Y
+BLG,Bilibili Gaming,BLG,LPL,LPL2,Y
+TES,Top Esports,TES,LPL,LPL3,N
+IG,Invictus Gaming,IG,LPL,LPL4,Y
+G2,G2 Esports,G2,LEC,LEC1,Y
+MKOI,Movistar KOI,MKOI,LEC,LEC2,Y
+KC,Karmine Corp,KC,LEC,LEC3,Y
+TL,Team Liquid,TL,LCS,LCS1,Y
+LYON,LYON,LYON,LCS,LCS2,Y
+C9,Cloud9,C9,LCS,LCS3,N
+TSW,Team Secret Whales,TSW,LCP,LCP1,Y
+CFO,CTBC Flying Oyster,CFO,LCP,LCP2,N
+MVK,MVK Esports,MVK,LCP,LCP3,N
+LOS,LOS,LOS,CBLOL,CBLOL1,Y
+FUR,FURIA,FUR,CBLOL,CBLOL2,Y
+SGW,Saigon Warriors,SGW,VCS,,N
+9G,9Gaming,9G,VCS,,N
+MVKA,MVK Academy,MVKA,VCS,,N
+SGD,Saigon Dino,SGD,VCS,,N
+ZEN,ZEN Esports,ZEN,VCS,,N
+CES,CyberCore Esports,CES,VCS,,N

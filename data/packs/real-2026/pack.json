@@ -1,0 +1,10 @@
+{
+ "id": "real-2026",
+ "patch": "26.21",
+ "name": "Dữ liệu thật mùa 2026 (chỉ số là ước lượng)",
+ "files": {
+  "champions": "champions.json",
+  "leagues": "leagues.json",
+  "teams": "teams.json"
+ }
+}
