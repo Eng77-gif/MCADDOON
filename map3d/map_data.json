@@ -1,0 +1,823 @@
+{
+ "description": "Summoner's Rift voxel map. Model units: 1 = one voxel; y is up, north (red side) is -z.",
+ "game_units_per_voxel": 92.938,
+ "grid_size": 160,
+ "map_game_units": 14870.0,
+ "lanes": {
+  "Top": {
+   "game": [
+    [
+     1100,
+     2500
+    ],
+    [
+     1100,
+     12500
+    ],
+    [
+     2350,
+     13750
+    ],
+    [
+     12370,
+     13770
+    ]
+   ],
+   "model": [
+    [
+     -68.5,
+     3,
+     53.5
+    ],
+    [
+     -68.5,
+     2,
+     -54.5
+    ],
+    [
+     -54.5,
+     2,
+     -67.5
+    ],
+    [
+     53.5,
+     3,
+     -68.5
+    ]
+   ]
+  },
+  "Mid": {
+   "game": [
+    [
+     2500,
+     2500
+    ],
+    [
+     12370,
+     12370
+    ]
+   ],
+   "model": [
+    [
+     -53.5,
+     3,
+     53.5
+    ],
+    [
+     53.5,
+     3,
+     -53.5
+    ]
+   ]
+  },
+  "Bot": {
+   "game": [
+    [
+     2500,
+     1100
+    ],
+    [
+     12500,
+     1100
+    ],
+    [
+     13750,
+     2350
+    ],
+    [
+     13770,
+     12370
+    ]
+   ],
+   "model": [
+    [
+     -53.5,
+     3,
+     68.5
+    ],
+    [
+     54.5,
+     2,
+     68.5
+    ],
+    [
+     67.5,
+     2,
+     54.5
+    ],
+    [
+     68.5,
+     3,
+     -53.5
+    ]
+   ]
+  }
+ },
+ "river": {
+  "game": [
+   [
+    1500,
+    13400
+   ],
+   [
+    3000,
+    12000
+   ],
+   [
+    5000,
+    10450
+   ],
+   [
+    7435,
+    7435
+   ],
+   [
+    9870,
+    4420
+   ],
+   [
+    11870,
+    2870
+   ],
+   [
+    13370,
+    1470
+   ]
+  ],
+  "model": [
+   [
+    -63.5,
+    2,
+    -64.5
+   ],
+   [
+    -47.5,
+    1,
+    -49.5
+   ],
+   [
+    -26.5,
+    1,
+    -32.5
+   ],
+   [
+    0.5,
+    2,
+    -0.5
+   ],
+   [
+    26.5,
+    1,
+    32.5
+   ],
+   [
+    47.5,
+    1,
+    49.5
+   ],
+   [
+    63.5,
+    2,
+    64.5
+   ]
+  ]
+ },
+ "fountains": {
+  "Blue": [
+   -74.5,
+   3,
+   74.5
+  ],
+  "Red": [
+   74.5,
+   3,
+   -74.5
+  ]
+ },
+ "objectives": {
+  "Baron_Pit": {
+   "game_pos": [
+    5000,
+    10450
+   ],
+   "model_pos": [
+    -26.5,
+    1,
+    -32.5
+   ]
+  },
+  "Dragon_Pit": {
+   "game_pos": [
+    9870,
+    4420
+   ],
+   "model_pos": [
+    26.5,
+    1,
+    32.5
+   ]
+  },
+  "Scuttle_Top": {
+   "game_pos": [
+    4400,
+    9800
+   ],
+   "model_pos": [
+    -32.5,
+    5,
+    -25.5
+   ]
+  },
+  "Scuttle_Bot": {
+   "game_pos": [
+    10470,
+    5070
+   ],
+   "model_pos": [
+    32.5,
+    5,
+    25.5
+   ]
+  }
+ },
+ "jungle_camps": [
+  {
+   "name": "Blue_Sentinel",
+   "side": "Blue",
+   "game_pos": [
+    3800,
+    7900
+   ],
+   "model_pos": [
+    -39.5,
+    2,
+    -5.5
+   ]
+  },
+  {
+   "name": "Gromp",
+   "side": "Blue",
+   "game_pos": [
+    2100,
+    8400
+   ],
+   "model_pos": [
+    -57.5,
+    2,
+    -10.5
+   ]
+  },
+  {
+   "name": "Murk_Wolves",
+   "side": "Blue",
+   "game_pos": [
+    3800,
+    6500
+   ],
+   "model_pos": [
+    -39.5,
+    2,
+    10.5
+   ]
+  },
+  {
+   "name": "Raptors",
+   "side": "Blue",
+   "game_pos": [
+    7000,
+    5400
+   ],
+   "model_pos": [
+    -4.5,
+    2,
+    21.5
+   ]
+  },
+  {
+   "name": "Red_Brambleback",
+   "side": "Blue",
+   "game_pos": [
+    7800,
+    4000
+   ],
+   "model_pos": [
+    3.5,
+    2,
+    36.5
+   ]
+  },
+  {
+   "name": "Krugs",
+   "side": "Blue",
+   "game_pos": [
+    8400,
+    2700
+   ],
+   "model_pos": [
+    10.5,
+    2,
+    50.5
+   ]
+  },
+  {
+   "name": "Blue_Sentinel",
+   "side": "Red",
+   "game_pos": [
+    11070,
+    6970
+   ],
+   "model_pos": [
+    39.5,
+    2,
+    5.5
+   ]
+  },
+  {
+   "name": "Gromp",
+   "side": "Red",
+   "game_pos": [
+    12770,
+    6470
+   ],
+   "model_pos": [
+    57.5,
+    2,
+    10.5
+   ]
+  },
+  {
+   "name": "Murk_Wolves",
+   "side": "Red",
+   "game_pos": [
+    11070,
+    8370
+   ],
+   "model_pos": [
+    39.5,
+    2,
+    -10.5
+   ]
+  },
+  {
+   "name": "Raptors",
+   "side": "Red",
+   "game_pos": [
+    7870,
+    9470
+   ],
+   "model_pos": [
+    4.5,
+    2,
+    -21.5
+   ]
+  },
+  {
+   "name": "Red_Brambleback",
+   "side": "Red",
+   "game_pos": [
+    7070,
+    10870
+   ],
+   "model_pos": [
+    -3.5,
+    2,
+    -36.5
+   ]
+  },
+  {
+   "name": "Krugs",
+   "side": "Red",
+   "game_pos": [
+    6470,
+    12170
+   ],
+   "model_pos": [
+    -10.5,
+    2,
+    -50.5
+   ]
+  }
+ ],
+ "structures": [
+  {
+   "node": "Turret_Blue_Top_Outer",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    981,
+    10441
+   ],
+   "model_pos": [
+    -69.5,
+    2,
+    -32.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Top_Inner",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    1512,
+    6699
+   ],
+   "model_pos": [
+    -63.5,
+    5,
+    7.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Top_Inhibitor",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    1169,
+    4287
+   ],
+   "model_pos": [
+    -67.5,
+    3,
+    33.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Mid_Outer",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    5846,
+    6396
+   ],
+   "model_pos": [
+    -17.5,
+    5,
+    11.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Mid_Inner",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    5048,
+    4812
+   ],
+   "model_pos": [
+    -25.5,
+    2,
+    28.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Mid_Inhibitor",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    3651,
+    3696
+   ],
+   "model_pos": [
+    -40.5,
+    2,
+    40.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Bot_Outer",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    10504,
+    1029
+   ],
+   "model_pos": [
+    33.5,
+    2,
+    68.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Bot_Inner",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    6919,
+    1483
+   ],
+   "model_pos": [
+    -5.5,
+    2,
+    64.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Bot_Inhibitor",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    4281,
+    1253
+   ],
+   "model_pos": [
+    -33.5,
+    3,
+    66.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Nexus_Top",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    1748,
+    2270
+   ],
+   "model_pos": [
+    -61.5,
+    3,
+    55.5
+   ]
+  },
+  {
+   "node": "Turret_Blue_Nexus_Bot",
+   "kind": "Turret",
+   "team": "Blue",
+   "game_pos": [
+    2177,
+    1807
+   ],
+   "model_pos": [
+    -56.5,
+    3,
+    60.5
+   ]
+  },
+  {
+   "node": "Inhibitor_Blue_Top",
+   "kind": "Inhibitor",
+   "team": "Blue",
+   "game_pos": [
+    1171,
+    3571
+   ],
+   "model_pos": [
+    -67.5,
+    3,
+    41.5
+   ]
+  },
+  {
+   "node": "Inhibitor_Blue_Mid",
+   "kind": "Inhibitor",
+   "team": "Blue",
+   "game_pos": [
+    3203,
+    3208
+   ],
+   "model_pos": [
+    -45.5,
+    3,
+    45.5
+   ]
+  },
+  {
+   "node": "Inhibitor_Blue_Bot",
+   "kind": "Inhibitor",
+   "team": "Blue",
+   "game_pos": [
+    3452,
+    1236
+   ],
+   "model_pos": [
+    -42.5,
+    3,
+    66.5
+   ]
+  },
+  {
+   "node": "Nexus_Blue",
+   "kind": "Nexus",
+   "team": "Blue",
+   "game_pos": [
+    1551,
+    1561
+   ],
+   "model_pos": [
+    -63.5,
+    3,
+    63.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Top_Outer",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    13889,
+    4429
+   ],
+   "model_pos": [
+    69.5,
+    2,
+    32.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Top_Inner",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    13358,
+    8171
+   ],
+   "model_pos": [
+    63.5,
+    5,
+    -7.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Top_Inhibitor",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    13701,
+    10583
+   ],
+   "model_pos": [
+    67.5,
+    3,
+    -33.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Mid_Outer",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    9024,
+    8474
+   ],
+   "model_pos": [
+    17.5,
+    5,
+    -11.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Mid_Inner",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    9822,
+    10058
+   ],
+   "model_pos": [
+    25.5,
+    2,
+    -28.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Mid_Inhibitor",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    11219,
+    11174
+   ],
+   "model_pos": [
+    40.5,
+    2,
+    -40.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Bot_Outer",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    4366,
+    13841
+   ],
+   "model_pos": [
+    -33.5,
+    2,
+    -68.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Bot_Inner",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    7951,
+    13387
+   ],
+   "model_pos": [
+    5.5,
+    2,
+    -64.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Bot_Inhibitor",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    10589,
+    13617
+   ],
+   "model_pos": [
+    33.5,
+    3,
+    -66.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Nexus_Top",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    13122,
+    12600
+   ],
+   "model_pos": [
+    61.5,
+    3,
+    -55.5
+   ]
+  },
+  {
+   "node": "Turret_Red_Nexus_Bot",
+   "kind": "Turret",
+   "team": "Red",
+   "game_pos": [
+    12693,
+    13063
+   ],
+   "model_pos": [
+    56.5,
+    3,
+    -60.5
+   ]
+  },
+  {
+   "node": "Inhibitor_Red_Top",
+   "kind": "Inhibitor",
+   "team": "Red",
+   "game_pos": [
+    13699,
+    11299
+   ],
+   "model_pos": [
+    67.5,
+    3,
+    -41.5
+   ]
+  },
+  {
+   "node": "Inhibitor_Red_Mid",
+   "kind": "Inhibitor",
+   "team": "Red",
+   "game_pos": [
+    11667,
+    11662
+   ],
+   "model_pos": [
+    45.5,
+    3,
+    -45.5
+   ]
+  },
+  {
+   "node": "Inhibitor_Red_Bot",
+   "kind": "Inhibitor",
+   "team": "Red",
+   "game_pos": [
+    11418,
+    13634
+   ],
+   "model_pos": [
+    42.5,
+    3,
+    -66.5
+   ]
+  },
+  {
+   "node": "Nexus_Red",
+   "kind": "Nexus",
+   "team": "Red",
+   "game_pos": [
+    13319,
+    13309
+   ],
+   "model_pos": [
+    63.5,
+    3,
+    -63.5
+   ]
+  }
+ ]
+}

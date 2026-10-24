@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summoner's Rift Voxel</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #10141c; color: #dfe6f0; font: 13px system-ui, sans-serif; overflow: hidden; }
+  #hud { position: fixed; top: 10px; left: 10px; background: #0009; padding: 8px 10px; border-radius: 6px; }
+  #hud label { display: block; cursor: pointer; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="hud">
+  <b>Summoner's Rift</b> · kéo để xoay, cuộn để zoom<br>
+  <label><input type="checkbox" id="structures" checked> Trụ / nhà lính / nhà chính</label>
+  <label><input type="checkbox" id="lanes"> Đường đi (map_data.json)</label>
+</div>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x10141c);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 1, 2000);
+const params = new URLSearchParams(location.search);
+camera.position.set(params.has("top") ? 0 : -110, params.has("top") ? 250 : 150, params.has("top") ? 1 : 140);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0, 0);
+controls.update();
+
+scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x3a3020, 1.6));
+const sun = new THREE.DirectionalLight(0xffffff, 1.6);
+sun.position.set(-60, 120, 40);
+scene.add(sun);
+
+const structures = [];
+new GLTFLoader().load("summoners_rift.glb", (gltf) => {
+  gltf.scene.traverse((o) => {
+    if (o.isMesh) o.material.flatShading = true;
+    if (o.name && o.name !== "Terrain" && o.parent === gltf.scene) structures.push(o);
+  });
+  scene.add(gltf.scene);
+  document.body.dataset.loaded = "1";
+});
+
+const laneGroup = new THREE.Group();
+laneGroup.visible = false;
+scene.add(laneGroup);
+fetch("map_data.json").then((r) => r.json()).then((d) => {
+  const colors = { Top: 0xffd24a, Mid: 0xff7ad9, Bot: 0x6cf0ff };
+  for (const [name, lane] of Object.entries(d.lanes)) {
+    const pts = lane.model.map(([x, y, z]) => new THREE.Vector3(x, y + 0.6, z));
+    laneGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+      new THREE.LineBasicMaterial({ color: colors[name] })));
+  }
+});
+
+document.getElementById("structures").onchange = (e) => structures.forEach((s) => (s.visible = e.target.checked));
+document.getElementById("lanes").onchange = (e) => (laneGroup.visible = e.target.checked);
+addEventListener("resize", () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); });
+</script>
+</body>
+</html>
