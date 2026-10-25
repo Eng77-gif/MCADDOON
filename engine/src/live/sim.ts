@@ -17,6 +17,24 @@ import {
   type Lane, type TowerTier, type Vec,
 } from "./map.ts";
 import { SKILLS, archetypeOf, phaseMult, statsAt, type Archetype } from "./kits.ts";
+import { inventoryStats, planBuild, shopFor, type BuildPlan, type ItemDb } from "../items.ts";
+import defaultItems from "../../../data/packs/real-2026/items.json" with { type: "json" };
+
+/** Hệ số sát thương tướng lên tướng (bù phần giáp/kháng phép để thời gian giao tranh giữ như trước) */
+const CHAMP_DMG_SCALE = 1.5;
+const SKILL: DmgOpts = { skill: true };
+const ARMOR_BASE: Record<Archetype, number> = { TANK: 38, CATCHER: 36, FIGHTER: 34, ASSASSIN: 30, MARKSMAN: 26, MAGE: 22, ENCHANTER: 24 };
+type DmgKind = "phys" | "magic" | "true";
+interface DmgOpts { auto?: boolean; skill?: boolean; kind?: DmgKind; thorns?: boolean }
+/** Hệ số đổi chỉ số trang bị ra thang sức mạnh mô phỏng (giữ thời lượng giao tranh như bản không có đồ) */
+const AD_K = 0.35;
+const AP_K = 0.2;
+const HP_K = 0.45;
+const AS_K = 0.15;
+/** Đủ vàng chừng này thì về nhà mua đồ khi không có địch quanh */
+const RECALL_GOLD = 2200;
+/** Hồi chiêu nội tại trang bị (giây mô phỏng = giây trận / 3) */
+const ITEM_CD = { lifeline: 30, stasis: 40, revive: 100, spellshield: 14, cleanse: 30, support: 25 };
 
 export const DT = 0.1;
 export const DISPLAY_SCALE = 3;
@@ -32,7 +50,7 @@ export const LIVE = {
   baronBuff: 60,
   campRespawn: 40,
   maxTime: 1200, // 60 phút trận
-  passiveGold: 2.2,
+  passiveGold: 6, // ~2 vàng/giây trận như game thật
   passiveXp: 1.6,
 };
 
@@ -102,7 +120,37 @@ export interface ChampUnit extends Unit {
   level: number;
   xp: number;
   gold: number;
-  itemGold: number;
+  /** Túi đồ (tối đa 6 ô, gồm cả nguyên liệu) và lộ trình lên đồ */
+  inventory: string[];
+  plan: BuildPlan;
+  armor: number;
+  mr: number;
+  crit: number;
+  critDmg: number;
+  ah: number;
+  lifesteal: number;
+  omnivamp: number;
+  lethality: number;
+  armorPen: number;
+  magicPen: number;
+  magicPenPct: number;
+  hsp: number;
+  tags: Record<string, number>;
+  healCutUntil: number;
+  stasisUntil: number;
+  reviveReadyAt: number;
+  reviveAt: number;
+  lifelineAt: number;
+  cleanseAt: number;
+  spellshieldAt: number;
+  stasisAt: number;
+  spellbladeUntil: number;
+  armorShredUntil: number;
+  mrShredUntil: number;
+  slowUntil: number;
+  allyBuffUntil: number;
+  supportAt: number;
+  burns: { src: number; dps: number; until: number }[];
   skillCd: number;
   ultCd: number;
   stunUntil: number;
@@ -161,8 +209,11 @@ export class LiveMatch {
   private goldAt: Record<number, [number, number]> = {};
   private readonly draft: MatchResult["draft"];
 
-  constructor(db: ChampionDb, ctx: MatchContext, setups: [TeamSetup, TeamSetup]) {
+  readonly items: ItemDb;
+
+  constructor(db: ChampionDb, ctx: MatchContext, setups: [TeamSetup, TeamSetup], items: ItemDb = defaultItems as unknown as ItemDb) {
     this.db = db;
+    this.items = items;
     this.ctx = ctx;
     this.rng = createRng(ctx.seed);
     this.teams = setups.map((s) => ({
@@ -188,26 +239,37 @@ export class LiveMatch {
     this.baron.alive = false;
 
     const laneOf: Record<Role, Lane | null> = { TOP: "TOP", JUNGLE: null, MID: "MID", ADC: "BOT", SUPPORT: "BOT" };
+    const enemyInfo = (side: number) => ROLES.map((r) => {
+      const ch = db[setups[1 - side].picks[r]];
+      return { arch: archetypeOf(ch, r), damage: ch.damage_type };
+    });
     setups.forEach((s, side) => {
+      const enemies = enemyInfo(side);
       ROLES.forEach((role, slot) => {
         const player = s.team.roster[role];
         const champion = db[s.picks[role]];
         const arch = archetypeOf(champion, role);
+        const plan = planBuild(champion, role, arch, enemies, s.buildStyle ?? "BALANCED");
         const st = statsAt(arch, 1, 0);
         const f = FOUNTAIN[side];
         const u: ChampUnit = {
           id: this.nextId++, kind: "CHAMP", side: side as 0 | 1, x: f.x, y: f.y, hp: st.hp, maxHp: st.hp, power: st.power,
           range: st.range, aspd: st.aspd, speed: st.speed, atkTimer: 0, alive: true, targetId: 0,
-          slot, role, player, champion, arch, homeLane: laneOf[role], level: 1, xp: 0, gold: 500, itemGold: 0,
+          slot, role, player, champion, arch, homeLane: laneOf[role], level: 1, xp: 0, gold: 500,
+          inventory: [], plan, armor: 0, mr: 0, crit: 0, critDmg: 1.75, ah: 0, lifesteal: 0, omnivamp: 0, lethality: 0, armorPen: 0,
+          magicPen: 0, magicPenPct: 0, hsp: 0, tags: {}, healCutUntil: 0, stasisUntil: 0, reviveReadyAt: 0, reviveAt: 0, lifelineAt: 0,
+          cleanseAt: 0, spellshieldAt: 0, stasisAt: 0, spellbladeUntil: 0, armorShredUntil: 0, mrShredUntil: 0, slowUntil: 0, allyBuffUntil: 0, supportAt: 0, burns: [],
           skillCd: 0, ultCd: 0, stunUntil: 0, shield: 0, buffUntil: 0, state: role === "JUNGLE" ? "JUNGLE" : "LANE",
           stateUntil: 0, respawnAt: 0, focus: 0, decideAt: slot * 0.1, hitBy: new Map(), attackedChampAt: -10, hurtAt: -10,
-          efficiency: (0.1 + 1.05 * (attr(player, "mechanics", "mechanical_outplay") + attr(player, "teamfight", "positioning")) / 2) * conditionFactor(player, ctx),
+          efficiency: (-0.15 + 1.3 * (attr(player, "mechanics", "mechanical_outplay") + attr(player, "teamfight", "positioning")) / 2) * conditionFactor(player, ctx),
           mastery: masteryOf(player, champion.id),
-          line: { playerId: player.id, ign: player.ign, role, champion: champion.id, kills: 0, deaths: 0, assists: 0, cs: 0, gold: 500, damage: 0, csAt15: 0, goldAt15: 0 },
+          line: { playerId: player.id, ign: player.ign, role, champion: champion.id, kills: 0, deaths: 0, assists: 0, cs: 0, gold: 500, damage: 0, csAt15: 0, goldAt15: 0, items: [] },
         };
         this.units.push(u);
         this.byId.set(u.id, u);
         this.champs.push(u);
+        this.shop(u);
+        u.hp = u.maxHp;
       });
     });
   }
@@ -250,7 +312,9 @@ export class LiveMatch {
     this.t = Math.round((this.t + DT) * 10) / 10;
     this.spawns();
     if (Math.abs(this.t - Math.round(this.t)) < 1e-6) for (const side of [0, 1] as const) this.teamBrain(side);
-    for (const c of this.champs) this.champTick(c);
+    // xen kẽ thứ tự hai đội mỗi bước để không bên nào luôn ra đòn trước
+    const odd = Math.round(this.t * 10) % 2 === 1;
+    for (let i = 0; i < this.champs.length; i++) this.champTick(this.champs[odd ? this.champs.length - 1 - i : i]);
     for (const u of this.units) {
       if (!u.alive) continue;
       if (u.kind === "MINION") this.minionTick(u);
@@ -315,7 +379,7 @@ export class LiveMatch {
     const lead = this.teamGold(side) - this.teamGold(enemy);
     const obj = mine.reduce((s, c) => s + attr(c.player, "macro", "objective_control"), 0) / Math.max(1, mine.length);
     const risk = team.orders.risk;
-    const advantage = mine.length - theirs.length + lead / 3000 + (risk === "AGGRESSIVE" ? 0.6 : risk === "SAFE" ? -0.6 : 0);
+    const advantage = mine.length - theirs.length + lead / 7000 + (risk === "AGGRESSIVE" ? 0.6 : risk === "SAFE" ? -0.6 : 0);
     const set = (kind: TeamState["call"]["kind"], point: Vec, lane?: Lane) => {
       if (team.call.kind !== kind || team.call.lane !== lane) team.call = { kind, point, lane, since: this.t };
     };
@@ -385,10 +449,16 @@ export class LiveMatch {
     c.atkTimer -= DT;
     c.skillCd -= DT;
     c.ultCd -= DT;
+    if (c.reviveAt && this.t >= c.reviveAt) {
+      c.reviveAt = 0;
+      c.hp = c.maxHp * 0.5; // Giáp Thiên Thần
+    }
+    this.itemTick(c);
+    if (!c.alive || this.t < c.stasisUntil) return;
     if (this.t < c.stunUntil) return;
 
     // hồi máu chậm khi không giao tranh, nhanh ở bệ đá
-    if (this.t - c.hurtAt > 5) c.hp = Math.min(c.maxHp, c.hp + c.maxHp * 0.008 * DT);
+    if (this.t - c.hurtAt > 5) c.hp = Math.min(c.maxHp, c.hp + c.maxHp * 0.008 * (c.tags.REGEN ? 4 : 1) * DT);
     const f = FOUNTAIN[c.side];
     if (dist(c, f) < 14) {
       c.hp = Math.min(c.maxHp, c.hp + c.maxHp * 0.15 * DT);
@@ -451,7 +521,8 @@ export class LiveMatch {
   }
 
   private dps(c: ChampUnit) {
-    return this.effPower(c) * c.aspd * (this.t < c.buffUntil && c.arch === "MARKSMAN" ? 1.5 : 1) + (c.arch === "MAGE" ? 25 : 0);
+    const crit = 1 + (Math.min(100, c.crit) / 100) * (c.critDmg - 1);
+    return this.effPower(c) * crit * c.aspd * (this.t < c.buffUntil && c.arch === "MARKSMAN" ? 1.5 : 1) + (c.arch === "MAGE" ? 25 : 0);
   }
 
   private effPower(c: ChampUnit) {
@@ -460,7 +531,8 @@ export class LiveMatch {
     const baron = this.t < team.baronUntil ? 0.25 : 0;
     const ult = this.t < c.buffUntil && c.arch === "FIGHTER" ? 0.3 : 0;
     const mastery = (c.mastery - 70) * 0.002; // tướng tủ: tối đa ~+6%
-    return c.power * phaseMult(c.champion, this.displayMinute) * (1 + dragons + baron + ult + mastery) * c.efficiency;
+    const split = c.tags.SPLIT && !this.champs.some((a) => a !== c && a.alive && a.side === c.side && dist(a, c) < 30) ? 0.15 : 0;
+    return c.power * phaseMult(c.champion, this.displayMinute) * (1 + dragons + baron + ult + mastery + split) * c.efficiency;
   }
 
   private retreatHp(c: ChampUnit) {
@@ -474,7 +546,14 @@ export class LiveMatch {
     if (c.state === "RECALL" && c.hp < c.maxHp * 0.98) return;
     if (c.state === "RETREAT" && this.t < c.stateUntil) return;
 
-    const enemies = this.champs.filter((e) => e.alive && e.side === enemySide && dist(e, c) < 42);
+    const enemies = this.champs.filter((e) => e.alive && e.side === enemySide && dist(e, c) < 42 && this.t >= e.stasisUntil);
+    // Đủ tiền mua món kế tiếp, không có địch quanh: về nhà sắm đồ
+    const champHitAt = Math.max(-10, ...c.hitBy.values());
+    if ((c.state === "LANE" || c.state === "JUNGLE") && c.gold >= RECALL_GOLD && !enemies.length && this.t - champHitAt > 4) {
+      c.state = "RECALL";
+      c.focus = 0;
+      return;
+    }
     let fightThreshold = c.state === "FIGHT" ? 0.85 : team.orders.risk === "AGGRESSIVE" ? 0.95 : team.orders.risk === "SAFE" ? 1.35 : 1.12;
     // Giai đoạn đi đường: chỉ trao đổi khi có lợi thế rõ (đối thủ thấp máu, có rừng hỗ trợ)
     if (this.t < LIVE.laningEnd && (c.state === "LANE" || c.state === "JUNGLE")) fightThreshold += 0.45;
@@ -589,7 +668,7 @@ export class LiveMatch {
       }
       case "FIGHT":
       case "GANK": {
-        const target = this.champs.find((e) => e.id === c.focus && e.alive);
+        const target = this.champs.find((e) => e.id === c.focus && e.alive && this.t >= e.stasisUntil);
         if (!target) {
           c.state = c.role === "JUNGLE" ? "JUNGLE" : "LANE";
           return;
@@ -740,15 +819,15 @@ export class LiveMatch {
         c.arch === "ASSASSIN" || c.arch === "MARKSMAN" ? target.hp / target.maxHp < 0.45 || crowd >= 3 :
         crowd >= 2 || target.hp / target.maxHp < 0.35;
       if (want) {
-        c.ultCd = S.ult.cooldown;
+        c.ultCd = S.ult.cooldown * this.haste(c);
         this.pushFx({ kind: c.arch === "ENCHANTER" ? "heal" : "ult", side: c.side, x1: c.x, y1: c.y, x2: target.x, y2: target.y, arch: c.arch });
         switch (c.arch) {
           case "TANK":
           case "CATCHER":
             this.blink(c, target, 5);
             for (const e of enemiesNear(target, c.arch === "TANK" ? 18 : 16)) {
-              e.stunUntil = this.t + (c.arch === "TANK" ? 1.4 : 1.2);
-              this.damage(c, e, p * 0.9);
+              this.stun(e, c.arch === "TANK" ? 1.4 : 1.2);
+              this.damage(c, e, p * 0.9, SKILL);
             }
             break;
           case "FIGHTER":
@@ -757,16 +836,16 @@ export class LiveMatch {
             break;
           case "ASSASSIN":
             this.blink(c, target, 3);
-            this.damage(c, target, p * 2.2 * (target.hp / target.maxHp < 0.4 ? 1.6 : 1));
+            this.damage(c, target, p * 2.2 * (target.hp / target.maxHp < 0.4 ? 1.6 : 1), SKILL);
             break;
           case "MAGE":
-            for (const e of enemiesNear(target, 18)) if (this.skillLands(c, e)) this.damage(c, e, p * 3);
+            for (const e of enemiesNear(target, 18)) if (this.skillLands(c, e)) this.damage(c, e, p * 3, SKILL);
             break;
           case "MARKSMAN":
-            if (this.skillLands(c, target)) this.damage(c, target, p * 2.6);
+            if (this.skillLands(c, target)) this.damage(c, target, p * 2.6, SKILL);
             break;
           case "ENCHANTER":
-            for (const a of alliesNear(30)) this.heal(a, 100 + p * 2.2);
+            for (const a of alliesNear(30)) this.heal(a, 100 + p * 2.2, c);
             break;
         }
       }
@@ -777,39 +856,40 @@ export class LiveMatch {
     if (c.arch === "ENCHANTER") {
       const ally = alliesNear(S.skill.range).sort((a, b) => a.hp / a.maxHp - b.hp / b.maxHp)[0];
       if (ally && ally.hp / ally.maxHp < 0.75) {
-        c.skillCd = S.skill.cooldown;
+        c.skillCd = S.skill.cooldown * this.haste(c);
         this.pushFx({ kind: "heal", side: c.side, x1: c.x, y1: c.y, x2: ally.x, y2: ally.y, arch: c.arch });
-        this.heal(ally, 60 + p * 1.8);
-        ally.shield += 40 + p;
+        this.heal(ally, 60 + p * 1.8, c);
+        ally.shield += (40 + p) * (1 + c.hsp / 100);
       }
       return;
     }
     if (d > S.skill.range) return;
-    c.skillCd = S.skill.cooldown;
+    c.skillCd = S.skill.cooldown * this.haste(c);
+    c.spellbladeUntil = this.t + 3;
     this.pushFx({ kind: "skill", side: c.side, x1: c.x, y1: c.y, x2: target.x, y2: target.y, arch: c.arch });
     switch (c.arch) {
       case "TANK":
         this.blink(c, target, 4);
-        target.stunUntil = this.t + 1;
-        this.damage(c, target, p * 0.9);
+        this.stun(target, 1);
+        this.damage(c, target, p * 0.9, SKILL);
         break;
       case "CATCHER":
         if (this.skillLands(c, target)) {
-          target.stunUntil = this.t + 1.2;
-          this.damage(c, target, p * 0.7);
+          this.stun(target, 1.2);
+          this.damage(c, target, p * 0.7, SKILL);
         }
         break;
       case "FIGHTER": {
-        const dealt = this.damage(c, target, p * 1.5);
-        this.heal(c, dealt * 0.4);
+        const dealt = this.damage(c, target, p * 1.5, SKILL);
+        this.heal(c, dealt * 0.4, c);
         break;
       }
       case "ASSASSIN":
         this.blink(c, target, 3);
-        this.damage(c, target, p * 1.8);
+        this.damage(c, target, p * 1.8, SKILL);
         break;
       case "MAGE":
-        for (const e of enemiesNear(target, 10)) if (this.skillLands(c, e)) this.damage(c, e, p * 1.7);
+        for (const e of enemiesNear(target, 10)) if (this.skillLands(c, e)) this.damage(c, e, p * 1.7, SKILL);
         break;
       case "MARKSMAN":
         c.buffUntil = this.t + 4;
@@ -825,43 +905,145 @@ export class LiveMatch {
     c.y += (to.y - c.y) * k;
   }
 
-  private heal(u: Unit, amount: number) {
+  /** Hồi máu: `from` có Sức mạnh hồi máu thì tăng, mục tiêu dính Vết Thương Sâu thì giảm 40% */
+  private heal(u: Unit, amount: number, from?: ChampUnit) {
     if (!u.alive) return;
+    if (from) amount *= 1 + from.hsp / 100;
+    if (u.kind === "CHAMP" && this.t < (u as ChampUnit).healCutUntil) amount *= 0.6;
     u.hp = Math.min(u.maxHp, u.hp + amount);
+  }
+
+  /** Hệ số hồi chiêu theo Điểm hồi kỹ năng */
+  private haste(c: ChampUnit) {
+    return 100 / (100 + c.ah);
+  }
+
+  /** Khống chế: Kháng hiệu ứng rút ngắn, Khăn Giải Thuật/Đao Thủy Ngân/Chuông Mikael giải một lần */
+  private stun(u: ChampUnit, seconds: number) {
+    if (this.t < u.stasisUntil) return;
+    if (u.tags.CLEANSE && seconds >= 0.5 && this.t >= u.cleanseAt) {
+      u.cleanseAt = this.t + ITEM_CD.cleanse;
+      return;
+    }
+    u.stunUntil = Math.max(u.stunUntil, this.t + seconds * (u.tags.TENACITY ? 0.7 : 1));
+  }
+
+  /** Nội tại trang bị chạy theo thời gian: thiêu đốt, hào quang, đồ hỗ trợ cả đội */
+  private itemTick(c: ChampUnit) {
+    if (c.burns.length) {
+      for (const b of c.burns) {
+        const src = this.byId.get(b.src);
+        if (src && this.t < b.until) this.damage(src, c, b.dps * DT, { kind: "magic" });
+        if (!c.alive) return;
+      }
+      c.burns = c.burns.filter((b) => this.t < b.until);
+    }
+    if (Math.abs(this.t - Math.round(this.t)) > 1e-6) return; // phần dưới mỗi giây một lần
+    if (c.tags.BURN_AURA && this.t - c.hurtAt < 3) {
+      const dps = c.tags.BURN_AURA * (1 + c.level * 0.08) + c.maxHp * 0.004;
+      for (const e of this.champs) if (e.alive && e.side !== c.side && dist(e, c) < 12) this.damage(c, e, dps, { kind: "magic" });
+      for (const u of this.units) if (u.alive && (u.kind === "MINION" || u.kind === "CAMP") && u.side !== c.side && dist(u, c) < 12) this.damage(c, u, dps);
+    }
+    const support = c.tags.TEAM_SHIELD || c.tags.TEAM_HEAL || c.tags.ALLY_AS;
+    if (support && this.t >= c.supportAt && c.state === "FIGHT") {
+      const allies = this.champs.filter((a) => a.alive && a.side === c.side && dist(a, c) < 24);
+      if (allies.some((a) => a.hp / a.maxHp < 0.6) || c.tags.ALLY_AS) {
+        c.supportAt = this.t + ITEM_CD.support;
+        this.pushFx({ kind: "heal", side: c.side, x1: c.x, y1: c.y, x2: c.x, y2: c.y, arch: c.arch });
+        for (const a of allies) {
+          if (c.tags.TEAM_SHIELD) a.shield += (60 + c.maxHp * 0.05) * (1 + c.hsp / 100);
+          if (c.tags.TEAM_HEAL) this.heal(a, 50 + a.maxHp * 0.06, c);
+          if (c.tags.ALLY_AS) a.allyBuffUntil = this.t + 4;
+        }
+      }
+    }
   }
 
   private moveTo(u: Unit, to: Vec) {
     const d = dist(u, to);
     if (d < 0.01) return;
-    const step = Math.min(d, u.speed * DT * (u.kind === "CHAMP" && this.t < (this.teams[u.side as 0 | 1]?.baronUntil ?? 0) ? 1.1 : 1));
+    const champ = u.kind === "CHAMP" ? (u as ChampUnit) : undefined;
+    const mult = (champ && this.t < this.teams[champ.side].baronUntil ? 1.1 : 1) * (champ && this.t < champ.slowUntil ? 0.7 : 1);
+    const step = Math.min(d, u.speed * DT * mult);
     u.x += ((to.x - u.x) / d) * step;
     u.y += ((to.y - u.y) / d) * step;
   }
 
   private attack(u: Unit, target: Unit) {
     if (u.atkTimer > 0) return;
-    u.atkTimer = 1 / Math.max(0.1, u.aspd * (u.kind === "CHAMP" && this.t < (u as ChampUnit).buffUntil && (u as ChampUnit).arch === "MARKSMAN" ? 1.5 : 1));
+    const c = u.kind === "CHAMP" ? (u as ChampUnit) : undefined;
+    let speed = u.aspd * (c && this.t < c.buffUntil && c.arch === "MARKSMAN" ? 1.5 : 1) * (c && this.t < c.allyBuffUntil ? 1.2 : 1);
+    if (target.kind === "CHAMP" && (target as ChampUnit).tags.SLOW_AURA) speed *= 0.85; // Tim Băng
+    u.atkTimer = 1 / Math.max(0.1, speed);
     u.targetId = target.id;
     if (this.recordFx) this.pushFx({ kind: u.range > 15 || u.kind === "TOWER" ? "shot" : "hit", side: u.side, x1: u.x, y1: u.y, x2: target.x, y2: target.y });
-    let amount = u.kind === "CHAMP" ? this.effPower(u as ChampUnit) : u.power;
+    let amount = c ? this.effPower(c) : u.power;
     // Lính đánh lính chậm để tướng còn ăn lính; tướng dọn lính theo chỉ số waveclear của tướng
-    if (target.kind === "MINION") amount *= u.kind === "MINION" ? 0.3 : 1.3 + (u.kind === "CHAMP" ? (u as ChampUnit).champion.profile.waveclear * 0.06 : 0);
+    if (target.kind === "MINION") amount *= u.kind === "MINION" ? 0.3 : 1.3 + (c ? c.champion.profile.waveclear * 0.06 : 0);
     if (u.kind === "TOWER") amount = target.kind === "MINION" ? target.maxHp * 0.45 : u.power * (1 + this.t / 600);
-    this.damage(u, target, amount);
+    if (!c) return void this.damage(u, target, amount, { auto: true });
+
+    // chí mạng (Khiên Băng Randuin giảm sát thương chí mạng)
+    if (c.crit > 0 && this.rng.chance(Math.min(1, c.crit / 100))) {
+      const bonus = c.critDmg - 1;
+      amount *= 1 + bonus * (target.kind === "CHAMP" && (target as ChampUnit).tags.ANTI_CRIT ? 0.7 : 1);
+    }
+    if (target.kind === "CAMP" && c.tags.JUNGLE) amount *= 1.3;
+    let dealt = this.damage(c, target, amount, { auto: true, kind: "phys" });
+    // Kiếm phép: đòn đánh sau khi dùng chiêu
+    if (c.tags.SPELLBLADE && this.t < c.spellbladeUntil && target.alive) {
+      c.spellbladeUntil = 0;
+      dealt += this.damage(c, target, this.effPower(c) * c.tags.SPELLBLADE, { kind: c.champion.damage_type === "AP" ? "magic" : "phys" });
+    }
+    if (c.tags.ONHIT && target.alive) dealt += this.damage(c, target, c.tags.ONHIT * (1 + c.level * 0.05), { kind: "magic" });
+    if (c.tags.PERCENT_HP && target.alive && target.kind === "CHAMP") dealt += this.damage(c, target, target.hp * c.tags.PERCENT_HP, { kind: "phys" });
+    if (c.tags.CLEAVE)
+      for (const o of this.units)
+        if (o !== target && o.alive && o.side !== c.side && o.side !== 2 && (o.kind === "MINION" || o.kind === "CHAMP") && dist(o, target) < 8)
+          this.damage(c, o, amount * c.tags.CLEAVE, { kind: "phys" });
+    if (c.tags.HASTE_ON_HIT && target.kind === "CHAMP") (c.skillCd -= 0.25), (c.ultCd -= 0.25);
+    if (c.lifesteal > 0) this.heal(c, dealt * (c.lifesteal / 100));
+  }
+
+  /** Hệ số giảm sát thương theo giáp/kháng phép (có xuyên, sát lực, giảm giáp) */
+  private mitigation(src: ChampUnit | undefined, tgt: ChampUnit, kind: DmgKind) {
+    if (kind === "true") return 1;
+    let def: number;
+    if (kind === "phys") {
+      def = tgt.armor * (this.t < tgt.armorShredUntil ? 0.76 : 1);
+      if (src) def = def * (1 - src.armorPen / 100) - src.lethality * (0.6 + src.level / 45);
+    } else {
+      def = tgt.mr * (this.t < tgt.mrShredUntil ? 0.8 : 1);
+      if (src) def = def * (1 - src.magicPenPct / 100) - src.magicPen;
+    }
+    def = Math.max(0, def);
+    return 100 / (100 + def);
   }
 
   /** Gây sát thương, trả về lượng thực tế. Xử lý lá chắn, giảm sát thương công trình, ghi công, chết. */
-  private damage(src: Unit, tgt: Unit, raw: number): number {
+  private damage(src: Unit, tgt: Unit, raw: number, opts: DmgOpts = {}): number {
     if (!tgt.alive) return 0;
     if (!this.targetable(tgt)) return 0;
     let amount = raw;
+    const sc = src.kind === "CHAMP" ? (src as ChampUnit) : undefined;
     if (tgt.kind === "TOWER" || tgt.kind === "NEXUS") {
       const baron = src.kind === "CHAMP" && this.t < this.teams[src.side as 0 | 1].baronUntil;
       // trụ yếu dần theo thời gian (hết lớp giáp), giúp trận không kéo dài
-      amount *= src.kind === "MINION" ? 0.6 : (baron ? 1.6 : 0.8) * (1 + this.t / 500);
+      amount *= src.kind === "MINION" ? 0.6 : (baron ? 1.6 : 0.8) * (1 + this.t / 420);
     }
     if (tgt.kind === "CHAMP") {
       const ct = tgt as ChampUnit;
+      if (this.t < ct.stasisUntil) return 0;
+      if (sc && opts.skill && ct.tags.SPELLSHIELD && this.t >= ct.spellshieldAt) {
+        ct.spellshieldAt = this.t + ITEM_CD.spellshield; // Dây Chuyền Chữ Thập / Áo Choàng Bóng Tối chặn một chiêu
+        return 0;
+      }
+      const kind: DmgKind = opts.kind ?? (sc ? (opts.auto ? "phys" : sc.champion.damage_type === "AP" ? "magic" : "phys") : src.kind === "TOWER" ? "true" : "phys");
+      amount *= this.mitigation(sc, ct, kind) * (sc ? CHAMP_DMG_SCALE : kind === "true" ? 1 : 1.25);
+      if (sc && opts.auto && ct.tags.BLOCK_AUTO) amount *= 0.88;
+      if (ct.tags.DAMAGE_DELAY) amount *= 1 - ct.tags.DAMAGE_DELAY * 0.5;
+      if (sc && sc.tags.EXECUTE_BONUS && ct.hp < ct.maxHp * 0.4) amount *= 1 + sc.tags.EXECUTE_BONUS * 0.5;
+      if (!sc && (src.kind === "CAMP" || src.kind === "DRAGON" || src.kind === "BARON") && ct.tags.JUNGLE) amount *= 0.7;
       ct.hurtAt = this.t;
       const absorbed = Math.min(ct.shield, amount);
       ct.shield -= absorbed;
@@ -870,14 +1052,47 @@ export class LiveMatch {
         ct.hitBy.set(src.id, this.t);
         (src as ChampUnit).attackedChampAt = this.t;
         (src as ChampUnit).line.damage += amount + absorbed;
+        const s = src as ChampUnit;
+        if (s.tags.GRIEVOUS) ct.healCutUntil = this.t + 3;
+        if (s.tags.ARMOR_SHRED) ct.armorShredUntil = this.t + 2;
+        if (s.tags.MR_SHRED && kind === "magic") ct.mrShredUntil = this.t + 2;
+        if (s.tags.BURN_SPELL && opts.skill && ct.burns.length < 3) ct.burns.push({ src: s.id, dps: ct.maxHp * s.tags.BURN_SPELL * 3, until: this.t + 1 });
+        if (s.tags.SLOW && opts.skill) ct.slowUntil = this.t + 1;
+        // Giáp Gai: phản sát thương khi bị đánh thường
+        if (opts.auto && ct.tags.THORNS && !opts.thorns) {
+          this.damage(ct, s, ct.tags.THORNS + ct.armor * 0.1, { kind: "magic", thorns: true });
+          if (ct.tags.GRIEVOUS) s.healCutUntil = this.t + 3;
+        }
+      }
+      // các nội tại cứu mạng
+      const after = ct.hp - amount;
+      if (after > 0 && after < ct.maxHp * 0.3 && ct.tags.LIFELINE && this.t >= ct.lifelineAt) {
+        ct.lifelineAt = this.t + ITEM_CD.lifeline;
+        ct.shield += ct.maxHp * ct.tags.LIFELINE;
+      }
+      if (after > 0 && after < ct.maxHp * 0.25 && ct.tags.STASIS && this.t >= ct.stasisAt && sc) {
+        ct.stasisAt = this.t + ITEM_CD.stasis;
+        ct.stasisUntil = this.t + 0.85; // Đồng Hồ Cát Zhonya ~2.5 giây trận
+        ct.hp = after;
+        return amount;
+      }
+      if (after <= 0 && ct.tags.REVIVE && this.t >= ct.reviveReadyAt) {
+        ct.reviveReadyAt = this.t + ITEM_CD.revive;
+        ct.hp = 1;
+        ct.stasisUntil = this.t + 1.4;
+        ct.reviveAt = this.t + 1.4; // Giáp Thiên Thần: hồi sinh với 50% máu
+        ct.focus = 0;
+        return amount;
       }
     }
+    if (sc && sc.omnivamp > 0 && amount > 0) this.heal(sc, amount * (sc.omnivamp / 100) * (tgt.kind === "CHAMP" ? 1 : 0.33));
     if (tgt.kind === "CAMP" || tgt.kind === "DRAGON" || tgt.kind === "BARON") {
       tgt.targetId = src.id;
       tgt.aggroAt = this.t;
     }
     tgt.hp -= amount;
     if (src.kind === "CHAMP") tgt.lastHit = src.id;
+    if (tgt.hp > 0 && tgt.kind === "CHAMP" && sc?.tags.EXECUTE && tgt.hp < tgt.maxHp * sc.tags.EXECUTE) tgt.hp = 0; // Súng Hải Tặc
     if (tgt.hp <= 0) this.kill(src, tgt);
     return amount;
   }
@@ -955,7 +1170,7 @@ export class LiveMatch {
       const lh = this.champs.find((c) => c.id === tgt.lastHit && c.alive && dist(c, tgt) < 45);
       if (lh && src.kind === "CHAMP") {
         lh.line.cs += CS_PER_MINION;
-        this.giveGold(lh, tgt.ranged ? 16 : 21);
+        this.giveGold(lh, (tgt.ranged ? 15 : 21) * CS_PER_MINION);
       }
       for (const c of this.champs) if (c.alive && c.side !== tgt.side && dist(c, tgt) < 40) this.giveXp(c, 22);
       return;
@@ -965,7 +1180,7 @@ export class LiveMatch {
       tgt.respawnAt = this.t + LIVE.campRespawn;
       if (killer) {
         killer.line.cs += 4 * CS_PER_MINION;
-        this.giveGold(killer, 55);
+        this.giveGold(killer, 100);
         this.giveXp(killer, 90);
       }
       return;
@@ -980,13 +1195,13 @@ export class LiveMatch {
         if (team.dragons < 4) team.dragons++;
         this.events.push({ minute, type: "DRAGON", side });
         if (team.dragons === 4) this.events.push({ minute, type: "SOUL", side });
-        for (const c of this.champs) if (c.side === side) this.giveGold(c, 50);
+        for (const c of this.champs) if (c.side === side) this.giveGold(c, 60);
       } else {
         tgt.respawnAt = this.t + LIVE.baronRespawn;
         team.barons++;
         team.baronUntil = this.t + LIVE.baronBuff;
         this.events.push({ minute, type: "BARON", side });
-        for (const c of this.champs) if (c.side === side) this.giveGold(c, 150);
+        for (const c of this.champs) if (c.side === side) this.giveGold(c, 300);
       }
       this.teams[side].call = { kind: "NONE", point: NEXUS[side], since: this.t };
       return;
@@ -1001,7 +1216,7 @@ export class LiveMatch {
         return;
       }
       this.events.push({ minute, type: "TOWER", side, count: 1, reason: "FIGHT" });
-      for (const c of this.champs) if (c.side === side) this.giveGold(c, 120);
+      for (const c of this.champs) if (c.side === side) this.giveGold(c, 250);
     }
   }
 
@@ -1040,7 +1255,7 @@ export class LiveMatch {
         const a = this.champs.find((c) => c.id === id);
         if (!a) continue;
         a.line.assists++;
-        this.giveGold(a, 120);
+        this.giveGold(a, 150);
         this.giveXp(a, 60);
       }
       this.events.push({ minute, type: this.firstBlood ? "FIRST_BLOOD" : "KILL", side, killer: killer.player.ign, victim: dead.player.ign, lane: dead.homeLane ?? "JUNGLE" });
@@ -1075,19 +1290,45 @@ export class LiveMatch {
     }
   }
 
+  /** Về bệ đá: mua đồ theo lộ trình (công thức ghép thật, tối đa 6 ô) */
   private shop(c: ChampUnit) {
-    c.itemGold += c.gold;
-    c.gold = 0;
+    // Nhiệm vụ hỗ trợ: Bản Đồ Thế Giới tự nâng cấp sau ~14 phút trận
+    const atlas = c.inventory.indexOf("WORLD_ATLAS");
+    const upgrade = c.arch === "ENCHANTER" ? "DREAM_MAKER" : "CELESTIAL_OPPOSITION";
+    if (atlas >= 0 && this.t >= 280 && this.items[upgrade]) c.inventory[atlas] = upgrade;
+    const r = shopFor(this.items, c.plan, c.inventory, c.gold);
+    c.inventory = r.inventory;
+    c.gold = r.gold;
+    c.line.items = c.inventory.slice();
     this.refreshStats(c);
   }
 
+  /** Chỉ số = gốc theo nhóm tướng/cấp + chỉ số trang bị thật (đổi sang thang sức mạnh mô phỏng) */
   private refreshStats(c: ChampUnit) {
-    const st = statsAt(c.arch, c.level, c.itemGold);
+    const st = statsAt(c.arch, c.level, 0);
+    const { stats: s, tags } = inventoryStats(this.items, c.inventory);
+    const dmg = c.champion.damage_type;
+    const scale = dmg === "AP" ? s.ap * AP_K + s.ad * 0.2 : dmg === "MIXED" ? s.ad * AD_K * 0.6 + s.ap * AP_K * 0.6 : s.ad * AD_K + s.ap * 0.1;
+    const bulky = c.arch === "TANK" || c.arch === "CATCHER" || c.arch === "FIGHTER" ? s.hp * 0.006 : 0;
     const ratio = c.hp / c.maxHp;
-    c.maxHp = st.hp;
-    c.hp = Math.max(1, st.hp * ratio);
-    c.power = st.power;
-    c.aspd = st.aspd;
+    c.maxHp = st.hp + s.hp * HP_K;
+    c.hp = Math.max(1, c.maxHp * ratio);
+    c.power = st.power + scale + bulky;
+    c.aspd = Math.min(2.5, st.aspd * (1 + (s.as / 100) * AS_K));
+    c.speed = st.speed * (1 + s.ms / 345 * 0.6 + s.msPct / 100);
+    c.armor = ARMOR_BASE[c.arch] + c.level * 2.2 + s.armor;
+    c.mr = 28 + c.level * 1.3 + (c.arch === "TANK" || c.arch === "FIGHTER" || c.arch === "CATCHER" ? 6 : 0) + s.mr;
+    c.crit = s.crit;
+    c.critDmg = 1.75 + (tags.CRIT_DMG ?? 0);
+    c.ah = s.ah;
+    c.lifesteal = s.lifesteal;
+    c.omnivamp = s.omnivamp;
+    c.lethality = s.lethality;
+    c.armorPen = s.armorPen;
+    c.magicPen = s.magicPen;
+    c.magicPenPct = s.magicPenPct;
+    c.hsp = s.hsp;
+    c.tags = tags;
   }
 
   private economyTick() {

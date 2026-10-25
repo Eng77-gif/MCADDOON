@@ -50,26 +50,30 @@ Kiểm tra cân bằng: `npm run live-balance [số trận]`.
 
 ## 4. Cân bằng hiện tại
 
+Sau khi có trang bị thật (kinh tế ~10–14k vàng/người ở phút 30–40):
+
 | Kịch bản | Kết quả |
 |---|---|
-| Trận gương (cùng đội, cùng tướng) | 45–55% (không có lợi thế phe) |
-| Đội +10 mọi chỉ số | 62,5% (80 trận, đổi bên luân phiên) |
-| GEN vs FURIA | 95% (20 trận) |
-| Thời lượng | ~34–39 phút đồng hồ trận |
-| Mạng / trận | ~26–38 |
-| CS/phút của người đi đường | ~4,4 |
+| Trận gương (cùng đội, cùng tướng) | 52% (90 trận; thứ tự hành động hai đội xen kẽ mỗi bước) |
+| Đội +10 mọi chỉ số | 69% (90 trận, đổi bên luân phiên) |
+| GEN vs FURIA | 75–95% (20–36 trận) |
+| Thời lượng | ~36–41 phút đồng hồ trận |
+| Mạng / trận | ~25–33 |
+| CS/phút của người đi đường | ~3,3–3,9 |
+
+Kiểm tra lại: `npm run live-balance [số trận]` (có thêm túi đồ mẫu và so sánh lối lên đồ).
 
 **Hạn chế còn lại:**
 - Ăn lính và tốc độ chốt trận vẫn thấp hơn LMHT thật. Muốn sát hơn cần đợt lính dày hơn, nhưng sẽ tốn CPU.
 - Độ chênh giữa đội mạnh và yếu nhỏ hơn engine theo giai đoạn: tỉ lệ bất ngờ cao hơn.
 
-**Hiệu năng:** khoảng 1,2–1,4 giây cho một trận chạy không vẽ hình. Vì vậy:
+**Hiệu năng:** khoảng 1,6–1,9 giây cho một trận chạy không vẽ hình. Vì vậy:
 - Trận của người chơi dùng engine thời gian thực.
 - Hàng trăm trận AI đấu AI trong mùa giải vẫn dùng engine theo giai đoạn (`match.ts`). Engine này cũng có trong trận đấu, ở lựa chọn "Nhanh theo 3 giai đoạn".
 
 ## 5. Việc tiếp theo
 
-- Trang bị cụ thể (thay cho "vàng → chỉ số") và chiến thuật riêng cho từng tuyển thủ.
+- Chiến thuật riêng cho từng tuyển thủ; cho HLV sửa lộ trình đồ của từng người.
 - Tầm nhìn/mắt, Sứ Giả, nhà lính hồi sinh, lính siêu cấp.
 - Sprite tướng hoặc tuyển thủ 4 hướng có hoạt ảnh (PixelLab `rotate` và `animate-with-text`), khi phần chân dung bên phiên kia xong.
 - Tối ưu: lưới không gian để dò mục tiêu, chạy mô phỏng trong Web Worker.
@@ -115,3 +119,40 @@ Kiểm tra cân bằng: `npm run live-balance [số trận]`.
 - **Cân bằng sau khi đổi bản đồ:**
   - 60 trận gương: phe xanh thắng 45%, không lệch phe.
   - Đội +10 mọi chỉ số thắng 81%; GEN thắng FURIA 88% (16 trận).
+
+## 8. Trang bị (dữ liệu Riot 16.21.1)
+
+**Nguồn:** `data/lol/items.json` (Data Dragon, tiếng Việt, kèm ảnh `data/lol/img/items/<mã Riot>.png`), lấy từ nhánh dữ liệu LMHT.
+`data/lol/item_keys.csv` gán cho mỗi món một mã engine dễ đọc (`INFINITY_EDGE`…), tên tiếng Anh và **hiệu ứng engine hiểu được**.
+`npm run import-items` dựng `data/packs/real-2026/csv/items.csv` (chỉ số đọc từ dòng chữ của Riot: SMCK, SMPT, máu, giáp,
+kháng phép, tốc đánh, chí mạng, điểm hồi kỹ năng, sát lực, xuyên giáp/phép, hút máu, hút máu toàn phần, sức mạnh hồi máu & lá chắn), rồi
+`npm run import-pack` ra `items.json`. Bình máu và mắt bị bỏ; còn 201 món.
+
+**AI lên đồ** (`engine/src/items.ts`):
+- Lộ trình theo nhóm tướng: đồ khởi đầu (Doran, linh thú đi rừng, Bản Đồ Thế Giới) → món lớn đầu → giày → 4 món còn lại.
+- Phản đội hình: nhiều phép → Giày Thủy Ngân/kháng phép; nhiều vật lý → Giày Thép Gai/giáp; đối phương hồi máu → vết thương sâu; nhiều đỡ đòn → xuyên giáp/phép.
+- Lối lên đồ HLV chọn trước trận: Cân bằng / Dồn sát thương / Ưu tiên chống chịu.
+- Mua theo công thức thật: đủ tiền thì ghép món, không thì mua nguyên liệu đắt nhất mua được; 6 ô, đầy thì bán đồ khởi đầu.
+  Tướng về nhà mua đồ khi chết, khi máu thấp, hoặc khi có ≥2200 vàng mà không có địch quanh. Bản Đồ Thế Giới tự nâng cấp sau ~14 phút.
+
+**Trong trận** (`engine/src/live/sim.ts`): chỉ số trang bị đổi sang thang sức mạnh mô phỏng (SMCK × 0,35, SMPT × 0,2, máu × 0,45, tốc đánh × 0,15;
+giáp/kháng phép dùng công thức thật `100 / (100 + giáp)` sau xuyên/sát lực). Hiệu ứng được mô phỏng:
+
+| Hiệu ứng | Món tiêu biểu |
+|---|---|
+| Chí mạng, +sát thương chí mạng; Randuin giảm chí mạng | Vô Cực Kiếm, Ma Vũ Song Kiếm |
+| Vết thương sâu (−40% hồi máu 3 giây) | Lời Nhắc Tử Vong, Quỷ Thư Morello, Giáp Gai |
+| Lá chắn cứu mạng khi máu < 30% | Móng Vuốt Sterak, Nỏ Tử Thủ, Huyết Kiếm, Chùy Gai Malmortius |
+| Hồi sinh / hóa vàng / chặn kỹ năng / giải khống chế | Giáp Thiên Thần / Đồng Hồ Cát Zhonya / Dây Chuyền Chữ Thập / Khăn Giải Thuật |
+| Kiếm phép, sát thương trên đòn đánh, % máu hiện tại, đánh lan | Tam Hợp Kiếm, Móc Diệt Thủy Quái, Gươm Suy Vong, Rìu Mãng Xà |
+| Thiêu đốt quanh mình / theo kỹ năng | Khiên Thái Dương / Mặt Nạ Đọa Đày Liandry |
+| Phản sát thương, giảm giáp, giảm kháng phép, kết liễu | Giáp Gai, Rìu Đen, Mặt Nạ Vực Thẳm, Súng Hải Tặc |
+| Đồ hỗ trợ: lá chắn / hồi máu / tốc đánh cho cả đội | Dây Chuyền Iron Solari, Dây Chuyền Chuộc Tội, Lư Hương Sôi Sục |
+
+Các nội tại còn lại chưa mô phỏng riêng (chỉ tính chỉ số); văn bản gốc vẫn hiện trong **Kho trang bị**.
+
+**Giao diện:** trang "Kho trang bị" (lọc theo loại/chỉ số, công thức ghép, nâng cấp thành, hiệu ứng trong mô phỏng); 6 ô đồ cập nhật trực tiếp
+trong bảng tuyển thủ và bảng chỉ số khi xem trận; túi đồ cuối trận trong bảng kết quả; chọn lối lên đồ trước trận.
+
+Lưu ý: dữ liệu là bản 16.21.1 của Data Dragon (dùng tạm cho mùa 2026). Cập nhật: chạy lại `fetch_lol_data.py`, bổ sung mã cho món mới trong
+`item_keys.csv` (công cụ báo món còn thiếu), rồi chạy hai lệnh nhập ở trên.

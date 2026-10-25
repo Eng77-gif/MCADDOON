@@ -1,15 +1,16 @@
 import { useMemo, useRef, useState } from "react";
 import {
-  LiveMatch, MatchSim, ROLES, TACTIC_KEYS, aiDraftStep, applyDraft, autoPlayGame, bestTactic, createRng, currentStep, describeEvent,
+  BUILD_STYLE_VI, LiveMatch, MatchSim, ROLES, TACTIC_KEYS, aiDraftStep, applyDraft, autoPlayGame, bestTactic, createRng, currentStep, describeEvent,
   describePhase, draftForNextGame, gameContext, isAvailable, isDraftDone, isSeriesOver, newSeries, openRoles, recordGame,
   seriesOptionsFor, seriesTeams, suggest,
-  type Career, type CoachOrders, type Team, type DraftState, type MatchResult, type PhaseReport, type Picks, type Role, type SeriesState, type Tactic,
+  type BuildStyle, type Career, type CoachOrders, type Team, type DraftState, type MatchResult, type PhaseReport, type Picks, type Role, type SeriesState, type Tactic,
 } from "../../engine/src/index.ts";
 import { champName, db } from "./data.ts";
 import { Card, ConfirmButton, ROLE_SHORT, ROLE_VI } from "./ui.tsx";
 import { Minimap } from "./Minimap.tsx";
 import { LiveViewer } from "./LiveViewer.tsx";
 import { Avatar } from "./avatar.tsx";
+import { ItemSlots } from "./items.tsx";
 
 /** Màu ô tướng theo loại sát thương */
 const GLYPH: Record<string, string> = { AD: "#c8323f", AP: "#5b4bd8", MIXED: "#1f8a4c" };
@@ -231,6 +232,7 @@ function Live({ draft, userSide, names, seed, pressure, patch, onStart, onEnd }:
   const [orders, setOrders] = useState<CoachOrders>({ laneFocus: "MID", objective: "DRAGON", risk: "NORMAL" });
   const [sim, setSim] = useState<MatchSim | null>(null);
   const [mode, setMode] = useState<"LIVE" | "PHASE">("LIVE");
+  const [buildStyle, setBuildStyle] = useState<BuildStyle>("BALANCED");
   const [live, setLive] = useState<LiveMatch | null>(null);
   const [liveResult, setLiveResult] = useState<MatchResult | null>(null);
   const [, force] = useState(0);
@@ -243,6 +245,7 @@ function Live({ draft, userSide, names, seed, pressure, patch, onStart, onEnd }:
         picks: picks[side],
         tactic: side === userSide ? tactic : bestTactic(db, picks[side]),
         orders: side === userSide ? orders : DEFAULT_ORDERS,
+        buildStyle: side === userSide ? buildStyle : "BALANCED",
       })) as ConstructorParameters<typeof LiveMatch>[2];
       setLive(new LiveMatch(db, { patch, stagePressure: pressure, seed }, setups));
       onStart();
@@ -313,6 +316,17 @@ function Live({ draft, userSide, names, seed, pressure, patch, onStart, onEnd }:
         </Card>
       )}
 
+      {!sim && !live && mode === "LIVE" && (
+        <Card title="Lối lên đồ">
+          <div className="chips">
+            {(Object.keys(BUILD_STYLE_VI) as BuildStyle[]).map((b) => (
+              <button key={b} className={`chip ${buildStyle === b ? "on" : ""}`} onClick={() => setBuildStyle(b)}>{BUILD_STYLE_VI[b]}</button>
+            ))}
+          </div>
+          <p className="muted small">AI tự chọn món theo tướng và đội hình đối phương (giày, vết thương sâu, xuyên giáp…); lối lên đồ quyết định món phòng thủ sớm hay muộn.</p>
+        </Card>
+      )}
+
       {sim && <Broadcast sim={sim} names={names} />}
 
       {sim && (
@@ -368,7 +382,7 @@ function BoxScore({ result, names, teams }: { result: MatchResult; names: [strin
           <div key={i}>
             <h3>{names[i]} {result.winner === i ? "· THẮNG" : ""} <small className="muted">{side.kills} hạ gục · {side.towers} trụ · {side.dragons} rồng · {side.barons} baron</small></h3>
             <table className="table small">
-              <thead><tr><th></th><th>Tướng</th><th>K/D/A</th><th>CS</th><th>DPM</th><th>CSD15</th></tr></thead>
+              <thead><tr><th></th><th>Tướng</th><th>K/D/A</th><th>CS</th><th>DPM</th><th>CSD15</th>{side.lines.some((l) => l.items) && <th>Trang bị</th>}</tr></thead>
               <tbody>
                 {side.lines.map((l, j) => (
                   <tr key={j}>
@@ -378,6 +392,7 @@ function BoxScore({ result, names, teams }: { result: MatchResult; names: [strin
                     <td>{l.cs}</td>
                     <td>{Math.round(l.damage / result.duration)}</td>
                     <td>{l.csAt15 - opp.lines[j].csAt15}</td>
+                    {l.items && <td><ItemSlots inventory={l.items} size={18} /></td>}
                   </tr>
                 ))}
               </tbody>

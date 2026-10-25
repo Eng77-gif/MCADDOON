@@ -1,0 +1,3760 @@
+{
+ "BOOTS": {
+  "id": "BOOTS",
+  "name": "Boots",
+  "nameVi": "Giày",
+  "tier": "BOOTS",
+  "cost": 300,
+  "from": [],
+  "stats": {
+   "ms": 25
+  },
+  "tags": {},
+  "passive": "Tăng một ít Tốc độ Di chuyển",
+  "icon": "1001"
+ },
+ "FAERIE_CHARM": {
+  "id": "FAERIE_CHARM",
+  "name": "Faerie Charm",
+  "nameVi": "Bùa Tiên",
+  "tier": "BASIC",
+  "cost": 200,
+  "from": [],
+  "stats": {},
+  "tags": {},
+  "passive": "Tăng một ít tốc độ hồi Năng lượng",
+  "icon": "1004"
+ },
+ "REJUVENATION_BEAD": {
+  "id": "REJUVENATION_BEAD",
+  "name": "Rejuvenation Bead",
+  "nameVi": "Ngọc Lục Bảo",
+  "tier": "BASIC",
+  "cost": 300,
+  "from": [],
+  "stats": {},
+  "tags": {},
+  "passive": "Tăng một ít tốc độ hồi Máu",
+  "icon": "1006"
+ },
+ "GIANTS_BELT": {
+  "id": "GIANTS_BELT",
+  "name": "Giant's Belt",
+  "nameVi": "Đai Khổng Lồ",
+  "tier": "EPIC",
+  "cost": 900,
+  "from": [
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "hp": 350
+  },
+  "tags": {},
+  "passive": "Tăng nhiều Máu",
+  "icon": "1011"
+ },
+ "CLOAK_OF_AGILITY": {
+  "id": "CLOAK_OF_AGILITY",
+  "name": "Cloak of Agility",
+  "nameVi": "Áo Choàng Tím",
+  "tier": "BASIC",
+  "cost": 600,
+  "from": [],
+  "stats": {
+   "crit": 15
+  },
+  "tags": {},
+  "passive": "Tăng tỷ lệ chí mạng",
+  "icon": "1018"
+ },
+ "BLASTING_WAND": {
+  "id": "BLASTING_WAND",
+  "name": "Blasting Wand",
+  "nameVi": "Gậy Bùng Nổ",
+  "tier": "BASIC",
+  "cost": 850,
+  "from": [],
+  "stats": {
+   "ap": 45
+  },
+  "tags": {},
+  "passive": "Tăng khá nhiều Sức mạnh Phép thuật",
+  "icon": "1026"
+ },
+ "SAPPHIRE_CRYSTAL": {
+  "id": "SAPPHIRE_CRYSTAL",
+  "name": "Sapphire Crystal",
+  "nameVi": "Lam Ngọc",
+  "tier": "BASIC",
+  "cost": 300,
+  "from": [],
+  "stats": {
+   "mana": 300
+  },
+  "tags": {},
+  "passive": "Tăng Năng lượng",
+  "icon": "1027"
+ },
+ "RUBY_CRYSTAL": {
+  "id": "RUBY_CRYSTAL",
+  "name": "Ruby Crystal",
+  "nameVi": "Hồng Ngọc",
+  "tier": "BASIC",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "hp": 150
+  },
+  "tags": {},
+  "passive": "Tăng Máu",
+  "icon": "1028"
+ },
+ "CLOTH_ARMOR": {
+  "id": "CLOTH_ARMOR",
+  "name": "Cloth Armor",
+  "nameVi": "Giáp Lụa",
+  "tier": "BASIC",
+  "cost": 300,
+  "from": [],
+  "stats": {
+   "armor": 15
+  },
+  "tags": {},
+  "passive": "Tăng một ít Giáp",
+  "icon": "1029"
+ },
+ "CHAIN_VEST": {
+  "id": "CHAIN_VEST",
+  "name": "Chain Vest",
+  "nameVi": "Giáp Lưới",
+  "tier": "EPIC",
+  "cost": 800,
+  "from": [
+   "CLOTH_ARMOR"
+  ],
+  "stats": {
+   "armor": 40
+  },
+  "tags": {},
+  "passive": "Tăng nhiều Giáp",
+  "icon": "1031"
+ },
+ "NULL_MAGIC_MANTLE": {
+  "id": "NULL_MAGIC_MANTLE",
+  "name": "Null-Magic Mantle",
+  "nameVi": "Áo Vải",
+  "tier": "BASIC",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "mr": 20
+  },
+  "tags": {},
+  "passive": "Tăng một ít Kháng phép",
+  "icon": "1033"
+ },
+ "LONG_SWORD": {
+  "id": "LONG_SWORD",
+  "name": "Long Sword",
+  "nameVi": "Kiếm Dài",
+  "tier": "BASIC",
+  "cost": 350,
+  "from": [],
+  "stats": {
+   "ad": 10
+  },
+  "tags": {},
+  "passive": "Tăng một ít Sức mạnh Công kích",
+  "icon": "1036"
+ },
+ "PICKAXE": {
+  "id": "PICKAXE",
+  "name": "Pickaxe",
+  "nameVi": "Cuốc Chim",
+  "tier": "BASIC",
+  "cost": 875,
+  "from": [],
+  "stats": {
+   "ad": 25
+  },
+  "tags": {},
+  "passive": "Tăng khá nhiều Sức mạnh Công kích",
+  "icon": "1037"
+ },
+ "BF_SWORD": {
+  "id": "BF_SWORD",
+  "name": "B. F. Sword",
+  "nameVi": "Kiếm B.F.",
+  "tier": "BASIC",
+  "cost": 1300,
+  "from": [],
+  "stats": {
+   "ad": 40
+  },
+  "tags": {},
+  "passive": "Tăng nhiều Sát thương Vật lý",
+  "icon": "1038"
+ },
+ "DAGGER": {
+  "id": "DAGGER",
+  "name": "Dagger",
+  "nameVi": "Dao Găm",
+  "tier": "BASIC",
+  "cost": 250,
+  "from": [],
+  "stats": {
+   "as": 10
+  },
+  "tags": {},
+  "passive": "Tăng một ít Tốc độ Đánh",
+  "icon": "1042"
+ },
+ "RECURVE_BOW": {
+  "id": "RECURVE_BOW",
+  "name": "Recurve Bow",
+  "nameVi": "Cung Gỗ",
+  "tier": "EPIC",
+  "cost": 700,
+  "from": [
+   "DAGGER"
+  ],
+  "stats": {
+   "as": 15
+  },
+  "tags": {
+   "ONHIT": 15
+  },
+  "passive": "Đau Nhói: Đòn đánh gây thêm 15 sát thương vật lý Khi Đánh Trúng.",
+  "icon": "1043"
+ },
+ "AMPLIFYING_TOME": {
+  "id": "AMPLIFYING_TOME",
+  "name": "Amplifying Tome",
+  "nameVi": "Sách Cũ",
+  "tier": "BASIC",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "ap": 20
+  },
+  "tags": {},
+  "passive": "Tăng một ít Sức mạnh Phép thuật",
+  "icon": "1052"
+ },
+ "VAMPIRIC_SCEPTER": {
+  "id": "VAMPIRIC_SCEPTER",
+  "name": "Vampiric Scepter",
+  "nameVi": "Huyết Trượng",
+  "tier": "EPIC",
+  "cost": 900,
+  "from": [
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 15,
+   "lifesteal": 7
+  },
+  "tags": {},
+  "passive": "Đòn đánh thường sẽ giúp hồi lại Máu",
+  "icon": "1053"
+ },
+ "DORANS_SHIELD": {
+  "id": "DORANS_SHIELD",
+  "name": "Doran's Shield",
+  "nameVi": "Khiên Doran",
+  "tier": "STARTER",
+  "cost": 450,
+  "from": [],
+  "stats": {
+   "hp": 110
+  },
+  "tags": {
+   "REGEN": 1
+  },
+  "passive": "Tập Trung Cao Độ: Hồi lại 4 Máu sau mỗi 5 giây.\nSau khi nhận sát thương từ tướng, hồi Máu trong vòng 8 giây. | Giúp Một Tay: Đòn đánh gây thêm 5 sát thương vật lý lên lính.",
+  "icon": "1054"
+ },
+ "DORANS_BLADE": {
+  "id": "DORANS_BLADE",
+  "name": "Doran's Blade",
+  "nameVi": "Kiếm Doran",
+  "tier": "STARTER",
+  "cost": 450,
+  "from": [],
+  "stats": {
+   "ad": 10,
+   "hp": 80,
+   "omnivamp": 2.5
+  },
+  "tags": {},
+  "passive": "Trang bị khởi đầu tốt cho tướng sử dụng đòn đánh nhiều",
+  "icon": "1055"
+ },
+ "DORANS_RING": {
+  "id": "DORANS_RING",
+  "name": "Doran's Ring",
+  "nameVi": "Nhẫn Doran",
+  "tier": "STARTER",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "ap": 18,
+   "hp": 90
+  },
+  "tags": {},
+  "passive": "Hút Năng Lượng: Hồi 1 Năng Lượng mỗi giây, tăng lên 2 Năng Lượng mỗi giây trong 5 giây sau khi gây sát thương lên một tướng địch. Nếu bạn không thể nhận Năng Lượng, thay vào đó, hồi Máu bằng 45% giá trị này. | Giúp Một Tay: Đòn đánh gây thêm 5 sát thương vật lý lên lính.",
+  "icon": "1056"
+ },
+ "NEGATRON_CLOAK": {
+  "id": "NEGATRON_CLOAK",
+  "name": "Negatron Cloak",
+  "nameVi": "Áo Choàng Bạc",
+  "tier": "EPIC",
+  "cost": 850,
+  "from": [
+   "NULL_MAGIC_MANTLE"
+  ],
+  "stats": {
+   "mr": 45
+  },
+  "tags": {},
+  "passive": "Tăng khá nhiều Kháng phép",
+  "icon": "1057"
+ },
+ "NEEDLESSLY_LARGE_ROD": {
+  "id": "NEEDLESSLY_LARGE_ROD",
+  "name": "Needlessly Large Rod",
+  "nameVi": "Gậy Quá Khổ",
+  "tier": "BASIC",
+  "cost": 1200,
+  "from": [],
+  "stats": {
+   "ap": 65
+  },
+  "tags": {},
+  "passive": "Tăng nhiều Sức mạnh Phép thuật",
+  "icon": "1058"
+ },
+ "DARK_SEAL": {
+  "id": "DARK_SEAL",
+  "name": "Dark Seal",
+  "nameVi": "Phong Ấn Hắc Ám",
+  "tier": "STARTER",
+  "cost": 350,
+  "from": [],
+  "stats": {
+   "ap": 15,
+   "hp": 50
+  },
+  "tags": {},
+  "passive": "Vinh Quang: Tham gia hạ gục sẽ cho điểm | Vinh Quang: , tối đa 10 cộng dồn. Mất 5 cộng dồn | Vinh Quang: khi hy sinh.\nNhận 4 Sức Mạnh Phép Thuật với mỗi điểm | Vinh Quang: .",
+  "icon": "1082"
+ },
+ "CULL": {
+  "id": "CULL",
+  "name": "Cull",
+  "nameVi": "Lưỡi Hái",
+  "tier": "STARTER",
+  "cost": 450,
+  "from": [],
+  "stats": {
+   "ad": 7
+  },
+  "tags": {},
+  "passive": "Gặt: Hồi lại 3 Máu Khi Đánh Trúng.\nTiêu diệt lính sẽ cho 1 vàng, tối đa 100. Nhận thêm 350 vàng khi đạt tới giới hạn tối đa.",
+  "icon": "1083"
+ },
+ "DORANS_BOW": {
+  "id": "DORANS_BOW",
+  "name": "Doran's Bow",
+  "nameVi": "Cung Doran",
+  "tier": "STARTER",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "ad": 8,
+   "as": 15,
+   "omnivamp": 1.5
+  },
+  "tags": {},
+  "icon": "1086"
+ },
+ "SCORCHCLAW": {
+  "id": "SCORCHCLAW",
+  "name": "Scorchclaw Pup",
+  "nameVi": "Linh Hồn Hỏa Khuyển",
+  "tier": "STARTER",
+  "cost": 450,
+  "from": [],
+  "stats": {},
+  "tags": {
+   "JUNGLE": 1
+  },
+  "passive": "Tinh Linh Rừng Thẳm: Triệu hồi một Hỏa Khuyển để giúp đỡ bạn khi đánh quái.\nTinh linh sẽ trưởng thành trong quá trình săn quái, giúp cường hóa Trừng Phạt của bạn. Khi trưởng thành hoàn toàn, nó sẽ hoàn thành Nhiệm Vụ Đi Rừng của bạn, đồng thời định kỳ cường hóa Đòn Đánh hoặc Kỹ Năng tiếp theo của bạn, thiêu đốt và Làm Chậm kẻ địch. Tiêu diệt quái to sẽ lập tức làm mới hiệu ứng này.",
+  "icon": "1101"
+ },
+ "GUSTWALKER": {
+  "id": "GUSTWALKER",
+  "name": "Gustwalker Hatchling",
+  "nameVi": "Linh Hồn Phong Hồ",
+  "tier": "STARTER",
+  "cost": 450,
+  "from": [],
+  "stats": {},
+  "tags": {
+   "JUNGLE": 1
+  },
+  "passive": "Tinh Linh Rừng Thẳm: Triệu hồi một Phong Hồ để giúp đỡ bạn khi đánh quái.\nTinh linh sẽ trưởng thành trong quá trình săn quái, giúp cường hóa Trừng Phạt của bạn. Khi trưởng thành hoàn toàn, nó sẽ hoàn thành Nhiệm Vụ Đi Rừng của bạn, đồng thời cho thêm Tốc Độ Di Chuyển khi tiến vào bụi rậm, gia tăng khi tiêu diệt quái to.",
+  "icon": "1102"
+ },
+ "MOSSTOMPER": {
+  "id": "MOSSTOMPER",
+  "name": "Mosstomper Seedling",
+  "nameVi": "Linh Hồn Mộc Long",
+  "tier": "STARTER",
+  "cost": 450,
+  "from": [],
+  "stats": {},
+  "tags": {
+   "JUNGLE": 1
+  },
+  "passive": "Tinh Linh Rừng Thẳm: Triệu hồi một Mộc Long để giúp đỡ bạn khi đánh quái.\nTinh linh sẽ trưởng thành trong quá trình săn quái, giúp cường hóa Trừng Phạt của bạn. Khi trưởng thành hoàn toàn, nó sẽ hoàn thành Nhiệm Vụ Đi Rừng của bạn và trao cho bạn một Lá Chắn khi ở ngoài giao tranh & sau khi tiêu diệt quái lớn.",
+  "icon": "1103"
+ },
+ "DORANS_HELM": {
+  "id": "DORANS_HELM",
+  "name": "Doran's Helm",
+  "nameVi": "Mũ Doran",
+  "tier": "STARTER",
+  "cost": 450,
+  "from": [],
+  "stats": {
+   "hp": 150,
+   "armor": 8,
+   "mr": 8
+  },
+  "tags": {},
+  "passive": "Giúp Một Tay: Đòn đánh gây thêm 5 sát thương vật lý lên lính.",
+  "icon": "1120"
+ },
+ "STEEL_SIGIL": {
+  "id": "STEEL_SIGIL",
+  "name": "Steel Sigil",
+  "nameVi": "Ấn Thép",
+  "tier": "EPIC",
+  "cost": 1100,
+  "from": [
+   "CLOTH_ARMOR",
+   "LONG_SWORD",
+   "CLOTH_ARMOR"
+  ],
+  "stats": {
+   "ad": 15,
+   "armor": 30
+  },
+  "tags": {},
+  "icon": "2019"
+ },
+ "THE_BRUTALIZER": {
+  "id": "THE_BRUTALIZER",
+  "name": "The Brutalizer",
+  "nameVi": "Gậy Hung Ác",
+  "tier": "EPIC",
+  "cost": 1337,
+  "from": [
+   "GLOWING_MOTE",
+   "PICKAXE"
+  ],
+  "stats": {
+   "ad": 25,
+   "ah": 10,
+   "lethality": 5
+  },
+  "tags": {},
+  "icon": "2020"
+ },
+ "TUNNELER": {
+  "id": "TUNNELER",
+  "name": "Tunneler",
+  "nameVi": "Mũi Khoan",
+  "tier": "EPIC",
+  "cost": 1150,
+  "from": [
+   "LONG_SWORD",
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "ad": 15,
+   "hp": 250
+  },
+  "tags": {},
+  "icon": "2021"
+ },
+ "GLOWING_MOTE": {
+  "id": "GLOWING_MOTE",
+  "name": "Glowing Mote",
+  "nameVi": "Bụi Lấp Lánh",
+  "tier": "BASIC",
+  "cost": 250,
+  "from": [],
+  "stats": {
+   "ah": 5
+  },
+  "tags": {},
+  "icon": "2022"
+ },
+ "GUARDIANS_HORN": {
+  "id": "GUARDIANS_HORN",
+  "name": "Guardian's Horn",
+  "nameVi": "Tù Và Vệ Quân",
+  "tier": "STARTER",
+  "cost": 950,
+  "from": [],
+  "stats": {
+   "hp": 150
+  },
+  "tags": {
+   "REGEN": 1
+  },
+  "passive": "Hồi Phục: Hồi lại 20 Máu mỗi 5 giây. | Ngoan Cường: Chặn 15 sát thương từ đòn đánh và kỹ năng của tướng địch (25% hiệu lực với sát thương theo thời gian từ kỹ năng).",
+  "icon": "2051"
+ },
+ "SHURELYAS": {
+  "id": "SHURELYAS",
+  "name": "Shurelya's Battlesong",
+  "nameVi": "Vương Miện Shurelya",
+  "tier": "LEGENDARY",
+  "cost": 2200,
+  "from": [
+   "AETHER_WISP",
+   "BANDLEGLASS_MIRROR"
+  ],
+  "stats": {
+   "ap": 50,
+   "ah": 15,
+   "msPct": 4
+  },
+  "tags": {},
+  "passive": "Lời Nói Truyền Lửa: Tăng cho các đồng minh ở gần 30% Tốc Độ Di Chuyển trong 4 giây.",
+  "icon": "2065"
+ },
+ "SEEKERS_ARMGUARD": {
+  "id": "SEEKERS_ARMGUARD",
+  "name": "Seeker's Armguard",
+  "nameVi": "Giáp Tay Seeker",
+  "tier": "EPIC",
+  "cost": 1600,
+  "from": [
+   "AMPLIFYING_TOME",
+   "CLOTH_ARMOR",
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 40,
+   "armor": 25
+  },
+  "tags": {},
+  "passive": "Ngưng Đọng Thời Gian: (Dùng Một Lần)\nChuyển sang trạng thái Ngưng Đọng trong 2.5 giây.",
+  "icon": "2420"
+ },
+ "OVERLORDS_BLOODMAIL": {
+  "id": "OVERLORDS_BLOODMAIL",
+  "name": "Overlord's Bloodmail",
+  "nameVi": "Huyết Giáp Chúa Tể",
+  "tier": "LEGENDARY",
+  "cost": 3300,
+  "from": [
+   "TUNNELER",
+   "TUNNELER"
+  ],
+  "stats": {
+   "ad": 30,
+   "hp": 550
+  },
+  "tags": {},
+  "passive": "Bạo Quyền: Nhận Sức Mạnh Công Kích tương đương với 2.5% Máu cộng thêm. | Báo Oán: Nhận tối đa 12% Sức Mạnh Công Kích tăng thêm dựa trên phần trăm Máu đã mất.",
+  "icon": "2501"
+ },
+ "UNENDING_DESPAIR": {
+  "id": "UNENDING_DESPAIR",
+  "name": "Unending Despair",
+  "nameVi": "Áo Choàng Diệt Vong",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "CHAIN_VEST",
+   "KINDLEGEM",
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "hp": 400,
+   "armor": 50,
+   "ah": 15
+  },
+  "tags": {
+   "BURN_AURA": 15
+  },
+  "passive": "Đau Đớn: Sau mỗi 4 giây trong khi giao tranh với tướng, gây sát thương phép lên các tướng địch ở gần, hồi máu bằng 250% sát thương gây ra.",
+  "icon": "2502"
+ },
+ "BLACKFIRE_TORCH": {
+  "id": "BLACKFIRE_TORCH",
+  "name": "Blackfire Torch",
+  "nameVi": "Đuốc Lửa Đen",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "LOST_CHAPTER",
+   "FATED_ASHES"
+  ],
+  "stats": {
+   "ap": 80,
+   "ah": 20,
+   "mana": 600
+  },
+  "tags": {
+   "BURN_SPELL": 0.015
+  },
+  "passive": "Ngọn Lửa Xui Rủi: Các Kỹ Năng gây sát thương sẽ gây thêm sát thương phép trong 3 giây. | Lửa Đen: Với mỗi tướng, quái khủng hoặc quái lớn đang trúng hiệu ứng | Ngọn Lửa Xui Rủi: , nhận 4% Sức Mạnh Phép Thuật.",
+  "icon": "2503"
+ },
+ "KAENIC_ROOKERN": {
+  "id": "KAENIC_ROOKERN",
+  "name": "Kaenic Rookern",
+  "nameVi": "Vòng Sắt Cổ Tự",
+  "tier": "LEGENDARY",
+  "cost": 2900,
+  "from": [
+   "SPECTRES_COWL",
+   "NEGATRON_CLOAK"
+  ],
+  "stats": {
+   "hp": 400,
+   "mr": 80
+  },
+  "tags": {
+   "SPELLSHIELD": 1
+  },
+  "passive": "Chống Pháp Sư: Sau khi không nhận sát thương phép trong 15 giây, nhận một lớp lá chắn phép.",
+  "icon": "2504"
+ },
+ "FATED_ASHES": {
+  "id": "FATED_ASHES",
+  "name": "Fated Ashes",
+  "nameVi": "Tro Tàn Định Mệnh",
+  "tier": "EPIC",
+  "cost": 900,
+  "from": [
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 30
+  },
+  "tags": {},
+  "passive": "Tàn Lửa: Kỹ Năng gây sát thương sẽ gây 15 sát thương phép cộng thêm trong 3 giây.\nGây thêm 45 sát thương phép lên quái.",
+  "icon": "2508"
+ },
+ "DUSK_AND_DAWN": {
+  "id": "DUSK_AND_DAWN",
+  "name": "Dusk and Dawn",
+  "nameVi": "Bình Minh & Hoàng Hôn",
+  "tier": "LEGENDARY",
+  "cost": 3100,
+  "from": [
+   "SHEEN",
+   "BLASTING_WAND",
+   "KINDLEGEM",
+   "DAGGER"
+  ],
+  "stats": {
+   "ap": 60,
+   "hp": 300,
+   "as": 20,
+   "ah": 20
+  },
+  "tags": {
+   "SPELLBLADE": 0.8
+  },
+  "passive": "Kiếm Phép: (0 giây)\nSau khi dùng Kỹ Năng, Đòn Đánh kế tiếp sẽ gây thêm 0 sát thương phép, đồng thời hồi lại 0 máu cho bạn, Khi Đánh Trúng và áp dụng các hiệu ứng Khi Đánh Trúng một lần nữa.",
+  "icon": "2510"
+ },
+ "FIENDHUNTER_BOLTS": {
+  "id": "FIENDHUNTER_BOLTS",
+  "name": "Fiendhunter Bolts",
+  "nameVi": "Cung Tiễn Diệt Quỷ",
+  "tier": "LEGENDARY",
+  "cost": 2650,
+  "from": [
+   "ZEAL",
+   "SCOUTS_SLINGSHOT"
+  ],
+  "stats": {
+   "as": 45,
+   "crit": 25,
+   "msPct": 4
+  },
+  "tags": {},
+  "passive": "Gác Đêm: Nhận 30 Điểm Hồi Chiêu Cuối. | Mưa Đạn Mở Màn: Sau khi thi triển Chiêu Cuối, 3 đòn đánh thường tiếp theo của bạn được tăng 50% Tốc Độ Đánh và chắc chắn Chí Mạng gây 80% sát thương Chí Mạng thông thường của bạn trong 8 giây. Nếu một đòn đánh vốn dĩ sẽ gây Chí Mạng, thay vào đó gây thêm 15% sát thương chuẩn.",
+  "icon": "2512"
+ },
+ "ENDLESS_HUNGER": {
+  "id": "ENDLESS_HUNGER",
+  "name": "Endless Hunger",
+  "nameVi": "Liềm Xích Huyết Thực",
+  "tier": "LEGENDARY",
+  "cost": 3100,
+  "from": [
+   "CAULFIELDS",
+   "PICKAXE",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 65,
+   "omnivamp": 5
+  },
+  "tags": {
+   "TENACITY": 1
+  },
+  "passive": "Nạn Đói: Nhận thêm Điểm Hồi Kỹ Năng dựa trên SMCK Cộng Thêm của bạn. | Xơi Tái: Khi một tướng đã nhận sát thương từ bạn gần đây bị hạ gục, bạn được tăng Hút Máu Toàn Phần trong một khoảng thời gian.",
+  "icon": "2517"
+ },
+ "BASTIONBREAKER": {
+  "id": "BASTIONBREAKER",
+  "name": "Bastionbreaker",
+  "nameVi": "Lưỡi Hái Công Phá",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "THE_BRUTALIZER",
+   "SERRATED_DIRK"
+  ],
+  "stats": {
+   "ad": 55,
+   "ah": 15,
+   "lethality": 18
+  },
+  "tags": {},
+  "passive": "Kíp Nổ Định Hình: (0 giây)\nGây Sát Thương Kỹ Năng lên Tướng hoặc Quái Khủng sẽ gây thêm 0 sát thương chuẩn. | Nứt Vỡ: Tham gia hạ gục tướng trong vòng 3 giây từ khi gây sát thương lên tướng đó sẽ trao hiệu ứng Nứt Vỡ trong 25000 giây. Khi đang có Nứt Vỡ, Đòn Đánh tiếp theo của bạn lên Quái Khủng hoặc Trụ gây thêm 0 sát thương chuẩn trong 3 giây.",
+  "icon": "2520"
+ },
+ "ACTUALIZER": {
+  "id": "ACTUALIZER",
+  "name": "Actualizer",
+  "nameVi": "Đồng Hồ Thời Không",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "LOST_CHAPTER",
+   "BLASTING_WAND"
+  ],
+  "stats": {
+   "ap": 90,
+   "ah": 10,
+   "mana": 300
+  },
+  "tags": {},
+  "passive": "Ma Lực Hiện Hóa: (0 giây)\nTrong 8 giây, năng lượng của bạn được Cường Hóa. Khi được Cường Hóa, các kỹ năng của bạn tiêu hao thêm 100% Năng Lượng, bạn được tăng 0 sát thương Kỹ Năng, Lá Chắn, Hồi Máu và kỹ năng cơ bản sẽ hồi chiêu nhanh hơn 30%.",
+  "icon": "2522"
+ },
+ "HEXOPTICS_C44": {
+  "id": "HEXOPTICS_C44",
+  "name": "Hextech Optics C44",
+  "nameVi": "Quang Kính Hextech C44",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "PICKAXE",
+   "NOONQUIVER",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 55,
+   "crit": 25
+  },
+  "tags": {},
+  "passive": "Phóng Đại: Gây thêm tối đa 10% sát thương từ Đòn Đánh, dựa trên khoảng cách giữa bạn và kẻ địch (gây sát thương tối đa ở khoảng cách 500). | Xạ Pháp Thuật: Khi một tướng đã nhận sát thương từ bạn trong vòng 3 giây bị hạ gục, bạn được tăng 100 tầm đánh trong 8 giây.",
+  "icon": "2523"
+ },
+ "BANDLEPIPES": {
+  "id": "BANDLEPIPES",
+  "name": "Bandlepipes",
+  "nameVi": "Kèn Túi Bandle",
+  "tier": "LEGENDARY",
+  "cost": 2300,
+  "from": [
+   "KINDLEGEM",
+   "CLOTH_ARMOR",
+   "NULL_MAGIC_MANTLE"
+  ],
+  "stats": {
+   "hp": 200,
+   "armor": 20,
+   "mr": 20,
+   "ah": 15
+  },
+  "tags": {
+   "ALLY_AS": 1
+  },
+  "passive": "Khúc Khải Hoàn: Làm Chậm hoặc Làm Bất Động tướng địch sẽ ban Khúc Khải Hoàn trong 0 giây. Khúc Khải Hoàn cho bạn 20 Tốc Độ Di Chuyển. Khi sở hữu Khúc Khải Hoàn, các đồng minh ở gần (bao gồm cả bản thân) sẽ được tăng 0 Tốc Độ Đánh.",
+  "icon": "2524"
+ },
+ "PROTOPLASM_HARNESS": {
+  "id": "PROTOPLASM_HARNESS",
+  "name": "Protoplasm Harness",
+  "nameVi": "Đai Nguyên Sinh",
+  "tier": "LEGENDARY",
+  "cost": 2600,
+  "from": [
+   "KINDLEGEM",
+   "GIANTS_BELT"
+  ],
+  "stats": {
+   "hp": 600,
+   "ah": 20
+  },
+  "tags": {
+   "LIFELINE": 0.3
+  },
+  "passive": "Bảo Hiểm Ma Pháp: (0 giây)\nKhi nhận sát thương khiến Máu tụt xuống dưới 30% sẽ giúp bạn nhận thêm 0 Máu tối đa trong 5 giây, sau đó hồi lại 0 Máu trong thời gian tác dụng. Khi đang hồi lại Máu, tăng thêm 15% Kích Cỡ, 10% Tốc Độ Di Chuyển và 25% Kháng Hiệu Ứng.",
+  "icon": "2525"
+ },
+ "WHISPERING_CIRCLET": {
+  "id": "WHISPERING_CIRCLET",
+  "name": "Whispering Circlet",
+  "nameVi": "Vòng Thì Thầm",
+  "tier": "EPIC",
+  "cost": 2250,
+  "from": [
+   "FORBIDDEN_IDOL",
+   "RUBY_CRYSTAL",
+   "TEAR"
+  ],
+  "stats": {
+   "hp": 200,
+   "mana": 300,
+   "hsp": 8
+  },
+  "tags": {},
+  "passive": "Hòa Điệu: Nhận 0% Sức Mạnh Hồi Máu & Lá Chắn. | Dòng Chảy Năng Lượng: (8 giây, tối đa 5 tích trữ)\nCác Đòn Đánh và Kỹ Năng khi trúng đích sẽ cho 4 Năng Lượng tối đa (gấp đôi với tướng).\nBiến đổi thành Vương Miện Khúc Ca khi đạt 360 Năng Lượng tối đa.",
+  "icon": "2526"
+ },
+ "ARCHANGELS_STAFF": {
+  "id": "ARCHANGELS_STAFF",
+  "name": "Archangel's Staff",
+  "nameVi": "Quyền Trượng Thiên Thần",
+  "tier": "LEGENDARY",
+  "cost": 2900,
+  "from": [
+   "TEAR",
+   "LOST_CHAPTER",
+   "FIENDISH_CODEX"
+  ],
+  "stats": {
+   "ap": 70,
+   "ah": 25,
+   "mana": 600
+  },
+  "tags": {
+   "LIFELINE": 0.15
+  },
+  "passive": "Tuyệt: Nhận Sức Mạnh Phép Thuật tương đương 1% Năng Lượng cộng thêm. | Dòng Chảy Năng Lượng: (8 giây, tối đa 5 tích trữ)\nDùng Kỹ Năng trúng đích sẽ cho 5 Năng Lượng tối đa (gấp đôi với tướng).\nBiến đổi thành Quyền Trượng Đại Thiên Sứ khi đạt 360 Năng Lượng tối đa.",
+  "icon": "3003"
+ },
+ "MANAMUNE": {
+  "id": "MANAMUNE",
+  "name": "Manamune",
+  "nameVi": "Kiếm Manamune",
+  "tier": "LEGENDARY",
+  "cost": 2900,
+  "from": [
+   "TEAR",
+   "CAULFIELDS",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 35,
+   "ah": 15,
+   "mana": 500
+  },
+  "tags": {
+   "SPELLBLADE": 0.4
+  },
+  "passive": "Tuyệt: Nhận 0 Sức Mạnh Công Kích cộng thêm. | Dòng Chảy Năng Lượng: (8 giây, tối đa 4 tích trữ)\nDùng Đòn Đánh và Kỹ Năng trúng đích sẽ cho 3 Năng Lượng tối đa (gấp đôi với tướng).\nBiến đổi thành Thần Kiếm Muramana khi đạt 360 Năng Lượng tối đa.",
+  "icon": "3004"
+ },
+ "BERSERKERS_GREAVES": {
+  "id": "BERSERKERS_GREAVES",
+  "name": "Berserker's Greaves",
+  "nameVi": "Giày Cuồng Nộ",
+  "tier": "BOOTS",
+  "cost": 1100,
+  "from": [
+   "BOOTS",
+   "DAGGER",
+   "DAGGER"
+  ],
+  "stats": {
+   "as": 30,
+   "ms": 45
+  },
+  "tags": {},
+  "passive": "Tăng Tốc độ Di chuyển và Tốc độ Đánh",
+  "icon": "3006"
+ },
+ "GLUTTONOUS_GREAVES": {
+  "id": "GLUTTONOUS_GREAVES",
+  "name": "Gluttonous Greaves",
+  "nameVi": "Giày Phàm Ăn",
+  "tier": "BOOTS",
+  "cost": 1100,
+  "from": [
+   "BOOTS"
+  ],
+  "stats": {
+   "ms": 45,
+   "omnivamp": 4
+  },
+  "tags": {},
+  "passive": "Hạ Gục: Nhận 0.6% Hút Máu Toàn Phần khi tham gia hạ gục Tướng, cộng dồn tối đa 10 lần.",
+  "icon": "3008"
+ },
+ "BOOTS_OF_SWIFTNESS": {
+  "id": "BOOTS_OF_SWIFTNESS",
+  "name": "Boots of Swiftness",
+  "nameVi": "Giày Bạc",
+  "tier": "BOOTS",
+  "cost": 1000,
+  "from": [
+   "BOOTS"
+  ],
+  "stats": {
+   "ms": 55
+  },
+  "tags": {},
+  "passive": "Nhanh Chân: Giảm hiệu quả của các hiệu ứng Làm Chậm đi 25%.",
+  "icon": "3009"
+ },
+ "SORCERERS_SHOES": {
+  "id": "SORCERERS_SHOES",
+  "name": "Sorcerer's Shoes",
+  "nameVi": "Giày Pháp Sư",
+  "tier": "BOOTS",
+  "cost": 1100,
+  "from": [
+   "BOOTS"
+  ],
+  "stats": {
+   "ms": 45,
+   "magicPen": 12
+  },
+  "tags": {},
+  "passive": "Tăng Tốc độ Di chuyển và sát thương phép",
+  "icon": "3020"
+ },
+ "GLACIAL_BUCKLER": {
+  "id": "GLACIAL_BUCKLER",
+  "name": "Glacial Buckler",
+  "nameVi": "Lá Chắn Mãnh Sư",
+  "tier": "EPIC",
+  "cost": 900,
+  "from": [
+   "CLOTH_ARMOR",
+   "SAPPHIRE_CRYSTAL",
+   "GLOWING_MOTE"
+  ],
+  "stats": {
+   "armor": 25,
+   "ah": 10,
+   "mana": 300
+  },
+  "tags": {},
+  "passive": "Gia tăng Giáp và giảm Thời gian Hồi chiêu",
+  "icon": "3024"
+ },
+ "GUARDIAN_ANGEL": {
+  "id": "GUARDIAN_ANGEL",
+  "name": "Guardian Angel",
+  "nameVi": "Giáp Thiên Thần",
+  "tier": "LEGENDARY",
+  "cost": 3200,
+  "from": [
+   "STEEL_SIGIL",
+   "BF_SWORD"
+  ],
+  "stats": {
+   "ad": 55,
+   "armor": 45
+  },
+  "tags": {
+   "REVIVE": 1
+  },
+  "passive": "Tái Sinh: Khi nhận sát thương kết liễu, phục hồi lại 50% Máu cơ bản và 100% Năng Lượng tối đa sau 4 giây Ngưng Đọng.",
+  "icon": "3026"
+ },
+ "INFINITY_EDGE": {
+  "id": "INFINITY_EDGE",
+  "name": "Infinity Edge",
+  "nameVi": "Vô Cực Kiếm",
+  "tier": "LEGENDARY",
+  "cost": 3500,
+  "from": [
+   "BF_SWORD",
+   "PICKAXE",
+   "CLOAK_OF_AGILITY"
+  ],
+  "stats": {
+   "ad": 75,
+   "crit": 25
+  },
+  "tags": {
+   "CRIT_DMG": 0.3
+  },
+  "passive": "Tăng nhiều sát thương cho đòn đánh chí mạng",
+  "icon": "3031"
+ },
+ "YUN_TAL": {
+  "id": "YUN_TAL",
+  "name": "Yun Tal Wildarrows",
+  "nameVi": "Mũi Tên Yun Tal",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "BF_SWORD",
+   "SCOUTS_SLINGSHOT",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 50,
+   "as": 45
+  },
+  "tags": {},
+  "passive": "Chí Mạng Tay Quen: Khi tung đòn đánh, nhận vĩnh viễn Tỉ Lệ Chí Mạng, tối đa 25%. | Chuyển Động Liên Hoàn: Khi tung đòn đánh lên tướng địch, nhận 30% Tốc Độ Đánh trong 6 giây (30 giây hồi chiêu).\nĐòn đánh sẽ làm giảm hồi chiêu này đi 1 giây, tăng thành 2 giây nếu Chí Mạng.",
+  "icon": "3032"
+ },
+ "MORTAL_REMINDER": {
+  "id": "MORTAL_REMINDER",
+  "name": "Mortal Reminder",
+  "nameVi": "Lời Nhắc Tử Vong",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "EXECUTIONERS_CALLING",
+   "LAST_WHISPER",
+   "CLOAK_OF_AGILITY"
+  ],
+  "stats": {
+   "ad": 35,
+   "crit": 25,
+   "armorPen": 30
+  },
+  "tags": {
+   "GRIEVOUS": 1
+  },
+  "passive": "Vết Thương Sâu: Gây sát thương vật lý sẽ khiến tướng địch chịu 40% Vết Thương Sâu trong 3 giây.",
+  "icon": "3033"
+ },
+ "LAST_WHISPER": {
+  "id": "LAST_WHISPER",
+  "name": "Last Whisper",
+  "nameVi": "Cung Xanh",
+  "tier": "EPIC",
+  "cost": 1450,
+  "from": [
+   "LONG_SWORD",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 20,
+   "armorPen": 18
+  },
+  "tags": {},
+  "passive": "Khắc chế tướng địch có lượng giáp cao",
+  "icon": "3035"
+ },
+ "LORD_DOMINIKS": {
+  "id": "LORD_DOMINIKS",
+  "name": "Lord Dominik's Regards",
+  "nameVi": "Nỏ Thần Dominik",
+  "tier": "LEGENDARY",
+  "cost": 3300,
+  "from": [
+   "LAST_WHISPER",
+   "NOONQUIVER"
+  ],
+  "stats": {
+   "ad": 35,
+   "crit": 25,
+   "armorPen": 35
+  },
+  "tags": {},
+  "passive": "Diệt Khổng Lồ: Gây thêm tối đa 15% sát thương lên tướng dựa trên Máu cộng thêm của chúng. Cộng thêm sát thương tối đa khi đạt 1500 Máu cộng thêm.",
+  "icon": "3036"
+ },
+ "MEJAIS": {
+  "id": "MEJAIS",
+  "name": "Mejai's Soulstealer",
+  "nameVi": "Sách Chiêu Hồn Mejai",
+  "tier": "LEGENDARY",
+  "cost": 1500,
+  "from": [
+   "DARK_SEAL"
+  ],
+  "stats": {
+   "ap": 20,
+   "hp": 100
+  },
+  "tags": {},
+  "passive": "Vinh Quang: Tham gia hạ gục sẽ cho điểm | Vinh Quang: , tối đa 25 cộng dồn. 10 | Vinh Quang: sẽ mất khi hy sinh.\nNhận 5 Sức Mạnh Phép Thuật với mỗi điểm | Vinh Quang: và 10% Tốc Độ Di Chuyển khi ở 10 cộng dồn | Vinh Quang: trở lên.",
+  "icon": "3041"
+ },
+ "PHAGE": {
+  "id": "PHAGE",
+  "name": "Phage",
+  "nameVi": "Búa Gỗ",
+  "tier": "EPIC",
+  "cost": 1100,
+  "from": [
+   "RUBY_CRYSTAL",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 15,
+   "hp": 200
+  },
+  "tags": {},
+  "passive": "Cuồng Bạo: Đòn đánh cho thêm Tốc Độ Di Chuyển trong 2 giây.",
+  "icon": "3044"
+ },
+ "PHANTOM_DANCER": {
+  "id": "PHANTOM_DANCER",
+  "name": "Phantom Dancer",
+  "nameVi": "Ma Vũ Song Kiếm",
+  "tier": "LEGENDARY",
+  "cost": 2650,
+  "from": [
+   "DAGGER",
+   "ZEAL",
+   "DAGGER"
+  ],
+  "stats": {
+   "as": 65,
+   "crit": 25,
+   "msPct": 10
+  },
+  "tags": {},
+  "passive": "Vũ Điệu Ma Quái: Có thể đi Xuyên Vật Thể.",
+  "icon": "3046"
+ },
+ "PLATED_STEELCAPS": {
+  "id": "PLATED_STEELCAPS",
+  "name": "Plated Steelcaps",
+  "nameVi": "Giày Thép Gai",
+  "tier": "BOOTS",
+  "cost": 1200,
+  "from": [
+   "BOOTS",
+   "CLOTH_ARMOR"
+  ],
+  "stats": {
+   "armor": 25,
+   "ms": 45
+  },
+  "tags": {
+   "BLOCK_AUTO": 1
+  },
+  "passive": "Giáp Cốt: Giảm sát thương nhận vào từ Đòn Đánh đi 10%.",
+  "icon": "3047"
+ },
+ "ZEKES_CONVERGENCE": {
+  "id": "ZEKES_CONVERGENCE",
+  "name": "Zeke's Convergence",
+  "nameVi": "Tụ Bão Zeke",
+  "tier": "LEGENDARY",
+  "cost": 2200,
+  "from": [
+   "KINDLEGEM",
+   "CLOTH_ARMOR",
+   "NULL_MAGIC_MANTLE"
+  ],
+  "stats": {
+   "hp": 300,
+   "armor": 25,
+   "mr": 25,
+   "ah": 10
+  },
+  "tags": {
+   "ALLY_AS": 1
+  },
+  "passive": "Băng Hỏa Cuồng Nộ: Sử dụng Chiêu Cuối sẽ triệu hồi một cơn bão quanh bạn trong 5 giây. Cơn bão này gây 30 sát thương phép mỗi giây lên tướng địch và Làm Chậm chúng đi 30%.",
+  "icon": "3050"
+ },
+ "HEARTHBOUND_AXE": {
+  "id": "HEARTHBOUND_AXE",
+  "name": "Hearthbound Axe",
+  "nameVi": "Rìu Nhanh Nhẹn",
+  "tier": "EPIC",
+  "cost": 1200,
+  "from": [
+   "LONG_SWORD",
+   "DAGGER",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 20,
+   "as": 20
+  },
+  "tags": {},
+  "icon": "3051"
+ },
+ "STERAKS_GAGE": {
+  "id": "STERAKS_GAGE",
+  "name": "Sterak's Gage",
+  "nameVi": "Móng Vuốt Sterak",
+  "tier": "LEGENDARY",
+  "cost": 3200,
+  "from": [
+   "PICKAXE",
+   "TUNNELER",
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "hp": 400
+  },
+  "tags": {
+   "LIFELINE": 0.3,
+   "TENACITY": 1
+  },
+  "passive": "Vuốt Nhọn: Nhận Sức Mạnh Công Kích cộng thêm. | Bảo Hiểm Ma Pháp: Nhận sát thương khiến Máu giảm xuống dưới 30% sẽ cho Lá Chắn giảm dần trong 4.5 giây.",
+  "icon": "3053"
+ },
+ "SHEEN": {
+  "id": "SHEEN",
+  "name": "Sheen",
+  "nameVi": "Thủy Kiếm",
+  "tier": "EPIC",
+  "cost": 900,
+  "from": [
+   "GLOWING_MOTE"
+  ],
+  "stats": {
+   "ah": 10
+  },
+  "tags": {
+   "SPELLBLADE": 0.8
+  },
+  "passive": "Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo gây thêm sát thương vật lý Khi Đánh Trúng.",
+  "icon": "3057"
+ },
+ "SPIRIT_VISAGE": {
+  "id": "SPIRIT_VISAGE",
+  "name": "Spirit Visage",
+  "nameVi": "Giáp Tâm Linh",
+  "tier": "LEGENDARY",
+  "cost": 2700,
+  "from": [
+   "SPECTRES_COWL",
+   "KINDLEGEM"
+  ],
+  "stats": {
+   "hp": 400,
+   "mr": 50,
+   "ah": 10
+  },
+  "tags": {
+   "REGEN": 1
+  },
+  "passive": "Nguồn Sống Bất Tận: Tăng hiệu lực Hồi Máu và tạo Lá Chắn trên bạn thêm 25%.",
+  "icon": "3065"
+ },
+ "WINGED_MOONPLATE": {
+  "id": "WINGED_MOONPLATE",
+  "name": "Winged Moonplate",
+  "nameVi": "Đai Thanh Thoát",
+  "tier": "EPIC",
+  "cost": 800,
+  "from": [
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "hp": 200,
+   "msPct": 4
+  },
+  "tags": {},
+  "icon": "3066"
+ },
+ "KINDLEGEM": {
+  "id": "KINDLEGEM",
+  "name": "Kindlegem",
+  "nameVi": "Hỏa Ngọc",
+  "tier": "EPIC",
+  "cost": 800,
+  "from": [
+   "RUBY_CRYSTAL",
+   "GLOWING_MOTE"
+  ],
+  "stats": {
+   "hp": 200,
+   "ah": 10
+  },
+  "tags": {},
+  "passive": "Tăng Máu và Giảm thời gian Hồi chiêu",
+  "icon": "3067"
+ },
+ "SUNFIRE_AEGIS": {
+  "id": "SUNFIRE_AEGIS",
+  "name": "Sunfire Aegis",
+  "nameVi": "Khiên Thái Dương",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "BAMIS_CINDER",
+   "CHAIN_VEST",
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "hp": 350,
+   "armor": 50,
+   "ah": 10
+  },
+  "tags": {
+   "BURN_AURA": 25
+  },
+  "passive": "Hiến Tế: Sau khi nhận hoặc gây sát thương, gây sát thương phép mỗi giây lên kẻ địch ở gần trong 3 giây.",
+  "icon": "3068"
+ },
+ "TEAR": {
+  "id": "TEAR",
+  "name": "Tear of the Goddess",
+  "nameVi": "Nước Mắt Nữ Thần",
+  "tier": "BASIC",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "mana": 240
+  },
+  "tags": {},
+  "passive": "Dòng Chảy Năng Lượng: (8 giây, tối đa 4 tích trữ)\nDùng Kỹ Năng trúng đích sẽ cho 3 Năng Lượng tối đa (gấp đôi với tướng), tối đa 360. | Ra Tay Tương Trợ: Đòn đánh gây thêm 5 sát thương vật lý lên lính.",
+  "icon": "3070"
+ },
+ "BLACK_CLEAVER": {
+  "id": "BLACK_CLEAVER",
+  "name": "Black Cleaver",
+  "nameVi": "Rìu Đen",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "PHAGE",
+   "KINDLEGEM",
+   "PICKAXE"
+  ],
+  "stats": {
+   "ad": 45,
+   "hp": 400,
+   "ah": 20
+  },
+  "tags": {
+   "ARMOR_SHRED": 0.24
+  },
+  "passive": "Nghiền Vụn: Gây sát thương vật lý lên tướng sẽ giảm Giáp của mục tiêu đi 6% trong 6 giây. (cộng dồn 5 lần). | Hăng Hái: Gây sát thương vật lý sẽ trao 0 Tốc Độ Di Chuyển trong 2 giây.",
+  "icon": "3071"
+ },
+ "BLOODTHIRSTER": {
+  "id": "BLOODTHIRSTER",
+  "name": "Bloodthirster",
+  "nameVi": "Huyết Kiếm",
+  "tier": "LEGENDARY",
+  "cost": 3400,
+  "from": [
+   "BF_SWORD",
+   "PICKAXE",
+   "VAMPIRIC_SCEPTER"
+  ],
+  "stats": {
+   "ad": 80,
+   "lifesteal": 15
+  },
+  "tags": {
+   "LIFELINE": 0.15
+  },
+  "passive": "Khiên Máu: Chuyển lượng hồi máu từ Hút Máu vượt ngưỡng máu tối đa thành Lá Chắn.",
+  "icon": "3072"
+ },
+ "EXPERIMENTAL_HEXPLATE": {
+  "id": "EXPERIMENTAL_HEXPLATE",
+  "name": "Experimental Hexplate",
+  "nameVi": "Khiên Hextech Thử Nghiệm",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "TUNNELER",
+   "DAGGER",
+   "PHAGE"
+  ],
+  "stats": {
+   "ad": 40,
+   "hp": 450,
+   "as": 20
+  },
+  "tags": {},
+  "passive": "Bùng Nổ Hextech: Nhận 30 Điểm Hồi Chiêu Cuối. | Quá Tải: Sau khi sử dụng Chiêu Cuối, nhận 0% Tốc Độ Đánh và 0% Tốc Độ Di Chuyển trong 8 giây.",
+  "icon": "3073"
+ },
+ "RAVENOUS_HYDRA": {
+  "id": "RAVENOUS_HYDRA",
+  "name": "Ravenous Hydra",
+  "nameVi": "Rìu Mãng Xà",
+  "tier": "LEGENDARY",
+  "cost": 3300,
+  "from": [
+   "TIAMAT",
+   "VAMPIRIC_SCEPTER",
+   "CAULFIELDS"
+  ],
+  "stats": {
+   "ad": 65,
+   "ah": 15,
+   "lifesteal": 12
+  },
+  "tags": {
+   "CLEAVE": 0.4
+  },
+  "passive": "Sát Thương Lan: Đòn đánh gây sát thương vật lý lên kẻ địch ở gần.",
+  "icon": "3074"
+ },
+ "THORNMAIL": {
+  "id": "THORNMAIL",
+  "name": "Thornmail",
+  "nameVi": "Giáp Gai",
+  "tier": "LEGENDARY",
+  "cost": 2450,
+  "from": [
+   "BRAMBLE_VEST",
+   "CHAIN_VEST",
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "hp": 150,
+   "armor": 75
+  },
+  "tags": {
+   "THORNS": 25,
+   "GRIEVOUS": 1
+  },
+  "passive": "Gai: Khi bị tấn công bởi Đòn Đánh, gây sát thương phép ngược lại lên kẻ tấn công và đặt 40% Vết Thương Sâu trong 3 giây nếu đó là tướng.",
+  "icon": "3075"
+ },
+ "BRAMBLE_VEST": {
+  "id": "BRAMBLE_VEST",
+  "name": "Bramble Vest",
+  "nameVi": "Áo Choàng Gai",
+  "tier": "EPIC",
+  "cost": 800,
+  "from": [
+   "CLOTH_ARMOR",
+   "CLOTH_ARMOR"
+  ],
+  "stats": {
+   "armor": 30
+  },
+  "tags": {
+   "THORNS": 10
+  },
+  "passive": "Gai: Khi bị trúng Đòn Đánh, gây 0 sát thương phép ngược lại lên kẻ tấn công và đặt 40% Vết Thương Sâu trong 3 giây nếu đó là tướng.",
+  "icon": "3076"
+ },
+ "TIAMAT": {
+  "id": "TIAMAT",
+  "name": "Tiamat",
+  "nameVi": "Rìu Tiamat",
+  "tier": "EPIC",
+  "cost": 1200,
+  "from": [
+   "LONG_SWORD",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 25
+  },
+  "tags": {
+   "CLEAVE": 0.4
+  },
+  "passive": "Sát Thương Lan: Đòn đánh gây sát thương vật lý lên kẻ địch ở gần.",
+  "icon": "3077"
+ },
+ "TRINITY_FORCE": {
+  "id": "TRINITY_FORCE",
+  "name": "Trinity Force",
+  "nameVi": "Tam Hợp Kiếm",
+  "tier": "LEGENDARY",
+  "cost": 3333,
+  "from": [
+   "SHEEN",
+   "PHAGE",
+   "HEARTHBOUND_AXE"
+  ],
+  "stats": {
+   "ad": 36,
+   "hp": 333,
+   "as": 30,
+   "ah": 15
+  },
+  "tags": {
+   "SPELLBLADE": 1
+  },
+  "passive": "Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo gây thêm sát thương vật lý Khi Đánh Trúng. | Nhanh Lẹ: Đòn đánh cho 20 Tốc Độ Di Chuyển trong 2 giây.",
+  "icon": "3078"
+ },
+ "WARDENS_MAIL": {
+  "id": "WARDENS_MAIL",
+  "name": "Warden's Mail",
+  "nameVi": "Giáp Cai Ngục",
+  "tier": "EPIC",
+  "cost": 1000,
+  "from": [
+   "CLOTH_ARMOR",
+   "CLOTH_ARMOR"
+  ],
+  "stats": {
+   "armor": 40
+  },
+  "tags": {
+   "BLOCK_AUTO": 1
+  },
+  "passive": "Cứng Như Đá: Giảm sát thương nhận vào từ Đòn Đánh.",
+  "icon": "3082"
+ },
+ "WARMOGS": {
+  "id": "WARMOGS",
+  "name": "Warmog's Armor",
+  "nameVi": "Giáp Máu Warmog",
+  "tier": "LEGENDARY",
+  "cost": 3100,
+  "from": [
+   "GIANTS_BELT",
+   "GIANTS_BELT",
+   "CRYSTALLINE_BRACER"
+  ],
+  "stats": {
+   "hp": 1000
+  },
+  "tags": {
+   "REGEN": 1
+  },
+  "passive": "Trái Tim Warmog: Nếu có 2000 Máu cộng thêm và không nhận phải sát thương trong vòng 8 giây, hồi 0 Máu mỗi giây. | Sinh Lực Warmog: Nhận Máu cộng thêm bằng 12% lượng Máu Từ Trang Bị của bạn (0).",
+  "icon": "3083"
+ },
+ "HEARTSTEEL": {
+  "id": "HEARTSTEEL",
+  "name": "Heartsteel",
+  "nameVi": "Trái Tim Khổng Thần",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "GIANTS_BELT",
+   "CRYSTALLINE_BRACER",
+   "GIANTS_BELT"
+  ],
+  "stats": {
+   "hp": 900
+  },
+  "tags": {
+   "ONHIT": 40
+  },
+  "passive": "Hấp Thụ Khổng Lồ: (0 giây) mỗi mục tiêu\nNếu có tướng địch ở gần trong vài giây, Đòn Đánh tiếp theo lên chúng sẽ gây 70 + 6% Máu tối đa của bạn thành sát thương vật lý cộng thêm và chuyển hóa 10% sát thương đã gây ra thành Máu tối đa. | Khổng Lồ Hóa: Với mỗi 1000 Máu tối đa, tăng 3% kích cỡ, tối đa 30%.",
+  "icon": "3084"
+ },
+ "RUNAANS_HURRICANE": {
+  "id": "RUNAANS_HURRICANE",
+  "name": "Runaan's Hurricane",
+  "nameVi": "Cuồng Cung Runaan",
+  "tier": "LEGENDARY",
+  "cost": 2650,
+  "from": [
+   "ZEAL",
+   "SCOUTS_SLINGSHOT"
+  ],
+  "stats": {
+   "as": 40,
+   "crit": 25,
+   "msPct": 5
+  },
+  "tags": {
+   "CLEAVE": 0.55
+  },
+  "passive": "Gió Cuồng Nộ: Đòn Đánh bắn ra các tia đạn vào thêm 2 kẻ địch gần mục tiêu.\nMỗi đường đạn gây sát thương vật lý và áp dụng Khi Đánh Trúng hiệu ứng.",
+  "icon": "3085"
+ },
+ "ZEAL": {
+  "id": "ZEAL",
+  "name": "Zeal",
+  "nameVi": "Song Kiếm",
+  "tier": "EPIC",
+  "cost": 1200,
+  "from": [
+   "CLOAK_OF_AGILITY",
+   "DAGGER"
+  ],
+  "stats": {
+   "as": 15,
+   "crit": 15,
+   "msPct": 4
+  },
+  "tags": {},
+  "passive": "Tăng nhẹ Tỉ lệ Chí mạng, Tốc độ Di chuyển và Tốc độ Đánh",
+  "icon": "3086"
+ },
+ "STATIKK_SHIV": {
+  "id": "STATIKK_SHIV",
+  "name": "Statikk Shiv",
+  "nameVi": "Dao Điện Statikk",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "SCOUTS_SLINGSHOT",
+   "AETHER_WISP",
+   "PICKAXE"
+  ],
+  "stats": {
+   "ad": 45,
+   "ap": 45,
+   "as": 30,
+   "msPct": 4
+  },
+  "tags": {
+   "CLEAVE": 0.3
+  },
+  "passive": "Phóng Điện: Đòn Đánh Tích Điện của bạn bắn ra sét nảy, áp dụng hiệu ứng Trên Đòn Đánh và gây sát thương phép lên mục tiêu gần đó. | Điện Giật: Đòn Đánh Thường cho thêm cộng dồn Tích Điện .",
+  "icon": "3087"
+ },
+ "RABADONS": {
+  "id": "RABADONS",
+  "name": "Rabadon's Deathcap",
+  "nameVi": "Mũ Phù Thủy Rabadon",
+  "tier": "LEGENDARY",
+  "cost": 3500,
+  "from": [
+   "NEEDLESSLY_LARGE_ROD",
+   "NEEDLESSLY_LARGE_ROD"
+  ],
+  "stats": {
+   "ap": 130
+  },
+  "tags": {
+   "AP_MULT": 0.3
+  },
+  "passive": "Tinh Hoa Phép Thuật: Tăng tổng Sức Mạnh Phép Thuật thêm 30%.",
+  "icon": "3089"
+ },
+ "WITS_END": {
+  "id": "WITS_END",
+  "name": "Wit's End",
+  "nameVi": "Đao Tím",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "RECURVE_BOW",
+   "NEGATRON_CLOAK",
+   "RECURVE_BOW"
+  ],
+  "stats": {
+   "mr": 45,
+   "as": 50
+  },
+  "tags": {
+   "ONHIT": 40,
+   "TENACITY": 1
+  },
+  "passive": "Xé Toạc: Đòn đánh gây sát thương phép cộng thêm Khi Đánh Trúng.",
+  "icon": "3091"
+ },
+ "RAPID_FIRECANNON": {
+  "id": "RAPID_FIRECANNON",
+  "name": "Rapid Firecannon",
+  "nameVi": "Đại Bác Liên Thanh",
+  "tier": "LEGENDARY",
+  "cost": 2650,
+  "from": [
+   "ZEAL",
+   "SCOUTS_SLINGSHOT"
+  ],
+  "stats": {
+   "as": 35,
+   "crit": 25,
+   "msPct": 4
+  },
+  "tags": {
+   "ONHIT": 20
+  },
+  "passive": "Thiện Xạ: Đòn Đánh Tích Điện của bạn gây 40 sát thương phép cộng thêm và nhận thêm 35% Tầm Đánh.",
+  "icon": "3094"
+ },
+ "STORMRAZOR": {
+  "id": "STORMRAZOR",
+  "name": "Stormrazor",
+  "nameVi": "Phong Thần Kiếm",
+  "tier": "LEGENDARY",
+  "cost": 3200,
+  "from": [
+   "BF_SWORD",
+   "CLOAK_OF_AGILITY",
+   "SCOUTS_SLINGSHOT"
+  ],
+  "stats": {
+   "ad": 50,
+   "as": 25,
+   "crit": 25
+  },
+  "tags": {
+   "ONHIT": 20
+  },
+  "passive": "Tích Điện: Di chuyển và Tấn công sẽ tích tụ 1 Đòn Đánh Tích Điện. | Điện Xẹt: Đòn Đánh Tích Điện gây thêm 0 sát thương phép và cho 45% Tốc Độ Di Chuyển trong 1.5 giây.",
+  "icon": "3095"
+ },
+ "LICH_BANE": {
+  "id": "LICH_BANE",
+  "name": "Lich Bane",
+  "nameVi": "Kiếm Tai Ương",
+  "tier": "LEGENDARY",
+  "cost": 2900,
+  "from": [
+   "SHEEN",
+   "AETHER_WISP",
+   "BLASTING_WAND"
+  ],
+  "stats": {
+   "ap": 100,
+   "ah": 10,
+   "msPct": 6
+  },
+  "tags": {
+   "SPELLBLADE": 1.2
+  },
+  "passive": "Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo sẽ gây sát thương phép cộng thêm Khi Đánh Trúng.",
+  "icon": "3100"
+ },
+ "BANSHEES_VEIL": {
+  "id": "BANSHEES_VEIL",
+  "name": "Banshee's Veil",
+  "nameVi": "Dây Chuyền Chữ Thập",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "NEEDLESSLY_LARGE_ROD",
+   "VERDANT_BARRIER"
+  ],
+  "stats": {
+   "ap": 105,
+   "mr": 40
+  },
+  "tags": {
+   "SPELLSHIELD": 1
+  },
+  "passive": "Hóa Giải: Tạo 1 Khiên Phép chặn kỹ năng tiếp theo của kẻ địch.",
+  "icon": "3102"
+ },
+ "REDEMPTION": {
+  "id": "REDEMPTION",
+  "name": "Redemption",
+  "nameVi": "Dây Chuyền Chuộc Tội",
+  "tier": "LEGENDARY",
+  "cost": 2300,
+  "from": [
+   "FIENDISH_CODEX",
+   "FORBIDDEN_IDOL"
+  ],
+  "stats": {
+   "ap": 30,
+   "ah": 15,
+   "hsp": 10
+  },
+  "tags": {
+   "TEAM_HEAL": 1
+  },
+  "passive": "Phán Quyết: Hồi lại 150 - 350 Máu cho các đơn vị đồng minh và gây sát thương chuẩn bằng 10% Máu tối đa lên tướng địch sau 2,5 giây.",
+  "icon": "3107"
+ },
+ "FIENDISH_CODEX": {
+  "id": "FIENDISH_CODEX",
+  "name": "Fiendish Codex",
+  "nameVi": "Sách Quỷ",
+  "tier": "EPIC",
+  "cost": 850,
+  "from": [
+   "AMPLIFYING_TOME",
+   "GLOWING_MOTE"
+  ],
+  "stats": {
+   "ap": 25,
+   "ah": 10
+  },
+  "tags": {},
+  "passive": "Tăng Sức mạnh Phép thuật và Giảm thời gian hồi",
+  "icon": "3108"
+ },
+ "KNIGHTS_VOW": {
+  "id": "KNIGHTS_VOW",
+  "name": "Knight's Vow",
+  "nameVi": "Lời Thề Hiệp Sĩ",
+  "tier": "LEGENDARY",
+  "cost": 2300,
+  "from": [
+   "KINDLEGEM",
+   "CHAIN_VEST",
+   "REJUVENATION_BEAD"
+  ],
+  "stats": {
+   "hp": 200,
+   "armor": 40,
+   "ah": 10
+  },
+  "tags": {
+   "TEAM_SHIELD": 1
+  },
+  "passive": "Hy Sinh: Khi ở gần đồng minh Xứng Đáng, chịu 14% sát thương họ nhận vào và hồi máu bằng 12% sát thương họ gây ra lên tướng.",
+  "icon": "3109"
+ },
+ "FROZEN_HEART": {
+  "id": "FROZEN_HEART",
+  "name": "Frozen Heart",
+  "nameVi": "Tim Băng",
+  "tier": "LEGENDARY",
+  "cost": 2500,
+  "from": [
+   "WARDENS_MAIL",
+   "GLACIAL_BUCKLER"
+  ],
+  "stats": {
+   "armor": 75,
+   "ah": 20,
+   "mana": 400
+  },
+  "tags": {
+   "SLOW_AURA": 1
+  },
+  "passive": "Chiến Binh Mùa Đông: Giảm Tốc Độ Đánh của các tướng địch xung quanh đi 20%.",
+  "icon": "3110"
+ },
+ "MERCURYS_TREADS": {
+  "id": "MERCURYS_TREADS",
+  "name": "Mercury's Treads",
+  "nameVi": "Giày Thủy Ngân",
+  "tier": "BOOTS",
+  "cost": 1250,
+  "from": [
+   "BOOTS",
+   "NULL_MAGIC_MANTLE"
+  ],
+  "stats": {
+   "mr": 20,
+   "ms": 45
+  },
+  "tags": {
+   "TENACITY": 1
+  },
+  "passive": "Giảm Tốc độ Di chuyển và giảm thời gian vô hiệu hóa hiệu ứng",
+  "icon": "3111"
+ },
+ "GUARDIANS_ORB": {
+  "id": "GUARDIANS_ORB",
+  "name": "Guardian's Orb",
+  "nameVi": "Băng Cầu Vệ Quân",
+  "tier": "STARTER",
+  "cost": 950,
+  "from": [],
+  "stats": {
+   "ap": 50,
+   "hp": 150
+  },
+  "tags": {},
+  "passive": "Phục Hồi: Hồi 10 Năng Lượng mỗi 5 giây. Nếu bạn không thể nhận năng lượng, thay vào đó hồi 15 Máu.",
+  "icon": "3112"
+ },
+ "AETHER_WISP": {
+  "id": "AETHER_WISP",
+  "name": "Aether Wisp",
+  "nameVi": "Linh Hồn Lạc Lõng",
+  "tier": "EPIC",
+  "cost": 900,
+  "from": [
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 30,
+   "msPct": 4
+  },
+  "tags": {},
+  "passive": "Tăng Sức mạnh Phép thuật và Tốc độ Di chuyển",
+  "icon": "3113"
+ },
+ "FORBIDDEN_IDOL": {
+  "id": "FORBIDDEN_IDOL",
+  "name": "Forbidden Idol",
+  "nameVi": "Dị Vật Tai Ương",
+  "tier": "EPIC",
+  "cost": 600,
+  "from": [
+   "FAERIE_CHARM"
+  ],
+  "stats": {
+   "hsp": 8
+  },
+  "tags": {},
+  "passive": "Tăng Hiệu lực Hồi máu và Lá chắn, Năng lượng Phục hồi, và Giảm Hồi chiêu",
+  "icon": "3114"
+ },
+ "NASHORS_TOOTH": {
+  "id": "NASHORS_TOOTH",
+  "name": "Nashor's Tooth",
+  "nameVi": "Nanh Nashor",
+  "tier": "LEGENDARY",
+  "cost": 2900,
+  "from": [
+   "RECURVE_BOW",
+   "BLASTING_WAND",
+   "FIENDISH_CODEX"
+  ],
+  "stats": {
+   "ap": 80,
+   "as": 50,
+   "ah": 15
+  },
+  "tags": {
+   "ONHIT": 30
+  },
+  "passive": "Vết Cắn Icathia: Đòn đánh gây sát thương phép cộng thêm Khi Đánh Trúng.",
+  "icon": "3115"
+ },
+ "RYLAIS": {
+  "id": "RYLAIS",
+  "name": "Rylai's Crystal Scepter",
+  "nameVi": "Trượng Pha Lê Rylai",
+  "tier": "LEGENDARY",
+  "cost": 2600,
+  "from": [
+   "BLASTING_WAND",
+   "GIANTS_BELT",
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 65,
+   "hp": 400
+  },
+  "tags": {
+   "SLOW": 1
+  },
+  "passive": "Sương Giá: Kỹ năng gây sát thương sẽ Làm Chậm kẻ địch đi 30% trong 1 giây.",
+  "icon": "3116"
+ },
+ "MALIGNANCE": {
+  "id": "MALIGNANCE",
+  "name": "Malignance",
+  "nameVi": "Hỏa Khuẩn",
+  "tier": "LEGENDARY",
+  "cost": 2700,
+  "from": [
+   "LOST_CHAPTER",
+   "BLASTING_WAND"
+  ],
+  "stats": {
+   "ap": 90,
+   "ah": 15,
+   "mana": 600
+  },
+  "tags": {
+   "BURN_SPELL": 0.01
+  },
+  "passive": "Ai Oán: Nhận 20 Điểm Hồi Chiêu Cuối. | Màn Sương Căm Hận: Gây sát thương lên một tướng bằng Chiêu Cuối sẽ thiêu cháy mặt đất bên dưới chúng trong 3 giây, gây sát thương phép mỗi giây và giảm Kháng Phép của chúng.",
+  "icon": "3118"
+ },
+ "WINTERS_APPROACH": {
+  "id": "WINTERS_APPROACH",
+  "name": "Winter's Approach",
+  "nameVi": "Băng Giáp",
+  "tier": "LEGENDARY",
+  "cost": 2400,
+  "from": [
+   "TEAR",
+   "GIANTS_BELT",
+   "KINDLEGEM"
+  ],
+  "stats": {
+   "hp": 550,
+   "ah": 15,
+   "mana": 500
+  },
+  "tags": {},
+  "passive": "Tuyệt: Nhận 0 Máu. | Dòng Chảy Năng Lượng: (8 giây, tối đa 4 tích trữ)\nDùng Đòn Đánh và Kỹ Năng trúng đích sẽ cho 3 Năng Lượng tối đa (gấp đôi với tướng).\nBiến đổi thành Băng Giáp Vĩnh Cửu khi đạt 360 Năng Lượng tối đa.",
+  "icon": "3119"
+ },
+ "EXECUTIONERS_CALLING": {
+  "id": "EXECUTIONERS_CALLING",
+  "name": "Executioner's Calling",
+  "nameVi": "Gươm Đồ Tể",
+  "tier": "EPIC",
+  "cost": 800,
+  "from": [
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 15
+  },
+  "tags": {
+   "GRIEVOUS": 1
+  },
+  "passive": "Vết Thương Sâu: Gây sát thương vật lý lên tướng sẽ đặt 40% Vết Thương Sâu trong 3 giây.",
+  "icon": "3123"
+ },
+ "GUINSOOS_RAGEBLADE": {
+  "id": "GUINSOOS_RAGEBLADE",
+  "name": "Guinsoo's Rageblade",
+  "nameVi": "Cuồng Đao Guinsoo",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "AMPLIFYING_TOME",
+   "RECURVE_BOW",
+   "PICKAXE"
+  ],
+  "stats": {
+   "ad": 30,
+   "ap": 30,
+   "as": 25
+  },
+  "tags": {
+   "ONHIT": 30
+  },
+  "passive": "Thịnh Nộ: Đòn đánh gây 30 sát thương phép cộng thêm Khi Đánh Trúng. | Nhát Chém Cuồng Nộ: Đánh thường sẽ cho 8% Tốc Độ Đánh trong 4 giây (cộng dồn tối đa 4 lần).\nKhi đạt cộng dồn tối đa, mỗi Đòn Đánh thứ ba áp dụng hiệu ứng Khi Đánh Trúng 2 lần.",
+  "icon": "3124"
+ },
+ "CAULFIELDS": {
+  "id": "CAULFIELDS",
+  "name": "Caulfield's Warhammer",
+  "nameVi": "Búa Chiến Caulfield",
+  "tier": "EPIC",
+  "cost": 1050,
+  "from": [
+   "LONG_SWORD",
+   "GLOWING_MOTE",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 20,
+   "ah": 10
+  },
+  "tags": {},
+  "passive": "Sát thương Vật lí và Giảm Thời gian Hồi chiêu",
+  "icon": "3133"
+ },
+ "SERRATED_DIRK": {
+  "id": "SERRATED_DIRK",
+  "name": "Serrated Dirk",
+  "nameVi": "Dao Hung Tàn",
+  "tier": "EPIC",
+  "cost": 1000,
+  "from": [
+   "LONG_SWORD",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 20,
+   "lethality": 10
+  },
+  "tags": {},
+  "passive": "Tăng Sức mạnh Công kích và Sát lực",
+  "icon": "3134"
+ },
+ "VOID_STAFF": {
+  "id": "VOID_STAFF",
+  "name": "Void Staff",
+  "nameVi": "Trượng Hư Vô",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "BLIGHTING_JEWEL",
+   "BLASTING_WAND"
+  ],
+  "stats": {
+   "ap": 95,
+   "magicPenPct": 40
+  },
+  "tags": {},
+  "passive": "Tăng sát thương phép thuật",
+  "icon": "3135"
+ },
+ "CRYPTBLOOM": {
+  "id": "CRYPTBLOOM",
+  "name": "Cryptbloom",
+  "nameVi": "Hoa Tử Linh",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "BLIGHTING_JEWEL",
+   "FIENDISH_CODEX",
+   "FIENDISH_CODEX"
+  ],
+  "stats": {
+   "ap": 75,
+   "ah": 20,
+   "magicPenPct": 30
+  },
+  "tags": {
+   "TEAM_HEAL": 1
+  },
+  "passive": "Trở Lại Từ Cõi Chết: Khi tướng địch bị tiêu diệt trong vòng 3 giây kể từ nhận sát thương từ bạn, một vùng hào quang lan tỏa từ xác của chúng và giúp hồi Máu.",
+  "icon": "3137"
+ },
+ "MERCURIAL_SCIMITAR": {
+  "id": "MERCURIAL_SCIMITAR",
+  "name": "Mercurial Scimitar",
+  "nameVi": "Đao Thủy Ngân",
+  "tier": "LEGENDARY",
+  "cost": 3200,
+  "from": [
+   "QUICKSILVER_SASH",
+   "PICKAXE",
+   "VAMPIRIC_SCEPTER"
+  ],
+  "stats": {
+   "ad": 50,
+   "mr": 35,
+   "lifesteal": 10
+  },
+  "tags": {
+   "CLEANSE": 1
+  },
+  "passive": "Kích hoạt để loại bỏ mọi hiệu ứng bất lợi và tăng mạnh Tốc độ Di chuyển",
+  "icon": "3139"
+ },
+ "QUICKSILVER_SASH": {
+  "id": "QUICKSILVER_SASH",
+  "name": "Quicksilver Sash",
+  "nameVi": "Khăn Giải Thuật",
+  "tier": "EPIC",
+  "cost": 1300,
+  "from": [
+   "NULL_MAGIC_MANTLE"
+  ],
+  "stats": {
+   "mr": 30
+  },
+  "tags": {
+   "CLEANSE": 1
+  },
+  "passive": "Giải Thuật: Loại bỏ tất cả các hiệu ứng khống chế (trừ Hất Tung).",
+  "icon": "3140"
+ },
+ "YOUMUUS_GHOSTBLADE": {
+  "id": "YOUMUUS_GHOSTBLADE",
+  "name": "Youmuu's Ghostblade",
+  "nameVi": "Kiếm Ma Youmuu",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "SERRATED_DIRK",
+   "RECTRIX",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 55,
+   "msPct": 4,
+   "lethality": 18
+  },
+  "tags": {},
+  "passive": "Ma Ám: Tăng 0 Tốc Độ Di Chuyển khi ở ngoài giao tranh.",
+  "icon": "3142"
+ },
+ "RANDUINS_OMEN": {
+  "id": "RANDUINS_OMEN",
+  "name": "Randuin's Omen",
+  "nameVi": "Khiên Băng Randuin",
+  "tier": "LEGENDARY",
+  "cost": 2700,
+  "from": [
+   "WARDENS_MAIL",
+   "GIANTS_BELT"
+  ],
+  "stats": {
+   "hp": 350,
+   "armor": 75
+  },
+  "tags": {
+   "ANTI_CRIT": 1
+  },
+  "passive": "Kháng Chí Mạng: Giảm 30% sát thương nhận phải từ Đòn Chí Mạng.",
+  "icon": "3143"
+ },
+ "SCOUTS_SLINGSHOT": {
+  "id": "SCOUTS_SLINGSHOT",
+  "name": "Scout's Slingshot",
+  "nameVi": "Ná Cao Su Trinh Sát",
+  "tier": "EPIC",
+  "cost": 600,
+  "from": [
+   "DAGGER",
+   "DAGGER"
+  ],
+  "stats": {
+   "as": 20
+  },
+  "tags": {},
+  "passive": "Hồng Tâm: Gây sát thương lên tướng sẽ gây sát thương phép cộng thêm.\nĐòn đánh sẽ giảm thời gian hồi của hiệu ứng này đi 1 giây.",
+  "icon": "3144"
+ },
+ "HEXTECH_ALTERNATOR": {
+  "id": "HEXTECH_ALTERNATOR",
+  "name": "Hextech Alternator",
+  "nameVi": "Máy Chuyển Pha Hextech",
+  "tier": "EPIC",
+  "cost": 1100,
+  "from": [
+   "AMPLIFYING_TOME",
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 45
+  },
+  "tags": {},
+  "passive": "Căng Ga: Gây sát thương lên tướng sẽ gây sát thương phép cộng thêm.",
+  "icon": "3145"
+ },
+ "HEXTECH_GUNBLADE": {
+  "id": "HEXTECH_GUNBLADE",
+  "name": "Hextech Gunblade",
+  "nameVi": "Kiếm Súng Hextech",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "VAMPIRIC_SCEPTER",
+   "HEXTECH_ALTERNATOR",
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ad": 40,
+   "ap": 80,
+   "omnivamp": 10
+  },
+  "tags": {},
+  "passive": "Tăng Sát thương Vật lí và Sức mạnh Phép thuật, kích hoạt để làm chậm mục tiêu",
+  "icon": "3146"
+ },
+ "HAUNTING_GUISE": {
+  "id": "HAUNTING_GUISE",
+  "name": "Haunting Guise",
+  "nameVi": "Mặt Nạ Ma Ám",
+  "tier": "EPIC",
+  "cost": 1300,
+  "from": [
+   "AMPLIFYING_TOME",
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "ap": 30,
+   "hp": 200
+  },
+  "tags": {},
+  "passive": "Điên Cuồng: Mỗi giây trong giao tranh với tướng địch, gây thêm 2% sát thương (tối đa 6%).",
+  "icon": "3147"
+ },
+ "HEXTECH_ROCKETBELT": {
+  "id": "HEXTECH_ROCKETBELT",
+  "name": "Hextech Rocketbelt",
+  "nameVi": "Đai Tên Lửa Hextech",
+  "tier": "LEGENDARY",
+  "cost": 2650,
+  "from": [
+   "HEXTECH_ALTERNATOR",
+   "KINDLEGEM",
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "ap": 60,
+   "hp": 350,
+   "ah": 10
+  },
+  "tags": {},
+  "passive": "Lướt Siêu Thanh: Lướt về hướng chỉ định, bắn ra loạt tia lửa gây sát thương phép.",
+  "icon": "3152"
+ },
+ "BOTRK": {
+  "id": "BOTRK",
+  "name": "Blade of the Ruined King",
+  "nameVi": "Gươm Suy Vong",
+  "tier": "LEGENDARY",
+  "cost": 3200,
+  "from": [
+   "VAMPIRIC_SCEPTER",
+   "RECURVE_BOW",
+   "PICKAXE"
+  ],
+  "stats": {
+   "ad": 40,
+   "as": 25,
+   "lifesteal": 10
+  },
+  "tags": {
+   "PERCENT_HP": 0.06
+  },
+  "passive": "Mũi Kiếm Sương Đen: Đòn đánh gây một phần Máu hiện tại của kẻ địch thành sát thương vật lý cộng thêm Khi Đánh Trúng. | Bóng Vuốt: Tấn công một tướng địch 3 lần sẽ Làm Chậm chúng đi 30% trong 1 giây.",
+  "icon": "3153"
+ },
+ "HEXDRINKER": {
+  "id": "HEXDRINKER",
+  "name": "Hexdrinker",
+  "nameVi": "Kiếm Răng Cưa",
+  "tier": "EPIC",
+  "cost": 1300,
+  "from": [
+   "LONG_SWORD",
+   "NULL_MAGIC_MANTLE",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 25,
+   "mr": 25
+  },
+  "tags": {
+   "LIFELINE": 0.1
+  },
+  "passive": "Bảo Hiểm Ma Pháp: Khi nhận sát thương phép khiến máu tụt xuống dưới 30%, nhận một Lá Chắn sát thương phép trong 2.5 giây.",
+  "icon": "3155"
+ },
+ "MAW_OF_MALMORTIUS": {
+  "id": "MAW_OF_MALMORTIUS",
+  "name": "Maw of Malmortius",
+  "nameVi": "Chùy Gai Malmortius",
+  "tier": "LEGENDARY",
+  "cost": 3100,
+  "from": [
+   "HEXDRINKER",
+   "CAULFIELDS"
+  ],
+  "stats": {
+   "ad": 60,
+   "mr": 40,
+   "ah": 15
+  },
+  "tags": {
+   "LIFELINE": 0.2
+  },
+  "passive": "Bảo Hiểm Ma Pháp: Khi nhận sát thương phép khiến máu tụt xuống dưới 30%, nhận Lá Chắn sát thương phép trong 3 giây và 10% Hút Máu Toàn Phần cho đến khi kết thúc giao tranh.",
+  "icon": "3156"
+ },
+ "ZHONYAS": {
+  "id": "ZHONYAS",
+  "name": "Zhonya's Hourglass",
+  "nameVi": "Đồng Hồ Cát Zhonya",
+  "tier": "LEGENDARY",
+  "cost": 3250,
+  "from": [
+   "NEEDLESSLY_LARGE_ROD",
+   "SEEKERS_ARMGUARD"
+  ],
+  "stats": {
+   "ap": 105,
+   "armor": 50
+  },
+  "tags": {
+   "STASIS": 1
+  },
+  "passive": "Ngưng Đọng Thời Gian: Tiến vào trạng thái Ngưng Đọng trong 2.5 giây.",
+  "icon": "3157"
+ },
+ "IONIAN_BOOTS": {
+  "id": "IONIAN_BOOTS",
+  "name": "Ionian Boots of Lucidity",
+  "nameVi": "Giày Khai Sáng Ionia",
+  "tier": "BOOTS",
+  "cost": 900,
+  "from": [
+   "BOOTS",
+   "GLOWING_MOTE"
+  ],
+  "stats": {
+   "ah": 10,
+   "ms": 45
+  },
+  "tags": {},
+  "passive": "Tinh Túy Ionia: Nhận 10 Điểm Hồi Phép Bổ Trợ.",
+  "icon": "3158"
+ },
+ "SPEAR_OF_SHOJIN": {
+  "id": "SPEAR_OF_SHOJIN",
+  "name": "Spear of Shojin",
+  "nameVi": "Ngọn Giáo Shojin",
+  "tier": "LEGENDARY",
+  "cost": 3100,
+  "from": [
+   "PICKAXE",
+   "TUNNELER",
+   "RUBY_CRYSTAL"
+  ],
+  "stats": {
+   "ad": 45,
+   "hp": 450
+  },
+  "tags": {},
+  "passive": "Long Lực: Nhận 25 Điểm Hồi Kỹ Năng Cơ Bản. | Tâm Lực: Gây sát thương bằng Kỹ Năng sẽ tăng sát thương từ Kỹ Năng và Nội Tại từ Tướng của bạn thêm 3% trong 6 giây (cộng dồn 4 lần).",
+  "icon": "3161"
+ },
+ "MORELLONOMICON": {
+  "id": "MORELLONOMICON",
+  "name": "Morellonomicon",
+  "nameVi": "Quỷ Thư Morello",
+  "tier": "LEGENDARY",
+  "cost": 2850,
+  "from": [
+   "OBLIVION_ORB",
+   "BLASTING_WAND",
+   "KINDLEGEM"
+  ],
+  "stats": {
+   "ap": 75,
+   "hp": 350,
+   "ah": 15
+  },
+  "tags": {
+   "GRIEVOUS": 1
+  },
+  "passive": "Vết Thương Sâu: Gây sát thương phép lên tướng sẽ đặt 40% Vết Thương Sâu trong 3 giây.",
+  "icon": "3165"
+ },
+ "IMMORTAL_GREAVES": {
+  "id": "IMMORTAL_GREAVES",
+  "name": "Gluttonous Greaves (nâng cấp)",
+  "nameVi": "Giày Bất Tử",
+  "tier": "BOOTS",
+  "cost": 1100,
+  "from": [
+   "GLUTTONOUS_GREAVES"
+  ],
+  "stats": {
+   "ms": 45,
+   "omnivamp": 4
+  },
+  "tags": {},
+  "passive": "Hạ Gục: Nhận 0.6% Hút Máu Toàn Phần khi tham gia hạ gục Tướng, cộng dồn tối đa 10 lần. | Bây Giờ Và Mãi Mãi: Khi còn trên nửa lượng Máu, gây thêm 4% sát thương.\nKhi còn dưới một nửa lượng Máu, nhận thêm 12% hồi máu, lá chắn và hồi phục.",
+  "icon": "3168"
+ },
+ "SWIFTMARCH": {
+  "id": "SWIFTMARCH",
+  "name": "Swiftmarch",
+  "nameVi": "Giày Nhanh Nhẹn",
+  "tier": "BOOTS",
+  "cost": 1000,
+  "from": [
+   "BOOTS_OF_SWIFTNESS"
+  ],
+  "stats": {
+   "ms": 65
+  },
+  "tags": {},
+  "passive": "Nhanh Chân: Giảm hiệu quả của các hiệu ứng Làm Chậm đi 25%. | Tinh Thần Noxus: Nhận 5% Tốc Độ Di Chuyển của bạn thành Sức Mạnh Thích Ứng.",
+  "icon": "3170"
+ },
+ "CRIMSON_LUCIDITY": {
+  "id": "CRIMSON_LUCIDITY",
+  "name": "Crimson Lucidity",
+  "nameVi": "Giày Đỏ Khai Sáng",
+  "tier": "BOOTS",
+  "cost": 900,
+  "from": [
+   "IONIAN_BOOTS"
+  ],
+  "stats": {
+   "ah": 20,
+   "ms": 45
+  },
+  "tags": {},
+  "passive": "Tinh Túy Ionia: Nhận 20 Điểm Hồi Phép Bổ Trợ. | Noxus Thần Tốc: Cường hóa hoặc bảo vệ đồng minh bằng kỹ năng, gây sát thương lên Tướng địch bằng kỹ năng, hoặc sử dụng Phép Bổ Trợ sẽ cho 0 Tốc Độ Di Chuyển trong 4 giây.\nNoxus Thần Tốc chỉ có thể được kích hoạt một lần cho mỗi lần thi triển Kỹ Năng.",
+  "icon": "3171"
+ },
+ "GUNMETAL_GREAVES": {
+  "id": "GUNMETAL_GREAVES",
+  "name": "Gunmetal Greaves",
+  "nameVi": "Giày Hắc Kim",
+  "tier": "BOOTS",
+  "cost": 1100,
+  "from": [
+   "BERSERKERS_GREAVES"
+  ],
+  "stats": {
+   "as": 45,
+   "ms": 45,
+   "lifesteal": 5
+  },
+  "tags": {},
+  "passive": "Độ cơ động và Kháng hiệu ứng",
+  "icon": "3172"
+ },
+ "CHAINLACED_CRUSHERS": {
+  "id": "CHAINLACED_CRUSHERS",
+  "name": "Chainlaced Crushers",
+  "nameVi": "Giày Giáp Sắt",
+  "tier": "BOOTS",
+  "cost": 1250,
+  "from": [
+   "MERCURYS_TREADS"
+  ],
+  "stats": {
+   "mr": 25,
+   "ms": 45
+  },
+  "tags": {
+   "TENACITY": 1
+  },
+  "passive": "Sức Bền Noxus: (0 giây)\nSau khi nhận sát thương phép từ Tướng, nhận một 0 lá chắn phép trong 5 giây.",
+  "icon": "3173"
+ },
+ "ARMORED_ADVANCE": {
+  "id": "ARMORED_ADVANCE",
+  "name": "Armored Advance",
+  "nameVi": "Giày Xung Kích",
+  "tier": "BOOTS",
+  "cost": 1200,
+  "from": [
+   "PLATED_STEELCAPS"
+  ],
+  "stats": {
+   "armor": 35,
+   "ms": 45
+  },
+  "tags": {
+   "BLOCK_AUTO": 1
+  },
+  "passive": "Giáp Cốt: Giảm sát thương nhận vào từ Đòn Đánh đi 10%. | Sức Bền Noxus: (0 giây)\nSau khi nhận sát thương vật lý từ Tướng, nhận một 0 lá chắn vật lý trong 5 giây.",
+  "icon": "3174"
+ },
+ "SPELLSLINGERS_SHOES": {
+  "id": "SPELLSLINGERS_SHOES",
+  "name": "Spellslinger's Shoes",
+  "nameVi": "Giày Ma Pháp Sư",
+  "tier": "BOOTS",
+  "cost": 1100,
+  "from": [
+   "SORCERERS_SHOES"
+  ],
+  "stats": {
+   "ms": 45,
+   "magicPen": 20,
+   "magicPenPct": 8
+  },
+  "tags": {},
+  "icon": "3175"
+ },
+ "GUARDIANS_BLADE": {
+  "id": "GUARDIANS_BLADE",
+  "name": "Guardian's Blade",
+  "nameVi": "Kiếm Vệ Quân",
+  "tier": "STARTER",
+  "cost": 950,
+  "from": [],
+  "stats": {
+   "ad": 30,
+   "hp": 150,
+   "ah": 15
+  },
+  "tags": {},
+  "passive": "Trang bị khởi đầu tốt cho tướng sử dụng đòn đánh nhiều",
+  "icon": "3177"
+ },
+ "UMBRAL_GLAIVE": {
+  "id": "UMBRAL_GLAIVE",
+  "name": "Umbral Glaive",
+  "nameVi": "Kiếm Âm U",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "SERRATED_DIRK",
+   "CAULFIELDS"
+  ],
+  "stats": {
+   "ad": 60,
+   "ah": 15,
+   "lethality": 18
+  },
+  "tags": {},
+  "passive": "Thợ Săn Đêm: Sau khi không bị kẻ địch nhìn thấy trong thoáng chốc, đòn đánh tiếp theo của bạn lên một tướng sẽ gây thêm sát thương chuẩn. | Tắt Đèn: Khi bạn ở gần Mắt Xanh và bẫy của kẻ địch, làm lộ diện chúng trong thoáng chốc. Khi phát hiện mắt, đòn đánh của bạn gây thêm sát thương lên chúng.",
+  "icon": "3179"
+ },
+ "HULLBREAKER": {
+  "id": "HULLBREAKER",
+  "name": "Hullbreaker",
+  "nameVi": "Búa Tiến Công",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "TUNNELER",
+   "WINGED_MOONPLATE",
+   "PICKAXE"
+  ],
+  "stats": {
+   "ad": 40,
+   "hp": 500,
+   "msPct": 4
+  },
+  "tags": {
+   "SPLIT": 1
+  },
+  "passive": "Thuyền Trưởng: Mỗi Đòn Đánh thứ 5 lên tướng và quái khủng gây thêm sát thương vật lý, tăng lên nếu tác động lên Công Trình. | Thuyền Viên: Lính xe pháo và lính siêu cấp đồng minh ở gần nhận được Giáp và Kháng Phép.",
+  "icon": "3181"
+ },
+ "GUARDIANS_HAMMER": {
+  "id": "GUARDIANS_HAMMER",
+  "name": "Guardian's Hammer",
+  "nameVi": "Búa Vệ Quân",
+  "tier": "STARTER",
+  "cost": 950,
+  "from": [],
+  "stats": {
+   "ad": 25,
+   "hp": 150,
+   "lifesteal": 5
+  },
+  "tags": {},
+  "passive": "Trang bị khởi đầu tốt cho tướng sử dụng đòn đánh nhiều",
+  "icon": "3184"
+ },
+ "LOCKET": {
+  "id": "LOCKET",
+  "name": "Locket of the Iron Solari",
+  "nameVi": "Dây Chuyền Iron Solari",
+  "tier": "LEGENDARY",
+  "cost": 2200,
+  "from": [
+   "KINDLEGEM",
+   "CLOTH_ARMOR",
+   "NULL_MAGIC_MANTLE"
+  ],
+  "stats": {
+   "hp": 200,
+   "armor": 30,
+   "mr": 30,
+   "ah": 10
+  },
+  "tags": {
+   "TEAM_SHIELD": 1
+  },
+  "passive": "Tận Hiến: Ban cho các đồng minh gần bên 290 - 360 Lá Chắn, giảm dần trong 2.5 giây.",
+  "icon": "3190"
+ },
+ "SPECTRES_COWL": {
+  "id": "SPECTRES_COWL",
+  "name": "Spectre's Cowl",
+  "nameVi": "Áo Choàng Ám Ảnh",
+  "tier": "EPIC",
+  "cost": 1250,
+  "from": [
+   "RUBY_CRYSTAL",
+   "NULL_MAGIC_MANTLE",
+   "REJUVENATION_BEAD"
+  ],
+  "stats": {
+   "hp": 200,
+   "mr": 35
+  },
+  "tags": {},
+  "passive": "Tăng sức phòng ngự và hồi phục khi chịu sát thương",
+  "icon": "3211"
+ },
+ "MIKAELS_BLESSING": {
+  "id": "MIKAELS_BLESSING",
+  "name": "Mikael's Blessing",
+  "nameVi": "Chuông Bảo Hộ Mikael",
+  "tier": "LEGENDARY",
+  "cost": 2300,
+  "from": [
+   "KINDLEGEM",
+   "FORBIDDEN_IDOL"
+  ],
+  "stats": {
+   "hp": 250,
+   "ah": 15,
+   "hsp": 12
+  },
+  "tags": {
+   "CLEANSE": 1
+  },
+  "passive": "Thanh Tẩy: Loại bỏ tất cả hiệu ứng khống chế (ngoại trừ Hất Tung và Áp Chế) khỏi một tướng đồng minh và hồi cho họ 100 - 250 Máu.",
+  "icon": "3222"
+ },
+ "TERMINUS": {
+  "id": "TERMINUS",
+  "name": "Terminus",
+  "nameVi": "Cung Chạng Vạng",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "HEARTHBOUND_AXE",
+   "RECURVE_BOW"
+  ],
+  "stats": {
+   "ad": 30,
+   "as": 35
+  },
+  "tags": {
+   "ONHIT": 15
+  },
+  "passive": "Bóng Tối: Đòn đánh gây 0 sát thương phép cộng thêm Khi Đánh Trúng. | Đối Nghịch: Chuyển đổi qua lại giữa Ánh Sáng và Bóng Tối trên đòn đánh khi tấn công tướng địch: Đòn đánh Ánh Sáng cho Giáp và Kháng Phép trong 5 giây.Đòn đánh Bóng Tối cho 10% Xuyên Giáp và Xuyên Kháng Phép trong 5 giây.",
+  "icon": "3302"
+ },
+ "ARDENT_CENSER": {
+  "id": "ARDENT_CENSER",
+  "name": "Ardent Censer",
+  "nameVi": "Lư Hương Sôi Sục",
+  "tier": "LEGENDARY",
+  "cost": 2200,
+  "from": [
+   "AETHER_WISP",
+   "FORBIDDEN_IDOL"
+  ],
+  "stats": {
+   "ap": 45,
+   "msPct": 4,
+   "hsp": 10
+  },
+  "tags": {
+   "ALLY_AS": 1
+  },
+  "passive": "Cầu Nguyện: Hồi máu hoặc tạo Lá Chắn cho đồng minh sẽ cường hóa cho cả hai trong 6 giây, giúp đòn đánh được tăng 25% Tốc Độ Đánh và 20 sát thương phép Khi Đánh Trúng.",
+  "icon": "3504"
+ },
+ "ESSENCE_REAVER": {
+  "id": "ESSENCE_REAVER",
+  "name": "Essence Reaver",
+  "nameVi": "Lưỡi Hái Linh Hồn",
+  "tier": "LEGENDARY",
+  "cost": 3050,
+  "from": [
+   "SHEEN",
+   "CAULFIELDS",
+   "CLOAK_OF_AGILITY"
+  ],
+  "stats": {
+   "ad": 50,
+   "crit": 25,
+   "ah": 20
+  },
+  "tags": {
+   "SPELLBLADE": 0.6
+  },
+  "passive": "Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo gây thêm sát thương vật lý và tăng Năng Lượng Khi Đánh Trúng.",
+  "icon": "3508"
+ },
+ "DEAD_MANS_PLATE": {
+  "id": "DEAD_MANS_PLATE",
+  "name": "Dead Man's Plate",
+  "nameVi": "Giáp Liệt Sĩ",
+  "tier": "LEGENDARY",
+  "cost": 2900,
+  "from": [
+   "WINGED_MOONPLATE",
+   "RUBY_CRYSTAL",
+   "CHAIN_VEST"
+  ],
+  "stats": {
+   "hp": 350,
+   "armor": 55,
+   "msPct": 4
+  },
+  "tags": {},
+  "passive": "Nhịp Độ Đáy Sâu: Khi di chuyển, tích tụ 20 Tốc Độ Di Chuyển cộng thêm. Đòn đánh tiếp theo giải phóng lượng Tốc Độ Di Chuyển cộng dồn để gây sát thương vật lý cộng thêm. | Không Thể Nhấn Chìm: Hiệu quả của các hiệu ứng Làm Chậm bị giảm đi 15%.",
+  "icon": "3742"
+ },
+ "TITANIC_HYDRA": {
+  "id": "TITANIC_HYDRA",
+  "name": "Titanic Hydra",
+  "nameVi": "Rìu Đại Mãng Xà",
+  "tier": "LEGENDARY",
+  "cost": 3300,
+  "from": [
+   "TIAMAT",
+   "TUNNELER",
+   "GIANTS_BELT"
+  ],
+  "stats": {
+   "ad": 40,
+   "hp": 600
+  },
+  "tags": {
+   "CLEAVE": 0.35,
+   "ONHIT": 30
+  },
+  "passive": "Sát Thương Lan: Đòn đánh gây sát thương vật lý trên đòn đánh và lên những kẻ địch phía sau mục tiêu. | Sát Thương Lan: kế tiếp, gây thêm sát thương vật lý Khi Đánh Trúng và gây thêm sát thương vật lý lên những kẻ địch phía sau mục tiêu.",
+  "icon": "3748"
+ },
+ "CRYSTALLINE_BRACER": {
+  "id": "CRYSTALLINE_BRACER",
+  "name": "Crystalline Bracer",
+  "nameVi": "Vòng Tay Pha Lê",
+  "tier": "EPIC",
+  "cost": 800,
+  "from": [
+   "RUBY_CRYSTAL",
+   "REJUVENATION_BEAD"
+  ],
+  "stats": {
+   "hp": 200
+  },
+  "tags": {},
+  "passive": "Tăng Máu và tốc độ hồi Máu",
+  "icon": "3801"
+ },
+ "LOST_CHAPTER": {
+  "id": "LOST_CHAPTER",
+  "name": "Lost Chapter",
+  "nameVi": "Bí Chương Thất Truyền",
+  "tier": "EPIC",
+  "cost": 1200,
+  "from": [
+   "AMPLIFYING_TOME",
+   "SAPPHIRE_CRYSTAL",
+   "GLOWING_MOTE"
+  ],
+  "stats": {
+   "ap": 40,
+   "ah": 10,
+   "mana": 300
+  },
+  "tags": {},
+  "passive": "Khai Sáng: Khi tăng cấp, hồi lại 20% Năng Lượng tối đa trong 3 giây.",
+  "icon": "3802"
+ },
+ "CATALYST": {
+  "id": "CATALYST",
+  "name": "Catalyst of Aeons",
+  "nameVi": "Đá Vĩnh Hằng",
+  "tier": "EPIC",
+  "cost": 1300,
+  "from": [
+   "RUBY_CRYSTAL",
+   "RUBY_CRYSTAL",
+   "SAPPHIRE_CRYSTAL"
+  ],
+  "stats": {
+   "hp": 300,
+   "mana": 375
+  },
+  "tags": {},
+  "passive": "Vĩnh Hằng: Hồi lại Năng Lượng tương đương 10% sát thương nhận phải từ tướng địch.\nDùng kỹ năng sẽ hồi máu tương đương 25% Năng Lượng đã dùng.",
+  "icon": "3803"
+ },
+ "EDGE_OF_NIGHT": {
+  "id": "EDGE_OF_NIGHT",
+  "name": "Edge of Night",
+  "nameVi": "Áo Choàng Bóng Tối",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "SERRATED_DIRK",
+   "TUNNELER"
+  ],
+  "stats": {
+   "ad": 50,
+   "hp": 250,
+   "lethality": 15
+  },
+  "tags": {
+   "SPELLSHIELD": 1
+  },
+  "passive": "Hóa Giải: Tạo 1 Khiên Phép chặn kỹ năng tiếp theo của kẻ địch.",
+  "icon": "3814"
+ },
+ "WORLD_ATLAS": {
+  "id": "WORLD_ATLAS",
+  "name": "World Atlas",
+  "nameVi": "Bản Đồ Thế Giới",
+  "tier": "SUPPORT",
+  "cost": 400,
+  "from": [],
+  "stats": {},
+  "tags": {},
+  "icon": "3865"
+ },
+ "CELESTIAL_OPPOSITION": {
+  "id": "CELESTIAL_OPPOSITION",
+  "name": "Celestial Opposition",
+  "nameVi": "Khiên Vàng Thượng Giới",
+  "tier": "SUPPORT",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "hp": 200
+  },
+  "tags": {},
+  "passive": "Phước Lành Sơn Thạch: Giảm sát thương nhận vào từ tướng địch trong 2 giây sau khi nhận sát thương từ tướng. Khi hiệu ứng kết thúc, làm chậm kẻ địch ở gần đi 50% trong 1.5 giây.",
+  "icon": "3869"
+ },
+ "DREAM_MAKER": {
+  "id": "DREAM_MAKER",
+  "name": "Dream Maker",
+  "nameVi": "Thú Bông Bảo Mộng",
+  "tier": "SUPPORT",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "hp": 200
+  },
+  "tags": {},
+  "passive": "Thú Bông Bảo Mộng: Hồi Máu hoặc Tạo Lá Chắn cho đồng minh khác sẽ thổi Bong Bóng Mơ tới họ trong 3 giây. Đòn đánh thường kế tiếp của họ gây thêm sát thương phép Khi Đánh Trúng và sát thương tiếp theo họ nhận vào sẽ được giảm.",
+  "icon": "3870"
+ },
+ "ZAZZAKS_REALMSPIKE": {
+  "id": "ZAZZAKS_REALMSPIKE",
+  "name": "Zaz'Zak's Realmspike",
+  "nameVi": "Ngòi Nổ Hư Không Zaz'Zak",
+  "tier": "SUPPORT",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "hp": 200
+  },
+  "tags": {},
+  "passive": "Vụ Nổ Hư Không: Gây sát thương Kỹ Năng lên tướng sẽ tạo ra một vụ nổ gây sát thương phép.",
+  "icon": "3871"
+ },
+ "SOLSTICE_SLEIGH": {
+  "id": "SOLSTICE_SLEIGH",
+  "name": "Solstice Sleigh",
+  "nameVi": "Cỗ Xe Mùa Đông",
+  "tier": "SUPPORT",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "hp": 200
+  },
+  "tags": {},
+  "passive": "Trượt Tuyết: Làm Chậm hoặc Làm Bất Động tướng địch sẽ hồi lại Máu và ban 20% Tốc Độ Di Chuyển giảm dần cho bạn và 1 đồng minh gần kề trong 2.5 giây.",
+  "icon": "3876"
+ },
+ "BLOODSONG": {
+  "id": "BLOODSONG",
+  "name": "Bloodsong",
+  "nameVi": "Huyết Trảo",
+  "tier": "SUPPORT",
+  "cost": 400,
+  "from": [],
+  "stats": {
+   "hp": 200
+  },
+  "tags": {},
+  "passive": "Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo gây thêm sát thương vật lý Khi Đánh Trúng. Nếu mục tiêu là tướng, chúng sẽ nhận thêm sát thương trong 4 giây.",
+  "icon": "3877"
+ },
+ "OBLIVION_ORB": {
+  "id": "OBLIVION_ORB",
+  "name": "Oblivion Orb",
+  "nameVi": "Ngọc Quên Lãng",
+  "tier": "EPIC",
+  "cost": 800,
+  "from": [
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 25
+  },
+  "tags": {
+   "GRIEVOUS": 1
+  },
+  "passive": "Vết Thương Sâu: Gây sát thương phép lên tướng sẽ đặt 40% Vết Thương Sâu trong 3 giây.",
+  "icon": "3916"
+ },
+ "IMPERIAL_MANDATE": {
+  "id": "IMPERIAL_MANDATE",
+  "name": "Imperial Mandate",
+  "nameVi": "Trát Lệnh Đế Vương",
+  "tier": "LEGENDARY",
+  "cost": 2400,
+  "from": [
+   "AMPLIFYING_TOME",
+   "BANDLEGLASS_MIRROR",
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 60,
+   "ah": 15
+  },
+  "tags": {},
+  "passive": "Khống Chế: Nhận thêm 20 Điểm Hồi Kỹ Năng cho các kỹ năng có hiệu ứng Làm Bất Động. | Chỉ Huy: Khi Làm Bất Động một tướng địch, đánh dấu chúng là 7% Suy Yếu trong 4 giây.",
+  "icon": "4005"
+ },
+ "FORCE_OF_NATURE": {
+  "id": "FORCE_OF_NATURE",
+  "name": "Force of Nature",
+  "nameVi": "Giáp Thiên Nhiên",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "NEGATRON_CLOAK",
+   "RUBY_CRYSTAL",
+   "WINGED_MOONPLATE"
+  ],
+  "stats": {
+   "hp": 400,
+   "mr": 55,
+   "msPct": 4
+  },
+  "tags": {},
+  "passive": "Vững Chãi: Nhận 70 Kháng Phép và 6% Tốc Độ Di Chuyển cộng thêm sau khi nhận sát thương phép từ tướng 8 lần.",
+  "icon": "4401"
+ },
+ "HORIZON_FOCUS": {
+  "id": "HORIZON_FOCUS",
+  "name": "Horizon Focus",
+  "nameVi": "Kính Nhắm Ma Pháp",
+  "tier": "LEGENDARY",
+  "cost": 2700,
+  "from": [
+   "FIENDISH_CODEX",
+   "FIENDISH_CODEX",
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 75,
+   "ah": 25
+  },
+  "tags": {},
+  "passive": "Bộc Phát: Gây sát thương Kỹ Năng lên tướng ở khoảng cách 600 hoặc xa hơn sẽ làm Lộ Diện chúng trong 6 giây. | Tập Trung: Khi | Bộc Phát: được kích hoạt, làm Lộ Diện tất cả tướng địch khác trong phạm vi 1400 xung quanh chúng trong 3 giây.",
+  "icon": "4628"
+ },
+ "COSMIC_DRIVE": {
+  "id": "COSMIC_DRIVE",
+  "name": "Cosmic Drive",
+  "nameVi": "Động Cơ Vũ Trụ",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "KINDLEGEM",
+   "AETHER_WISP",
+   "FIENDISH_CODEX"
+  ],
+  "stats": {
+   "ap": 70,
+   "hp": 350,
+   "ah": 25,
+   "msPct": 4
+  },
+  "tags": {},
+  "passive": "Vũ Điệu Ma Pháp: Gây sát thương phép hoặc sát thương chuẩn lên tướng sẽ cho Tốc Độ Di Chuyển trong 4 giây.",
+  "icon": "4629"
+ },
+ "BLIGHTING_JEWEL": {
+  "id": "BLIGHTING_JEWEL",
+  "name": "Blighting Jewel",
+  "nameVi": "Đá Hắc Hóa",
+  "tier": "EPIC",
+  "cost": 1100,
+  "from": [
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 25,
+   "magicPenPct": 13
+  },
+  "tags": {},
+  "icon": "4630"
+ },
+ "VERDANT_BARRIER": {
+  "id": "VERDANT_BARRIER",
+  "name": "Verdant Barrier",
+  "nameVi": "Dây Chuyền Sự Sống",
+  "tier": "EPIC",
+  "cost": 1600,
+  "from": [
+   "AMPLIFYING_TOME",
+   "NULL_MAGIC_MANTLE",
+   "AMPLIFYING_TOME"
+  ],
+  "stats": {
+   "ap": 40,
+   "mr": 25
+  },
+  "tags": {},
+  "passive": "Hóa Giải: Tạo 1 Khiên Phép chặn kỹ năng tiếp theo của kẻ địch.",
+  "icon": "4632"
+ },
+ "RIFTMAKER": {
+  "id": "RIFTMAKER",
+  "name": "Riftmaker",
+  "nameVi": "Quyền Trượng Ác Thần",
+  "tier": "LEGENDARY",
+  "cost": 3100,
+  "from": [
+   "HAUNTING_GUISE",
+   "FIENDISH_CODEX"
+  ],
+  "stats": {
+   "ap": 70,
+   "hp": 350,
+   "ah": 15
+  },
+  "tags": {},
+  "passive": "Tha Hóa Hư Không: Mỗi giây trong giao tranh với tướng địch, gây thêm 2% sát thương, tối đa 8%. Ở mức sức mạnh tối đa, nhận thêm Hút Máu Toàn Phần. | Dung Hợp Hư Không: Chuyển hóa 2% Máu cộng thêm thành Sức Mạnh Phép Thuật.",
+  "icon": "4633"
+ },
+ "BANDLEGLASS_MIRROR": {
+  "id": "BANDLEGLASS_MIRROR",
+  "name": "Bandleglass Mirror",
+  "nameVi": "Gương Thần Bandle",
+  "tier": "EPIC",
+  "cost": 900,
+  "from": [
+   "FAERIE_CHARM",
+   "AMPLIFYING_TOME",
+   "GLOWING_MOTE"
+  ],
+  "stats": {
+   "ap": 20,
+   "ah": 10
+  },
+  "tags": {},
+  "icon": "4642"
+ },
+ "SHADOWFLAME": {
+  "id": "SHADOWFLAME",
+  "name": "Shadowflame",
+  "nameVi": "Ngọn Lửa Hắc Hóa",
+  "tier": "LEGENDARY",
+  "cost": 3200,
+  "from": [
+   "HEXTECH_ALTERNATOR",
+   "NEEDLESSLY_LARGE_ROD"
+  ],
+  "stats": {
+   "ap": 110,
+   "magicPen": 15
+  },
+  "tags": {
+   "EXECUTE_BONUS": 0.2
+  },
+  "passive": "Lửa Hắc Ám: Sát thương phép và sát thương chuẩn sẽ Chí Mạng lên những kẻ địch dưới 40% Máu, gây thêm 20% sát thương.",
+  "icon": "4645"
+ },
+ "STORMSURGE": {
+  "id": "STORMSURGE",
+  "name": "Stormsurge",
+  "nameVi": "Quyền Trượng Bão Tố",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "HEXTECH_ALTERNATOR",
+   "AETHER_WISP"
+  ],
+  "stats": {
+   "ap": 90,
+   "msPct": 6,
+   "magicPen": 15
+  },
+  "tags": {},
+  "passive": "Đột Kích Bão Tố: Gây sát thương bằng 25% Máu tối đa của một tướng trong vòng 2.5 giây sẽ gây hiệu ứng | Gió Giật: lên chúng. | Gió Giật: Sau 2 giây, gây sát thương phép. Nếu mục tiêu bị tiêu diệt trước khi | Gió Giật: kích hoạt, gây sát thương lên những kẻ địch ở gần.",
+  "icon": "4646"
+ },
+ "DEATHS_DANCE": {
+  "id": "DEATHS_DANCE",
+  "name": "Death's Dance",
+  "nameVi": "Vũ Điệu Tử Thần",
+  "tier": "LEGENDARY",
+  "cost": 3300,
+  "from": [
+   "STEEL_SIGIL",
+   "PICKAXE",
+   "CAULFIELDS"
+  ],
+  "stats": {
+   "ad": 60,
+   "armor": 50,
+   "ah": 15
+  },
+  "tags": {
+   "DAMAGE_DELAY": 0.3
+  },
+  "passive": "Chịu Đòn: Một phần sát thương nhận vào sẽ trở thành sát thương theo thời gian trong 3 giây. | Thách Thức: Khi một tướng nhận sát thương từ bạn trong vòng 3 giây bị hạ gục, xóa toàn bộ sát thương đang tích trữ của | Chịu Đòn: và hồi lại Máu trong 2 giây.",
+  "icon": "6333"
+ },
+ "CHEMPUNK_CHAINSWORD": {
+  "id": "CHEMPUNK_CHAINSWORD",
+  "name": "Chempunk Chainsword",
+  "nameVi": "Cưa Xích Hóa Kỹ",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "EXECUTIONERS_CALLING",
+   "GIANTS_BELT",
+   "CAULFIELDS"
+  ],
+  "stats": {
+   "ad": 45,
+   "hp": 450,
+   "ah": 15
+  },
+  "tags": {
+   "GRIEVOUS": 1
+  },
+  "passive": "Xích Cưa Sắc Nhọn: Gây sát thương vật lý sẽ khiến tướng địch chịu 40% Vết Thương Sâu trong 3 giây.",
+  "icon": "6609"
+ },
+ "SUNDERED_SKY": {
+  "id": "SUNDERED_SKY",
+  "name": "Sundered Sky",
+  "nameVi": "Giáo Thiên Ly",
+  "tier": "LEGENDARY",
+  "cost": 3100,
+  "from": [
+   "TUNNELER",
+   "CAULFIELDS"
+  ],
+  "stats": {
+   "ad": 40,
+   "hp": 400,
+   "ah": 10
+  },
+  "tags": {
+   "LIFELINE": 0.1
+  },
+  "passive": "Đòn Thánh Khiên: Đòn Đánh đầu tiên lên tướng địch sẽ Chí Mạng và hồi lại Máu.",
+  "icon": "6610"
+ },
+ "STAFF_OF_FLOWING_WATER": {
+  "id": "STAFF_OF_FLOWING_WATER",
+  "name": "Staff of Flowing Water",
+  "nameVi": "Trượng Lưu Thủy",
+  "tier": "LEGENDARY",
+  "cost": 2250,
+  "from": [
+   "FIENDISH_CODEX",
+   "FORBIDDEN_IDOL"
+  ],
+  "stats": {
+   "ap": 35,
+   "ah": 10,
+   "hsp": 10
+  },
+  "tags": {},
+  "passive": "Nước Sủi Bọt: Hồi Máu và Tạo Lá Chắn cho đồng minh sẽ cho cả hai 40 Sức Mạnh Phép Thuật và 15 Điểm Hồi Kỹ Năng trong 6 giây.",
+  "icon": "6616"
+ },
+ "MOONSTONE_RENEWER": {
+  "id": "MOONSTONE_RENEWER",
+  "name": "Moonstone Renewer",
+  "nameVi": "Bùa Nguyệt Thạch",
+  "tier": "LEGENDARY",
+  "cost": 2200,
+  "from": [
+   "KINDLEGEM",
+   "BANDLEGLASS_MIRROR"
+  ],
+  "stats": {
+   "ap": 25,
+   "hp": 200,
+   "ah": 20
+  },
+  "tags": {
+   "TEAM_HEAL": 1
+  },
+  "passive": "Ánh Sao Yêu Kiều: Hồi máu hoặc tạo lá chắn cho một đồng minh sẽ truyền hiệu ứng sang một tướng đồng minh khác (trừ chính bản thân), giúp hồi máu bằng 30% hoặc tạo lá chắn bằng 35% lượng ban đầu.",
+  "icon": "6617"
+ },
+ "ECHOES_OF_HELIA": {
+  "id": "ECHOES_OF_HELIA",
+  "name": "Echoes of Helia",
+  "nameVi": "Vọng Âm Helia",
+  "tier": "LEGENDARY",
+  "cost": 2200,
+  "from": [
+   "KINDLEGEM",
+   "BANDLEGLASS_MIRROR"
+  ],
+  "stats": {
+   "ap": 35,
+   "hp": 200,
+   "ah": 20
+  },
+  "tags": {
+   "TEAM_HEAL": 1
+  },
+  "passive": "Lực Hút Tâm Linh: Nhận 30% sát thương trước giảm trừ đã gây ra lên tướng dưới dạng Linh Lực. Hồi Máu hoặc Tạo Lá Chắn cho một đồng minh sẽ tiêu hao toàn bộ | Linh Lực: để hồi lại Máu.",
+  "icon": "6620"
+ },
+ "DAWNCORE": {
+  "id": "DAWNCORE",
+  "name": "Dawncore",
+  "nameVi": "Lõi Bình Minh",
+  "tier": "LEGENDARY",
+  "cost": 2500,
+  "from": [
+   "BLASTING_WAND",
+   "FORBIDDEN_IDOL",
+   "FORBIDDEN_IDOL"
+  ],
+  "stats": {
+   "ap": 45,
+   "hsp": 16
+  },
+  "tags": {},
+  "passive": "Nhất Quang: Tăng 2% Sức Mạnh Hồi Máu & Tạo Lá Chắn và 15 Sức Mạnh Phép Thuật với mỗi 100% Hồi Năng Lượng Cơ Bản.",
+  "icon": "6621"
+ },
+ "STRIDEBREAKER": {
+  "id": "STRIDEBREAKER",
+  "name": "Stridebreaker",
+  "nameVi": "Chùy Phản Kích",
+  "tier": "LEGENDARY",
+  "cost": 3300,
+  "from": [
+   "TIAMAT",
+   "PHAGE",
+   "DAGGER"
+  ],
+  "stats": {
+   "ad": 40,
+   "hp": 450,
+   "as": 25
+  },
+  "tags": {
+   "CLEAVE": 0.3
+  },
+  "passive": "Sát Thương Lan: Đòn đánh gây sát thương vật lý lên kẻ địch ở gần.",
+  "icon": "6631"
+ },
+ "LIANDRYS": {
+  "id": "LIANDRYS",
+  "name": "Liandry's Torment",
+  "nameVi": "Mặt Nạ Đọa Đày Liandry",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "HAUNTING_GUISE",
+   "FATED_ASHES"
+  ],
+  "stats": {
+   "ap": 60,
+   "hp": 300
+  },
+  "tags": {
+   "BURN_SPELL": 0.02
+  },
+  "passive": "Đọa Đày: Kỹ Năng gây sát thương sẽ thiêu đốt kẻ địch, gây sát thương phép tương đương 2% Máu tối đa mỗi giây trong 3 giây. | Thống Khổ: Mỗi giây trong giao tranh với tướng địch, gây thêm 2% sát thương, tối đa 6%.",
+  "icon": "6653"
+ },
+ "LUDENS": {
+  "id": "LUDENS",
+  "name": "Luden's Echo",
+  "nameVi": "Vọng Âm Luden",
+  "tier": "LEGENDARY",
+  "cost": 2750,
+  "from": [
+   "LOST_CHAPTER",
+   "HEXTECH_ALTERNATOR"
+  ],
+  "stats": {
+   "ap": 100,
+   "ah": 10,
+   "mana": 600
+  },
+  "tags": {},
+  "passive": "Vọng Âm: Các Kỹ Năng gây sát thương sẽ phóng ra 6 Vọng Âm, gây thêm sát thương phép lên mục tiêu và các kẻ địch gần bên. Mỗi Vọng Âm còn lại khai hỏa lên mục tiêu chính, gây 20% sát thương.",
+  "icon": "6655"
+ },
+ "ROD_OF_AGES": {
+  "id": "ROD_OF_AGES",
+  "name": "Rod of Ages",
+  "nameVi": "Trượng Trường Sinh",
+  "tier": "LEGENDARY",
+  "cost": 2600,
+  "from": [
+   "BLASTING_WAND",
+   "CATALYST"
+  ],
+  "stats": {
+   "ap": 45,
+   "hp": 350,
+   "mana": 500
+  },
+  "tags": {},
+  "passive": "Vô Tận: Trang bị này cho thêm 10 Máu, 30 Năng Lượng và 3 Sức Mạnh Phép Thuật sau mỗi 60 giây, tối đa 10 lần. Khi đạt cộng dồn tối đa, tăng 1 cấp. | Vĩnh Hằng: Nhận sát thương từ tướng sẽ hồi lại Năng Lượng tương đương 10% sát thương.\nDùng kỹ năng sẽ hồi máu tương đương 25% Năng Lượng đã dùng.",
+  "icon": "6657"
+ },
+ "BAMIS_CINDER": {
+  "id": "BAMIS_CINDER",
+  "name": "Bami's Cinder",
+  "nameVi": "Tàn Tích Bami",
+  "tier": "EPIC",
+  "cost": 900,
+  "from": [
+   "RUBY_CRYSTAL",
+   "GLOWING_MOTE"
+  ],
+  "stats": {
+   "hp": 150,
+   "ah": 5
+  },
+  "tags": {
+   "BURN_AURA": 12
+  },
+  "passive": "Hiến Tế: Sau khi nhận hoặc gây sát thương, gây sát thương phép lên kẻ địch ở gần trong 3 giây.",
+  "icon": "6660"
+ },
+ "ICEBORN_GAUNTLET": {
+  "id": "ICEBORN_GAUNTLET",
+  "name": "Iceborn Gauntlet",
+  "nameVi": "Găng Tay Băng Giá",
+  "tier": "LEGENDARY",
+  "cost": 2900,
+  "from": [
+   "SHEEN",
+   "RUBY_CRYSTAL",
+   "CHAIN_VEST"
+  ],
+  "stats": {
+   "hp": 300,
+   "armor": 50,
+   "ah": 15
+  },
+  "tags": {
+   "SPELLBLADE": 0.6,
+   "SLOW": 1
+  },
+  "passive": "Kiếm Phép: Sau khi sử dụng Kỹ Năng, Đòn Đánh kế tiếp sẽ gây sát thương vật lý cộng thêm Khi Đánh Trúng và tạo ra một vùng đóng băng trong 2 giây, gây Làm Chậm.",
+  "icon": "6662"
+ },
+ "HOLLOW_RADIANCE": {
+  "id": "HOLLOW_RADIANCE",
+  "name": "Hollow Radiance",
+  "nameVi": "Áo Choàng Hắc Quang",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "BAMIS_CINDER",
+   "SPECTRES_COWL"
+  ],
+  "stats": {
+   "hp": 400,
+   "mr": 40,
+   "ah": 10
+  },
+  "tags": {
+   "BURN_AURA": 25
+  },
+  "passive": "Hiến Tế: Sau khi nhận hoặc gây sát thương, gây sát thương phép mỗi giây lên kẻ địch ở gần trong 3 giây. | Tàn Phá: Tiêu diệt một kẻ địch sẽ gây sát thương phép ra xung quanh chúng.",
+  "icon": "6664"
+ },
+ "JAKSHO": {
+  "id": "JAKSHO",
+  "name": "Jak'Sho the Protean",
+  "nameVi": "Jak'Sho, Vỏ Bọc Thích Nghi",
+  "tier": "LEGENDARY",
+  "cost": 3200,
+  "from": [
+   "GIANTS_BELT",
+   "CHAIN_VEST",
+   "NEGATRON_CLOAK"
+  ],
+  "stats": {
+   "hp": 350,
+   "armor": 45,
+   "mr": 45
+  },
+  "tags": {},
+  "passive": "Vỏ Bọc Hư Không: Sau 5 giây giao tranh với tướng, tăng Giáp và Kháng Phép cộng thêm của bạn thêm 30% cho đến khi kết thúc giao tranh.",
+  "icon": "6665"
+ },
+ "NOONQUIVER": {
+  "id": "NOONQUIVER",
+  "name": "Noonquiver",
+  "nameVi": "Bó Tên Ánh Sáng",
+  "tier": "EPIC",
+  "cost": 1300,
+  "from": [
+   "LONG_SWORD",
+   "CLOAK_OF_AGILITY"
+  ],
+  "stats": {
+   "ad": 15,
+   "crit": 20
+  },
+  "tags": {},
+  "icon": "6670"
+ },
+ "KRAKEN_SLAYER": {
+  "id": "KRAKEN_SLAYER",
+  "name": "Kraken Slayer",
+  "nameVi": "Móc Diệt Thủy Quái",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "RECTRIX",
+   "HEARTHBOUND_AXE",
+   "RECURVE_BOW"
+  ],
+  "stats": {
+   "ad": 45,
+   "as": 40,
+   "msPct": 4
+  },
+  "tags": {
+   "ONHIT": 30
+  },
+  "passive": "Bắn Hạ: Mỗi Đòn Đánh thứ ba sẽ gây sát thương vật lý cộng thêm Khi Đánh Trúng, gia tăng theo Máu đã mất của chúng.",
+  "icon": "6672"
+ },
+ "IMMORTAL_SHIELDBOW": {
+  "id": "IMMORTAL_SHIELDBOW",
+  "name": "Immortal Shieldbow",
+  "nameVi": "Nỏ Tử Thủ",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "PICKAXE",
+   "NOONQUIVER"
+  ],
+  "stats": {
+   "ad": 55,
+   "crit": 25
+  },
+  "tags": {
+   "LIFELINE": 0.25
+  },
+  "passive": "Bảo Hiểm Ma Pháp: Khi nhận sát thương khiến Máu tụt xuống dưới 30%, nhận Lá Chắn trong 3 giây.",
+  "icon": "6673"
+ },
+ "NAVORI": {
+  "id": "NAVORI",
+  "name": "Navori Flickerblade",
+  "nameVi": "Đao Chớp Navori",
+  "tier": "LEGENDARY",
+  "cost": 2650,
+  "from": [
+   "DAGGER",
+   "ZEAL",
+   "DAGGER"
+  ],
+  "stats": {
+   "as": 40,
+   "crit": 25,
+   "msPct": 4
+  },
+  "tags": {
+   "HASTE_ON_HIT": 1
+  },
+  "passive": "Thăng Tiến Sức Mạnh: Đòn Đánh giảm thời gian hồi chiêu còn lại của Kỹ Năng Cơ Bản đi 15%.",
+  "icon": "6675"
+ },
+ "THE_COLLECTOR": {
+  "id": "THE_COLLECTOR",
+  "name": "The Collector",
+  "nameVi": "Súng Hải Tặc",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "PICKAXE",
+   "SERRATED_DIRK",
+   "CLOAK_OF_AGILITY"
+  ],
+  "stats": {
+   "ad": 50,
+   "crit": 25,
+   "lethality": 10
+  },
+  "tags": {
+   "EXECUTE": 0.05
+  },
+  "passive": "Về Với Cát Bụi: Gây sát thương sẽ kết liễu tướng dưới ngưỡng 5% Máu. | Lợi Tức: Hạ gục tướng sẽ cho 25 vàng cộng thêm.",
+  "icon": "6676"
+ },
+ "RECTRIX": {
+  "id": "RECTRIX",
+  "name": "Rectrix",
+  "nameVi": "Lông Đuôi",
+  "tier": "EPIC",
+  "cost": 775,
+  "from": [
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 15,
+   "msPct": 4
+  },
+  "tags": {},
+  "icon": "6690"
+ },
+ "ECLIPSE": {
+  "id": "ECLIPSE",
+  "name": "Eclipse",
+  "nameVi": "Nguyệt Đao",
+  "tier": "LEGENDARY",
+  "cost": 2900,
+  "from": [
+   "CAULFIELDS",
+   "PICKAXE",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 60,
+   "ah": 15
+  },
+  "tags": {
+   "LIFELINE": 0.12
+  },
+  "passive": "Ánh Trăng Công Kích: Tấn công tướng địch bằng 2 Đòn Đánh hoặc Kỹ Năng riêng biệt trong 2 giây sẽ cho bạn Lá Chắn trong 2 giây.",
+  "icon": "6692"
+ },
+ "SERYLDAS_GRUDGE": {
+  "id": "SERYLDAS_GRUDGE",
+  "name": "Serylda's Grudge",
+  "nameVi": "Thương Phục Hận Serylda",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "CAULFIELDS",
+   "LAST_WHISPER"
+  ],
+  "stats": {
+   "ad": 45,
+   "ah": 15,
+   "armorPen": 35
+  },
+  "tags": {
+   "SLOW": 1
+  },
+  "passive": "Giá Lạnh: Kỹ năng gây sát thương sẽ Làm Chậm kẻ địch còn dưới 50% Máu đi 30% trong 1 giây.",
+  "icon": "6694"
+ },
+ "SERPENTS_FANG": {
+  "id": "SERPENTS_FANG",
+  "name": "Serpent's Fang",
+  "nameVi": "Kiếm Ác Xà",
+  "tier": "LEGENDARY",
+  "cost": 2500,
+  "from": [
+   "SERRATED_DIRK",
+   "PICKAXE"
+  ],
+  "stats": {
+   "ad": 55,
+   "lethality": 15
+  },
+  "tags": {},
+  "passive": "Phá Khiên: Gây sát thương lên một tướng địch sẽ làm giảm lượng Lá Chắn chúng nhận được đi 0% trong 3 giây.\nNếu chúng chưa bị tác động bởi | Phá Khiên: , giảm tất cả lá chắn hiện có của chúng đi 0%.",
+  "icon": "6695"
+ },
+ "AXIOM_ARC": {
+  "id": "AXIOM_ARC",
+  "name": "Axiom Arc",
+  "nameVi": "Nguyên Tố Luân",
+  "tier": "LEGENDARY",
+  "cost": 2750,
+  "from": [
+   "THE_BRUTALIZER",
+   "CAULFIELDS"
+  ],
+  "stats": {
+   "ad": 55,
+   "ah": 20,
+   "lethality": 18
+  },
+  "tags": {},
+  "passive": "Tái Thiết: Khi một tướng bị hạ gục trong vòng 3 giây sau khi nhận sát thương từ bạn, hồi lại một phần tổng thời gian hồi Chiêu Cuối.",
+  "icon": "6696"
+ },
+ "HUBRIS": {
+  "id": "HUBRIS",
+  "name": "Hubris",
+  "nameVi": "Nguyệt Quế Cao Ngạo",
+  "tier": "LEGENDARY",
+  "cost": 2800,
+  "from": [
+   "SERRATED_DIRK",
+   "CAULFIELDS"
+  ],
+  "stats": {
+   "ad": 55,
+   "ah": 10,
+   "lethality": 18
+  },
+  "tags": {},
+  "passive": "Nổi Tiếng: Khi một tướng đã bị bạn gây sát thương lên trong vòng 3 giây bị hạ gục, nhận 0 Sức Mạnh Công Kích cộng 0 với mỗi tướng địch bị hạ gục trong 90 giây.",
+  "icon": "6697"
+ },
+ "PROFANE_HYDRA": {
+  "id": "PROFANE_HYDRA",
+  "name": "Profane Hydra",
+  "nameVi": "Mãng Xà Kích",
+  "tier": "LEGENDARY",
+  "cost": 2850,
+  "from": [
+   "TIAMAT",
+   "THE_BRUTALIZER"
+  ],
+  "stats": {
+   "ad": 55,
+   "ah": 10,
+   "lethality": 18
+  },
+  "tags": {
+   "CLEAVE": 0.35
+  },
+  "passive": "Sát Thương Lan: Đòn đánh gây sát thương vật lý lên kẻ địch ở gần.",
+  "icon": "6698"
+ },
+ "VOLTAIC_CYCLOSWORD": {
+  "id": "VOLTAIC_CYCLOSWORD",
+  "name": "Voltaic Cyclosword",
+  "nameVi": "Kiếm Điện Phong",
+  "tier": "LEGENDARY",
+  "cost": 3000,
+  "from": [
+   "THE_BRUTALIZER",
+   "LONG_SWORD",
+   "LONG_SWORD"
+  ],
+  "stats": {
+   "ad": 55,
+   "ah": 10,
+   "lethality": 10
+  },
+  "tags": {},
+  "passive": "Kích Điện: Gây sát thương lên Tướng địch bằng một kỹ năng sẽ kích hoạt Tích Điện nếu hiệu ứng này đã sẵn sàng. | Thiên Đường: Đòn Đánh Tích Điện của bạn gây sát thương vật lý cộng thêm tương đương % Máu hiện tại của mục tiêu và cho bạn thêm Sát Lực trong 4 giây.",
+  "icon": "6699"
+ },
+ "BLOODLETTERS_CURSE": {
+  "id": "BLOODLETTERS_CURSE",
+  "name": "Bloodletter's Curse",
+  "nameVi": "Lời Nguyền Huyết Tự",
+  "tier": "LEGENDARY",
+  "cost": 2900,
+  "from": [
+   "HAUNTING_GUISE",
+   "FIENDISH_CODEX"
+  ],
+  "stats": {
+   "ap": 65,
+   "hp": 400,
+   "ah": 15
+  },
+  "tags": {
+   "MR_SHRED": 1
+  },
+  "passive": "Mục Rữa Đáng Sợ: Gây sát thương phép bằng kỹ năng hoặc nội tại lên tướng sẽ giảm Kháng Phép của kẻ đó đi 7.5% trong 6 giây. (Cộng dồn 4 lần).",
+  "icon": "8010"
+ },
+ "ABYSSAL_MASK": {
+  "id": "ABYSSAL_MASK",
+  "name": "Abyssal Mask",
+  "nameVi": "Mặt Nạ Vực Thẳm",
+  "tier": "LEGENDARY",
+  "cost": 2650,
+  "from": [
+   "KINDLEGEM",
+   "NEGATRON_CLOAK"
+  ],
+  "stats": {
+   "hp": 350,
+   "mr": 45,
+   "ah": 15
+  },
+  "tags": {
+   "MR_SHRED": 1
+  },
+  "passive": "Hủy Hoại: Tướng địch xung quanh sẽ chịu thêm 12% sát thương phép.",
+  "icon": "8020"
+ }
+}

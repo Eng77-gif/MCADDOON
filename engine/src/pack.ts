@@ -3,6 +3,7 @@
 import { ROLES, type Champion, type League, type Player, type PlayerAttributes, type Role, type Team, type Tier } from "./types.ts";
 import type { ChampionDb } from "./draft.ts";
 import { monthlySalary } from "./economy.ts";
+import { type ItemDb, type ItemStats, type ItemTier } from "./items.ts";
 
 /** Năm của dữ liệu gốc: tuổi, hợp đồng được tính từ đây */
 export const PACK_YEAR = 2026;
@@ -14,6 +15,8 @@ export interface PackCsv {
   leagues: string;
   teams: string;
   players: string;
+  /** Trang bị (tuỳ chọn) */
+  items?: string;
 }
 
 export interface Pack {
@@ -21,6 +24,7 @@ export interface Pack {
   champions: ChampionDb;
   leagues: League[];
   teams: Team[];
+  items?: ItemDb;
   warnings: string[];
 }
 
@@ -125,6 +129,37 @@ const PALETTE: [string, string][] = [
 ];
 const teamColors = (id: string): [string, string] => PALETTE[Math.floor(hash(`${id}:color`) * PALETTE.length)];
 
+/** Cột CSV (snake_case) => khoá chỉ số */
+const STAT_COLS: Record<string, keyof ItemStats> = {
+  ad: "ad", ap: "ap", hp: "hp", armor: "armor", mr: "mr", as: "as", crit: "crit", ah: "ah", ms: "ms", ms_pct: "msPct",
+  lethality: "lethality", armor_pen: "armorPen", magic_pen: "magicPen", magic_pen_pct: "magicPenPct",
+  lifesteal: "lifesteal", omnivamp: "omnivamp", mana: "mana", hsp: "hsp",
+};
+
+export function buildItems(csv: string, warnings: string[]): ItemDb {
+  const db: ItemDb = {};
+  for (const r of parseCsv(csv)) {
+    const stats: Partial<ItemStats> = {};
+    for (const [col, key] of Object.entries(STAT_COLS)) if (r[col]) stats[key] = Number(r[col]);
+    const tags: Record<string, number> = {};
+    for (const t of (r.tags ?? "").split(";").filter(Boolean)) {
+      const [k, v] = t.split(":");
+      tags[k] = v ? Number(v) : 1;
+    }
+    db[r.id] = {
+      id: r.id, name: r.name, ...(r.name_vi ? { nameVi: r.name_vi } : {}), tier: r.tier as ItemTier, cost: Number(r.cost),
+      from: (r.from ?? "").split(";").filter(Boolean), stats, tags, ...(r.passive ? { passive: r.passive } : {}),
+      ...(r.icon ? { icon: r.icon } : {}),
+    };
+  }
+  for (const it of Object.values(db)) {
+    for (const c of it.from) if (!db[c]) warnings.push(`Trang bị ${it.id}: nguyên liệu ${c} không tồn tại`);
+    const sum = it.from.reduce((s, c) => s + (db[c]?.cost ?? 0), 0);
+    if (sum > it.cost) warnings.push(`Trang bị ${it.id}: giá ${it.cost} thấp hơn tổng nguyên liệu ${sum}`);
+  }
+  return db;
+}
+
 export function buildPack(csv: PackCsv, patch: string): Pack {
   const warnings: string[] = [];
   const champions = buildChampions(csv, patch);
@@ -173,5 +208,6 @@ export function buildPack(csv: PackCsv, patch: string): Pack {
   for (const t of teams.values())
     for (const role of ROLES) if (!t.roster[role]) warnings.push(`Đội ${t.id}: thiếu tuyển thủ vị trí ${role}`);
 
-  return { patch, champions, leagues, teams: [...teams.values()], warnings };
+  const items = csv.items ? buildItems(csv.items, warnings) : undefined;
+  return { patch, champions, leagues, teams: [...teams.values()], ...(items ? { items } : {}), warnings };
 }

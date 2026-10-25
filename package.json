@@ -9,6 +9,7 @@
     "demo": "node engine/demo.ts",
     "balance": "node engine/balance.ts",
     "live-balance": "node engine/live-balance.ts",
+    "import-items": "node engine/tools/import-lol-items.ts",
     "import-pack": "node engine/tools/import-pack.ts",
     "portraits": "node engine/tools/pixellab/portraits.ts"
   },

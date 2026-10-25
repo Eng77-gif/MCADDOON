@@ -61,6 +61,8 @@ export interface PlayerLine {
   damage: number;
   csAt15: number;
   goldAt15: number;
+  /** Túi đồ cuối trận (mã trang bị), chỉ có ở trận mô phỏng thời gian thực */
+  items?: string[];
 }
 
 export type MatchEvent =

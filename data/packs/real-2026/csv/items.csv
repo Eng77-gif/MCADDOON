@@ -1,0 +1,236 @@
+id,name,name_vi,tier,cost,from,ad,ap,hp,armor,mr,as,crit,ah,ms,ms_pct,lethality,armor_pen,magic_pen,magic_pen_pct,lifesteal,omnivamp,mana,hsp,tags,passive,icon
+BOOTS,Boots,Giày,BOOTS,300,,,,,,,,,,25,,,,,,,,,,,Tăng một ít Tốc độ Di chuyển,1001
+FAERIE_CHARM,Faerie Charm,Bùa Tiên,BASIC,200,,,,,,,,,,,,,,,,,,,,,Tăng một ít tốc độ hồi Năng lượng,1004
+REJUVENATION_BEAD,Rejuvenation Bead,Ngọc Lục Bảo,BASIC,300,,,,,,,,,,,,,,,,,,,,,Tăng một ít tốc độ hồi Máu,1006
+GIANTS_BELT,Giant's Belt,Đai Khổng Lồ,EPIC,900,RUBY_CRYSTAL,,,350,,,,,,,,,,,,,,,,,Tăng nhiều Máu,1011
+CLOAK_OF_AGILITY,Cloak of Agility,Áo Choàng Tím,BASIC,600,,,,,,,,15,,,,,,,,,,,,,Tăng tỷ lệ chí mạng,1018
+BLASTING_WAND,Blasting Wand,Gậy Bùng Nổ,BASIC,850,,,45,,,,,,,,,,,,,,,,,,Tăng khá nhiều Sức mạnh Phép thuật,1026
+SAPPHIRE_CRYSTAL,Sapphire Crystal,Lam Ngọc,BASIC,300,,,,,,,,,,,,,,,,,,300,,,Tăng Năng lượng,1027
+RUBY_CRYSTAL,Ruby Crystal,Hồng Ngọc,BASIC,400,,,,150,,,,,,,,,,,,,,,,,Tăng Máu,1028
+CLOTH_ARMOR,Cloth Armor,Giáp Lụa,BASIC,300,,,,,15,,,,,,,,,,,,,,,,Tăng một ít Giáp,1029
+CHAIN_VEST,Chain Vest,Giáp Lưới,EPIC,800,CLOTH_ARMOR,,,,40,,,,,,,,,,,,,,,,Tăng nhiều Giáp,1031
+NULL_MAGIC_MANTLE,Null-Magic Mantle,Áo Vải,BASIC,400,,,,,,20,,,,,,,,,,,,,,,Tăng một ít Kháng phép,1033
+LONG_SWORD,Long Sword,Kiếm Dài,BASIC,350,,10,,,,,,,,,,,,,,,,,,,Tăng một ít Sức mạnh Công kích,1036
+PICKAXE,Pickaxe,Cuốc Chim,BASIC,875,,25,,,,,,,,,,,,,,,,,,,Tăng khá nhiều Sức mạnh Công kích,1037
+BF_SWORD,B. F. Sword,Kiếm B.F.,BASIC,1300,,40,,,,,,,,,,,,,,,,,,,Tăng nhiều Sát thương Vật lý,1038
+DAGGER,Dagger,Dao Găm,BASIC,250,,,,,,,10,,,,,,,,,,,,,,Tăng một ít Tốc độ Đánh,1042
+RECURVE_BOW,Recurve Bow,Cung Gỗ,EPIC,700,DAGGER,,,,,,15,,,,,,,,,,,,,ONHIT:15,Đau Nhói: Đòn đánh gây thêm 15 sát thương vật lý Khi Đánh Trúng.,1043
+AMPLIFYING_TOME,Amplifying Tome,Sách Cũ,BASIC,400,,,20,,,,,,,,,,,,,,,,,,Tăng một ít Sức mạnh Phép thuật,1052
+VAMPIRIC_SCEPTER,Vampiric Scepter,Huyết Trượng,EPIC,900,LONG_SWORD,15,,,,,,,,,,,,,,7,,,,,Đòn đánh thường sẽ giúp hồi lại Máu,1053
+DORANS_SHIELD,Doran's Shield,Khiên Doran,STARTER,450,,,,110,,,,,,,,,,,,,,,,REGEN,"Tập Trung Cao Độ: Hồi lại 4 Máu sau mỗi 5 giây.
+Sau khi nhận sát thương từ tướng, hồi Máu trong vòng 8 giây. | Giúp Một Tay: Đòn đánh gây thêm 5 sát thương vật lý lên lính.",1054
+DORANS_BLADE,Doran's Blade,Kiếm Doran,STARTER,450,,10,,80,,,,,,,,,,,,,2.5,,,,Trang bị khởi đầu tốt cho tướng sử dụng đòn đánh nhiều,1055
+DORANS_RING,Doran's Ring,Nhẫn Doran,STARTER,400,,,18,90,,,,,,,,,,,,,,,,,"Hút Năng Lượng: Hồi 1 Năng Lượng mỗi giây, tăng lên 2 Năng Lượng mỗi giây trong 5 giây sau khi gây sát thương lên một tướng địch. Nếu bạn không thể nhận Năng Lượng, thay vào đó, hồi Máu bằng 45% giá trị này. | Giúp Một Tay: Đòn đánh gây thêm 5 sát thương vật lý lên lính.",1056
+NEGATRON_CLOAK,Negatron Cloak,Áo Choàng Bạc,EPIC,850,NULL_MAGIC_MANTLE,,,,,45,,,,,,,,,,,,,,,Tăng khá nhiều Kháng phép,1057
+NEEDLESSLY_LARGE_ROD,Needlessly Large Rod,Gậy Quá Khổ,BASIC,1200,,,65,,,,,,,,,,,,,,,,,,Tăng nhiều Sức mạnh Phép thuật,1058
+DARK_SEAL,Dark Seal,Phong Ấn Hắc Ám,STARTER,350,,,15,50,,,,,,,,,,,,,,,,,"Vinh Quang: Tham gia hạ gục sẽ cho điểm | Vinh Quang: , tối đa 10 cộng dồn. Mất 5 cộng dồn | Vinh Quang: khi hy sinh.
+Nhận 4 Sức Mạnh Phép Thuật với mỗi điểm | Vinh Quang: .",1082
+CULL,Cull,Lưỡi Hái,STARTER,450,,7,,,,,,,,,,,,,,,,,,,"Gặt: Hồi lại 3 Máu Khi Đánh Trúng.
+Tiêu diệt lính sẽ cho 1 vàng, tối đa 100. Nhận thêm 350 vàng khi đạt tới giới hạn tối đa.",1083
+DORANS_BOW,Doran's Bow,Cung Doran,STARTER,400,,8,,,,,15,,,,,,,,,,1.5,,,,,1086
+SCORCHCLAW,Scorchclaw Pup,Linh Hồn Hỏa Khuyển,STARTER,450,,,,,,,,,,,,,,,,,,,,JUNGLE,"Tinh Linh Rừng Thẳm: Triệu hồi một Hỏa Khuyển để giúp đỡ bạn khi đánh quái.
+Tinh linh sẽ trưởng thành trong quá trình săn quái, giúp cường hóa Trừng Phạt của bạn. Khi trưởng thành hoàn toàn, nó sẽ hoàn thành Nhiệm Vụ Đi Rừng của bạn, đồng thời định kỳ cường hóa Đòn Đánh hoặc Kỹ Năng tiếp theo của bạn, thiêu đốt và Làm Chậm kẻ địch. Tiêu diệt quái to sẽ lập tức làm mới hiệu ứng này.",1101
+GUSTWALKER,Gustwalker Hatchling,Linh Hồn Phong Hồ,STARTER,450,,,,,,,,,,,,,,,,,,,,JUNGLE,"Tinh Linh Rừng Thẳm: Triệu hồi một Phong Hồ để giúp đỡ bạn khi đánh quái.
+Tinh linh sẽ trưởng thành trong quá trình săn quái, giúp cường hóa Trừng Phạt của bạn. Khi trưởng thành hoàn toàn, nó sẽ hoàn thành Nhiệm Vụ Đi Rừng của bạn, đồng thời cho thêm Tốc Độ Di Chuyển khi tiến vào bụi rậm, gia tăng khi tiêu diệt quái to.",1102
+MOSSTOMPER,Mosstomper Seedling,Linh Hồn Mộc Long,STARTER,450,,,,,,,,,,,,,,,,,,,,JUNGLE,"Tinh Linh Rừng Thẳm: Triệu hồi một Mộc Long để giúp đỡ bạn khi đánh quái.
+Tinh linh sẽ trưởng thành trong quá trình săn quái, giúp cường hóa Trừng Phạt của bạn. Khi trưởng thành hoàn toàn, nó sẽ hoàn thành Nhiệm Vụ Đi Rừng của bạn và trao cho bạn một Lá Chắn khi ở ngoài giao tranh & sau khi tiêu diệt quái lớn.",1103
+DORANS_HELM,Doran's Helm,Mũ Doran,STARTER,450,,,,150,8,8,,,,,,,,,,,,,,,Giúp Một Tay: Đòn đánh gây thêm 5 sát thương vật lý lên lính.,1120
+STEEL_SIGIL,Steel Sigil,Ấn Thép,EPIC,1100,CLOTH_ARMOR;LONG_SWORD;CLOTH_ARMOR,15,,,30,,,,,,,,,,,,,,,,,2019
+THE_BRUTALIZER,The Brutalizer,Gậy Hung Ác,EPIC,1337,GLOWING_MOTE;PICKAXE,25,,,,,,,10,,,5,,,,,,,,,,2020
+TUNNELER,Tunneler,Mũi Khoan,EPIC,1150,LONG_SWORD;RUBY_CRYSTAL,15,,250,,,,,,,,,,,,,,,,,,2021
+GLOWING_MOTE,Glowing Mote,Bụi Lấp Lánh,BASIC,250,,,,,,,,,5,,,,,,,,,,,,,2022
+GUARDIANS_HORN,Guardian's Horn,Tù Và Vệ Quân,STARTER,950,,,,150,,,,,,,,,,,,,,,,REGEN,Hồi Phục: Hồi lại 20 Máu mỗi 5 giây. | Ngoan Cường: Chặn 15 sát thương từ đòn đánh và kỹ năng của tướng địch (25% hiệu lực với sát thương theo thời gian từ kỹ năng).,2051
+SHURELYAS,Shurelya's Battlesong,Vương Miện Shurelya,LEGENDARY,2200,AETHER_WISP;BANDLEGLASS_MIRROR,,50,,,,,,15,,4,,,,,,,,,,Lời Nói Truyền Lửa: Tăng cho các đồng minh ở gần 30% Tốc Độ Di Chuyển trong 4 giây.,2065
+SEEKERS_ARMGUARD,Seeker's Armguard,Giáp Tay Seeker,EPIC,1600,AMPLIFYING_TOME;CLOTH_ARMOR;AMPLIFYING_TOME,,40,,25,,,,,,,,,,,,,,,,"Ngưng Đọng Thời Gian: (Dùng Một Lần)
+Chuyển sang trạng thái Ngưng Đọng trong 2.5 giây.",2420
+OVERLORDS_BLOODMAIL,Overlord's Bloodmail,Huyết Giáp Chúa Tể,LEGENDARY,3300,TUNNELER;TUNNELER,30,,550,,,,,,,,,,,,,,,,,Bạo Quyền: Nhận Sức Mạnh Công Kích tương đương với 2.5% Máu cộng thêm. | Báo Oán: Nhận tối đa 12% Sức Mạnh Công Kích tăng thêm dựa trên phần trăm Máu đã mất.,2501
+UNENDING_DESPAIR,Unending Despair,Áo Choàng Diệt Vong,LEGENDARY,2800,CHAIN_VEST;KINDLEGEM;RUBY_CRYSTAL,,,400,50,,,,15,,,,,,,,,,,BURN_AURA:15,"Đau Đớn: Sau mỗi 4 giây trong khi giao tranh với tướng, gây sát thương phép lên các tướng địch ở gần, hồi máu bằng 250% sát thương gây ra.",2502
+BLACKFIRE_TORCH,Blackfire Torch,Đuốc Lửa Đen,LEGENDARY,2800,LOST_CHAPTER;FATED_ASHES,,80,,,,,,20,,,,,,,,,600,,BURN_SPELL:0.015,"Ngọn Lửa Xui Rủi: Các Kỹ Năng gây sát thương sẽ gây thêm sát thương phép trong 3 giây. | Lửa Đen: Với mỗi tướng, quái khủng hoặc quái lớn đang trúng hiệu ứng | Ngọn Lửa Xui Rủi: , nhận 4% Sức Mạnh Phép Thuật.",2503
+KAENIC_ROOKERN,Kaenic Rookern,Vòng Sắt Cổ Tự,LEGENDARY,2900,SPECTRES_COWL;NEGATRON_CLOAK,,,400,,80,,,,,,,,,,,,,,SPELLSHIELD,"Chống Pháp Sư: Sau khi không nhận sát thương phép trong 15 giây, nhận một lớp lá chắn phép.",2504
+FATED_ASHES,Fated Ashes,Tro Tàn Định Mệnh,EPIC,900,AMPLIFYING_TOME,,30,,,,,,,,,,,,,,,,,,"Tàn Lửa: Kỹ Năng gây sát thương sẽ gây 15 sát thương phép cộng thêm trong 3 giây.
+Gây thêm 45 sát thương phép lên quái.",2508
+DUSK_AND_DAWN,Dusk and Dawn,Bình Minh & Hoàng Hôn,LEGENDARY,3100,SHEEN;BLASTING_WAND;KINDLEGEM;DAGGER,,60,300,,,20,,20,,,,,,,,,,,SPELLBLADE:0.8,"Kiếm Phép: (0 giây)
+Sau khi dùng Kỹ Năng, Đòn Đánh kế tiếp sẽ gây thêm 0 sát thương phép, đồng thời hồi lại 0 máu cho bạn, Khi Đánh Trúng và áp dụng các hiệu ứng Khi Đánh Trúng một lần nữa.",2510
+FIENDHUNTER_BOLTS,Fiendhunter Bolts,Cung Tiễn Diệt Quỷ,LEGENDARY,2650,ZEAL;SCOUTS_SLINGSHOT,,,,,,45,25,,,4,,,,,,,,,,"Gác Đêm: Nhận 30 Điểm Hồi Chiêu Cuối. | Mưa Đạn Mở Màn: Sau khi thi triển Chiêu Cuối, 3 đòn đánh thường tiếp theo của bạn được tăng 50% Tốc Độ Đánh và chắc chắn Chí Mạng gây 80% sát thương Chí Mạng thông thường của bạn trong 8 giây. Nếu một đòn đánh vốn dĩ sẽ gây Chí Mạng, thay vào đó gây thêm 15% sát thương chuẩn.",2512
+ENDLESS_HUNGER,Endless Hunger,Liềm Xích Huyết Thực,LEGENDARY,3100,CAULFIELDS;PICKAXE;LONG_SWORD,65,,,,,,,,,,,,,,,5,,,TENACITY,"Nạn Đói: Nhận thêm Điểm Hồi Kỹ Năng dựa trên SMCK Cộng Thêm của bạn. | Xơi Tái: Khi một tướng đã nhận sát thương từ bạn gần đây bị hạ gục, bạn được tăng Hút Máu Toàn Phần trong một khoảng thời gian.",2517
+BASTIONBREAKER,Bastionbreaker,Lưỡi Hái Công Phá,LEGENDARY,3000,THE_BRUTALIZER;SERRATED_DIRK,55,,,,,,,15,,,18,,,,,,,,,"Kíp Nổ Định Hình: (0 giây)
+Gây Sát Thương Kỹ Năng lên Tướng hoặc Quái Khủng sẽ gây thêm 0 sát thương chuẩn. | Nứt Vỡ: Tham gia hạ gục tướng trong vòng 3 giây từ khi gây sát thương lên tướng đó sẽ trao hiệu ứng Nứt Vỡ trong 25000 giây. Khi đang có Nứt Vỡ, Đòn Đánh tiếp theo của bạn lên Quái Khủng hoặc Trụ gây thêm 0 sát thương chuẩn trong 3 giây.",2520
+ACTUALIZER,Actualizer,Đồng Hồ Thời Không,LEGENDARY,2800,LOST_CHAPTER;BLASTING_WAND,,90,,,,,,10,,,,,,,,,300,,,"Ma Lực Hiện Hóa: (0 giây)
+Trong 8 giây, năng lượng của bạn được Cường Hóa. Khi được Cường Hóa, các kỹ năng của bạn tiêu hao thêm 100% Năng Lượng, bạn được tăng 0 sát thương Kỹ Năng, Lá Chắn, Hồi Máu và kỹ năng cơ bản sẽ hồi chiêu nhanh hơn 30%.",2522
+HEXOPTICS_C44,Hextech Optics C44,Quang Kính Hextech C44,LEGENDARY,2800,PICKAXE;NOONQUIVER;LONG_SWORD,55,,,,,,25,,,,,,,,,,,,,"Phóng Đại: Gây thêm tối đa 10% sát thương từ Đòn Đánh, dựa trên khoảng cách giữa bạn và kẻ địch (gây sát thương tối đa ở khoảng cách 500). | Xạ Pháp Thuật: Khi một tướng đã nhận sát thương từ bạn trong vòng 3 giây bị hạ gục, bạn được tăng 100 tầm đánh trong 8 giây.",2523
+BANDLEPIPES,Bandlepipes,Kèn Túi Bandle,LEGENDARY,2300,KINDLEGEM;CLOTH_ARMOR;NULL_MAGIC_MANTLE,,,200,20,20,,,15,,,,,,,,,,,ALLY_AS,"Khúc Khải Hoàn: Làm Chậm hoặc Làm Bất Động tướng địch sẽ ban Khúc Khải Hoàn trong 0 giây. Khúc Khải Hoàn cho bạn 20 Tốc Độ Di Chuyển. Khi sở hữu Khúc Khải Hoàn, các đồng minh ở gần (bao gồm cả bản thân) sẽ được tăng 0 Tốc Độ Đánh.",2524
+PROTOPLASM_HARNESS,Protoplasm Harness,Đai Nguyên Sinh,LEGENDARY,2600,KINDLEGEM;GIANTS_BELT,,,600,,,,,20,,,,,,,,,,,LIFELINE:0.3,"Bảo Hiểm Ma Pháp: (0 giây)
+Khi nhận sát thương khiến Máu tụt xuống dưới 30% sẽ giúp bạn nhận thêm 0 Máu tối đa trong 5 giây, sau đó hồi lại 0 Máu trong thời gian tác dụng. Khi đang hồi lại Máu, tăng thêm 15% Kích Cỡ, 10% Tốc Độ Di Chuyển và 25% Kháng Hiệu Ứng.",2525
+WHISPERING_CIRCLET,Whispering Circlet,Vòng Thì Thầm,EPIC,2250,FORBIDDEN_IDOL;RUBY_CRYSTAL;TEAR,,,200,,,,,,,,,,,,,,300,8,,"Hòa Điệu: Nhận 0% Sức Mạnh Hồi Máu & Lá Chắn. | Dòng Chảy Năng Lượng: (8 giây, tối đa 5 tích trữ)
+Các Đòn Đánh và Kỹ Năng khi trúng đích sẽ cho 4 Năng Lượng tối đa (gấp đôi với tướng).
+Biến đổi thành Vương Miện Khúc Ca khi đạt 360 Năng Lượng tối đa.",2526
+ARCHANGELS_STAFF,Archangel's Staff,Quyền Trượng Thiên Thần,LEGENDARY,2900,TEAR;LOST_CHAPTER;FIENDISH_CODEX,,70,,,,,,25,,,,,,,,,600,,LIFELINE:0.15,"Tuyệt: Nhận Sức Mạnh Phép Thuật tương đương 1% Năng Lượng cộng thêm. | Dòng Chảy Năng Lượng: (8 giây, tối đa 5 tích trữ)
+Dùng Kỹ Năng trúng đích sẽ cho 5 Năng Lượng tối đa (gấp đôi với tướng).
+Biến đổi thành Quyền Trượng Đại Thiên Sứ khi đạt 360 Năng Lượng tối đa.",3003
+MANAMUNE,Manamune,Kiếm Manamune,LEGENDARY,2900,TEAR;CAULFIELDS;LONG_SWORD,35,,,,,,,15,,,,,,,,,500,,SPELLBLADE:0.4,"Tuyệt: Nhận 0 Sức Mạnh Công Kích cộng thêm. | Dòng Chảy Năng Lượng: (8 giây, tối đa 4 tích trữ)
+Dùng Đòn Đánh và Kỹ Năng trúng đích sẽ cho 3 Năng Lượng tối đa (gấp đôi với tướng).
+Biến đổi thành Thần Kiếm Muramana khi đạt 360 Năng Lượng tối đa.",3004
+BERSERKERS_GREAVES,Berserker's Greaves,Giày Cuồng Nộ,BOOTS,1100,BOOTS;DAGGER;DAGGER,,,,,,30,,,45,,,,,,,,,,,Tăng Tốc độ Di chuyển và Tốc độ Đánh,3006
+GLUTTONOUS_GREAVES,Gluttonous Greaves,Giày Phàm Ăn,BOOTS,1100,BOOTS,,,,,,,,,45,,,,,,,4,,,,"Hạ Gục: Nhận 0.6% Hút Máu Toàn Phần khi tham gia hạ gục Tướng, cộng dồn tối đa 10 lần.",3008
+BOOTS_OF_SWIFTNESS,Boots of Swiftness,Giày Bạc,BOOTS,1000,BOOTS,,,,,,,,,55,,,,,,,,,,,Nhanh Chân: Giảm hiệu quả của các hiệu ứng Làm Chậm đi 25%.,3009
+SORCERERS_SHOES,Sorcerer's Shoes,Giày Pháp Sư,BOOTS,1100,BOOTS,,,,,,,,,45,,,,12,,,,,,,Tăng Tốc độ Di chuyển và sát thương phép,3020
+GLACIAL_BUCKLER,Glacial Buckler,Lá Chắn Mãnh Sư,EPIC,900,CLOTH_ARMOR;SAPPHIRE_CRYSTAL;GLOWING_MOTE,,,,25,,,,10,,,,,,,,,300,,,Gia tăng Giáp và giảm Thời gian Hồi chiêu,3024
+GUARDIAN_ANGEL,Guardian Angel,Giáp Thiên Thần,LEGENDARY,3200,STEEL_SIGIL;BF_SWORD,55,,,45,,,,,,,,,,,,,,,REVIVE,"Tái Sinh: Khi nhận sát thương kết liễu, phục hồi lại 50% Máu cơ bản và 100% Năng Lượng tối đa sau 4 giây Ngưng Đọng.",3026
+INFINITY_EDGE,Infinity Edge,Vô Cực Kiếm,LEGENDARY,3500,BF_SWORD;PICKAXE;CLOAK_OF_AGILITY,75,,,,,,25,,,,,,,,,,,,CRIT_DMG:0.3,Tăng nhiều sát thương cho đòn đánh chí mạng,3031
+YUN_TAL,Yun Tal Wildarrows,Mũi Tên Yun Tal,LEGENDARY,3000,BF_SWORD;SCOUTS_SLINGSHOT;LONG_SWORD,50,,,,,45,,,,,,,,,,,,,,"Chí Mạng Tay Quen: Khi tung đòn đánh, nhận vĩnh viễn Tỉ Lệ Chí Mạng, tối đa 25%. | Chuyển Động Liên Hoàn: Khi tung đòn đánh lên tướng địch, nhận 30% Tốc Độ Đánh trong 6 giây (30 giây hồi chiêu).
+Đòn đánh sẽ làm giảm hồi chiêu này đi 1 giây, tăng thành 2 giây nếu Chí Mạng.",3032
+MORTAL_REMINDER,Mortal Reminder,Lời Nhắc Tử Vong,LEGENDARY,3000,EXECUTIONERS_CALLING;LAST_WHISPER;CLOAK_OF_AGILITY,35,,,,,,25,,,,,30,,,,,,,GRIEVOUS,Vết Thương Sâu: Gây sát thương vật lý sẽ khiến tướng địch chịu 40% Vết Thương Sâu trong 3 giây.,3033
+LAST_WHISPER,Last Whisper,Cung Xanh,EPIC,1450,LONG_SWORD;LONG_SWORD,20,,,,,,,,,,,18,,,,,,,,Khắc chế tướng địch có lượng giáp cao,3035
+LORD_DOMINIKS,Lord Dominik's Regards,Nỏ Thần Dominik,LEGENDARY,3300,LAST_WHISPER;NOONQUIVER,35,,,,,,25,,,,,35,,,,,,,,Diệt Khổng Lồ: Gây thêm tối đa 15% sát thương lên tướng dựa trên Máu cộng thêm của chúng. Cộng thêm sát thương tối đa khi đạt 1500 Máu cộng thêm.,3036
+MEJAIS,Mejai's Soulstealer,Sách Chiêu Hồn Mejai,LEGENDARY,1500,DARK_SEAL,,20,100,,,,,,,,,,,,,,,,,"Vinh Quang: Tham gia hạ gục sẽ cho điểm | Vinh Quang: , tối đa 25 cộng dồn. 10 | Vinh Quang: sẽ mất khi hy sinh.
+Nhận 5 Sức Mạnh Phép Thuật với mỗi điểm | Vinh Quang: và 10% Tốc Độ Di Chuyển khi ở 10 cộng dồn | Vinh Quang: trở lên.",3041
+PHAGE,Phage,Búa Gỗ,EPIC,1100,RUBY_CRYSTAL;LONG_SWORD,15,,200,,,,,,,,,,,,,,,,,Cuồng Bạo: Đòn đánh cho thêm Tốc Độ Di Chuyển trong 2 giây.,3044
+PHANTOM_DANCER,Phantom Dancer,Ma Vũ Song Kiếm,LEGENDARY,2650,DAGGER;ZEAL;DAGGER,,,,,,65,25,,,10,,,,,,,,,,Vũ Điệu Ma Quái: Có thể đi Xuyên Vật Thể.,3046
+PLATED_STEELCAPS,Plated Steelcaps,Giày Thép Gai,BOOTS,1200,BOOTS;CLOTH_ARMOR,,,,25,,,,,45,,,,,,,,,,BLOCK_AUTO,Giáp Cốt: Giảm sát thương nhận vào từ Đòn Đánh đi 10%.,3047
+ZEKES_CONVERGENCE,Zeke's Convergence,Tụ Bão Zeke,LEGENDARY,2200,KINDLEGEM;CLOTH_ARMOR;NULL_MAGIC_MANTLE,,,300,25,25,,,10,,,,,,,,,,,ALLY_AS,Băng Hỏa Cuồng Nộ: Sử dụng Chiêu Cuối sẽ triệu hồi một cơn bão quanh bạn trong 5 giây. Cơn bão này gây 30 sát thương phép mỗi giây lên tướng địch và Làm Chậm chúng đi 30%.,3050
+HEARTHBOUND_AXE,Hearthbound Axe,Rìu Nhanh Nhẹn,EPIC,1200,LONG_SWORD;DAGGER;LONG_SWORD,20,,,,,20,,,,,,,,,,,,,,,3051
+STERAKS_GAGE,Sterak's Gage,Móng Vuốt Sterak,LEGENDARY,3200,PICKAXE;TUNNELER;RUBY_CRYSTAL,,,400,,,,,,,,,,,,,,,,LIFELINE:0.3;TENACITY,Vuốt Nhọn: Nhận Sức Mạnh Công Kích cộng thêm. | Bảo Hiểm Ma Pháp: Nhận sát thương khiến Máu giảm xuống dưới 30% sẽ cho Lá Chắn giảm dần trong 4.5 giây.,3053
+SHEEN,Sheen,Thủy Kiếm,EPIC,900,GLOWING_MOTE,,,,,,,,10,,,,,,,,,,,SPELLBLADE:0.8,"Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo gây thêm sát thương vật lý Khi Đánh Trúng.",3057
+SPIRIT_VISAGE,Spirit Visage,Giáp Tâm Linh,LEGENDARY,2700,SPECTRES_COWL;KINDLEGEM,,,400,,50,,,10,,,,,,,,,,,REGEN,Nguồn Sống Bất Tận: Tăng hiệu lực Hồi Máu và tạo Lá Chắn trên bạn thêm 25%.,3065
+WINGED_MOONPLATE,Winged Moonplate,Đai Thanh Thoát,EPIC,800,RUBY_CRYSTAL,,,200,,,,,,,4,,,,,,,,,,,3066
+KINDLEGEM,Kindlegem,Hỏa Ngọc,EPIC,800,RUBY_CRYSTAL;GLOWING_MOTE,,,200,,,,,10,,,,,,,,,,,,Tăng Máu và Giảm thời gian Hồi chiêu,3067
+SUNFIRE_AEGIS,Sunfire Aegis,Khiên Thái Dương,LEGENDARY,2800,BAMIS_CINDER;CHAIN_VEST;RUBY_CRYSTAL,,,350,50,,,,10,,,,,,,,,,,BURN_AURA:25,"Hiến Tế: Sau khi nhận hoặc gây sát thương, gây sát thương phép mỗi giây lên kẻ địch ở gần trong 3 giây.",3068
+TEAR,Tear of the Goddess,Nước Mắt Nữ Thần,BASIC,400,,,,,,,,,,,,,,,,,,240,,,"Dòng Chảy Năng Lượng: (8 giây, tối đa 4 tích trữ)
+Dùng Kỹ Năng trúng đích sẽ cho 3 Năng Lượng tối đa (gấp đôi với tướng), tối đa 360. | Ra Tay Tương Trợ: Đòn đánh gây thêm 5 sát thương vật lý lên lính.",3070
+BLACK_CLEAVER,Black Cleaver,Rìu Đen,LEGENDARY,3000,PHAGE;KINDLEGEM;PICKAXE,45,,400,,,,,20,,,,,,,,,,,ARMOR_SHRED:0.24,Nghiền Vụn: Gây sát thương vật lý lên tướng sẽ giảm Giáp của mục tiêu đi 6% trong 6 giây. (cộng dồn 5 lần). | Hăng Hái: Gây sát thương vật lý sẽ trao 0 Tốc Độ Di Chuyển trong 2 giây.,3071
+BLOODTHIRSTER,Bloodthirster,Huyết Kiếm,LEGENDARY,3400,BF_SWORD;PICKAXE;VAMPIRIC_SCEPTER,80,,,,,,,,,,,,,,15,,,,LIFELINE:0.15,Khiên Máu: Chuyển lượng hồi máu từ Hút Máu vượt ngưỡng máu tối đa thành Lá Chắn.,3072
+EXPERIMENTAL_HEXPLATE,Experimental Hexplate,Khiên Hextech Thử Nghiệm,LEGENDARY,3000,TUNNELER;DAGGER;PHAGE,40,,450,,,20,,,,,,,,,,,,,,"Bùng Nổ Hextech: Nhận 30 Điểm Hồi Chiêu Cuối. | Quá Tải: Sau khi sử dụng Chiêu Cuối, nhận 0% Tốc Độ Đánh và 0% Tốc Độ Di Chuyển trong 8 giây.",3073
+RAVENOUS_HYDRA,Ravenous Hydra,Rìu Mãng Xà,LEGENDARY,3300,TIAMAT;VAMPIRIC_SCEPTER;CAULFIELDS,65,,,,,,,15,,,,,,,12,,,,CLEAVE:0.4,Sát Thương Lan: Đòn đánh gây sát thương vật lý lên kẻ địch ở gần.,3074
+THORNMAIL,Thornmail,Giáp Gai,LEGENDARY,2450,BRAMBLE_VEST;CHAIN_VEST;RUBY_CRYSTAL,,,150,75,,,,,,,,,,,,,,,THORNS:25;GRIEVOUS,"Gai: Khi bị tấn công bởi Đòn Đánh, gây sát thương phép ngược lại lên kẻ tấn công và đặt 40% Vết Thương Sâu trong 3 giây nếu đó là tướng.",3075
+BRAMBLE_VEST,Bramble Vest,Áo Choàng Gai,EPIC,800,CLOTH_ARMOR;CLOTH_ARMOR,,,,30,,,,,,,,,,,,,,,THORNS:10,"Gai: Khi bị trúng Đòn Đánh, gây 0 sát thương phép ngược lại lên kẻ tấn công và đặt 40% Vết Thương Sâu trong 3 giây nếu đó là tướng.",3076
+TIAMAT,Tiamat,Rìu Tiamat,EPIC,1200,LONG_SWORD;LONG_SWORD,25,,,,,,,,,,,,,,,,,,CLEAVE:0.4,Sát Thương Lan: Đòn đánh gây sát thương vật lý lên kẻ địch ở gần.,3077
+TRINITY_FORCE,Trinity Force,Tam Hợp Kiếm,LEGENDARY,3333,SHEEN;PHAGE;HEARTHBOUND_AXE,36,,333,,,30,,15,,,,,,,,,,,SPELLBLADE:1.0,"Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo gây thêm sát thương vật lý Khi Đánh Trúng. | Nhanh Lẹ: Đòn đánh cho 20 Tốc Độ Di Chuyển trong 2 giây.",3078
+WARDENS_MAIL,Warden's Mail,Giáp Cai Ngục,EPIC,1000,CLOTH_ARMOR;CLOTH_ARMOR,,,,40,,,,,,,,,,,,,,,BLOCK_AUTO,Cứng Như Đá: Giảm sát thương nhận vào từ Đòn Đánh.,3082
+WARMOGS,Warmog's Armor,Giáp Máu Warmog,LEGENDARY,3100,GIANTS_BELT;GIANTS_BELT;CRYSTALLINE_BRACER,,,1000,,,,,,,,,,,,,,,,REGEN,"Trái Tim Warmog: Nếu có 2000 Máu cộng thêm và không nhận phải sát thương trong vòng 8 giây, hồi 0 Máu mỗi giây. | Sinh Lực Warmog: Nhận Máu cộng thêm bằng 12% lượng Máu Từ Trang Bị của bạn (0).",3083
+HEARTSTEEL,Heartsteel,Trái Tim Khổng Thần,LEGENDARY,3000,GIANTS_BELT;CRYSTALLINE_BRACER;GIANTS_BELT,,,900,,,,,,,,,,,,,,,,ONHIT:40,"Hấp Thụ Khổng Lồ: (0 giây) mỗi mục tiêu
+Nếu có tướng địch ở gần trong vài giây, Đòn Đánh tiếp theo lên chúng sẽ gây 70 + 6% Máu tối đa của bạn thành sát thương vật lý cộng thêm và chuyển hóa 10% sát thương đã gây ra thành Máu tối đa. | Khổng Lồ Hóa: Với mỗi 1000 Máu tối đa, tăng 3% kích cỡ, tối đa 30%.",3084
+RUNAANS_HURRICANE,Runaan's Hurricane,Cuồng Cung Runaan,LEGENDARY,2650,ZEAL;SCOUTS_SLINGSHOT,,,,,,40,25,,,5,,,,,,,,,CLEAVE:0.55,"Gió Cuồng Nộ: Đòn Đánh bắn ra các tia đạn vào thêm 2 kẻ địch gần mục tiêu.
+Mỗi đường đạn gây sát thương vật lý và áp dụng Khi Đánh Trúng hiệu ứng.",3085
+ZEAL,Zeal,Song Kiếm,EPIC,1200,CLOAK_OF_AGILITY;DAGGER,,,,,,15,15,,,4,,,,,,,,,,"Tăng nhẹ Tỉ lệ Chí mạng, Tốc độ Di chuyển và Tốc độ Đánh",3086
+STATIKK_SHIV,Statikk Shiv,Dao Điện Statikk,LEGENDARY,3000,SCOUTS_SLINGSHOT;AETHER_WISP;PICKAXE,45,45,,,,30,,,,4,,,,,,,,,CLEAVE:0.3,"Phóng Điện: Đòn Đánh Tích Điện của bạn bắn ra sét nảy, áp dụng hiệu ứng Trên Đòn Đánh và gây sát thương phép lên mục tiêu gần đó. | Điện Giật: Đòn Đánh Thường cho thêm cộng dồn Tích Điện .",3087
+RABADONS,Rabadon's Deathcap,Mũ Phù Thủy Rabadon,LEGENDARY,3500,NEEDLESSLY_LARGE_ROD;NEEDLESSLY_LARGE_ROD,,130,,,,,,,,,,,,,,,,,AP_MULT:0.3,Tinh Hoa Phép Thuật: Tăng tổng Sức Mạnh Phép Thuật thêm 30%.,3089
+WITS_END,Wit's End,Đao Tím,LEGENDARY,2800,RECURVE_BOW;NEGATRON_CLOAK;RECURVE_BOW,,,,,45,50,,,,,,,,,,,,,ONHIT:40;TENACITY,Xé Toạc: Đòn đánh gây sát thương phép cộng thêm Khi Đánh Trúng.,3091
+RAPID_FIRECANNON,Rapid Firecannon,Đại Bác Liên Thanh,LEGENDARY,2650,ZEAL;SCOUTS_SLINGSHOT,,,,,,35,25,,,4,,,,,,,,,ONHIT:20,Thiện Xạ: Đòn Đánh Tích Điện của bạn gây 40 sát thương phép cộng thêm và nhận thêm 35% Tầm Đánh.,3094
+STORMRAZOR,Stormrazor,Phong Thần Kiếm,LEGENDARY,3200,BF_SWORD;CLOAK_OF_AGILITY;SCOUTS_SLINGSHOT,50,,,,,25,25,,,,,,,,,,,,ONHIT:20,Tích Điện: Di chuyển và Tấn công sẽ tích tụ 1 Đòn Đánh Tích Điện. | Điện Xẹt: Đòn Đánh Tích Điện gây thêm 0 sát thương phép và cho 45% Tốc Độ Di Chuyển trong 1.5 giây.,3095
+LICH_BANE,Lich Bane,Kiếm Tai Ương,LEGENDARY,2900,SHEEN;AETHER_WISP;BLASTING_WAND,,100,,,,,,10,,6,,,,,,,,,SPELLBLADE:1.2,"Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo sẽ gây sát thương phép cộng thêm Khi Đánh Trúng.",3100
+BANSHEES_VEIL,Banshee's Veil,Dây Chuyền Chữ Thập,LEGENDARY,3000,NEEDLESSLY_LARGE_ROD;VERDANT_BARRIER,,105,,,40,,,,,,,,,,,,,,SPELLSHIELD,Hóa Giải: Tạo 1 Khiên Phép chặn kỹ năng tiếp theo của kẻ địch.,3102
+REDEMPTION,Redemption,Dây Chuyền Chuộc Tội,LEGENDARY,2300,FIENDISH_CODEX;FORBIDDEN_IDOL,,30,,,,,,15,,,,,,,,,,10,TEAM_HEAL,"Phán Quyết: Hồi lại 150 - 350 Máu cho các đơn vị đồng minh và gây sát thương chuẩn bằng 10% Máu tối đa lên tướng địch sau 2,5 giây.",3107
+FIENDISH_CODEX,Fiendish Codex,Sách Quỷ,EPIC,850,AMPLIFYING_TOME;GLOWING_MOTE,,25,,,,,,10,,,,,,,,,,,,Tăng Sức mạnh Phép thuật và Giảm thời gian hồi,3108
+KNIGHTS_VOW,Knight's Vow,Lời Thề Hiệp Sĩ,LEGENDARY,2300,KINDLEGEM;CHAIN_VEST;REJUVENATION_BEAD,,,200,40,,,,10,,,,,,,,,,,TEAM_SHIELD,"Hy Sinh: Khi ở gần đồng minh Xứng Đáng, chịu 14% sát thương họ nhận vào và hồi máu bằng 12% sát thương họ gây ra lên tướng.",3109
+FROZEN_HEART,Frozen Heart,Tim Băng,LEGENDARY,2500,WARDENS_MAIL;GLACIAL_BUCKLER,,,,75,,,,20,,,,,,,,,400,,SLOW_AURA,Chiến Binh Mùa Đông: Giảm Tốc Độ Đánh của các tướng địch xung quanh đi 20%.,3110
+MERCURYS_TREADS,Mercury's Treads,Giày Thủy Ngân,BOOTS,1250,BOOTS;NULL_MAGIC_MANTLE,,,,,20,,,,45,,,,,,,,,,TENACITY,Giảm Tốc độ Di chuyển và giảm thời gian vô hiệu hóa hiệu ứng,3111
+GUARDIANS_ORB,Guardian's Orb,Băng Cầu Vệ Quân,STARTER,950,,,50,150,,,,,,,,,,,,,,,,,"Phục Hồi: Hồi 10 Năng Lượng mỗi 5 giây. Nếu bạn không thể nhận năng lượng, thay vào đó hồi 15 Máu.",3112
+AETHER_WISP,Aether Wisp,Linh Hồn Lạc Lõng,EPIC,900,AMPLIFYING_TOME,,30,,,,,,,,4,,,,,,,,,,Tăng Sức mạnh Phép thuật và Tốc độ Di chuyển,3113
+FORBIDDEN_IDOL,Forbidden Idol,Dị Vật Tai Ương,EPIC,600,FAERIE_CHARM,,,,,,,,,,,,,,,,,,8,,"Tăng Hiệu lực Hồi máu và Lá chắn, Năng lượng Phục hồi, và Giảm Hồi chiêu",3114
+NASHORS_TOOTH,Nashor's Tooth,Nanh Nashor,LEGENDARY,2900,RECURVE_BOW;BLASTING_WAND;FIENDISH_CODEX,,80,,,,50,,15,,,,,,,,,,,ONHIT:30,Vết Cắn Icathia: Đòn đánh gây sát thương phép cộng thêm Khi Đánh Trúng.,3115
+RYLAIS,Rylai's Crystal Scepter,Trượng Pha Lê Rylai,LEGENDARY,2600,BLASTING_WAND;GIANTS_BELT;AMPLIFYING_TOME,,65,400,,,,,,,,,,,,,,,,SLOW,Sương Giá: Kỹ năng gây sát thương sẽ Làm Chậm kẻ địch đi 30% trong 1 giây.,3116
+MALIGNANCE,Malignance,Hỏa Khuẩn,LEGENDARY,2700,LOST_CHAPTER;BLASTING_WAND,,90,,,,,,15,,,,,,,,,600,,BURN_SPELL:0.01,"Ai Oán: Nhận 20 Điểm Hồi Chiêu Cuối. | Màn Sương Căm Hận: Gây sát thương lên một tướng bằng Chiêu Cuối sẽ thiêu cháy mặt đất bên dưới chúng trong 3 giây, gây sát thương phép mỗi giây và giảm Kháng Phép của chúng.",3118
+WINTERS_APPROACH,Winter's Approach,Băng Giáp,LEGENDARY,2400,TEAR;GIANTS_BELT;KINDLEGEM,,,550,,,,,15,,,,,,,,,500,,,"Tuyệt: Nhận 0 Máu. | Dòng Chảy Năng Lượng: (8 giây, tối đa 4 tích trữ)
+Dùng Đòn Đánh và Kỹ Năng trúng đích sẽ cho 3 Năng Lượng tối đa (gấp đôi với tướng).
+Biến đổi thành Băng Giáp Vĩnh Cửu khi đạt 360 Năng Lượng tối đa.",3119
+EXECUTIONERS_CALLING,Executioner's Calling,Gươm Đồ Tể,EPIC,800,LONG_SWORD,15,,,,,,,,,,,,,,,,,,GRIEVOUS,Vết Thương Sâu: Gây sát thương vật lý lên tướng sẽ đặt 40% Vết Thương Sâu trong 3 giây.,3123
+GUINSOOS_RAGEBLADE,Guinsoo's Rageblade,Cuồng Đao Guinsoo,LEGENDARY,3000,AMPLIFYING_TOME;RECURVE_BOW;PICKAXE,30,30,,,,25,,,,,,,,,,,,,ONHIT:30,"Thịnh Nộ: Đòn đánh gây 30 sát thương phép cộng thêm Khi Đánh Trúng. | Nhát Chém Cuồng Nộ: Đánh thường sẽ cho 8% Tốc Độ Đánh trong 4 giây (cộng dồn tối đa 4 lần).
+Khi đạt cộng dồn tối đa, mỗi Đòn Đánh thứ ba áp dụng hiệu ứng Khi Đánh Trúng 2 lần.",3124
+CAULFIELDS,Caulfield's Warhammer,Búa Chiến Caulfield,EPIC,1050,LONG_SWORD;GLOWING_MOTE;LONG_SWORD,20,,,,,,,10,,,,,,,,,,,,Sát thương Vật lí và Giảm Thời gian Hồi chiêu,3133
+SERRATED_DIRK,Serrated Dirk,Dao Hung Tàn,EPIC,1000,LONG_SWORD;LONG_SWORD,20,,,,,,,,,,10,,,,,,,,,Tăng Sức mạnh Công kích và Sát lực,3134
+VOID_STAFF,Void Staff,Trượng Hư Vô,LEGENDARY,3000,BLIGHTING_JEWEL;BLASTING_WAND,,95,,,,,,,,,,,,40,,,,,,Tăng sát thương phép thuật,3135
+CRYPTBLOOM,Cryptbloom,Hoa Tử Linh,LEGENDARY,3000,BLIGHTING_JEWEL;FIENDISH_CODEX;FIENDISH_CODEX,,75,,,,,,20,,,,,,30,,,,,TEAM_HEAL,"Trở Lại Từ Cõi Chết: Khi tướng địch bị tiêu diệt trong vòng 3 giây kể từ nhận sát thương từ bạn, một vùng hào quang lan tỏa từ xác của chúng và giúp hồi Máu.",3137
+MERCURIAL_SCIMITAR,Mercurial Scimitar,Đao Thủy Ngân,LEGENDARY,3200,QUICKSILVER_SASH;PICKAXE;VAMPIRIC_SCEPTER,50,,,,35,,,,,,,,,,10,,,,CLEANSE,Kích hoạt để loại bỏ mọi hiệu ứng bất lợi và tăng mạnh Tốc độ Di chuyển,3139
+QUICKSILVER_SASH,Quicksilver Sash,Khăn Giải Thuật,EPIC,1300,NULL_MAGIC_MANTLE,,,,,30,,,,,,,,,,,,,,CLEANSE,Giải Thuật: Loại bỏ tất cả các hiệu ứng khống chế (trừ Hất Tung).,3140
+YOUMUUS_GHOSTBLADE,Youmuu's Ghostblade,Kiếm Ma Youmuu,LEGENDARY,2800,SERRATED_DIRK;RECTRIX;LONG_SWORD,55,,,,,,,,,4,18,,,,,,,,,Ma Ám: Tăng 0 Tốc Độ Di Chuyển khi ở ngoài giao tranh.,3142
+RANDUINS_OMEN,Randuin's Omen,Khiên Băng Randuin,LEGENDARY,2700,WARDENS_MAIL;GIANTS_BELT,,,350,75,,,,,,,,,,,,,,,ANTI_CRIT,Kháng Chí Mạng: Giảm 30% sát thương nhận phải từ Đòn Chí Mạng.,3143
+SCOUTS_SLINGSHOT,Scout's Slingshot,Ná Cao Su Trinh Sát,EPIC,600,DAGGER;DAGGER,,,,,,20,,,,,,,,,,,,,,"Hồng Tâm: Gây sát thương lên tướng sẽ gây sát thương phép cộng thêm.
+Đòn đánh sẽ giảm thời gian hồi của hiệu ứng này đi 1 giây.",3144
+HEXTECH_ALTERNATOR,Hextech Alternator,Máy Chuyển Pha Hextech,EPIC,1100,AMPLIFYING_TOME;AMPLIFYING_TOME,,45,,,,,,,,,,,,,,,,,,Căng Ga: Gây sát thương lên tướng sẽ gây sát thương phép cộng thêm.,3145
+HEXTECH_GUNBLADE,Hextech Gunblade,Kiếm Súng Hextech,LEGENDARY,3000,VAMPIRIC_SCEPTER;HEXTECH_ALTERNATOR;AMPLIFYING_TOME,40,80,,,,,,,,,,,,,,10,,,,"Tăng Sát thương Vật lí và Sức mạnh Phép thuật, kích hoạt để làm chậm mục tiêu",3146
+HAUNTING_GUISE,Haunting Guise,Mặt Nạ Ma Ám,EPIC,1300,AMPLIFYING_TOME;RUBY_CRYSTAL,,30,200,,,,,,,,,,,,,,,,,"Điên Cuồng: Mỗi giây trong giao tranh với tướng địch, gây thêm 2% sát thương (tối đa 6%).",3147
+HEXTECH_ROCKETBELT,Hextech Rocketbelt,Đai Tên Lửa Hextech,LEGENDARY,2650,HEXTECH_ALTERNATOR;KINDLEGEM;RUBY_CRYSTAL,,60,350,,,,,10,,,,,,,,,,,,"Lướt Siêu Thanh: Lướt về hướng chỉ định, bắn ra loạt tia lửa gây sát thương phép.",3152
+BOTRK,Blade of the Ruined King,Gươm Suy Vong,LEGENDARY,3200,VAMPIRIC_SCEPTER;RECURVE_BOW;PICKAXE,40,,,,,25,,,,,,,,,10,,,,PERCENT_HP:0.06,Mũi Kiếm Sương Đen: Đòn đánh gây một phần Máu hiện tại của kẻ địch thành sát thương vật lý cộng thêm Khi Đánh Trúng. | Bóng Vuốt: Tấn công một tướng địch 3 lần sẽ Làm Chậm chúng đi 30% trong 1 giây.,3153
+HEXDRINKER,Hexdrinker,Kiếm Răng Cưa,EPIC,1300,LONG_SWORD;NULL_MAGIC_MANTLE;LONG_SWORD,25,,,,25,,,,,,,,,,,,,,LIFELINE:0.1,"Bảo Hiểm Ma Pháp: Khi nhận sát thương phép khiến máu tụt xuống dưới 30%, nhận một Lá Chắn sát thương phép trong 2.5 giây.",3155
+MAW_OF_MALMORTIUS,Maw of Malmortius,Chùy Gai Malmortius,LEGENDARY,3100,HEXDRINKER;CAULFIELDS,60,,,,40,,,15,,,,,,,,,,,LIFELINE:0.2,"Bảo Hiểm Ma Pháp: Khi nhận sát thương phép khiến máu tụt xuống dưới 30%, nhận Lá Chắn sát thương phép trong 3 giây và 10% Hút Máu Toàn Phần cho đến khi kết thúc giao tranh.",3156
+ZHONYAS,Zhonya's Hourglass,Đồng Hồ Cát Zhonya,LEGENDARY,3250,NEEDLESSLY_LARGE_ROD;SEEKERS_ARMGUARD,,105,,50,,,,,,,,,,,,,,,STASIS,Ngưng Đọng Thời Gian: Tiến vào trạng thái Ngưng Đọng trong 2.5 giây.,3157
+IONIAN_BOOTS,Ionian Boots of Lucidity,Giày Khai Sáng Ionia,BOOTS,900,BOOTS;GLOWING_MOTE,,,,,,,,10,45,,,,,,,,,,,Tinh Túy Ionia: Nhận 10 Điểm Hồi Phép Bổ Trợ.,3158
+SPEAR_OF_SHOJIN,Spear of Shojin,Ngọn Giáo Shojin,LEGENDARY,3100,PICKAXE;TUNNELER;RUBY_CRYSTAL,45,,450,,,,,,,,,,,,,,,,,Long Lực: Nhận 25 Điểm Hồi Kỹ Năng Cơ Bản. | Tâm Lực: Gây sát thương bằng Kỹ Năng sẽ tăng sát thương từ Kỹ Năng và Nội Tại từ Tướng của bạn thêm 3% trong 6 giây (cộng dồn 4 lần).,3161
+MORELLONOMICON,Morellonomicon,Quỷ Thư Morello,LEGENDARY,2850,OBLIVION_ORB;BLASTING_WAND;KINDLEGEM,,75,350,,,,,15,,,,,,,,,,,GRIEVOUS,Vết Thương Sâu: Gây sát thương phép lên tướng sẽ đặt 40% Vết Thương Sâu trong 3 giây.,3165
+IMMORTAL_GREAVES,Gluttonous Greaves (nâng cấp),Giày Bất Tử,BOOTS,1100,GLUTTONOUS_GREAVES,,,,,,,,,45,,,,,,,4,,,,"Hạ Gục: Nhận 0.6% Hút Máu Toàn Phần khi tham gia hạ gục Tướng, cộng dồn tối đa 10 lần. | Bây Giờ Và Mãi Mãi: Khi còn trên nửa lượng Máu, gây thêm 4% sát thương.
+Khi còn dưới một nửa lượng Máu, nhận thêm 12% hồi máu, lá chắn và hồi phục.",3168
+SWIFTMARCH,Swiftmarch,Giày Nhanh Nhẹn,BOOTS,1000,BOOTS_OF_SWIFTNESS,,,,,,,,,65,,,,,,,,,,,Nhanh Chân: Giảm hiệu quả của các hiệu ứng Làm Chậm đi 25%. | Tinh Thần Noxus: Nhận 5% Tốc Độ Di Chuyển của bạn thành Sức Mạnh Thích Ứng.,3170
+CRIMSON_LUCIDITY,Crimson Lucidity,Giày Đỏ Khai Sáng,BOOTS,900,IONIAN_BOOTS,,,,,,,,20,45,,,,,,,,,,,"Tinh Túy Ionia: Nhận 20 Điểm Hồi Phép Bổ Trợ. | Noxus Thần Tốc: Cường hóa hoặc bảo vệ đồng minh bằng kỹ năng, gây sát thương lên Tướng địch bằng kỹ năng, hoặc sử dụng Phép Bổ Trợ sẽ cho 0 Tốc Độ Di Chuyển trong 4 giây.
+Noxus Thần Tốc chỉ có thể được kích hoạt một lần cho mỗi lần thi triển Kỹ Năng.",3171
+GUNMETAL_GREAVES,Gunmetal Greaves,Giày Hắc Kim,BOOTS,1100,BERSERKERS_GREAVES,,,,,,45,,,45,,,,,,5,,,,,Độ cơ động và Kháng hiệu ứng,3172
+CHAINLACED_CRUSHERS,Chainlaced Crushers,Giày Giáp Sắt,BOOTS,1250,MERCURYS_TREADS,,,,,25,,,,45,,,,,,,,,,TENACITY,"Sức Bền Noxus: (0 giây)
+Sau khi nhận sát thương phép từ Tướng, nhận một 0 lá chắn phép trong 5 giây.",3173
+ARMORED_ADVANCE,Armored Advance,Giày Xung Kích,BOOTS,1200,PLATED_STEELCAPS,,,,35,,,,,45,,,,,,,,,,BLOCK_AUTO,"Giáp Cốt: Giảm sát thương nhận vào từ Đòn Đánh đi 10%. | Sức Bền Noxus: (0 giây)
+Sau khi nhận sát thương vật lý từ Tướng, nhận một 0 lá chắn vật lý trong 5 giây.",3174
+SPELLSLINGERS_SHOES,Spellslinger's Shoes,Giày Ma Pháp Sư,BOOTS,1100,SORCERERS_SHOES,,,,,,,,,45,,,,20,8,,,,,,,3175
+GUARDIANS_BLADE,Guardian's Blade,Kiếm Vệ Quân,STARTER,950,,30,,150,,,,,15,,,,,,,,,,,,Trang bị khởi đầu tốt cho tướng sử dụng đòn đánh nhiều,3177
+UMBRAL_GLAIVE,Umbral Glaive,Kiếm Âm U,LEGENDARY,2800,SERRATED_DIRK;CAULFIELDS,60,,,,,,,15,,,18,,,,,,,,,"Thợ Săn Đêm: Sau khi không bị kẻ địch nhìn thấy trong thoáng chốc, đòn đánh tiếp theo của bạn lên một tướng sẽ gây thêm sát thương chuẩn. | Tắt Đèn: Khi bạn ở gần Mắt Xanh và bẫy của kẻ địch, làm lộ diện chúng trong thoáng chốc. Khi phát hiện mắt, đòn đánh của bạn gây thêm sát thương lên chúng.",3179
+HULLBREAKER,Hullbreaker,Búa Tiến Công,LEGENDARY,3000,TUNNELER;WINGED_MOONPLATE;PICKAXE,40,,500,,,,,,,4,,,,,,,,,SPLIT,"Thuyền Trưởng: Mỗi Đòn Đánh thứ 5 lên tướng và quái khủng gây thêm sát thương vật lý, tăng lên nếu tác động lên Công Trình. | Thuyền Viên: Lính xe pháo và lính siêu cấp đồng minh ở gần nhận được Giáp và Kháng Phép.",3181
+GUARDIANS_HAMMER,Guardian's Hammer,Búa Vệ Quân,STARTER,950,,25,,150,,,,,,,,,,,,5,,,,,Trang bị khởi đầu tốt cho tướng sử dụng đòn đánh nhiều,3184
+LOCKET,Locket of the Iron Solari,Dây Chuyền Iron Solari,LEGENDARY,2200,KINDLEGEM;CLOTH_ARMOR;NULL_MAGIC_MANTLE,,,200,30,30,,,10,,,,,,,,,,,TEAM_SHIELD,"Tận Hiến: Ban cho các đồng minh gần bên 290 - 360 Lá Chắn, giảm dần trong 2.5 giây.",3190
+SPECTRES_COWL,Spectre's Cowl,Áo Choàng Ám Ảnh,EPIC,1250,RUBY_CRYSTAL;NULL_MAGIC_MANTLE;REJUVENATION_BEAD,,,200,,35,,,,,,,,,,,,,,,Tăng sức phòng ngự và hồi phục khi chịu sát thương,3211
+MIKAELS_BLESSING,Mikael's Blessing,Chuông Bảo Hộ Mikael,LEGENDARY,2300,KINDLEGEM;FORBIDDEN_IDOL,,,250,,,,,15,,,,,,,,,,12,CLEANSE,Thanh Tẩy: Loại bỏ tất cả hiệu ứng khống chế (ngoại trừ Hất Tung và Áp Chế) khỏi một tướng đồng minh và hồi cho họ 100 - 250 Máu.,3222
+TERMINUS,Terminus,Cung Chạng Vạng,LEGENDARY,3000,HEARTHBOUND_AXE;RECURVE_BOW,30,,,,,35,,,,,,,,,,,,,ONHIT:15,Bóng Tối: Đòn đánh gây 0 sát thương phép cộng thêm Khi Đánh Trúng. | Đối Nghịch: Chuyển đổi qua lại giữa Ánh Sáng và Bóng Tối trên đòn đánh khi tấn công tướng địch: Đòn đánh Ánh Sáng cho Giáp và Kháng Phép trong 5 giây.Đòn đánh Bóng Tối cho 10% Xuyên Giáp và Xuyên Kháng Phép trong 5 giây.,3302
+ARDENT_CENSER,Ardent Censer,Lư Hương Sôi Sục,LEGENDARY,2200,AETHER_WISP;FORBIDDEN_IDOL,,45,,,,,,,,4,,,,,,,,10,ALLY_AS,"Cầu Nguyện: Hồi máu hoặc tạo Lá Chắn cho đồng minh sẽ cường hóa cho cả hai trong 6 giây, giúp đòn đánh được tăng 25% Tốc Độ Đánh và 20 sát thương phép Khi Đánh Trúng.",3504
+ESSENCE_REAVER,Essence Reaver,Lưỡi Hái Linh Hồn,LEGENDARY,3050,SHEEN;CAULFIELDS;CLOAK_OF_AGILITY,50,,,,,,25,20,,,,,,,,,,,SPELLBLADE:0.6,"Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo gây thêm sát thương vật lý và tăng Năng Lượng Khi Đánh Trúng.",3508
+DEAD_MANS_PLATE,Dead Man's Plate,Giáp Liệt Sĩ,LEGENDARY,2900,WINGED_MOONPLATE;RUBY_CRYSTAL;CHAIN_VEST,,,350,55,,,,,,4,,,,,,,,,,"Nhịp Độ Đáy Sâu: Khi di chuyển, tích tụ 20 Tốc Độ Di Chuyển cộng thêm. Đòn đánh tiếp theo giải phóng lượng Tốc Độ Di Chuyển cộng dồn để gây sát thương vật lý cộng thêm. | Không Thể Nhấn Chìm: Hiệu quả của các hiệu ứng Làm Chậm bị giảm đi 15%.",3742
+TITANIC_HYDRA,Titanic Hydra,Rìu Đại Mãng Xà,LEGENDARY,3300,TIAMAT;TUNNELER;GIANTS_BELT,40,,600,,,,,,,,,,,,,,,,CLEAVE:0.35;ONHIT:30,"Sát Thương Lan: Đòn đánh gây sát thương vật lý trên đòn đánh và lên những kẻ địch phía sau mục tiêu. | Sát Thương Lan: kế tiếp, gây thêm sát thương vật lý Khi Đánh Trúng và gây thêm sát thương vật lý lên những kẻ địch phía sau mục tiêu.",3748
+CRYSTALLINE_BRACER,Crystalline Bracer,Vòng Tay Pha Lê,EPIC,800,RUBY_CRYSTAL;REJUVENATION_BEAD,,,200,,,,,,,,,,,,,,,,,Tăng Máu và tốc độ hồi Máu,3801
+LOST_CHAPTER,Lost Chapter,Bí Chương Thất Truyền,EPIC,1200,AMPLIFYING_TOME;SAPPHIRE_CRYSTAL;GLOWING_MOTE,,40,,,,,,10,,,,,,,,,300,,,"Khai Sáng: Khi tăng cấp, hồi lại 20% Năng Lượng tối đa trong 3 giây.",3802
+CATALYST,Catalyst of Aeons,Đá Vĩnh Hằng,EPIC,1300,RUBY_CRYSTAL;RUBY_CRYSTAL;SAPPHIRE_CRYSTAL,,,300,,,,,,,,,,,,,,375,,,"Vĩnh Hằng: Hồi lại Năng Lượng tương đương 10% sát thương nhận phải từ tướng địch.
+Dùng kỹ năng sẽ hồi máu tương đương 25% Năng Lượng đã dùng.",3803
+EDGE_OF_NIGHT,Edge of Night,Áo Choàng Bóng Tối,LEGENDARY,3000,SERRATED_DIRK;TUNNELER,50,,250,,,,,,,,15,,,,,,,,SPELLSHIELD,Hóa Giải: Tạo 1 Khiên Phép chặn kỹ năng tiếp theo của kẻ địch.,3814
+WORLD_ATLAS,World Atlas,Bản Đồ Thế Giới,SUPPORT,400,,,,,,,,,,,,,,,,,,,,,,3865
+CELESTIAL_OPPOSITION,Celestial Opposition,Khiên Vàng Thượng Giới,SUPPORT,400,,,,200,,,,,,,,,,,,,,,,,"Phước Lành Sơn Thạch: Giảm sát thương nhận vào từ tướng địch trong 2 giây sau khi nhận sát thương từ tướng. Khi hiệu ứng kết thúc, làm chậm kẻ địch ở gần đi 50% trong 1.5 giây.",3869
+DREAM_MAKER,Dream Maker,Thú Bông Bảo Mộng,SUPPORT,400,,,,200,,,,,,,,,,,,,,,,,Thú Bông Bảo Mộng: Hồi Máu hoặc Tạo Lá Chắn cho đồng minh khác sẽ thổi Bong Bóng Mơ tới họ trong 3 giây. Đòn đánh thường kế tiếp của họ gây thêm sát thương phép Khi Đánh Trúng và sát thương tiếp theo họ nhận vào sẽ được giảm.,3870
+ZAZZAKS_REALMSPIKE,Zaz'Zak's Realmspike,Ngòi Nổ Hư Không Zaz'Zak,SUPPORT,400,,,,200,,,,,,,,,,,,,,,,,Vụ Nổ Hư Không: Gây sát thương Kỹ Năng lên tướng sẽ tạo ra một vụ nổ gây sát thương phép.,3871
+SOLSTICE_SLEIGH,Solstice Sleigh,Cỗ Xe Mùa Đông,SUPPORT,400,,,,200,,,,,,,,,,,,,,,,,Trượt Tuyết: Làm Chậm hoặc Làm Bất Động tướng địch sẽ hồi lại Máu và ban 20% Tốc Độ Di Chuyển giảm dần cho bạn và 1 đồng minh gần kề trong 2.5 giây.,3876
+BLOODSONG,Bloodsong,Huyết Trảo,SUPPORT,400,,,,200,,,,,,,,,,,,,,,,,"Kiếm Phép: Sau khi sử dụng một Kỹ Năng, Đòn Đánh tiếp theo gây thêm sát thương vật lý Khi Đánh Trúng. Nếu mục tiêu là tướng, chúng sẽ nhận thêm sát thương trong 4 giây.",3877
+OBLIVION_ORB,Oblivion Orb,Ngọc Quên Lãng,EPIC,800,AMPLIFYING_TOME,,25,,,,,,,,,,,,,,,,,GRIEVOUS,Vết Thương Sâu: Gây sát thương phép lên tướng sẽ đặt 40% Vết Thương Sâu trong 3 giây.,3916
+IMPERIAL_MANDATE,Imperial Mandate,Trát Lệnh Đế Vương,LEGENDARY,2400,AMPLIFYING_TOME;BANDLEGLASS_MIRROR;AMPLIFYING_TOME,,60,,,,,,15,,,,,,,,,,,,"Khống Chế: Nhận thêm 20 Điểm Hồi Kỹ Năng cho các kỹ năng có hiệu ứng Làm Bất Động. | Chỉ Huy: Khi Làm Bất Động một tướng địch, đánh dấu chúng là 7% Suy Yếu trong 4 giây.",4005
+FORCE_OF_NATURE,Force of Nature,Giáp Thiên Nhiên,LEGENDARY,2800,NEGATRON_CLOAK;RUBY_CRYSTAL;WINGED_MOONPLATE,,,400,,55,,,,,4,,,,,,,,,,Vững Chãi: Nhận 70 Kháng Phép và 6% Tốc Độ Di Chuyển cộng thêm sau khi nhận sát thương phép từ tướng 8 lần.,4401
+HORIZON_FOCUS,Horizon Focus,Kính Nhắm Ma Pháp,LEGENDARY,2700,FIENDISH_CODEX;FIENDISH_CODEX;AMPLIFYING_TOME,,75,,,,,,25,,,,,,,,,,,,"Bộc Phát: Gây sát thương Kỹ Năng lên tướng ở khoảng cách 600 hoặc xa hơn sẽ làm Lộ Diện chúng trong 6 giây. | Tập Trung: Khi | Bộc Phát: được kích hoạt, làm Lộ Diện tất cả tướng địch khác trong phạm vi 1400 xung quanh chúng trong 3 giây.",4628
+COSMIC_DRIVE,Cosmic Drive,Động Cơ Vũ Trụ,LEGENDARY,3000,KINDLEGEM;AETHER_WISP;FIENDISH_CODEX,,70,350,,,,,25,,4,,,,,,,,,,Vũ Điệu Ma Pháp: Gây sát thương phép hoặc sát thương chuẩn lên tướng sẽ cho Tốc Độ Di Chuyển trong 4 giây.,4629
+BLIGHTING_JEWEL,Blighting Jewel,Đá Hắc Hóa,EPIC,1100,AMPLIFYING_TOME,,25,,,,,,,,,,,,13,,,,,,,4630
+VERDANT_BARRIER,Verdant Barrier,Dây Chuyền Sự Sống,EPIC,1600,AMPLIFYING_TOME;NULL_MAGIC_MANTLE;AMPLIFYING_TOME,,40,,,25,,,,,,,,,,,,,,,Hóa Giải: Tạo 1 Khiên Phép chặn kỹ năng tiếp theo của kẻ địch.,4632
+RIFTMAKER,Riftmaker,Quyền Trượng Ác Thần,LEGENDARY,3100,HAUNTING_GUISE;FIENDISH_CODEX,,70,350,,,,,15,,,,,,,,,,,,"Tha Hóa Hư Không: Mỗi giây trong giao tranh với tướng địch, gây thêm 2% sát thương, tối đa 8%. Ở mức sức mạnh tối đa, nhận thêm Hút Máu Toàn Phần. | Dung Hợp Hư Không: Chuyển hóa 2% Máu cộng thêm thành Sức Mạnh Phép Thuật.",4633
+BANDLEGLASS_MIRROR,Bandleglass Mirror,Gương Thần Bandle,EPIC,900,FAERIE_CHARM;AMPLIFYING_TOME;GLOWING_MOTE,,20,,,,,,10,,,,,,,,,,,,,4642
+SHADOWFLAME,Shadowflame,Ngọn Lửa Hắc Hóa,LEGENDARY,3200,HEXTECH_ALTERNATOR;NEEDLESSLY_LARGE_ROD,,110,,,,,,,,,,,15,,,,,,EXECUTE_BONUS:0.2,"Lửa Hắc Ám: Sát thương phép và sát thương chuẩn sẽ Chí Mạng lên những kẻ địch dưới 40% Máu, gây thêm 20% sát thương.",4645
+STORMSURGE,Stormsurge,Quyền Trượng Bão Tố,LEGENDARY,2800,HEXTECH_ALTERNATOR;AETHER_WISP,,90,,,,,,,,6,,,15,,,,,,,"Đột Kích Bão Tố: Gây sát thương bằng 25% Máu tối đa của một tướng trong vòng 2.5 giây sẽ gây hiệu ứng | Gió Giật: lên chúng. | Gió Giật: Sau 2 giây, gây sát thương phép. Nếu mục tiêu bị tiêu diệt trước khi | Gió Giật: kích hoạt, gây sát thương lên những kẻ địch ở gần.",4646
+DEATHS_DANCE,Death's Dance,Vũ Điệu Tử Thần,LEGENDARY,3300,STEEL_SIGIL;PICKAXE;CAULFIELDS,60,,,50,,,,15,,,,,,,,,,,DAMAGE_DELAY:0.3,"Chịu Đòn: Một phần sát thương nhận vào sẽ trở thành sát thương theo thời gian trong 3 giây. | Thách Thức: Khi một tướng nhận sát thương từ bạn trong vòng 3 giây bị hạ gục, xóa toàn bộ sát thương đang tích trữ của | Chịu Đòn: và hồi lại Máu trong 2 giây.",6333
+CHEMPUNK_CHAINSWORD,Chempunk Chainsword,Cưa Xích Hóa Kỹ,LEGENDARY,3000,EXECUTIONERS_CALLING;GIANTS_BELT;CAULFIELDS,45,,450,,,,,15,,,,,,,,,,,GRIEVOUS,Xích Cưa Sắc Nhọn: Gây sát thương vật lý sẽ khiến tướng địch chịu 40% Vết Thương Sâu trong 3 giây.,6609
+SUNDERED_SKY,Sundered Sky,Giáo Thiên Ly,LEGENDARY,3100,TUNNELER;CAULFIELDS,40,,400,,,,,10,,,,,,,,,,,LIFELINE:0.1,Đòn Thánh Khiên: Đòn Đánh đầu tiên lên tướng địch sẽ Chí Mạng và hồi lại Máu.,6610
+STAFF_OF_FLOWING_WATER,Staff of Flowing Water,Trượng Lưu Thủy,LEGENDARY,2250,FIENDISH_CODEX;FORBIDDEN_IDOL,,35,,,,,,10,,,,,,,,,,10,,Nước Sủi Bọt: Hồi Máu và Tạo Lá Chắn cho đồng minh sẽ cho cả hai 40 Sức Mạnh Phép Thuật và 15 Điểm Hồi Kỹ Năng trong 6 giây.,6616
+MOONSTONE_RENEWER,Moonstone Renewer,Bùa Nguyệt Thạch,LEGENDARY,2200,KINDLEGEM;BANDLEGLASS_MIRROR,,25,200,,,,,20,,,,,,,,,,,TEAM_HEAL,"Ánh Sao Yêu Kiều: Hồi máu hoặc tạo lá chắn cho một đồng minh sẽ truyền hiệu ứng sang một tướng đồng minh khác (trừ chính bản thân), giúp hồi máu bằng 30% hoặc tạo lá chắn bằng 35% lượng ban đầu.",6617
+ECHOES_OF_HELIA,Echoes of Helia,Vọng Âm Helia,LEGENDARY,2200,KINDLEGEM;BANDLEGLASS_MIRROR,,35,200,,,,,20,,,,,,,,,,,TEAM_HEAL,Lực Hút Tâm Linh: Nhận 30% sát thương trước giảm trừ đã gây ra lên tướng dưới dạng Linh Lực. Hồi Máu hoặc Tạo Lá Chắn cho một đồng minh sẽ tiêu hao toàn bộ | Linh Lực: để hồi lại Máu.,6620
+DAWNCORE,Dawncore,Lõi Bình Minh,LEGENDARY,2500,BLASTING_WAND;FORBIDDEN_IDOL;FORBIDDEN_IDOL,,45,,,,,,,,,,,,,,,,16,,Nhất Quang: Tăng 2% Sức Mạnh Hồi Máu & Tạo Lá Chắn và 15 Sức Mạnh Phép Thuật với mỗi 100% Hồi Năng Lượng Cơ Bản.,6621
+STRIDEBREAKER,Stridebreaker,Chùy Phản Kích,LEGENDARY,3300,TIAMAT;PHAGE;DAGGER,40,,450,,,25,,,,,,,,,,,,,CLEAVE:0.3,Sát Thương Lan: Đòn đánh gây sát thương vật lý lên kẻ địch ở gần.,6631
+LIANDRYS,Liandry's Torment,Mặt Nạ Đọa Đày Liandry,LEGENDARY,3000,HAUNTING_GUISE;FATED_ASHES,,60,300,,,,,,,,,,,,,,,,BURN_SPELL:0.02,"Đọa Đày: Kỹ Năng gây sát thương sẽ thiêu đốt kẻ địch, gây sát thương phép tương đương 2% Máu tối đa mỗi giây trong 3 giây. | Thống Khổ: Mỗi giây trong giao tranh với tướng địch, gây thêm 2% sát thương, tối đa 6%.",6653
+LUDENS,Luden's Echo,Vọng Âm Luden,LEGENDARY,2750,LOST_CHAPTER;HEXTECH_ALTERNATOR,,100,,,,,,10,,,,,,,,,600,,,"Vọng Âm: Các Kỹ Năng gây sát thương sẽ phóng ra 6 Vọng Âm, gây thêm sát thương phép lên mục tiêu và các kẻ địch gần bên. Mỗi Vọng Âm còn lại khai hỏa lên mục tiêu chính, gây 20% sát thương.",6655
+ROD_OF_AGES,Rod of Ages,Trượng Trường Sinh,LEGENDARY,2600,BLASTING_WAND;CATALYST,,45,350,,,,,,,,,,,,,,500,,,"Vô Tận: Trang bị này cho thêm 10 Máu, 30 Năng Lượng và 3 Sức Mạnh Phép Thuật sau mỗi 60 giây, tối đa 10 lần. Khi đạt cộng dồn tối đa, tăng 1 cấp. | Vĩnh Hằng: Nhận sát thương từ tướng sẽ hồi lại Năng Lượng tương đương 10% sát thương.
+Dùng kỹ năng sẽ hồi máu tương đương 25% Năng Lượng đã dùng.",6657
+BAMIS_CINDER,Bami's Cinder,Tàn Tích Bami,EPIC,900,RUBY_CRYSTAL;GLOWING_MOTE,,,150,,,,,5,,,,,,,,,,,BURN_AURA:12,"Hiến Tế: Sau khi nhận hoặc gây sát thương, gây sát thương phép lên kẻ địch ở gần trong 3 giây.",6660
+ICEBORN_GAUNTLET,Iceborn Gauntlet,Găng Tay Băng Giá,LEGENDARY,2900,SHEEN;RUBY_CRYSTAL;CHAIN_VEST,,,300,50,,,,15,,,,,,,,,,,SPELLBLADE:0.6;SLOW,"Kiếm Phép: Sau khi sử dụng Kỹ Năng, Đòn Đánh kế tiếp sẽ gây sát thương vật lý cộng thêm Khi Đánh Trúng và tạo ra một vùng đóng băng trong 2 giây, gây Làm Chậm.",6662
+HOLLOW_RADIANCE,Hollow Radiance,Áo Choàng Hắc Quang,LEGENDARY,2800,BAMIS_CINDER;SPECTRES_COWL,,,400,,40,,,10,,,,,,,,,,,BURN_AURA:25,"Hiến Tế: Sau khi nhận hoặc gây sát thương, gây sát thương phép mỗi giây lên kẻ địch ở gần trong 3 giây. | Tàn Phá: Tiêu diệt một kẻ địch sẽ gây sát thương phép ra xung quanh chúng.",6664
+JAKSHO,Jak'Sho the Protean,"Jak'Sho, Vỏ Bọc Thích Nghi",LEGENDARY,3200,GIANTS_BELT;CHAIN_VEST;NEGATRON_CLOAK,,,350,45,45,,,,,,,,,,,,,,,"Vỏ Bọc Hư Không: Sau 5 giây giao tranh với tướng, tăng Giáp và Kháng Phép cộng thêm của bạn thêm 30% cho đến khi kết thúc giao tranh.",6665
+NOONQUIVER,Noonquiver,Bó Tên Ánh Sáng,EPIC,1300,LONG_SWORD;CLOAK_OF_AGILITY,15,,,,,,20,,,,,,,,,,,,,,6670
+KRAKEN_SLAYER,Kraken Slayer,Móc Diệt Thủy Quái,LEGENDARY,3000,RECTRIX;HEARTHBOUND_AXE;RECURVE_BOW,45,,,,,40,,,,4,,,,,,,,,ONHIT:30,"Bắn Hạ: Mỗi Đòn Đánh thứ ba sẽ gây sát thương vật lý cộng thêm Khi Đánh Trúng, gia tăng theo Máu đã mất của chúng.",6672
+IMMORTAL_SHIELDBOW,Immortal Shieldbow,Nỏ Tử Thủ,LEGENDARY,3000,PICKAXE;NOONQUIVER,55,,,,,,25,,,,,,,,,,,,LIFELINE:0.25,"Bảo Hiểm Ma Pháp: Khi nhận sát thương khiến Máu tụt xuống dưới 30%, nhận Lá Chắn trong 3 giây.",6673
+NAVORI,Navori Flickerblade,Đao Chớp Navori,LEGENDARY,2650,DAGGER;ZEAL;DAGGER,,,,,,40,25,,,4,,,,,,,,,HASTE_ON_HIT,Thăng Tiến Sức Mạnh: Đòn Đánh giảm thời gian hồi chiêu còn lại của Kỹ Năng Cơ Bản đi 15%.,6675
+THE_COLLECTOR,The Collector,Súng Hải Tặc,LEGENDARY,3000,PICKAXE;SERRATED_DIRK;CLOAK_OF_AGILITY,50,,,,,,25,,,,10,,,,,,,,EXECUTE:0.05,Về Với Cát Bụi: Gây sát thương sẽ kết liễu tướng dưới ngưỡng 5% Máu. | Lợi Tức: Hạ gục tướng sẽ cho 25 vàng cộng thêm.,6676
+RECTRIX,Rectrix,Lông Đuôi,EPIC,775,LONG_SWORD,15,,,,,,,,,4,,,,,,,,,,,6690
+ECLIPSE,Eclipse,Nguyệt Đao,LEGENDARY,2900,CAULFIELDS;PICKAXE;LONG_SWORD,60,,,,,,,15,,,,,,,,,,,LIFELINE:0.12,Ánh Trăng Công Kích: Tấn công tướng địch bằng 2 Đòn Đánh hoặc Kỹ Năng riêng biệt trong 2 giây sẽ cho bạn Lá Chắn trong 2 giây.,6692
+SERYLDAS_GRUDGE,Serylda's Grudge,Thương Phục Hận Serylda,LEGENDARY,3000,CAULFIELDS;LAST_WHISPER,45,,,,,,,15,,,,35,,,,,,,SLOW,Giá Lạnh: Kỹ năng gây sát thương sẽ Làm Chậm kẻ địch còn dưới 50% Máu đi 30% trong 1 giây.,6694
+SERPENTS_FANG,Serpent's Fang,Kiếm Ác Xà,LEGENDARY,2500,SERRATED_DIRK;PICKAXE,55,,,,,,,,,,15,,,,,,,,,"Phá Khiên: Gây sát thương lên một tướng địch sẽ làm giảm lượng Lá Chắn chúng nhận được đi 0% trong 3 giây.
+Nếu chúng chưa bị tác động bởi | Phá Khiên: , giảm tất cả lá chắn hiện có của chúng đi 0%.",6695
+AXIOM_ARC,Axiom Arc,Nguyên Tố Luân,LEGENDARY,2750,THE_BRUTALIZER;CAULFIELDS,55,,,,,,,20,,,18,,,,,,,,,"Tái Thiết: Khi một tướng bị hạ gục trong vòng 3 giây sau khi nhận sát thương từ bạn, hồi lại một phần tổng thời gian hồi Chiêu Cuối.",6696
+HUBRIS,Hubris,Nguyệt Quế Cao Ngạo,LEGENDARY,2800,SERRATED_DIRK;CAULFIELDS,55,,,,,,,10,,,18,,,,,,,,,"Nổi Tiếng: Khi một tướng đã bị bạn gây sát thương lên trong vòng 3 giây bị hạ gục, nhận 0 Sức Mạnh Công Kích cộng 0 với mỗi tướng địch bị hạ gục trong 90 giây.",6697
+PROFANE_HYDRA,Profane Hydra,Mãng Xà Kích,LEGENDARY,2850,TIAMAT;THE_BRUTALIZER,55,,,,,,,10,,,18,,,,,,,,CLEAVE:0.35,Sát Thương Lan: Đòn đánh gây sát thương vật lý lên kẻ địch ở gần.,6698
+VOLTAIC_CYCLOSWORD,Voltaic Cyclosword,Kiếm Điện Phong,LEGENDARY,3000,THE_BRUTALIZER;LONG_SWORD;LONG_SWORD,55,,,,,,,10,,,10,,,,,,,,,Kích Điện: Gây sát thương lên Tướng địch bằng một kỹ năng sẽ kích hoạt Tích Điện nếu hiệu ứng này đã sẵn sàng. | Thiên Đường: Đòn Đánh Tích Điện của bạn gây sát thương vật lý cộng thêm tương đương % Máu hiện tại của mục tiêu và cho bạn thêm Sát Lực trong 4 giây.,6699
+BLOODLETTERS_CURSE,Bloodletter's Curse,Lời Nguyền Huyết Tự,LEGENDARY,2900,HAUNTING_GUISE;FIENDISH_CODEX,,65,400,,,,,15,,,,,,,,,,,MR_SHRED,Mục Rữa Đáng Sợ: Gây sát thương phép bằng kỹ năng hoặc nội tại lên tướng sẽ giảm Kháng Phép của kẻ đó đi 7.5% trong 6 giây. (Cộng dồn 4 lần).,8010
+ABYSSAL_MASK,Abyssal Mask,Mặt Nạ Vực Thẳm,LEGENDARY,2650,KINDLEGEM;NEGATRON_CLOAK,,,350,,45,,,15,,,,,,,,,,,MR_SHRED,Hủy Hoại: Tướng địch xung quanh sẽ chịu thêm 12% sát thương phép.,8020

@@ -9,8 +9,9 @@ import { Squad } from "./Squad.tsx";
 import { Market } from "./Market.tsx";
 import { teamCrest } from "./art/sprites.ts";
 import { Avatar } from "./avatar.tsx";
+import { ItemsPage } from "./items.tsx";
 
-type Page = "news" | "roster" | "schedule" | "rankings" | "transfer" | "scout" | "stats" | "club";
+type Page = "news" | "roster" | "schedule" | "rankings" | "transfer" | "scout" | "stats" | "items" | "club";
 const NAV: [Page, string, string][] = [
   ["news", "Tin tức", "◆"],
   ["roster", "Đội hình & Tập luyện", "♟"],
@@ -19,6 +20,7 @@ const NAV: [Page, string, string][] = [
   ["transfer", "Chuyển nhượng", "⇄"],
   ["scout", "Tuyển trạch", "◎"],
   ["stats", "Thống kê", "≡"],
+  ["items", "Kho trang bị", "⚔"],
   ["club", "Ban lãnh đạo / Tài chính", "$"],
 ];
 
@@ -95,6 +97,7 @@ export function Hub(props: Props) {
         {page === "transfer" && <Market career={c} onChange={onChange} view="transfer" />}
         {page === "scout" && <Market career={c} onChange={onChange} view="scout" />}
         {page === "stats" && <StatsPage career={c} />}
+        {page === "items" && <ItemsPage />}
         {page === "club" && <ClubPage career={c} onQuit={props.onQuit} />}
       </main>
 

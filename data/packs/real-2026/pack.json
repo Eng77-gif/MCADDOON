@@ -5,6 +5,7 @@
  "files": {
   "champions": "champions.json",
   "leagues": "leagues.json",
-  "teams": "teams.json"
+  "teams": "teams.json",
+  "items": "items.json"
  }
 }

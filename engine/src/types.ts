@@ -121,4 +121,6 @@ export interface TeamSetup {
   tactic: Tactic;
   /** Chỉ đạo mặc định; có thể đổi giữa các giai đoạn qua callback */
   orders: CoachOrders;
+  /** Lối lên đồ HLV chọn cho cả đội (mặc định: cân bằng) */
+  buildStyle?: "BALANCED" | "DAMAGE" | "DEFENSE";
 }

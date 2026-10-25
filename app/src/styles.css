@@ -292,3 +292,25 @@ img.portrait, .avatar img { border-radius: 4px; background: var(--panel-3); obje
 .slot .avatar { border-radius: 4px; }
 .stage-canvas.gl { pointer-events: none; image-rendering: auto; }
 .loading-3d { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); pointer-events: none; }
+
+/* ---------------------------------------------------------------- Trang bị */
+.item-slots { display: inline-flex; gap: 2px; vertical-align: middle; }
+.item-icon { display: inline-block; border-radius: 3px; border: 1px solid var(--line); background: var(--bg-2); image-rendering: auto; flex: none; }
+.item-icon.tier-legendary { border-color: #c8a24a; }
+.item-icon.tier-boots { border-color: #6f8fb8; }
+.item-icon.empty { opacity: 0.45; }
+.roster-row .item-slots { margin-top: 3px; }
+.items-page { display: grid; grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); gap: 12px; align-items: start; }
+.items-page .search { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg-2); color: inherit; min-width: 120px; }
+.item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 6px; margin-top: 10px; }
+.item-cell { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px; cursor: pointer; color: inherit; }
+.item-cell.on { outline: 2px solid var(--accent, #e0b84f); }
+.item-cell small { font-size: 11px; opacity: 0.8; }
+.item-head { display: flex; gap: 12px; align-items: center; margin-bottom: 8px; }
+.item-stats { margin: 6px 0; padding-left: 18px; color: #9fd28a; }
+.recipe { display: flex; flex-wrap: wrap; gap: 6px; }
+@media (max-width: 760px) {
+  .items-page { grid-template-columns: 1fr; }
+  .score-table .item-slots .item-icon { width: 14px !important; height: 14px !important; }
+}
+.item-price { font-size: 20px; font-weight: 700; color: var(--gold); }

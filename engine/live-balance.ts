@@ -2,6 +2,7 @@
 import { LiveMatch } from "./src/live/sim.ts";
 import { bestTactic, type Picks, type Team, type TeamSetup } from "./src/index.ts";
 import { buffTeam, realPack, realTeam } from "./test/fixtures.ts";
+import defaultItems from "../data/packs/real-2026/items.json" with { type: "json" };
 
 const db = realPack.champions;
 const N = Number(process.argv[2] ?? 20);
@@ -31,3 +32,16 @@ batch("Gương, đội 0 +5 chỉ số", () => [setup(buffTeam(gen, 5), A), setu
 batch("Gương, đội 0 +10 chỉ số", () => [setup(buffTeam(gen, 10), A), setup(gen, A)]);
 batch("GEN vs T1 (đổi bên/tướng)", (s) => (s % 2 ? [setup(gen, A), setup(realTeam("T1"), B)] : [setup(gen, B), setup(realTeam("T1"), A)]));
 batch("GEN vs FURIA", (s) => (s % 2 ? [setup(gen, A), setup(realTeam("FUR"), B)] : [setup(gen, B), setup(realTeam("FUR"), A)]));
+
+// Lên đồ: túi đồ cuối trận mẫu và hiệu quả theo lối lên đồ
+{
+  const r = new LiveMatch(db, { patch: "26.21", stagePressure: 0, seed: 7 }, [setup(gen, A), setup(realTeam("T1"), B)]).run();
+  const items = defaultItems as Record<string, { nameVi?: string }>;
+  console.log(`\nTúi đồ mẫu (GEN vs T1, ${r.duration}'):`);
+  for (const s of r.sides) for (const l of s.lines) console.log(`  ${l.ign.padEnd(9)} ${l.champion.padEnd(9)} ${(l.items ?? []).map((id) => items[id]?.nameVi ?? id).join(", ")}`);
+}
+for (const style of ["DAMAGE", "DEFENSE"] as const)
+  batch(`Gương, đội 0 lên đồ ${style}`, (s) => {
+    const p = s % 2 ? A : B;
+    return [{ ...setup(gen, p), buildStyle: style }, setup(gen, p)];
+  });

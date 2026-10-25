@@ -1,6 +1,7 @@
 // Trình xem trận kiểu Teamfight Manager 2: camera bám giao tranh trên bản đồ pixel, bảng tuyển thủ hai bên,
 // thanh tỉ số, nhật ký ý định, bản đồ mini, bảng chỉ số và điều khiển tốc độ.
 import { useEffect, useRef, useState } from "react";
+import { ItemSlots } from "./items.tsx";
 import {
   INHIBITORS, LIVE, LiveMatch, MAP_SIZE, NEXUS_NODES, describeEvent, type ChampUnit, type CoachOrders, type MatchResult,
 } from "../../engine/src/index.ts";
@@ -434,6 +435,7 @@ function RosterRow({ c, t, colors }: { c: ChampUnit; t: number; colors: [string,
           <b>Lv.{c.level}</b> {c.player.ign} <small>({champName(c.champion.id)})</small>
         </div>
         <div className="hp"><i style={{ width: `${c.alive ? (c.hp / c.maxHp) * 100 : 0}%` }} /></div>
+        <ItemSlots inventory={c.inventory} size={14} />
       </div>
       {!c.alive && <span className="respawn">{respawn}s</span>}
     </div>
@@ -446,7 +448,7 @@ function ScoreTable({ match, colors }: { match: LiveMatch; colors: Props["colors
     <div className="score-table">
       {sides.map((list, s) => (
         <table key={s} className={`table small ${s === 0 ? "blue" : "red"}`}>
-          <thead><tr><th></th><th>Tuyển thủ</th><th>Tướng</th><th>K/D/A</th><th>CS</th><th>Vàng</th></tr></thead>
+          <thead><tr><th></th><th>Tuyển thủ</th><th>Tướng</th><th>K/D/A</th><th>CS</th><th>Vàng</th><th>Trang bị</th></tr></thead>
           <tbody>
             {list.map((c) => (
               <tr key={c.id}>
@@ -456,6 +458,7 @@ function ScoreTable({ match, colors }: { match: LiveMatch; colors: Props["colors
                 <td>{c.line.kills}/{c.line.deaths}/{c.line.assists}</td>
                 <td>{c.line.cs}</td>
                 <td>{(c.line.gold / 1000).toFixed(1)}K</td>
+                <td><ItemSlots inventory={c.inventory} size={18} /></td>
               </tr>
             ))}
           </tbody>
