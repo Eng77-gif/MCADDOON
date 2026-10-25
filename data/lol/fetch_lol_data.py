@@ -8,6 +8,9 @@ Writes next to this script:
   champions.json   every champion: roles, resource, base stats + growth, passive and abilities
   TRANG_BI.md      readable item list grouped by tier
   TUONG.md         readable champion list with base / level 18 stats and passive
+  img/             icons and art downloaded from Data Dragon:
+                     items/<id>.png, champions/<Id>.png (square icon), loading/<Id>.jpg (portrait art),
+                     passives/<Id>.png, spells/<Id>_<Q|W|E|R>.png
 """
 import html, json, os, re, sys, urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -99,7 +102,8 @@ def build_items(raw):
             "tags": it.get("tags", []),
             "stats": {STAT_NAMES.get(k, k): v for k, v in it.get("stats", {}).items()},
             "stat_text": stat_lines, "effects": effects, "summary": plain(it.get("plaintext", "")),
-            "icon": f"{DD}/cdn/{VERSION}/img/item/{it['image']['full']}",
+            "image": f"img/items/{iid}.png",
+            "image_url": f"{DD}/cdn/{VERSION}/img/item/{it['image']['full']}",
         })
     names = {i["id"]: i["name"] for i in items}
     for i in items:                                # drop recipe links to items that are not on the Rift
@@ -145,13 +149,50 @@ def build_champions(raw):
                 "attack_speed": [s["attackspeed"], s["attackspeedperlevel"] / 100],
                 "range": s["attackrange"], "move_speed": s["movespeed"],
             },
-            "passive": {"name": c["passive"]["name"], "text": plain(c["passive"]["description"])},
+            "passive": {"name": c["passive"]["name"], "text": plain(c["passive"]["description"]),
+                        "image": f"img/passives/{key}.png",
+                        "image_url": f"{DD}/cdn/{VERSION}/img/passive/{c['passive']['image']['full']}"},
             "spells": [{"slot": slot, "name": sp["name"], "cooldown": sp["cooldown"], "cost": sp["cost"],
-                        "range": sp["range"], "text": plain(sp["description"])}
+                        "range": sp["range"], "text": plain(sp["description"]),
+                        "image": f"img/spells/{key}_{slot}.png",
+                        "image_url": f"{DD}/cdn/{VERSION}/img/spell/{sp['image']['full']}"}
                        for slot, sp in zip("QWER", c["spells"])],
-            "icon": f"{DD}/cdn/{VERSION}/img/champion/{c['image']['full']}",
+            "image": f"img/champions/{key}.png",
+            "image_url": f"{DD}/cdn/{VERSION}/img/champion/{c['image']['full']}",
+            "loading_image": f"img/loading/{key}.jpg",
+            "loading_image_url": f"{DD}/cdn/img/champion/loading/{key}_0.jpg",
         })
     return out
+
+
+def download_images(items, champs):
+    """Fetch every image referenced by the JSON into img/ (skips files already there)."""
+    jobs = [(i["image_url"], i["image"]) for i in items]
+    for c in champs:
+        jobs += [(c["image_url"], c["image"]), (c["loading_image_url"], c["loading_image"]),
+                 (c["passive"]["image_url"], c["passive"]["image"])]
+        jobs += [(sp["image_url"], sp["image"]) for sp in c["spells"]]
+
+    def fetch(job):
+        url, rel = job
+        dest = os.path.join(HERE, rel)
+        if os.path.exists(dest):
+            return None
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "MCADDOON-lol-data/1.0"})
+            data = urllib.request.urlopen(req, timeout=60).read()
+        except Exception as e:
+            return f"{rel}: {e}"
+        with open(dest, "wb") as f:
+            f.write(data)
+        return None
+
+    with ThreadPoolExecutor(16) as pool:
+        errors = [e for e in pool.map(fetch, jobs) if e]
+    for e in errors:
+        print("image failed:", e)
+    return len(jobs) - len(errors)
 
 
 def fmt(v):
@@ -168,7 +209,7 @@ def write_item_md(items, path):
             continue
         lines += [f"## {TIER_VI[tier]} ({len(group)})", ""]
         for i in group:
-            lines.append(f"### {i['name']} — {i['cost']} vàng")
+            lines.append(f"### <img src=\"{i['image']}\" width=\"32\"> {i['name']} — {i['cost']} vàng")
             if i["stat_text"]:
                 lines.append("**Chỉ số:** " + " · ".join(i["stat_text"]))
             if i["from"]:
@@ -193,15 +234,17 @@ def write_champ_md(champs, path):
         s = c["stats"]
         lv = lambda k, d=0: f"{s[k][0]:.{d}f} → {stat_at(s[k][0], s[k][1], 18):.{d}f}"
         as18 = s["attack_speed"][0] * (1 + stat_at(0, s["attack_speed"][1], 18))
-        lines.append(f"| {c['name']} | {', '.join(ROLE_VI.get(r, r) for r in c['roles'])} | {lv('hp')} | {lv('armor', 1)} | "
+        lines.append(f"| <img src=\"{c['image']}\" width=\"28\"> {c['name']} | {', '.join(ROLE_VI.get(r, r) for r in c['roles'])} | {lv('hp')} | {lv('armor', 1)} | "
                      f"{lv('mr', 1)} | {lv('ad')} | {s['attack_speed'][0]:.3f} → {as18:.3f} | {s['range']} | {s['move_speed']} |")
     lines += ["", "## Nội tại và kỹ năng", ""]
     for c in champs:
-        lines.append(f"### {c['name']} — {c['title']}")
-        lines.append(f"- **Nội tại – {c['passive']['name']}:** " + c["passive"]["text"].replace("\n", " "))
+        lines.append(f"### <img src=\"{c['image']}\" width=\"40\"> {c['name']} — {c['title']}")
+        lines.append(f"- <img src=\"{c['passive']['image']}\" width=\"24\"> **Nội tại – {c['passive']['name']}:** "
+                     + c["passive"]["text"].replace("\n", " "))
         for sp in c["spells"]:
             cd = "/".join(fmt(x) for x in sp["cooldown"])
-            lines.append(f"- **{sp['slot']} – {sp['name']}** (hồi {cd}s): " + sp["text"].replace("\n", " "))
+            lines.append(f"- <img src=\"{sp['image']}\" width=\"24\"> **{sp['slot']} – {sp['name']}** (hồi {cd}s): "
+                         + sp["text"].replace("\n", " "))
         lines.append("")
     open(path, "w", encoding="utf-8").write("\n".join(lines))
 
@@ -218,9 +261,10 @@ def main():
     json.dump({**meta, "stat_format": "[base, per level]; attack_speed growth is a fraction per level",
                "champions": champs},
               open(os.path.join(HERE, "champions.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    images = download_images(items, champs)
     write_item_md(items, os.path.join(HERE, "TRANG_BI.md"))
     write_champ_md(champs, os.path.join(HERE, "TUONG.md"))
-    print(f"patch {VERSION}: {len(items)} items, {len(champs)} champions")
+    print(f"patch {VERSION}: {len(items)} items, {len(champs)} champions, {images} images")
 
 
 if __name__ == "__main__":
