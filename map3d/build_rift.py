@@ -552,7 +552,8 @@ def turret(team, rng):
         plinth, shaft, metal, accent = (104, 108, 116), (196, 192, 182), GOLD, t["trim"]
     else:
         plinth, shaft, metal, accent = (64, 58, 62), (98, 88, 92), (74, 64, 68), (120, 40, 36)
-    m.add(frustum(2.0, 1.8, 0.35, 8), plinth, smooth=False, jitter=4, m=rot_y(np.pi / 8))
+    m.add(frustum(2.4, 2.2, 0.3, 8), plinth, smooth=False, jitter=4, m=rot_y(np.pi / 8))
+    m.add(frustum(2.1, 1.95, 0.12, 8), shaft, smooth=False, jitter=4, m=translate(0, 0.25, 0) @ rot_y(np.pi / 8))
     m.add(frustum(1.65, 1.45, 0.4, 8), shaft, smooth=False, jitter=4, m=translate(0, 0.35, 0) @ rot_y(np.pi / 8))
     m.add(frustum(1.05, 0.78, 4.3, 8), shaft, smooth=False, jitter=4, m=translate(0, 0.75, 0) @ rot_y(np.pi / 8))
     for x, y, z in ring_pts(1.0, 0.75, 4, np.pi / 4):               # buttresses up the shaft
@@ -671,10 +672,12 @@ def fountain(team, rng):
 
 
 def facing(p):
-    """Rotation about y that turns a +x-facing structure toward the map centre."""
+    """Rotation about y that turns a +x-facing structure toward the map centre, snapped to 45 degrees
+    so towers line up with the lanes and the square map instead of sitting at odd angles."""
     dx = CENTER[0] - p[0]
     dz = -(CENTER[1] - p[1])          # game north is model -z
-    return rot_y(math.atan2(-dz, dx))
+    a = math.atan2(-dz, dx)
+    return rot_y(round(a / (np.pi / 4)) * (np.pi / 4))
 
 
 def clean_texture(out_dir):
@@ -687,12 +690,18 @@ def clean_texture(out_dir):
     mask = np.zeros((n, n), bool)
     for name, (px, py) in STRUCTURE_PX.items():
         px, py = px * n / 2048, py * n / 2048
-        big = name.startswith(("Nexus", "Fountain"))
-        rx, ry, lean = (60, 70, 20) if big else (30, 46, 30)
-        mask |= ((xx - px) / rx) ** 2 + ((yy - (py - lean)) / ry) ** 2 <= 1
+        if name.startswith(("Nexus", "Fountain")):
+            mask |= ((xx - px) / 62) ** 2 + ((yy - (py - 15)) / 72) ** 2 <= 1
+            continue
+        # painted towers lean north (up) and a little east: cover the round base plus a capsule
+        # running up the leaning tower to its top
+        mask |= np.hypot(xx - px, yy - py) <= 30
+        t = np.clip((py - yy) / 85, 0, 1)                         # 0 at the base, 1 at the top
+        cx = px + 10 * t
+        mask |= (np.abs(xx - cx) <= 26) & (yy <= py) & (yy >= py - 85)
     keep = (~mask).astype(float)
     tex = grade(tex)
-    sigma = 18 * n / 2048
+    sigma = 26 * n / 2048
     num = np.stack([blur_px(tex[..., c] * keep, sigma) for c in range(3)], -1)
     den = blur_px(keep, sigma)[..., None]
     filled = num / np.maximum(den, 1e-3)
