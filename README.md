@@ -8,6 +8,7 @@ Giả lập quản lý đội tuyển LMHT chuyên nghiệp (Web + Mobile). Ngư
 2. [Engine mô phỏng trận theo giai đoạn](docs/02-match-engine.md)
 3. [Kiến trúc kỹ thuật, Data Pack và hai chế độ chơi](docs/03-architecture-and-modes.md)
 4. [Dữ liệu thật, AI Ban/Pick, mùa giải và giao diện](docs/04-data-draft-season-ui.md)
+5. [Câu lệnh tạo sprite tướng/quái trên PixelLab (làm tay)](docs/05-pixellab-prompts.md)
 
 ## Chạy thử
 
