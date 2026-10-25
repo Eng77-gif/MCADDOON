@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Summoner's Rift Voxel</title>
 <style>
-  html, body { margin: 0; height: 100%; background: #10141c; color: #dfe6f0; font: 13px system-ui, sans-serif; overflow: hidden; }
+  html, body { margin: 0; height: 100%; background: #a9c9b8; color: #dfe6f0; font: 13px system-ui, sans-serif; overflow: hidden; }
   #hud { position: fixed; top: 10px; left: 10px; background: #0009; padding: 8px 10px; border-radius: 6px; }
   #hud label { display: block; cursor: pointer; }
 </style>
@@ -36,8 +36,8 @@ renderer.setSize(innerWidth, innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x10141c);
-scene.fog = new THREE.Fog(0x10141c, 260, 520);
+scene.background = new THREE.Color(0xa9c9b8);          // misty valley sky, as in the in-game view
+scene.fog = new THREE.Fog(0xa9c9b8, 280, 620);
 const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 1, 2000);
 const params = new URLSearchParams(location.search);
 camera.position.set(params.has("top") ? 0 : -110, params.has("top") ? 250 : 150, params.has("top") ? 1 : 140);
@@ -66,7 +66,7 @@ new GLTFLoader().load("summoners_rift.glb", (gltf) => {
       o.receiveShadow = true;
       if (o.material.emissive) o.material.emissiveIntensity = 1.2;
     }
-    const env = ["Terrain", "Water", "Trees", "Brush", "Rocks", "Flowers", "Walls", "Crystals"];
+    const env = ["Terrain", "Cliffs", "Water", "Trees", "Brush", "Rocks", "Flowers", "Walls", "Crystals"];
     if (o.parent === gltf.scene && !env.includes(o.name)) structures.push(o);
   });
   scene.add(gltf.scene);

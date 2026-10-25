@@ -54,14 +54,32 @@ OBJECTIVES = {
 }
 PIT_RADIUS = 700
 
-BLUE_BRUSH = [(4500, 8700), (2600, 8100), (6200, 5600), (8800, 5300), (9300, 3000),
-              (2200, 9900), (3200, 11400), (6400, 8000), (1700, 10800), (10800, 1700),
-              (8100, 6700), (11400, 3200)]
-BRUSH_RADIUS = 320
+# Brushes picked off the top-down reference texture (1024 px = 14870 units, row 0 = north), as
+# (x, y, radius) in texture pixels. One list per half of the map; each is also mirrored through the
+# centre so both teams get the same brushes.
+BRUSH_PX_DRAGON_HALF = [(625, 880, 14), (537, 970, 12), (570, 588, 12), (590, 610, 12), (590, 703, 12),
+                        (700, 610, 12), (704, 630, 12), (552, 782, 14), (790, 766, 12), (880, 893, 15),
+                        (852, 935, 15), (925, 855, 15), (715, 815, 12), (382, 790, 12), (468, 815, 14)]
+BRUSH_PX_BARON_HALF = [(118, 152, 18), (172, 115, 16), (82, 190, 14), (237, 267, 12), (305, 232, 14),
+                       (210, 412, 12), (415, 450, 12), (445, 475, 12), (330, 543, 12), (327, 440, 12)]
+
+
+def _brushes():
+    px = BRUSH_PX_DRAGON_HALF + BRUSH_PX_BARON_HALF
+    px = px + [(1024 - x, 1024 - y, r) for x, y, r in px]
+    out = []
+    for x, y, r in px:                          # drop near-duplicates left by mirroring
+        if all(math.dist((x, y), (ox, oy)) > 14 for ox, oy, _ in out):
+            out.append((x, y, r))
+    return [((x + 0.5) / 1024 * W, (1023.5 - y) / 1024 * W, r / 1024 * W * 1.4) for x, y, r in out]
+
+
+BRUSHES = _brushes()                            # (game x, game y, radius)
+TEXTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "rift_texture.jpg")
 
 BASE_CENTER = (0, 0)
-BASE_SIZE = 5300     # bases are rounded squares this wide, filling the corner of the map
-BASE_ROUND = 2000    # radius of the rounded corner that faces the map centre
+BASE_SIZE = 5000     # bases are rounded squares this wide, filling the corner of the map
+BASE_ROUND = 1500    # radius of the rounded corner that faces the map centre
 FOUNTAIN = (900, 900)
 
 BLUE_TURRETS = {
@@ -89,6 +107,8 @@ CANOPY = [(38, 84, 44), (50, 98, 44), (32, 74, 50), (60, 104, 40), (44, 90, 58)]
 TRUNK = (96, 70, 46)
 GLOWS = {"Glow_Blue": (80, 180, 255), "Glow_Red": (255, 86, 70), "Glow_Purple": (190, 110, 255)}
 MATERIALS = {
+    "Ground": {"pbrMetallicRoughness": {"baseColorTexture": {"index": 0}, "metallicFactor": 0, "roughnessFactor": 1},
+               "extensions": {"KHR_materials_unlit": {}}},
     "Base": {"pbrMetallicRoughness": {"baseColorFactor": [1, 1, 1, 1], "metallicFactor": 0, "roughnessFactor": 0.9}},
     "Water": {"pbrMetallicRoughness": {"baseColorFactor": [0.03, 0.12, 0.22, 0.78], "metallicFactor": 0,
                                        "roughnessFactor": 0.15}, "alphaMode": "BLEND"},
@@ -114,10 +134,6 @@ def dist_to(p):
 
 def disc(p, r):
     return dist_to(p) <= r
-
-
-def both_sides(points):
-    return list(points) + [mirror(p) for p in points]
 
 
 def smooth_noise(scale_, seed):
@@ -173,17 +189,19 @@ def classify():
     traced = load_layout()
     cls = np.select([traced == 1, traced == 2, traced == 3, traced == 4, traced == 5],
                     [GROUND, RIVER_C, PIT, LANE, OUTER], WALL)
-    # make the map point-symmetric like the real Rift: keep the half east of the mid-lane
-    # diagonal (Dragon side) and rotate it 180 degrees about the centre onto the other half
-    i, j = np.meshgrid(np.arange(G), np.arange(G), indexing="ij")
-    cls = np.where(i >= j, cls, cls[::-1, ::-1])
+    if not os.path.exists(TEXTURE):
+        # without the reference texture, make the layout point-symmetric like the real Rift: keep
+        # the half east of the mid-lane diagonal (Dragon side) and rotate it onto the other half.
+        # With the texture the traced layout is kept as is so the heights line up with the picture.
+        i, j = np.meshgrid(np.arange(G), np.arange(G), indexing="ij")
+        cls = np.where(i >= j, cls, cls[::-1, ::-1])
     # pits only where the Baron and Dragon pits are; stray white pixels elsewhere become river
     near_pit = disc(OBJECTIVES["Baron_Pit"], PIT_RADIUS * 1.6) | disc(OBJECTIVES["Dragon_Pit"], PIT_RADIUS * 1.6)
     cls[(cls == PIT) & ~near_pit] = RIVER_C
     river_soft = blur((cls == RIVER_C).astype(float), 4)
     cls[(cls == LANE) & (river_soft > 0.18)] = RIVER_C           # the river runs under mid lane
-    for p in both_sides(BLUE_BRUSH):
-        cls[disc(p, BRUSH_RADIUS) & (cls == GROUND)] = BRUSH
+    for bx, by, br in BRUSHES:
+        cls[disc((bx, by), br) & np.isin(cls, (GROUND, LANE, WALL))] = BRUSH
     rim = (X < 420) | (X > W - 420) | (Y < 420) | (Y > W - 420)    # forested cliff all round the island
     for team in ("Blue", "Red"):
         cls[base_mask(team)] = TEAM[team]["base"]
@@ -262,17 +280,22 @@ def build_terrain(rng):
     a = (ii[:-1, :-1] * G + jj[:-1, :-1]).reshape(-1)
     idx = np.concatenate([np.stack([a, a + G, a + 1], -1), np.stack([a + 1, a + G, a + G + 1], -1)])
     terrain = Model(rng)
-    terrain.add((pos, idx), col.reshape(-1, 3))
+    if os.path.exists(TEXTURE):     # paint the ground with the top-down reference picture
+        uv = np.stack([np.repeat(lin / W, G), np.tile(1 - lin / W, G)], -1)
+        terrain.add((pos, idx), (255, 255, 255), material="Ground", uv=uv)
+    else:
+        terrain.add((pos, idx), col.reshape(-1, 3))
 
     # skirt: cliffs under the floating island
+    cliffs = Model(rng)
     grid = pos.reshape(G, G, 3)
     for line in (grid[:, 0], grid[:, -1][::-1], grid[0][::-1], grid[-1]):
         low = line.copy()
         low[:, 1] = -6.0 + rng.uniform(-1.5, 1.5, len(line))
         k = len(line)
         tri = [(t, k + t, t + 1) for t in range(k - 1)] + [(t + 1, k + t, k + t + 1) for t in range(k - 1)]
-        terrain.add((np.concatenate([line, low]), tri), (84, 82, 74), smooth=False, jitter=8)
-    return cls, h, terrain
+        cliffs.add((np.concatenate([line, low]), tri), (84, 82, 74), smooth=False, jitter=8)
+    return cls, h, terrain, cliffs
 
 
 def sampler(h):
@@ -356,7 +379,7 @@ def stone_walls(cls, h, rng):
             continue
         p = (i * CELL, j * CELL)
         x, z = to_model(p)
-        y = float(min(h[i, j], 1.2))
+        y = float(h[i, j])
         ang = math.atan2(gy[i, j], gx[i, j])   # wall runs across the slope of the blocked area
         k += 1
         rot = rot_y(-ang)
@@ -381,11 +404,11 @@ def build_props(cls, h, rng):
             tree(trees, x, hh, z, rng, pine_chance=0.85)
         elif c == WALL and hh > 1.3:                                # mossy jungle walls: bushes, few trees
             r = rng.random()
-            if r < 0.16:
+            if r < 0.08:
                 tree(trees, x, hh, z, rng, pine_chance=0.5)
-            elif r < 0.6:
+            elif r < 0.2:
                 bush(trees, x, hh, z, rng)
-            elif r < 0.75:
+            elif r < 0.26:
                 rock(rocks, x, hh, z, rng.uniform(0.5, 1.0), rng)
     for p in scatter(0.5, rng):
         if class_at(cls, p) == BRUSH:
@@ -394,11 +417,11 @@ def build_props(cls, h, rng):
             for _ in range(3):   # three grass blades per tuft
                 a = rng.uniform(0, 6.3)
                 lean = np.array([np.cos(a), 0, np.sin(a)]) * 0.25
-                tip = np.array([x, y + rng.uniform(0.7, 1.2), z]) + lean
+                tip = np.array([x, y + rng.uniform(0.55, 0.95), z]) + lean
                 side = np.array([-np.sin(a), 0, np.cos(a)]) * 0.12
                 base = np.array([x, y - 0.05, z])
                 brush.add(([base - side, base + side, tip], [(0, 1, 2)]),
-                          np.array((64, 140, 62)) + rng.integers(-14, 15), normals=(0, 1, 0), double=True)
+                          np.array((52, 104, 44)) + rng.integers(-12, 13), normals=(0, 1, 0), double=True)
     for p in scatter(2.6, rng):
         c = class_at(cls, p)
         hh = height_at(p)
@@ -563,9 +586,11 @@ def facing(p):
 def main(out_dir):
     os.makedirs(out_dir, exist_ok=True)
     rng = np.random.default_rng(SEED)
-    cls, h, terrain = build_terrain(rng)
+    cls, h, terrain, cliffs = build_terrain(rng)
     height_at = sampler(h)
-    nodes = [("Terrain", terrain), ("Water", build_water())] + build_props(cls, h, rng)
+    nodes = [("Terrain", terrain), ("Cliffs", cliffs)] + build_props(cls, h, rng)
+    if not os.path.exists(TEXTURE):     # the texture already shows the painted river
+        nodes.insert(2, ("Water", build_water()))
     structures = []
 
     def model_pos(p):
@@ -598,7 +623,8 @@ def main(out_dir):
         place(f"Nexus_{team}", nexus(team, rng), f(BLUE_NEXUS), "Nexus", team)
         place(f"Fountain_{team}", fountain(team, rng), f(FOUNTAIN), "Fountain", team)
 
-    write_glb(os.path.join(out_dir, "summoners_rift.glb"), nodes, MATERIALS)
+    write_glb(os.path.join(out_dir, "summoners_rift.glb"), nodes, MATERIALS,
+              images=[TEXTURE] if os.path.exists(TEXTURE) else [])
 
     camps = [{"name": n, "side": side, "game_pos": [round(v) for v in f(p)], "model_pos": model_pos(f(p))}
              for side, f in (("Blue", lambda p: p), ("Red", mirror)) for n, p in BLUE_CAMPS.items()]

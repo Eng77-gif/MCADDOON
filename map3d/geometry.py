@@ -113,10 +113,12 @@ class Model:
 
     def __init__(self, rng=None):
         self.parts = defaultdict(list)
+        self.uvs = {}          # material -> TEXCOORD_0, for materials made of one textured part
         self.rng = rng if rng is not None else np.random.default_rng(0)
 
-    def add(self, geo, rgb, material="Base", smooth=True, jitter=0, m=None, normals=None, double=False):
-        """double=True also adds the back faces (for thin cards such as leaves, grass and wings)."""
+    def add(self, geo, rgb, material="Base", smooth=True, jitter=0, m=None, normals=None, double=False, uv=None):
+        """double=True also adds the back faces (for thin cards such as leaves, grass and wings).
+        uv: per-vertex texture coordinates (smooth parts only; one textured part per material)."""
         pos, idx = geo
         pos = np.asarray(pos, float)
         idx = np.asarray(idx, int).reshape(-1, 3)
@@ -140,6 +142,9 @@ class Model:
                 fc += self.rng.integers(-jitter, jitter + 1, size=(len(idx), 1))
             col = np.repeat(fc, 3, axis=0)
             idx = np.arange(len(pos)).reshape(-1, 3)
+        if uv is not None:
+            assert smooth and not self.parts[material], "one textured part per material"
+            self.uvs[material] = np.asarray(uv, float)
         self.parts[material].append((pos, nrm, np.clip(col, 0, 255), idx))
         if double:
             back = nrm if normals is not None else -nrm
@@ -151,6 +156,7 @@ class Model:
 
     def transform(self, m):
         out = Model(self.rng)
+        out.uvs = dict(self.uvs)
         r = m[:3, :3]
         for mat, parts in self.parts.items():
             for pos, nrm, col, idx in parts:
@@ -165,7 +171,7 @@ class Model:
             for pos, nrm, col, idx in parts:
                 P.append(pos); Nn.append(nrm); C.append(col); I.append(idx + off)
                 off += len(pos)
-            out[mat] = (np.concatenate(P), np.concatenate(Nn), np.concatenate(C), np.concatenate(I))
+            out[mat] = (np.concatenate(P), np.concatenate(Nn), np.concatenate(C), np.concatenate(I), self.uvs.get(mat))
         return out
 
     def triangles(self):
@@ -180,8 +186,9 @@ def srgb_to_linear(c):
     return np.where(c <= 0.04045, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
 
 
-def write_glb(path, nodes, materials):
-    """nodes: list of (name, Model). materials: {name: glTF material dict (without name)}."""
+def write_glb(path, nodes, materials, images=()):
+    """nodes: list of (name, Model). materials: {name: glTF material dict (without name)}.
+    images: image files embedded in order; a material uses image k via {"baseColorTexture": {"index": k}}."""
     mat_names = sorted({mat for _, mdl in nodes for mat in mdl.parts})
     mat_index = {n: i for i, n in enumerate(mat_names)}
     bin_chunks, views, accessors, meshes, gnodes = [], [], [], [], []
@@ -204,23 +211,42 @@ def write_glb(path, nodes, materials):
 
     for name, mdl in nodes:
         prims = []
-        for mat, (pos, nrm, col, idx) in sorted(mdl.merged().items()):
+        for mat, (pos, nrm, col, idx, uv) in sorted(mdl.merged().items()):
             pos = pos.astype(np.float32)
             a_pos = add(pos, 34962, 5126, "VEC3", minmax=(pos.min(0).tolist(), pos.max(0).tolist()))
             a_nrm = add(nrm.astype(np.float32), 34962, 5126, "VEC3")
             rgba = np.concatenate([srgb_to_linear(col) * 255, np.full((len(col), 1), 255)], 1).round().astype(np.uint8)
             a_col = add(rgba, 34962, 5121, "VEC4", normalized=True)
             a_idx = add(idx.reshape(-1).astype(np.uint32), 34963, 5125, "SCALAR")
-            prims.append({"attributes": {"POSITION": a_pos, "NORMAL": a_nrm, "COLOR_0": a_col},
-                          "indices": a_idx, "material": mat_index[mat]})
+            attrs = {"POSITION": a_pos, "NORMAL": a_nrm, "COLOR_0": a_col}
+            if uv is not None:
+                attrs["TEXCOORD_0"] = add(uv.astype(np.float32), 34962, 5126, "VEC2")
+            prims.append({"attributes": attrs, "indices": a_idx, "material": mat_index[mat]})
         meshes.append({"name": name, "primitives": prims})
         gnodes.append({"name": name, "mesh": len(meshes) - 1})
 
+    gimages = []
+    for file in images:
+        raw = open(file, "rb").read()
+        pad = (-len(raw)) % 4
+        bin_chunks.append(raw + b"\0" * pad)
+        views.append({"buffer": 0, "byteOffset": offset, "byteLength": len(raw)})
+        offset += len(raw) + pad
+        mime = "image/jpeg" if file.lower().endswith((".jpg", ".jpeg")) else "image/png"
+        gimages.append({"bufferView": len(views) - 1, "mimeType": mime})
+    used = [materials[n] for n in mat_names]
+    extensions = sorted({e for mat in used for e in mat.get("extensions", {})})
     gltf = {"asset": {"version": "2.0", "generator": "MCADDOON build_rift.py"},
             "scene": 0, "scenes": [{"name": "SummonersRift", "nodes": list(range(len(gnodes)))}],
             "nodes": gnodes, "meshes": meshes,
             "materials": [{"name": n, **materials[n]} for n in mat_names],
             "accessors": accessors, "bufferViews": views, "buffers": [{"byteLength": offset}]}
+    if gimages:
+        gltf["images"] = gimages
+        gltf["samplers"] = [{"magFilter": 9729, "minFilter": 9987, "wrapS": 33071, "wrapT": 33071}]
+        gltf["textures"] = [{"sampler": 0, "source": k} for k in range(len(gimages))]
+    if extensions:
+        gltf["extensionsUsed"] = extensions
     js = json.dumps(gltf, separators=(",", ":")).encode()
     js += b" " * ((-len(js)) % 4)
     binary = b"".join(bin_chunks)
