@@ -9,8 +9,8 @@
   - Structure nodes: `Turret_<Blue|Red>_<Top|Mid|Bot>_<Outer|Inner|Inhibitor>`, `Turret_<Team>_Nexus_<Top|Bot>`,
     `Inhibitor_<Team>_<Lane>`, `Nexus_<Team>` and `Fountain_<Team>`. Hide a node when the structure is destroyed.
   - No monsters: jungle camp, Baron/Dragon and Scuttle positions are listed in `map_data.json`.
-  - Materials: `Base` (vertex colour), `Water` (alpha blend) and `Glow_Blue` / `Glow_Red` / `Glow_Purple` (emissive crystals).
-  - Size: about 390k triangles (terrain 205k on a 321 x 321 grid, trees ~100k), ~26 MB with the embedded texture, of which trees are about 130k. Lower the tree density in `build_props` if you need it lighter.
+  - Materials: `Ground` (unlit texture), `Base` (vertex colour) and `Glow_Blue` / `Glow_Red` / `Glow_Purple` (emissive crystals).
+  - Size: about 390k triangles (terrain 205k on a 321 x 321 grid, trees ~100k), ~26 MB with the embedded texture. Lower the tree density in `build_props` if you need it lighter.
 - `map_data.json`: lane waypoints, river, fountains, Baron/Dragon/Scuttle, jungle camps and structures,
   in game coordinates (0–14870) and model coordinates (y = ground height), for match simulation and movement.
 - `viewer.html`: a preview with shadows. Serve the folder (for example `python3 -m http.server`) and open `viewer.html`. Add `?top` for a top-down view,
