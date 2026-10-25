@@ -148,6 +148,7 @@ function Draft({ draft, userSide, locked, onPick, onAuto }: {
               <div className="bans">{draft.bans[side].map((b) => <span key={b} className="ban">{champName(b)}</span>)}</div>
               {ROLES.map((r) => (
                 <div key={r} className="slot">
+                  <Avatar player={draft.teams[side].roster[r]} team={draft.teams[side]} size={22} />
                   <small>{ROLE_SHORT[r]}</small> {draft.picks[side][r] ? champName(draft.picks[side][r]!) : "—"}
                 </div>
               ))}

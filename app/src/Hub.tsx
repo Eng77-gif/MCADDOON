@@ -8,6 +8,7 @@ import { Bar, Card, ConfirmButton, Stat, money, signed } from "./ui.tsx";
 import { Squad } from "./Squad.tsx";
 import { Market } from "./Market.tsx";
 import { teamCrest } from "./art/sprites.ts";
+import { Avatar } from "./avatar.tsx";
 
 type Page = "news" | "roster" | "schedule" | "rankings" | "transfer" | "scout" | "stats" | "club";
 const NAV: [Page, string, string][] = [
@@ -380,8 +381,9 @@ function StatsPage({ career: c }: { career: Career }) {
   const rows = Object.entries(c.stats)
     .map(([id, s]) => {
       const team = c.teams[s.team];
+      const player = team && [...Object.values(team.roster), ...(team.bench ?? [])].find((p) => p.id === id);
       return {
-        id, team, ign: s.ign, games: s.games,
+        id, team, player, ign: s.ign, games: s.games,
         kda: (s.kills + s.assists) / Math.max(1, s.deaths),
         dpm: s.damage / Math.max(1, s.minutes),
         csd: s.csd15 / Math.max(1, s.games),
@@ -410,7 +412,7 @@ function StatsPage({ career: c }: { career: Career }) {
               {rows.map((r, i) => (
                 <tr key={r.id} className={r.team.id === c.teamId ? "me" : ""}>
                   <td>{i + 1}</td>
-                  <td><span className="team-cell"><Crest career={c} id={r.team.id} size={18} /> {r.ign}</span></td>
+                  <td><span className="team-cell">{r.player && <Avatar player={r.player} team={r.team} size={24} />}<Crest career={c} id={r.team.id} size={16} /> {r.ign}</span></td>
                   <td>{r.games}</td>
                   <td>{r.kdaText}</td>
                   <td>{r.kda.toFixed(1)}</td>

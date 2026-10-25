@@ -1,34 +1,7 @@
-// Avatar pixel art: ưu tiên chân dung PixelLab (app/public/portraits, tạo bằng `npm run portraits`),
-// không có thì vẽ avatar 16x16 theo id tuyển thủ và màu áo đội.
-import { useEffect, useState } from "react";
+// Avatar tuyển thủ: ưu tiên chân dung pixel PixelLab (data/packs/real-2026/portraits, nhúng lúc build),
+// tuyển thủ không có ảnh (thần đồng, tuyển thủ mới sinh) thì vẽ avatar 16x16 theo id và màu áo đội.
 import type { Player, Team } from "../../engine/src/index.ts";
-
-let manifest: Record<string, string> | null = null;
-let loading: Promise<void> | null = null;
-const listeners = new Set<() => void>();
-
-function loadManifest() {
-  loading ??= fetch("portraits/manifest.json")
-    .then((r) => (r.ok ? r.json() : {}))
-    .catch(() => ({}))
-    .then((m) => {
-      manifest = m as Record<string, string>;
-      listeners.forEach((f) => f());
-    });
-  return loading;
-}
-
-function usePortrait(id: string): string | undefined {
-  const [, force] = useState(0);
-  useEffect(() => {
-    if (manifest) return;
-    const f = () => force((n) => n + 1);
-    listeners.add(f);
-    loadManifest();
-    return () => void listeners.delete(f);
-  }, []);
-  return manifest?.[id];
-}
+import { portraitOf } from "./portraits.ts";
 
 const SKIN = ["#f6d3b3", "#eab98f", "#d39a6a", "#a86b45", "#7a4a2e"];
 const HAIR = ["#1c1a22", "#3b2a20", "#6b4428", "#d9c27a", "#e8e8f0", "#b23a48", "#3d5ccc"];
@@ -81,8 +54,7 @@ export function pixelAvatar(id: string, colors: [string, string] = ["#c27c0e", "
 }
 
 export function Avatar({ player, team, size = 48 }: { player: Player; team?: Team; size?: number }) {
-  const portrait = usePortrait(player.id);
-  const src = portrait ?? pixelAvatar(player.id, team?.colors);
+  const src = portraitOf(player.id) ?? pixelAvatar(player.id, team?.colors);
   return (
     <span className="avatar" style={{ width: size, height: size }}>
       <img src={src} alt="" width={size} height={size} />

@@ -7,6 +7,7 @@ import {
 import { PPU, renderTerrain } from "./art/terrain.ts";
 import { heroSprite, minionSprite, monsterSprite, nexusSprite, teamCrest, towerSprite } from "./art/sprites.ts";
 import { champName } from "./data.ts";
+import { portraitOf } from "./portraits.ts";
 
 const SPEEDS = [1, 2, 4, 8, 16];
 const SIDE = ["#4a7cff", "#ff5b6b"];
@@ -351,11 +352,11 @@ function RosterPanel({ match, side, colors }: { match: LiveMatch; side: 0 | 1; c
 }
 
 function RosterRow({ c, t, colors }: { c: ChampUnit; t: number; colors: [string, string] }) {
-  const img = spriteUrl(heroSprite(c.player.id, colors, c.arch, 0, c.side === 1));
+  const img = portraitOf(c.player.id) ?? spriteUrl(heroSprite(c.player.id, colors, c.arch, 0, c.side === 1));
   const respawn = Math.max(0, Math.ceil(((c.respawnAt - t) * 3)));
   return (
     <div className={`roster-row ${c.alive ? "" : "dead"}`}>
-      <img src={img} alt="" width={27} height={30} className="px-img" />
+      <img src={img} alt="" width={36} height={36} className="px-img portrait" />
       <div className="grow">
         <div className="roster-name">
           <b>Lv.{c.level}</b> {c.player.ign} <small>({champName(c.champion.id)})</small>
@@ -377,7 +378,7 @@ function ScoreTable({ match, colors }: { match: LiveMatch; colors: Props["colors
           <tbody>
             {list.map((c) => (
               <tr key={c.id}>
-                <td><img src={spriteUrl(heroSprite(c.player.id, teamColors(colors[s], s), c.arch, 0, false))} alt="" width={18} height={20} className="px-img" /></td>
+                <td><img src={portraitOf(c.player.id) ?? spriteUrl(heroSprite(c.player.id, teamColors(colors[s], s), c.arch, 0, false))} alt="" width={24} height={24} className="px-img portrait" /></td>
                 <td>{c.player.ign}</td>
                 <td>{champName(c.champion.id)}</td>
                 <td>{c.line.kills}/{c.line.deaths}/{c.line.assists}</td>
