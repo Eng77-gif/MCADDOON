@@ -8,6 +8,24 @@ import { toModel, type Vec } from "../../engine/src/index.ts";
 const PITCH = (56 * Math.PI) / 180;
 const GRID = 96;
 
+/**
+ * Tải model: thử file .glb; nơi không phục vụ được .glb (ví dụ trang artifact) thì đọc bản base64 `<url>.b64.txt`.
+ */
+async function fetchModel(url: string): Promise<ArrayBuffer> {
+  try {
+    const r = await fetch(url);
+    if (r.ok && !(r.headers.get("content-type") ?? "").includes("text/html")) return await r.arrayBuffer();
+  } catch {
+    /* thử bản base64 */
+  }
+  const r = await fetch(`${url}.b64.txt`);
+  if (!r.ok) throw new Error(`Không tải được bản đồ 3D (${r.status})`);
+  const bin = atob((await r.text()).trim());
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out.buffer;
+}
+
 export class Rift3D {
   readonly renderer: THREE.WebGLRenderer;
   readonly scene = new THREE.Scene();
@@ -33,7 +51,7 @@ export class Rift3D {
   async load(url: string) {
     const loader = new GLTFLoader();
     loader.setMeshoptDecoder(MeshoptDecoder);
-    const gltf = await loader.loadAsync(url);
+    const gltf = await loader.parseAsync(await fetchModel(url), "");
     this.scene.add(gltf.scene);
     gltf.scene.updateMatrixWorld(true);
     gltf.scene.traverse((o) => {
