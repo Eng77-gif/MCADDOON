@@ -19,7 +19,7 @@ from PIL import Image
 MINIMAP_URL = ("https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/8/8c/"
                "Lanes_%28Minimap%29.png/revision/latest?format=original")
 W = 14870.0
-G = 241
+G = 321
 # minimap pixel -> game units; offsets line the lanes and Dragon pit up with the game coordinates
 SCALE = W / 512
 OFFSET_X, OFFSET_Y = -350.0, -160.0

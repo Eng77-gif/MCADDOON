@@ -25,6 +25,22 @@ def rot_y(a):
     return np.array([[c, 0, s, 0], [0, 1, 0, 0], [-s, 0, c, 0], [0, 0, 0, 1.0]])
 
 
+def align_y(d):
+    """Rotation taking +y onto direction d."""
+    d = np.asarray(d, float)
+    d = d / np.linalg.norm(d)
+    y = np.array([0.0, 1.0, 0.0])
+    v, c = np.cross(y, d), float(np.dot(y, d))
+    m = np.eye(4)
+    if np.linalg.norm(v) < 1e-9:
+        if c < 0:
+            m[:3, :3] = np.diag([1.0, -1.0, -1.0])
+        return m
+    k = np.array([[0, -v[2], v[1]], [v[2], 0, -v[0]], [-v[1], v[0], 0]])
+    m[:3, :3] = np.eye(3) + k + k @ k / (1 + c)
+    return m
+
+
 def apply(m, pos):
     return pos @ m[:3, :3].T + m[:3, 3]
 

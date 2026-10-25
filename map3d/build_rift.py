@@ -19,12 +19,13 @@ import json, math, os, sys
 
 import numpy as np
 
-from geometry import (Model, frustum, icosphere, octahedron, rot_y, scale, srgb_to_linear, translate,
-                      write_glb)
+from geometry import (Model, align_y, frustum, icosphere, octahedron, rot_y, scale, srgb_to_linear,
+                      translate, write_glb)
 
 W = 14870.0          # map size in game units
 S = 192.0            # map size in model units (x and z span -S/2..S/2, y is up, north is -z)
-G = 241              # terrain vertices per side
+G = 321              # terrain vertices per side (must match trace_layout.py)
+K = (G - 1) / 240    # blur radii and noise sizes below are written for a 241-vertex grid
 SEED = 7
 CENTER = (W / 2, W / 2)
 
@@ -48,7 +49,7 @@ BLUE_CAMPS = {
 }
 
 OBJECTIVES = {
-    "Baron_Pit": (4690, 10160), "Dragon_Pit": (9880, 4390),     # pit centres traced from the minimap
+    "Baron_Pit": (4990, 10480), "Dragon_Pit": (9880, 4390),     # Dragon traced from the minimap, Baron mirrored
     "Scuttle_Top": (4400, 9800), "Scuttle_Bot": (10470, 5070),
 }
 PIT_RADIUS = 700
@@ -59,7 +60,8 @@ BLUE_BRUSH = [(4500, 8700), (2600, 8100), (6200, 5600), (8800, 5300), (9300, 300
 BRUSH_RADIUS = 320
 
 BASE_CENTER = (0, 0)
-BASE_RADIUS = 5200
+BASE_SIZE = 5300     # bases are rounded squares this wide, filling the corner of the map
+BASE_ROUND = 2000    # radius of the rounded corner that faces the map centre
 FOUNTAIN = (900, 900)
 
 BLUE_TURRETS = {
@@ -119,7 +121,8 @@ def both_sides(points):
 
 
 def smooth_noise(scale_, seed):
-    """Value noise in [0, 1] with features roughly `scale_` vertices wide."""
+    """Value noise in [0, 1] with features roughly `scale_` (241-grid) vertices wide."""
+    scale_ = max(1, int(round(scale_ * K)))
     rng = np.random.default_rng(seed)
     k = G // scale_ + 3
     g = rng.random((k, k))
@@ -133,6 +136,7 @@ def smooth_noise(scale_, seed):
 
 
 def blur(a, sigma):
+    sigma *= K
     r = int(3 * sigma) + 1
     k = np.exp(-0.5 * (np.arange(-r, r + 1) / sigma) ** 2)
     k /= k.sum()
@@ -157,10 +161,22 @@ def load_layout():
     return raw
 
 
+def base_mask(team):
+    """Rounded square in the team's corner; the rounded corner points at the map centre."""
+    u, v = (X, Y) if team == "Blue" else (W - X, W - Y)
+    c = BASE_SIZE - BASE_ROUND
+    inside = (u <= BASE_SIZE) & (v <= BASE_SIZE)
+    return inside & ~((u > c) & (v > c) & (np.hypot(u - c, v - c) > BASE_ROUND))
+
+
 def classify():
     traced = load_layout()
     cls = np.select([traced == 1, traced == 2, traced == 3, traced == 4, traced == 5],
                     [GROUND, RIVER_C, PIT, LANE, OUTER], WALL)
+    # make the map point-symmetric like the real Rift: keep the half east of the mid-lane
+    # diagonal (Dragon side) and rotate it 180 degrees about the centre onto the other half
+    i, j = np.meshgrid(np.arange(G), np.arange(G), indexing="ij")
+    cls = np.where(i >= j, cls, cls[::-1, ::-1])
     # pits only where the Baron and Dragon pits are; stray white pixels elsewhere become river
     near_pit = disc(OBJECTIVES["Baron_Pit"], PIT_RADIUS * 1.6) | disc(OBJECTIVES["Dragon_Pit"], PIT_RADIUS * 1.6)
     cls[(cls == PIT) & ~near_pit] = RIVER_C
@@ -169,8 +185,8 @@ def classify():
     for p in both_sides(BLUE_BRUSH):
         cls[disc(p, BRUSH_RADIUS) & (cls == GROUND)] = BRUSH
     rim = (X < 420) | (X > W - 420) | (Y < 420) | (Y > W - 420)    # forested cliff all round the island
-    for team, centre in (("Blue", BASE_CENTER), ("Red", mirror(BASE_CENTER))):
-        cls[disc(centre, BASE_RADIUS)] = TEAM[team]["base"]
+    for team in ("Blue", "Red"):
+        cls[base_mask(team)] = TEAM[team]["base"]
     cls[disc(FOUNTAIN, 520)] = FOUNT_B
     cls[disc(mirror(FOUNTAIN), 520)] = FOUNT_R
     cls[rim] = OUTER
@@ -215,15 +231,21 @@ def build_terrain(rng):
         m = (cls == PIT) & (d <= PIT_RADIUS * 1.6)
         ring = (np.sin(d[m] / CELL * 1.4) > 0.55).astype(float)
         col[m] = lerp(floor, np.array(floor) * 1.25, ring)
-    for team, centre in (("Blue", BASE_CENTER), ("Red", mirror(BASE_CENTER))):
+    for team in ("Blue", "Red"):
         t = TEAM[team]
         m = cls == t["base"]
-        d = dist_to(centre)
-        ang = np.degrees(np.arctan2(np.abs(Y - centre[1]), np.abs(X - centre[0])))
-        # stone plaza: concentric rings and radial joints with moss in the gaps
-        joint = (np.abs((d / 900) % 1 - 0.5) > 0.46) | (np.abs((ang / 7.5) % 1 - 0.5) > 0.45)
-        tiles = lerp(t["tile"], np.array(t["tile"]) * 0.9, (n2 > 0.5).astype(float))
-        col[m] = np.where(joint[m, None], np.array((88, 104, 72)), tiles[m])
+        u, v = (X, Y) if team == "Blue" else (W - X, W - Y)
+        # stone plaza: square flagstones with moss in the joints, a paler causeway along the
+        # diagonal from the fountain to mid lane, and a ring of slabs around the nexus
+        joint = (np.abs((u / 440) % 1 - 0.5) > 0.42) | (np.abs((v / 440) % 1 - 0.5) > 0.42)
+        checker = ((u // 440 + v // 440) % 2).astype(float)
+        tiles = lerp(t["tile"], np.array(t["tile"]) * 0.88, checker * 0.6 + (n2 > 0.6) * 0.4)
+        causeway = np.abs(u - v) < 700
+        tiles[causeway] = tiles[causeway] * 1.12
+        nexus = np.hypot(u - BLUE_NEXUS[0], v - BLUE_NEXUS[1])
+        ring = (nexus > 560) & (nexus < 700)
+        tiles[ring] = np.array(t["trim"]) * 0.6 + tiles[ring] * 0.4
+        col[m] = np.where((joint & ~ring)[m, None], np.array((90, 104, 74)), tiles[m])
         col[cls == t["fountain"]] = t["fountain_rgb"]
     col = blur(col, 0.5)
 
@@ -391,6 +413,25 @@ def build_props(cls, h, rng):
                 ox, oz = rng.uniform(-0.5, 0.5, 2)
                 small.add(octahedron(), col, smooth=False,
                           m=translate(x + ox, hh + 0.15, z + oz) @ scale(0.12, 0.12, 0.12))
+    lane_soft = blur((cls == LANE).astype(float), 1.5)
+    river_soft = blur((cls == RIVER_C).astype(float), 1.5)
+    soft_at = lambda a, p: a[min(G - 1, int(round(p[0] / W * (G - 1)))), min(G - 1, int(round(p[1] / W * (G - 1))))]
+    for p in scatter(1.6, rng):                                     # loose stones along the lane edges
+        if class_at(cls, p) == LANE and 0.3 < soft_at(lane_soft, p) < 0.65 and rng.random() < 0.35:
+            x, z = to_model(p)
+            rock(rocks, x, height_at(p), z, rng.uniform(0.18, 0.4), rng, (128, 120, 104))
+    for p in scatter(0.55, rng):                                    # reeds on the river banks
+        c = class_at(cls, p)
+        if c in (GROUND, WALL, BRUSH) and 0.12 < soft_at(river_soft, p) < 0.5 and rng.random() < 0.45:
+            x, z = to_model(p)
+            y = height_at(p)
+            for _ in range(4):
+                a = rng.uniform(0, 6.3)
+                tip = np.array([x + 0.15 * np.cos(a), y + rng.uniform(0.9, 1.6), z + 0.15 * np.sin(a)])
+                side = np.array([-np.sin(a), 0, np.cos(a)]) * 0.06
+                base = np.array([x, y - 0.05, z])
+                brush.add(([base - side, base + side, tip], [(0, 1, 2)]),
+                          np.array((96, 124, 60)) + rng.integers(-14, 15), normals=(0, 1, 0), double=True)
     crystals = Model(rng)
     for p in scatter(1.2, rng):                                     # purple crystals around the Baron pit
         d = math.dist(p, OBJECTIVES["Baron_Pit"])
@@ -408,57 +449,105 @@ def build_props(cls, h, rng):
 
 # --- structures --------------------------------------------------------------------
 
+def strut(m, a, b, r0, r1, rgb, material="Base", seg=5):
+    """Tapered bar from point a to point b."""
+    a, b = np.asarray(a, float), np.asarray(b, float)
+    m.add(frustum(r0, r1, float(np.linalg.norm(b - a)), seg), rgb, material=material, smooth=False, jitter=4,
+          m=translate(*a) @ align_y(b - a))
+
+
+def claw(m, pts, r0, r1, rgb):
+    """Curved prong through `pts`, built from tapered bars."""
+    radii = np.linspace(r0, r1, len(pts))
+    for k in range(len(pts) - 1):
+        strut(m, pts[k], pts[k + 1], radii[k], radii[k + 1], rgb)
+
+
+def ring_pts(r, y, n, phase=0.0):
+    return [(r * np.cos(phase + 2 * np.pi * k / n), y, r * np.sin(phase + 2 * np.pi * k / n)) for k in range(n)]
+
+
 def turret(team, rng):
+    """Order (blue) turrets are pale stone with gold claws; Chaos (red) ones are dark iron with spikes.
+    Both hold a glowing orb in a cage of four claws on top of a tapered tower."""
     t = TEAM[team]
     m = Model(rng)
-    m.add(frustum(1.7, 1.45, 0.6, 8), STONE_DARK, smooth=False, jitter=4)
-    m.add(frustum(1.15, 0.9, 4.6, 8), STONE, smooth=False, jitter=4, m=translate(0, 0.6, 0))
-    for y in (1.6, 3.2):
-        m.add(frustum(1.12, 1.08, 0.25, 8), t["trim"], smooth=False, m=translate(0, y, 0))
-    m.add(frustum(0.95, 1.5, 0.7, 8), t["trim"], smooth=False, m=translate(0, 5.2, 0))
-    m.add(frustum(1.5, 1.2, 0.35, 8), GOLD, smooth=False, m=translate(0, 5.9, 0))
-    for k in range(4):           # corner spikes
-        a = k * np.pi / 2 + np.pi / 4
-        m.add(frustum(0.18, 0, 0.9, 4), GOLD, smooth=False, m=translate(1.2 * np.cos(a), 6.2, 1.2 * np.sin(a)))
-    m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False,
-          m=translate(0, 7.4, 0) @ scale(0.55, 0.9, 0.55))
+    if team == "Blue":
+        plinth, shaft, metal, accent = (104, 108, 116), (196, 192, 182), GOLD, t["trim"]
+    else:
+        plinth, shaft, metal, accent = (64, 58, 62), (98, 88, 92), (74, 64, 68), (120, 40, 36)
+    m.add(frustum(2.0, 1.8, 0.35, 8), plinth, smooth=False, jitter=4, m=rot_y(np.pi / 8))
+    m.add(frustum(1.65, 1.45, 0.4, 8), shaft, smooth=False, jitter=4, m=translate(0, 0.35, 0) @ rot_y(np.pi / 8))
+    m.add(frustum(1.05, 0.78, 4.3, 8), shaft, smooth=False, jitter=4, m=translate(0, 0.75, 0) @ rot_y(np.pi / 8))
+    for x, y, z in ring_pts(1.0, 0.75, 4, np.pi / 4):               # buttresses up the shaft
+        strut(m, (x, y, z), (x * 0.72, 4.6, z * 0.72), 0.26, 0.12, metal if team == "Blue" else plinth, seg=4)
+    for y in (2.0, 3.6):
+        m.add(frustum(1.0 - 0.06 * y, 0.98 - 0.06 * y, 0.22, 8), accent, smooth=False, m=translate(0, y, 0))
+    if team == "Red":                                                # glowing slits between the buttresses
+        for x, _, z in ring_pts(0.93, 0, 4):
+            m.add(frustum(0.09, 0.06, 2.4, 4), (255, 255, 255), material=t["glow"], smooth=False,
+                  m=translate(x * 0.98, 1.4, z * 0.98))
+        for x, y, z in ring_pts(1.7, 0.4, 8, np.pi / 8):             # spikes round the plinth
+            strut(m, (x * 0.85, y, z * 0.85), (x * 1.25, y + 0.9, z * 1.25), 0.18, 0.0, metal, seg=4)
+    m.add(frustum(0.8, 1.3, 0.55, 8), metal, smooth=False, m=translate(0, 5.0, 0) @ rot_y(np.pi / 8))   # collar
+    m.add(frustum(1.3, 1.15, 0.45, 8), accent, smooth=False, m=translate(0, 5.55, 0) @ rot_y(np.pi / 8))
+    for k, (x, y, z) in enumerate(ring_pts(1.0, 6.0, 4, np.pi / 4)):  # claws cradling the orb
+        d = np.array((x, 0, z))
+        flare = 1.45 if team == "Blue" else 1.7
+        claw(m, [(x, y, z), tuple(d * 1.3 + (0, 6.9, 0)), tuple(d * flare * 0.8 + (0, 7.8, 0)),
+                 tuple(d * 0.55 + (0, 8.4, 0))], 0.24, 0.05, metal)
+        if team == "Red":
+            strut(m, tuple(d * 1.3 + (0, 6.9, 0)), tuple(d * 2.0 + (0, 7.3, 0)), 0.12, 0.0, metal, seg=4)
+    m.add(icosphere(1), (255, 255, 255), material=t["glow"], smooth=False,
+          m=translate(0, 7.2, 0) @ scale(0.62, 0.62, 0.62))
+    m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 8.9, 0) @ scale(0.18, 0.35, 0.18))
     return m
 
 
 def inhibitor(team, rng):
     t = TEAM[team]
     m = Model(rng)
-    m.add(frustum(1.6, 1.4, 0.4, 10), STONE_DARK, smooth=False, jitter=4)
-    m.add(frustum(1.3, 1.2, 0.3, 10), t["trim"], smooth=False, m=translate(0, 0.4, 0))
-    for k in range(6):
-        a = k * np.pi / 3
-        m.add(frustum(0.14, 0.08, 1.3, 5), GOLD, smooth=False, m=translate(1.05 * np.cos(a), 0.7, 1.05 * np.sin(a)))
-    m.add(icosphere(1), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 1.7, 0) @ scale(0.75, 0.75, 0.75))
+    metal = GOLD if team == "Blue" else (74, 64, 68)
+    m.add(frustum(1.8, 1.6, 0.35, 12), STONE_DARK, smooth=False, jitter=4)
+    m.add(frustum(1.45, 1.35, 0.3, 12), t["trim"], smooth=False, m=translate(0, 0.35, 0))
+    for x, y, z in ring_pts(1.2, 0.65, 6):
+        claw(m, [(x, y, z), (x * 1.15, 1.5, z * 1.15), (x * 0.8, 2.4, z * 0.8)], 0.14, 0.05, metal)
+    m.add(icosphere(1), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 1.75, 0) @ scale(0.72, 0.72, 0.72))
+    for x, y, z in ring_pts(1.05, 1.75, 8):                          # floating rune ring
+        m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False, m=translate(x, y, z) @ scale(0.08, 0.14, 0.08))
     return m
 
 
 def nexus(team, rng):
     t = TEAM[team]
     m = Model(rng)
-    for k, (r, hgt, c) in enumerate(((3.0, 0.5, STONE_DARK), (2.4, 0.5, STONE), (1.8, 0.4, t["trim"]))):
-        m.add(frustum(r, r * 0.95, hgt, 12), c, smooth=False, jitter=4, m=translate(0, 0.5 * k, 0))
-    for k in range(4):
-        a = k * np.pi / 2 + np.pi / 4
-        m.add(frustum(0.25, 0.18, 2.6, 6), GOLD, smooth=False, m=translate(2.2 * np.cos(a), 1.0, 2.2 * np.sin(a)))
+    metal = GOLD if team == "Blue" else (74, 64, 68)
+    for k, (r, hgt, c) in enumerate(((3.3, 0.45, STONE_DARK), (2.7, 0.45, STONE), (2.1, 0.4, t["trim"]))):
+        m.add(frustum(r, r * 0.95, hgt, 6), c, smooth=False, jitter=4, m=translate(0, 0.45 * k, 0) @ rot_y(np.pi / 6))
+    for x, y, z in ring_pts(2.5, 0.9, 6, np.pi / 6):                 # buttresses leaning on the crystal
+        claw(m, [(x, y, z), (x * 1.05, 3.0, z * 1.05), (x * 0.6, 5.2, z * 0.6)], 0.32, 0.08, metal)
         m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False,
-              m=translate(2.2 * np.cos(a), 4.0, 2.2 * np.sin(a)) @ scale(0.3, 0.5, 0.3))
+              m=translate(x * 0.6, 5.5, z * 0.6) @ scale(0.2, 0.35, 0.2))
     m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False,
-          m=translate(0, 4.2, 0) @ rot_y(0.4) @ scale(1.4, 2.8, 1.4))
+          m=translate(0, 4.0, 0) @ rot_y(0.4) @ scale(1.35, 2.6, 1.35))
+    for x, y, z in ring_pts(1.9, 4.0, 10):                           # orbiting shards
+        m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False, m=translate(x, y, z) @ scale(0.12, 0.3, 0.12))
     return m
 
 
 def fountain(team, rng):
     t = TEAM[team]
     m = Model(rng)
-    m.add(frustum(2.8, 2.6, 0.3, 16), STONE, smooth=False)
-    m.add(frustum(2.4, 2.4, 0.05, 16), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 0.3, 0))
-    m.add(frustum(0.5, 0.35, 2.4, 8), GOLD, smooth=False, m=translate(0, 0.3, 0))
-    m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 3.2, 0) @ scale(0.5, 0.8, 0.5))
+    metal = GOLD if team == "Blue" else (74, 64, 68)
+    for k, r in enumerate((3.4, 2.9, 2.4)):                          # stepped platform
+        m.add(frustum(r, r - 0.1, 0.25, 16), STONE if k % 2 == 0 else STONE_DARK, smooth=False, jitter=4,
+              m=translate(0, 0.25 * k, 0))
+    m.add(frustum(2.0, 2.0, 0.04, 16), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 0.75, 0))
+    for x, y, z in ring_pts(2.6, 0.5, 6, np.pi / 6):                 # ring of pillars
+        m.add(frustum(0.22, 0.18, 2.0, 6), STONE, smooth=False, jitter=4, m=translate(x, y, z))
+        m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False, m=translate(x, y + 2.3, z) @ scale(0.18, 0.3, 0.18))
+    m.add(frustum(0.45, 0.3, 2.6, 8), metal, smooth=False, m=translate(0, 0.75, 0))
+    m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 3.8, 0) @ scale(0.45, 0.8, 0.45))
     return m
 
 
@@ -483,7 +572,19 @@ def main(out_dir):
         x, z = to_model(p)
         return [round(x, 3), round(height_at(p), 3), round(z, 3)]
 
+    lane_cells = np.argwhere(cls == LANE) * CELL                     # game coords of every lane vertex
+
+    def snap_to_lane(p):
+        """Turret positions come from the game; nudge any that miss the traced lane onto its middle."""
+        if class_at(cls, p) in (LANE, BASE_B, BASE_R):
+            return p
+        d = np.hypot(lane_cells[:, 0] - p[0], lane_cells[:, 1] - p[1])
+        near = lane_cells[np.hypot(*(lane_cells - lane_cells[d.argmin()]).T) < 650]
+        return tuple(near.mean(0))
+
     def place(name, mdl, p, kind, team):
+        if kind == "Turret":
+            p = snap_to_lane(p)
         x, y, z = model_pos(p)
         nodes.append((name, mdl.transform(translate(x, y, z) @ facing(p))))
         structures.append({"node": name, "kind": kind, "team": team,
