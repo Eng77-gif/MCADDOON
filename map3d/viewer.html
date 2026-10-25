@@ -66,7 +66,7 @@ new GLTFLoader().load("summoners_rift.glb", (gltf) => {
       o.receiveShadow = true;
       if (o.material.emissive) o.material.emissiveIntensity = 1.2;
     }
-    const env = ["Terrain", "Water", "Trees", "Brush", "Rocks", "Flowers"];
+    const env = ["Terrain", "Water", "Trees", "Brush", "Rocks", "Flowers", "Walls", "Crystals"];
     if (o.parent === gltf.scene && !env.includes(o.name)) structures.push(o);
   });
   scene.add(gltf.scene);
