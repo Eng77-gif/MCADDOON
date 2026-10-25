@@ -1,6 +1,6 @@
 # Summoner's Rift (stylised low-poly 3D)
 
-- `summoners_rift.glb`: a glTF 2.0 model. The ground carries the top-down texture (unlit, `KHR_materials_unlit`), everything else uses vertex colours. It opens in Unity (glTFast), Godot, Blender and three.js.
+- `summoners_rift.glb`: a glTF 2.0 model. The ground carries the top-down texture (colour-graded and sharpened, lit so it takes shadows), everything else uses vertex colours. It opens in Unity (glTFast), Godot, Blender and three.js.
   - The map spans -96..96 on x and z, y is up, and the map is centred at the origin. The blue base is south-west and the red base north-east (north = -z).
   - Scenery nodes: `Terrain` (smooth heightmap painted with `rift_texture.jpg`), `Cliffs` (skirt under the island),
     `Trees` (forest outside the lanes, bushes and a few trees on the jungle walls), `Brush`, `Rocks`, `Flowers`,
@@ -9,11 +9,11 @@
   - Structure nodes: `Turret_<Blue|Red>_<Top|Mid|Bot>_<Outer|Inner|Inhibitor>`, `Turret_<Team>_Nexus_<Top|Bot>`,
     `Inhibitor_<Team>_<Lane>`, `Nexus_<Team>` and `Fountain_<Team>`. Hide a node when the structure is destroyed.
   - No monsters: jungle camp, Baron/Dragon and Scuttle positions are listed in `map_data.json`.
-  - Materials: `Ground` (unlit texture), `Base` (vertex colour) and `Glow_Blue` / `Glow_Red` / `Glow_Purple` (emissive crystals).
-  - Size: about 515k triangles (terrain 205k on a 321 x 321 grid, trees and bushes ~210k), ~37 MB with the embedded texture. Lower the tree density in `build_props` if you need it lighter.
+  - Materials: `Ground` (texture), `Base` (vertex colour) and `Glow_Blue` / `Glow_Red` / `Glow_Purple` (emissive crystals).
+  - Size: about 720k triangles (terrain 205k on a 321 x 321 grid, trees and bushes ~420k), ~35 MB with the embedded texture. Lower the tree density in `build_props` if you need it lighter.
 - `map_data.json`: lane waypoints, river, fountains, Baron/Dragon/Scuttle, jungle camps and structures,
   in game coordinates (0–14870) and model coordinates (y = ground height), for match simulation and movement.
-- `viewer.html`: a preview with shadows. Serve the folder (for example `python3 -m http.server`) and open `viewer.html`. Add `?top` for a top-down view,
+- `viewer.html`: a preview with shadows and bloom. Serve the folder (for example `python3 -m http.server`) and open `viewer.html`. Add `?top` for a top-down view,
   or `?cam=x,y,z&target=x,y,z` for a fixed camera.
 - `preview/`: rendered screenshots.
 - `rift_texture.jpg` + `reference_texture.py` + `reference/rift_reference.webp`: the ground texture is the

@@ -19,7 +19,7 @@ import json, math, os, sys
 
 import numpy as np
 
-from geometry import (Model, align_y, frustum, icosphere, octahedron, rot_y, scale, srgb_to_linear,
+from geometry import (Model, align_y, frustum, icosphere, octahedron, rot_y, scale, srgb_to_linear, torus,
                       translate, write_glb)
 
 W = 14870.0          # map size in game units
@@ -124,8 +124,7 @@ CANOPY = [(38, 84, 44), (50, 98, 44), (32, 74, 50), (60, 104, 40), (44, 90, 58)]
 TRUNK = (96, 70, 46)
 GLOWS = {"Glow_Blue": (80, 180, 255), "Glow_Red": (255, 86, 70), "Glow_Purple": (190, 110, 255)}
 MATERIALS = {
-    "Ground": {"pbrMetallicRoughness": {"baseColorTexture": {"index": 0}, "metallicFactor": 0, "roughnessFactor": 1},
-               "extensions": {"KHR_materials_unlit": {}}},
+    "Ground": {"pbrMetallicRoughness": {"baseColorTexture": {"index": 0}, "metallicFactor": 0, "roughnessFactor": 1}},
     "Base": {"pbrMetallicRoughness": {"baseColorFactor": [1, 1, 1, 1], "metallicFactor": 0, "roughnessFactor": 0.9}},
     "Water": {"pbrMetallicRoughness": {"baseColorFactor": [0.03, 0.12, 0.22, 0.78], "metallicFactor": 0,
                                        "roughnessFactor": 0.15}, "alphaMode": "BLEND"},
@@ -353,12 +352,15 @@ def tree(m, x, y, z, rng, pine_chance=0.55, canopy=None):
         for k, (r, hgt, y0) in enumerate(((1.0, 1.8, 0.6), (0.75, 1.5, 1.5), (0.5, 1.2, 2.3))):
             m.add(frustum(r * s, 0, hgt * s, 7, caps=False), canopy * (1 + 0.06 * k), smooth=False, jitter=5,
                   m=translate(x, y + y0 * s, z) @ rot_y(rng.uniform(0, 6.3)))
-    else:                               # broadleaf: two lumpy low-poly balls
-        for dx, dy, dz, r in ((0, 1.6, 0, 1.2), (rng.uniform(-0.5, 0.5), 2.3, rng.uniform(-0.5, 0.5), 0.8)):
-            p, f = icosphere(0)
-            p = p * (1 + rng.uniform(-0.15, 0.15, (len(p), 1)))
-            m.add((p, f), canopy * (1.08 if dy > 2 else 1), smooth=False, jitter=6,
-                  m=translate(x + dx * s, y + dy * s, z + dz * s) @ rot_y(rng.uniform(0, 6.3)) @ scale(r * s, 0.9 * r * s, r * s))
+    else:                               # broadleaf: a soft cluster of rounded leaf balls, lit from above
+        for k, (dx, dy, dz, r) in enumerate(((0, 1.7, 0, 1.25), (0.6, 2.1, 0.3, 0.85), (-0.5, 2.2, -0.3, 0.8),
+                                             (0.1, 2.7, 0, 0.7))):
+            p, f = icosphere(1)
+            p = p * (1 + rng.uniform(-0.08, 0.08, (len(p), 1)))
+            top = np.clip((p[:, 1:2] + 1) / 2, 0, 1)            # lighter towards the top of each ball
+            col = canopy * (0.82 + 0.3 * top) * (1 + 0.05 * k)
+            m.add((p, f), col, jitter=3,
+                  m=translate(x + dx * s, y + dy * s, z + dz * s) @ rot_y(rng.uniform(0, 6.3)) @ scale(r * s, 0.85 * r * s, r * s))
 
 
 def bush(m, x, y, z, rng, rgb=(58, 104, 48)):
@@ -428,28 +430,30 @@ def build_props(cls, h, rng):
     height_at = sampler(h)
     tex_at = texture_sampler()
     trees, brush, rocks, small = Model(rng), Model(rng), Model(rng), Model(rng)
+    wall_core = blur((cls == WALL).astype(float), 1.2)           # 1 deep inside a wall, ~0.5 at its edge
+    core_at = lambda p: wall_core[min(G - 1, int(round(p[0] / W * (G - 1)))), min(G - 1, int(round(p[1] / W * (G - 1))))]
     for p in scatter(1.3 if tex_at else 1.7, rng):
         c = class_at(cls, p)
         hh = height_at(p)
         x, z = to_model(p)
         if c == OUTER and hh > 1.2 and rng.random() < (0.55 if tex_at else 0.9):   # pine forest outside the lanes
             tree(trees, x, hh, z, rng, pine_chance=0.85)
-        elif c == WALL and hh > 1.0 and tex_at:
+        elif c == WALL and hh > 1.0 and tex_at and core_at(p) > 0.8:
             # turn the trees and rocks painted on the jungle walls into real ones, coloured from the texture
             rgb = tex_at(p)
             hi, lo = rgb.max(), rgb.min()
             # texture tone only nudges the palette: the painting's lighting and blue river glow would
             # otherwise give blue, brown or black trees
             shade = np.clip(rgb.mean() / 60, 0.75, 1.3)
-            leaf = np.array(CANOPY[rng.integers(len(CANOPY))]) * shade * 1.15
+            leaf = np.array(CANOPY[rng.integers(len(CANOPY))]) * shade * 1.45
             grey = hi > 55 and (hi - lo) < 0.32 * hi              # pale, unsaturated: painted rock
             r = rng.random()
-            if grey and r < 0.7:
+            if grey and r < 0.45:
                 rock(rocks, x + rng.uniform(-0.3, 0.3), hh, z + rng.uniform(-0.3, 0.3), rng.uniform(0.6, 1.2),
-                     rng, np.clip(np.array((118, 120, 112)) * 0.6 + rgb * 0.5, 0, 255))
+                     rng, np.clip(np.array((128, 130, 122)) * 0.7 + rgb * 0.45, 0, 255))
+            elif not grey and r < 0.3:
+                tree(trees, x, hh, z, rng, pine_chance=0.35, canopy=leaf)
             elif not grey and r < 0.42:
-                tree(trees, x, hh, z, rng, pine_chance=0.6, canopy=leaf)
-            elif not grey and r < 0.8:
                 bush(trees, x, hh, z, rng, leaf)
         elif c == WALL and hh > 1.3:                                # mossy jungle walls: bushes, few trees
             r = rng.random()
@@ -576,34 +580,77 @@ def turret(team, rng):
     return m
 
 
+def rot_x(a):
+    c, s_ = np.cos(a), np.sin(a)
+    return np.array([[1, 0, 0, 0], [0, c, -s_, 0], [0, s_, c, 0], [0, 0, 0, 1.0]])
+
+
+def team_style(team):
+    """Order: white stone with gold.  Chaos: dark iron with rust-red trim."""
+    if team == "Blue":
+        return {"stone": (206, 202, 192), "stone2": (150, 152, 160), "metal": GOLD, "trim": (60, 96, 170)}
+    return {"stone": (92, 82, 86), "stone2": (58, 52, 56), "metal": (84, 72, 74), "trim": (132, 40, 34)}
+
+
+def crystal_gem(m, c, r, h, material, facets=6, rot=0.0):
+    """Elongated cut gem: a hexagonal bipyramid with a short girdle, point up."""
+    m.add(frustum(r, 0, h * 0.62, facets, caps=False), (255, 255, 255), material=material, smooth=False,
+          m=translate(c[0], c[1] + h * 0.08, c[2]) @ rot_y(rot))
+    m.add(frustum(r, r, h * 0.16, facets, caps=False), (255, 255, 255), material=material, smooth=False,
+          m=translate(c[0], c[1] - h * 0.08, c[2]) @ rot_y(rot))
+    m.add(frustum(r, 0, h * 0.38, facets, caps=False), (255, 255, 255), material=material, smooth=False,
+          m=translate(c[0], c[1] - h * 0.08, c[2]) @ rot_y(rot) @ rot_x(np.pi))
+
+
 def inhibitor(team, rng):
-    t = TEAM[team]
+    """Round stepped dais, an upright ring frame and a crystal floating inside it."""
+    t, st = TEAM[team], team_style(team)
     m = Model(rng)
-    metal = GOLD if team == "Blue" else (74, 64, 68)
-    m.add(frustum(1.8, 1.6, 0.35, 12), STONE_DARK, smooth=False, jitter=4)
-    m.add(frustum(1.45, 1.35, 0.3, 12), t["trim"], smooth=False, m=translate(0, 0.35, 0))
-    for x, y, z in ring_pts(1.2, 0.65, 6):
-        claw(m, [(x, y, z), (x * 1.15, 1.5, z * 1.15), (x * 0.8, 2.4, z * 0.8)], 0.14, 0.05, metal)
-    m.add(icosphere(1), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 1.75, 0) @ scale(0.72, 0.72, 0.72))
-    for x, y, z in ring_pts(1.05, 1.75, 8):                          # floating rune ring
-        m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False, m=translate(x, y, z) @ scale(0.08, 0.14, 0.08))
+    for k, (r, hgt, c) in enumerate(((2.1, 0.22, st["stone2"]), (1.8, 0.22, st["stone"]), (1.45, 0.18, st["trim"]))):
+        m.add(frustum(r, r * 0.97, hgt, 20), c, smooth=False, jitter=3, m=translate(0, 0.22 * k, 0))
+    m.add(frustum(1.25, 1.25, 0.03, 20), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 0.62, 0))
+    for s_ in (-1, 1):                                               # two posts carrying the ring
+        m.add(frustum(0.22, 0.16, 1.4, 6), st["stone"], smooth=False, m=translate(s_ * 1.25, 0.6, 0))
+    m.add(torus(1.25, 0.12, 28, 6), st["metal"], m=translate(0, 2.05, 0) @ rot_x(np.pi / 2))
+    m.add(torus(1.05, 0.05, 28, 5), st["trim"], m=translate(0, 2.05, 0) @ rot_x(np.pi / 2))
+    for k in range(8):                                               # studs / spikes round the ring
+        a = k * np.pi / 4
+        d = np.array((np.cos(a), np.sin(a), 0))
+        base = np.array((0, 2.05, 0)) + d * 1.3
+        if team == "Blue":
+            m.add(octahedron(), st["metal"], smooth=False, m=translate(*base) @ scale(0.1, 0.1, 0.1))
+        else:
+            m.add(frustum(0.1, 0, 0.45, 4), st["metal"], smooth=False, m=translate(*base) @ align_y(d))
+    crystal_gem(m, (0, 2.05, 0), 0.5, 1.6, t["glow"], rot=0.3)
     return m
 
 
 def nexus(team, rng):
-    t = TEAM[team]
+    """Wide round terraced base, a ring of pillars or claws, and a big crystal floating in orbiting rings."""
+    t, st = TEAM[team], team_style(team)
     m = Model(rng)
-    metal = GOLD if team == "Blue" else (74, 64, 68)
-    for k, (r, hgt, c) in enumerate(((3.3, 0.45, STONE_DARK), (2.7, 0.45, STONE), (2.1, 0.4, t["trim"]))):
-        m.add(frustum(r, r * 0.95, hgt, 6), c, smooth=False, jitter=4, m=translate(0, 0.45 * k, 0) @ rot_y(np.pi / 6))
-    for x, y, z in ring_pts(2.5, 0.9, 6, np.pi / 6):                 # buttresses leaning on the crystal
-        claw(m, [(x, y, z), (x * 1.05, 3.0, z * 1.05), (x * 0.6, 5.2, z * 0.6)], 0.32, 0.08, metal)
-        m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False,
-              m=translate(x * 0.6, 5.5, z * 0.6) @ scale(0.2, 0.35, 0.2))
-    m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False,
-          m=translate(0, 4.0, 0) @ rot_y(0.4) @ scale(1.35, 2.6, 1.35))
-    for x, y, z in ring_pts(1.9, 4.0, 10):                           # orbiting shards
-        m.add(octahedron(), (255, 255, 255), material=t["glow"], smooth=False, m=translate(x, y, z) @ scale(0.12, 0.3, 0.12))
+    for k, (r, hgt, c) in enumerate(((3.6, 0.3, st["stone2"]), (3.2, 0.3, st["stone"]), (2.75, 0.3, st["stone2"]),
+                                     (2.3, 0.25, st["trim"]))):
+        m.add(frustum(r, r * 0.97, hgt, 28), c, smooth=False, jitter=3, m=translate(0, 0.3 * k, 0))
+    m.add(frustum(1.9, 1.9, 0.03, 28), (255, 255, 255), material=t["glow"], smooth=False, m=translate(0, 1.16, 0))
+    for k in range(6):
+        a = k * np.pi / 3 + np.pi / 6
+        d = np.array((np.cos(a), 0, np.sin(a)))
+        if team == "Blue":                                          # white columns with gold caps and gems
+            base = d * 2.75 + (0, 0.9, 0)
+            m.add(frustum(0.28, 0.24, 2.6, 8), st["stone"], smooth=False, m=translate(*base))
+            m.add(frustum(0.36, 0.3, 0.25, 8), st["metal"], smooth=False, m=translate(*(base + (0, 2.6, 0))))
+            crystal_gem(m, base + (0, 3.25, 0), 0.16, 0.7, t["glow"])
+        else:                                                       # black claws curling over the crystal
+            pts = [d * 3.0 + (0, 0.9, 0), d * 3.3 + (0, 2.6, 0), d * 2.6 + (0, 4.4, 0), d * 1.5 + (0, 5.4, 0)]
+            claw(m, pts, 0.38, 0.05, st["metal"])
+            m.add(frustum(0.14, 0, 0.7, 4), st["metal"], smooth=False, m=translate(*pts[1]) @ align_y(d + (0, 0.4, 0)))
+    crystal_gem(m, (0, 3.9, 0), 1.0, 3.6, t["glow"], rot=0.25)
+    m.add(torus(1.75, 0.07, 36, 5), st["metal"], m=translate(0, 3.9, 0) @ rot_x(0.35))         # orbit rings
+    m.add(torus(2.1, 0.05, 36, 5), st["metal"], m=translate(0, 4.3, 0) @ rot_x(-0.5) @ rot_y(1.0))
+    for k in range(8):                                               # shards riding the rings
+        a = k * np.pi / 4
+        crystal_gem(m, (2.1 * np.cos(a), 4.3 + 0.9 * np.sin(a) * np.cos(a), 2.1 * np.sin(a)), 0.1, 0.45, t["glow"], 4)
     return m
 
 
@@ -644,6 +691,7 @@ def clean_texture(out_dir):
         rx, ry, lean = (60, 70, 20) if big else (30, 46, 30)
         mask |= ((xx - px) / rx) ** 2 + ((yy - (py - lean)) / ry) ** 2 <= 1
     keep = (~mask).astype(float)
+    tex = grade(tex)
     sigma = 18 * n / 2048
     num = np.stack([blur_px(tex[..., c] * keep, sigma) for c in range(3)], -1)
     den = blur_px(keep, sigma)[..., None]
@@ -652,6 +700,18 @@ def clean_texture(out_dir):
     path = os.path.join(out_dir, ".rift_texture_clean.jpg")
     Image.fromarray(np.clip(tex, 0, 255).astype(np.uint8)).save(path, quality=90)
     return path
+
+
+def grade(tex):
+    """The screenshot is dark and soft: lift exposure, add saturation and sharpen."""
+    from PIL import Image, ImageEnhance, ImageFilter
+    img = Image.fromarray(np.clip(tex, 0, 255).astype(np.uint8))
+    img = img.filter(ImageFilter.UnsharpMask(radius=2.5, percent=90, threshold=2))
+    img = ImageEnhance.Color(img).enhance(1.08)
+    a = np.asarray(img).astype(float) / 255
+    a = a ** 0.78                                       # lift the shadows more than the highlights
+    a = a * np.array((1.02, 1.06, 0.98))                # nudge towards the warm, grassy in-game grade
+    return np.clip(a * 255 * 1.08, 0, 255)
 
 
 def blur_px(a, sigma):

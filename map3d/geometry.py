@@ -91,6 +91,21 @@ def icosphere(subdiv=0):
     return np.array(v), np.array(f)
 
 
+def torus(R=1.0, r=0.15, seg=24, tube_seg=8):
+    """Ring in the xz plane (axis +y), major radius R, tube radius r."""
+    u = np.linspace(0, 2 * np.pi, seg, endpoint=False)
+    v = np.linspace(0, 2 * np.pi, tube_seg, endpoint=False)
+    U, V = np.meshgrid(u, v, indexing="ij")
+    pos = np.stack([(R + r * np.cos(V)) * np.cos(U), r * np.sin(V), (R + r * np.cos(V)) * np.sin(U)], -1).reshape(-1, 3)
+    idx = []
+    for i in range(seg):
+        for j in range(tube_seg):
+            a, b = i * tube_seg + j, ((i + 1) % seg) * tube_seg + j
+            c, d = i * tube_seg + (j + 1) % tube_seg, ((i + 1) % seg) * tube_seg + (j + 1) % tube_seg
+            idx += [(a, c, b), (b, c, d)]
+    return pos, np.array(idx)
+
+
 def octahedron():
     pos = np.array([(1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)], float)
     idx = np.array([(2, 4, 0), (2, 1, 4), (2, 5, 1), (2, 0, 5), (3, 0, 4), (3, 4, 1), (3, 1, 5), (3, 5, 0)])
