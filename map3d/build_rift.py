@@ -91,6 +91,23 @@ BLUE_TURRETS = {
 BLUE_INHIBITORS = {"Top": (1171, 3571), "Mid": (3203, 3208), "Bot": (3452, 1236)}
 BLUE_NEXUS = (1551, 1561)
 
+# Where each structure's base sits in the 2048 px ground texture (x, y from the top-left). Used instead of
+# the positions above when the texture is present, so the 3D buildings stand exactly on the painted ones.
+STRUCTURE_PX = {
+    "Turret_Blue_Top_Outer": (152, 655), "Turret_Blue_Top_Inner": (217, 1164), "Turret_Blue_Top_Inhibitor": (170, 1482),
+    "Turret_Blue_Mid_Outer": (803, 1194), "Turret_Blue_Mid_Inner": (690, 1409), "Turret_Blue_Mid_Inhibitor": (503, 1559),
+    "Turret_Blue_Bot_Outer": (1432, 1919), "Turret_Blue_Bot_Inner": (942, 1862), "Turret_Blue_Bot_Inhibitor": (583, 1886),
+    "Turret_Blue_Nexus_Top": (242, 1752), "Turret_Blue_Nexus_Bot": (300, 1814),
+    "Inhibitor_Blue_Top": (163, 1576), "Inhibitor_Blue_Mid": (440, 1620), "Inhibitor_Blue_Bot": (472, 1892),
+    "Nexus_Blue": (215, 1829), "Fountain_Blue": (62, 1992),
+    "Turret_Red_Bot_Outer": (605, 190), "Turret_Red_Bot_Inner": (1102, 235), "Turret_Red_Bot_Inhibitor": (1456, 190),
+    "Turret_Red_Mid_Outer": (1232, 905), "Turret_Red_Mid_Inner": (1346, 680), "Turret_Red_Mid_Inhibitor": (1539, 525),
+    "Turret_Red_Top_Outer": (1904, 1444), "Turret_Red_Top_Inner": (1839, 935), "Turret_Red_Top_Inhibitor": (1886, 600),
+    "Turret_Red_Nexus_Top": (1809, 325), "Turret_Red_Nexus_Bot": (1744, 262),
+    "Inhibitor_Red_Bot": (1557, 185), "Inhibitor_Red_Mid": (1602, 462), "Inhibitor_Red_Top": (1884, 505),
+    "Nexus_Red": (1832, 245), "Fountain_Red": (1960, 120),
+}
+
 # --- look --------------------------------------------------------------------------
 
 WALL, GROUND, LANE, RIVER_C, PIT, BRUSH, BASE_B, BASE_R, FOUNT_B, FOUNT_R, OUTER = range(11)
@@ -328,9 +345,9 @@ def build_water():
     return m
 
 
-def tree(m, x, y, z, rng, pine_chance=0.55):
+def tree(m, x, y, z, rng, pine_chance=0.55, canopy=None):
     s = rng.uniform(0.8, 1.35)
-    canopy = np.array(CANOPY[rng.integers(len(CANOPY))]) + rng.integers(-8, 9)
+    canopy = np.array(CANOPY[rng.integers(len(CANOPY))] if canopy is None else canopy) + rng.integers(-8, 9)
     m.add(frustum(0.2 * s, 0.14 * s, 0.9 * s, 4, caps=False), TRUNK, smooth=False, m=translate(x, y - 0.2, z))
     if rng.random() < pine_chance:      # pine: stacked cones
         for k, (r, hgt, y0) in enumerate(((1.0, 1.8, 0.6), (0.75, 1.5, 1.5), (0.5, 1.2, 2.3))):
@@ -344,12 +361,12 @@ def tree(m, x, y, z, rng, pine_chance=0.55):
                   m=translate(x + dx * s, y + dy * s, z + dz * s) @ rot_y(rng.uniform(0, 6.3)) @ scale(r * s, 0.9 * r * s, r * s))
 
 
-def bush(m, x, y, z, rng):
+def bush(m, x, y, z, rng, rgb=(58, 104, 48)):
     for _ in range(rng.integers(2, 4)):
         p, f = icosphere(0)
         p = p * (1 + rng.uniform(-0.2, 0.2, (len(p), 1)))
         r = rng.uniform(0.45, 0.8)
-        m.add((p, f), np.array((58, 104, 48)) + rng.integers(-12, 13), smooth=False, jitter=6,
+        m.add((p, f), np.array(rgb) + rng.integers(-12, 13), smooth=False, jitter=6,
               m=translate(x + rng.uniform(-0.5, 0.5), y + r * 0.4, z + rng.uniform(-0.5, 0.5)) @ scale(r, r * 0.75, r))
 
 
@@ -393,15 +410,47 @@ def stone_walls(cls, h, rng):
     return m
 
 
+def texture_sampler():
+    """Colour of the ground texture at a game position (sRGB, 0..255), or None without a texture."""
+    if not os.path.exists(TEXTURE):
+        return None
+    from PIL import Image
+    tex = np.asarray(Image.open(TEXTURE).convert("RGB")).astype(float)
+    n = tex.shape[0]
+    def at(p, r=3):
+        cx, cy = int(p[0] / W * n), int((1 - p[1] / W) * n)
+        patch = tex[max(0, cy - r):cy + r + 1, max(0, cx - r):cx + r + 1]
+        return patch.reshape(-1, 3).mean(0)
+    return at
+
+
 def build_props(cls, h, rng):
     height_at = sampler(h)
+    tex_at = texture_sampler()
     trees, brush, rocks, small = Model(rng), Model(rng), Model(rng), Model(rng)
-    for p in scatter(1.7, rng):
+    for p in scatter(1.3 if tex_at else 1.7, rng):
         c = class_at(cls, p)
         hh = height_at(p)
         x, z = to_model(p)
-        if c == OUTER and hh > 1.2 and rng.random() < 0.9:          # dense pine forest outside the lanes
+        if c == OUTER and hh > 1.2 and rng.random() < (0.55 if tex_at else 0.9):   # pine forest outside the lanes
             tree(trees, x, hh, z, rng, pine_chance=0.85)
+        elif c == WALL and hh > 1.0 and tex_at:
+            # turn the trees and rocks painted on the jungle walls into real ones, coloured from the texture
+            rgb = tex_at(p)
+            hi, lo = rgb.max(), rgb.min()
+            # texture tone only nudges the palette: the painting's lighting and blue river glow would
+            # otherwise give blue, brown or black trees
+            shade = np.clip(rgb.mean() / 60, 0.75, 1.3)
+            leaf = np.array(CANOPY[rng.integers(len(CANOPY))]) * shade * 1.15
+            grey = hi > 55 and (hi - lo) < 0.32 * hi              # pale, unsaturated: painted rock
+            r = rng.random()
+            if grey and r < 0.7:
+                rock(rocks, x + rng.uniform(-0.3, 0.3), hh, z + rng.uniform(-0.3, 0.3), rng.uniform(0.6, 1.2),
+                     rng, np.clip(np.array((118, 120, 112)) * 0.6 + rgb * 0.5, 0, 255))
+            elif not grey and r < 0.42:
+                tree(trees, x, hh, z, rng, pine_chance=0.6, canopy=leaf)
+            elif not grey and r < 0.8:
+                bush(trees, x, hh, z, rng, leaf)
         elif c == WALL and hh > 1.3:                                # mossy jungle walls: bushes, few trees
             r = rng.random()
             if r < 0.08:
@@ -581,6 +630,40 @@ def facing(p):
     return rot_y(math.atan2(-dz, dx))
 
 
+def clean_texture(out_dir):
+    """Copy of the ground texture with the painted buildings blurred away, so only the 3D ones show.
+    The screenshot was taken from the south, so each painted tower leans north of its base."""
+    from PIL import Image
+    tex = np.asarray(Image.open(TEXTURE).convert("RGB")).astype(float)
+    n = tex.shape[0]
+    yy, xx = np.mgrid[0:n, 0:n]
+    mask = np.zeros((n, n), bool)
+    for name, (px, py) in STRUCTURE_PX.items():
+        px, py = px * n / 2048, py * n / 2048
+        big = name.startswith(("Nexus", "Fountain"))
+        rx, ry, lean = (60, 70, 20) if big else (30, 46, 30)
+        mask |= ((xx - px) / rx) ** 2 + ((yy - (py - lean)) / ry) ** 2 <= 1
+    keep = (~mask).astype(float)
+    sigma = 18 * n / 2048
+    num = np.stack([blur_px(tex[..., c] * keep, sigma) for c in range(3)], -1)
+    den = blur_px(keep, sigma)[..., None]
+    filled = num / np.maximum(den, 1e-3)
+    tex[mask] = filled[mask]
+    path = os.path.join(out_dir, ".rift_texture_clean.jpg")
+    Image.fromarray(np.clip(tex, 0, 255).astype(np.uint8)).save(path, quality=90)
+    return path
+
+
+def blur_px(a, sigma):
+    """Separable Gaussian blur in pixels (unlike blur(), which works in terrain-grid units)."""
+    r = int(3 * sigma) + 1
+    k = np.exp(-0.5 * (np.arange(-r, r + 1) / sigma) ** 2)
+    k /= k.sum()
+    a = np.pad(a, r, mode="edge")
+    a = np.apply_along_axis(lambda v: np.convolve(v, k, "valid"), 0, a)
+    return np.apply_along_axis(lambda v: np.convolve(v, k, "valid"), 1, a)
+
+
 # --- main --------------------------------------------------------------------------
 
 def main(out_dir):
@@ -608,7 +691,10 @@ def main(out_dir):
         return tuple(near.mean(0))
 
     def place(name, mdl, p, kind, team):
-        if kind == "Turret":
+        if os.path.exists(TEXTURE) and name in STRUCTURE_PX:
+            px, py = STRUCTURE_PX[name]
+            p = (px / 2048 * W, (1 - py / 2048) * W)
+        elif kind == "Turret":
             p = snap_to_lane(p)
         x, y, z = model_pos(p)
         nodes.append((name, mdl.transform(translate(x, y, z) @ facing(p))))
@@ -624,7 +710,7 @@ def main(out_dir):
         place(f"Fountain_{team}", fountain(team, rng), f(FOUNTAIN), "Fountain", team)
 
     write_glb(os.path.join(out_dir, "summoners_rift.glb"), nodes, MATERIALS,
-              images=[TEXTURE] if os.path.exists(TEXTURE) else [])
+              images=[clean_texture(out_dir)] if os.path.exists(TEXTURE) else [])
 
     camps = [{"name": n, "side": side, "game_pos": [round(v) for v in f(p)], "model_pos": model_pos(f(p))}
              for side, f in (("Blue", lambda p: p), ("Red", mirror)) for n, p in BLUE_CAMPS.items()]
