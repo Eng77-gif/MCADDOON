@@ -6,7 +6,7 @@ import {
   type Career, type CoachOrders, type DraftState, type MatchResult, type PhaseReport, type Picks, type Role, type SeriesState, type Tactic,
 } from "../../engine/src/index.ts";
 import { champName, db } from "./data.ts";
-import { ChampSprite } from "./champSprites.tsx";
+import { Sprite, monsterOf } from "./sprites.tsx";
 import { Card, ConfirmButton, ROLE_SHORT, ROLE_VI } from "./ui.tsx";
 
 const TACTIC_VI: Record<Tactic, string> = { TEAMFIGHT: "Giao tranh tổng", SPLIT_1_4: "Đẩy lẻ 1-4", POKE: "Cấu rỉa", PICK_OFF: "Bắt lẻ" };
@@ -144,7 +144,7 @@ function Draft({ draft, userSide, locked, onPick, onAuto }: {
               {ROLES.map((r) => (
                 <div key={r} className="slot">
                   <small>{ROLE_SHORT[r]}</small>
-                  {draft.picks[side][r] && <ChampSprite id={draft.picks[side][r]!} size={32} flip={side === 1} />}
+                  {draft.picks[side][r] && <Sprite id={draft.picks[side][r]!} size={32} flip={side === 1} />}
                   {draft.picks[side][r] ? champName(draft.picks[side][r]!) : "—"}
                 </div>
               ))}
@@ -192,7 +192,7 @@ function Draft({ draft, userSide, locked, onPick, onAuto }: {
               : 0;
             return (
               <button key={ch.id} className={`champ tier-${ch.patch_stats[draft.patch]?.tier ?? "B"}`} disabled={!ok} onClick={() => pick(ch.id)}>
-                <ChampSprite id={ch.id} anim="base" size={48} />
+                <Sprite id={ch.id} anim="base" size={48} />
                 <span>{ch.name}</span>
                 <small>{ch.patch_stats[draft.patch]?.tier}{mastery ? ` · ${mastery}` : ""}</small>
               </button>
@@ -272,7 +272,10 @@ function Live({ draft, userSide, names, seed, pressure, patch, onStart, onEnd }:
             <div key={i} className="phase">
               <h3>{describePhase(r, names)}</h3>
               <ul className="log">
-                {r.events.filter((e) => e.type !== "KILL").map((e, j) => <li key={j}>{describeEvent(e, names)}</li>)}
+                {r.events.filter((e) => e.type !== "KILL").map((e, j) => {
+                  const monster = monsterOf(e.type, e.minute);
+                  return <li key={j}>{monster && <Sprite id={monster} anim="attack" size={32} />}{describeEvent(e, names)}</li>;
+                })}
               </ul>
             </div>
           ))}

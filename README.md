@@ -49,6 +49,8 @@ Không có ảnh thì vẽ từ chữ: prompt + seed cố định theo tuyển t
 - `data/sample_*.json`: schema mẫu đầy đủ của Tuyển thủ và Tướng
 - `prototype/`: bản Python đầu tiên của công thức Ban/Pick
 
-## Tướng dạng pixel có animation (PixelLab)
+## Tướng và quái dạng pixel có animation (PixelLab)
 
-`npm run champ-sprites -- --champ AHRI,JINX` vẽ cho mỗi tướng: sprite gốc 64x64 nhìn ngang, animation đứng thở (`idle`) và tấn công (`attack`), tốn khoảng 3 lượt vẽ mỗi tướng. Ảnh nằm ở `data/packs/real-2026/sprites/<CHAMP>/`, ngoại hình mô tả trong `sprites/champions.json`. App hiện sprite ở màn Ban/Pick: lưới chọn tướng dùng ảnh tĩnh, ô đã chọn dùng animation, đội đỏ được lật quay sang trái. Tướng chưa có sprite thì chỉ hiện tên.
+`npm run champ-sprites -- --only AHRI,JINX` vẽ cho mỗi tướng: sprite gốc 64x64 nhìn ngang, animation đứng thở (`idle`) và tấn công (`attack`), tốn khoảng 3 lượt vẽ mỗi tướng. Ảnh nằm ở `data/packs/real-2026/sprites/<CHAMP>/`, ngoại hình mô tả trong `sprites/champions.json`. App hiện sprite ở màn Ban/Pick: lưới chọn tướng dùng ảnh tĩnh, ô đã chọn dùng animation, đội đỏ được lật quay sang trái. Tướng chưa có sprite thì chỉ hiện tên.
+
+`npm run monster-sprites` vẽ quái theo cùng cách: 6 Rồng nguyên tố, Rồng Ngàn Tuổi, Baron, Sứ Giả, Atakhan, Ấu Trùng Hư Không, các bãi quái rừng và lính (danh sách trong `sprites/monsters.json`, quái lớn vẽ 96px). Tổng cộng khoảng 66 lượt vẽ. Trong trận, nhật ký sự kiện Rồng/Sứ Giả/Baron/Rồng Ngàn Tuổi hiện quái tương ứng.

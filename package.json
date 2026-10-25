@@ -10,7 +10,8 @@
     "balance": "node engine/balance.ts",
     "import-pack": "node engine/tools/import-pack.ts",
     "portraits": "node engine/tools/gen-portraits.ts",
-    "champ-sprites": "node engine/tools/gen-champion-sprites.ts"
+    "champ-sprites": "node engine/tools/gen-sprites.ts --set champions",
+    "monster-sprites": "node engine/tools/gen-sprites.ts --set monsters"
   },
   "devDependencies": {
     "@types/node": "22.18.0",
