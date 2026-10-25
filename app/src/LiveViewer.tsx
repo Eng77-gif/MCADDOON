@@ -2,9 +2,10 @@
 // thanh tỉ số, nhật ký ý định, bản đồ mini, bảng chỉ số và điều khiển tốc độ.
 import { useEffect, useRef, useState } from "react";
 import {
-  LIVE, LiveMatch, MAP_SIZE, describeEvent, type ChampUnit, type CoachOrders, type MatchResult,
+  INHIBITORS, LIVE, LiveMatch, MAP_SIZE, NEXUS_NODES, describeEvent, type ChampUnit, type CoachOrders, type MatchResult,
 } from "../../engine/src/index.ts";
 import { PPU, renderTerrain } from "./art/terrain.ts";
+import { Rift3D } from "./rift3d.ts";
 import { heroSprite, minionSprite, monsterSprite, nexusSprite, teamCrest, towerSprite } from "./art/sprites.ts";
 import { champName } from "./data.ts";
 import { portraitOf } from "./portraits.ts";
@@ -42,12 +43,16 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
   const [paused, setPaused] = useState(false);
   const [auto, setAuto] = useState(true);
   const [zoomStep, setZoomStep] = useState(0);
+  const [view3d, setView3d] = useState(true);
+  const [loading3d, setLoading3d] = useState(false);
+  const gl = useRef<HTMLCanvasElement>(null);
   const [, setFrame] = useState(0);
-  const st = useRef({ speed, paused, auto, zoomStep, cam: { x: 100, y: 100 }, drag: null as null | { x: number; y: number }, unitCss: 6, focus: null as null | { x: number; y: number; until: number }, prev: new Map<number, { x: number; flip: boolean; walk: number }>() });
+  const st = useRef({ speed, paused, auto, zoomStep, cam: { x: 100, y: 100 }, drag: null as null | { x: number; y: number }, unitCss: 6, view3d: true, focus: null as null | { x: number; y: number; until: number }, prev: new Map<number, { x: number; flip: boolean; walk: number }>() });
   st.current.speed = speed;
   st.current.paused = paused;
   st.current.auto = auto;
   st.current.zoomStep = zoomStep;
+  st.current.view3d = view3d;
 
   useEffect(() => {
     match.recordFx = true;
@@ -58,6 +63,18 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
     const mg = mm.getContext("2d")!;
     const s = st.current;
     s.cam = { x: userSide === 0 ? 40 : 160, y: userSide === 0 ? 160 : 40 };
+    // Bản đồ 3D: tải model; lỗi WebGL hoặc không tải được thì tự quay về bản đồ pixel 2D
+    let rift: Rift3D | null = null;
+    try {
+      rift = new Rift3D(gl.current!);
+      setLoading3d(true);
+      rift.load("map3d/rift.glb").then(
+        () => setLoading3d(false),
+        () => (setLoading3d(false), setView3d(false), (rift = null)),
+      );
+    } catch {
+      setView3d(false);
+    }
 
     let raf = 0;
     let last = performance.now();
@@ -72,10 +89,13 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       const W = Math.max(1, Math.round(rect.width * dpr));
       const H = Math.max(1, Math.round(rect.height * dpr));
-      if (cv.width !== W || cv.height !== H) (cv.width = W), (cv.height = H);
+      if (cv.width !== W || cv.height !== H) {
+        cv.width = W;
+        cv.height = H;
+        rift?.resize(W, H);
+      }
+      const use3d = !!(s.view3d && rift?.ready);
       const zoom = Math.max(0.6, Math.min(3, (W / (PPU * 75)) * Math.pow(1.25, s.zoomStep)));
-      const unit = PPU * zoom; // px màn hình mỗi đơn vị bản đồ
-      s.unitCss = unit / dpr;
 
       // camera tự động kiểu truyền hình: giữ một cụm ít nhất 4 giây; cụm mới hấp dẫn hơn hẳn (giao tranh) thì chuyển,
       // điểm mới ở xa thì cắt cảnh ngay thay vì trượt ngang qua vùng trống
@@ -106,21 +126,43 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
           s.cam.y += (s.focus.y - s.cam.y) * 0.12;
         }
       }
+
+      // Phép chiếu: 3D (camera nghiêng trên model Summoner's Rift) hoặc 2D (bản đồ pixel nhìn từ trên xuống)
+      let unit: number; // px màn hình cho 1 đơn vị mô phỏng tại tâm camera
+      let P: (x: number, y: number, lift?: number) => { x: number; y: number; k: number; u: number };
+      if (use3d) {
+        s.cam.x = Math.max(25, Math.min(MAP_SIZE - 25, s.cam.x));
+        s.cam.y = Math.max(25, Math.min(MAP_SIZE - 25, s.cam.y));
+        rift!.distance = 95 / Math.pow(1.25, s.zoomStep);
+        rift!.lookAt(s.cam);
+        rift!.render();
+        g.clearRect(0, 0, W, H);
+        unit = rift!.project(s.cam, 0, W, H).scale * 0.96;
+        // sprite cao ~20px nghệ thuật ≈ 6 đơn vị model (to hơn tỉ lệ thật để dễ nhìn)
+        P = (x, y, lift = 0) => {
+          const r = rift!.project({ x, y }, lift, W, H);
+          return { x: r.x, y: r.y, k: r.scale * 0.3, u: r.scale * 0.96 };
+        };
+      } else {
+        unit = PPU * zoom;
+        const halfW0 = W / 2 / unit;
+        const halfH0 = H / 2 / unit;
+        s.cam.x = Math.max(halfW0, Math.min(MAP_SIZE - halfW0, s.cam.x));
+        s.cam.y = Math.max(halfH0, Math.min(MAP_SIZE - halfH0, s.cam.y));
+        g.imageSmoothingEnabled = false;
+        g.fillStyle = "#0b0f1c";
+        g.fillRect(0, 0, W, H);
+        g.drawImage(terrainCache!, (s.cam.x - halfW0) * PPU, (s.cam.y - halfH0) * PPU, halfW0 * 2 * PPU, halfH0 * 2 * PPU, 0, 0, W, H);
+        const k2 = Math.max(1, Math.round(zoom * 1.4 * dpr) / dpr) * dpr; // bội số nguyên để giữ nét pixel
+        P = (x, y) => ({ x: (x - s.cam.x) * unit + W / 2, y: (y - s.cam.y) * unit + H / 2, k: k2, u: unit });
+      }
+      s.unitCss = unit / dpr;
       const halfW = W / 2 / unit;
       const halfH = H / 2 / unit;
-      s.cam.x = Math.max(halfW, Math.min(MAP_SIZE - halfW, s.cam.x));
-      s.cam.y = Math.max(halfH, Math.min(MAP_SIZE - halfH, s.cam.y));
-      const sx = (x: number) => (x - s.cam.x) * unit + W / 2;
-      const sy = (y: number) => (y - s.cam.y) * unit + H / 2;
-
       g.imageSmoothingEnabled = false;
-      g.fillStyle = "#0b0f1c";
-      g.fillRect(0, 0, W, H);
-      g.drawImage(terrainCache!, (s.cam.x - halfW) * PPU, (s.cam.y - halfH) * PPU, halfW * 2 * PPU, halfH * 2 * PPU, 0, 0, W, H);
 
-      const k = Math.max(1, Math.round(zoom * 1.4 * dpr) / dpr) * dpr; // tỉ lệ sprite (bội số nguyên để giữ nét pixel)
-      const blit = (img: HTMLCanvasElement, x: number, y: number, anchorY = 1) =>
-        g.drawImage(img, Math.round(sx(x) - (img.width * k) / 2), Math.round(sy(y) - img.height * k * anchorY), img.width * k, img.height * k);
+      const blit = (img: HTMLCanvasElement, at: { x: number; y: number; k: number }, anchorY = 1) =>
+        g.drawImage(img, Math.round(at.x - (img.width * at.k) / 2), Math.round(at.y - img.height * at.k * anchorY), img.width * at.k, img.height * at.k);
       const bar = (x: number, y: number, w: number, ratio: number, color: string) => {
         g.fillStyle = "#0b0f1c";
         g.fillRect(Math.round(x - w / 2) - 1, Math.round(y) - 1, w + 2, 5 * dpr);
@@ -128,15 +170,34 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
         g.fillRect(Math.round(x - w / 2), Math.round(y), Math.max(0, w * ratio), 3 * dpr);
       };
 
-      // công trình
+      // công trình: 3D thì ẩn/hiện model trụ, nhà lính, nhà chính; 2D thì vẽ sprite
       for (const u of match.units) {
         if (u.kind === "TOWER") {
+          if (use3d) {
+            rift!.setVisible(u.node!, u.alive);
+            if (u.tier === "INHIB") for (const inh of INHIBITORS) if (inh.side === u.side && inh.lane === u.lane) rift!.setVisible(inh.node, u.alive);
+            if (u.alive && u.hp < u.maxHp) {
+              const at = P(u.x, u.y, 10);
+              bar(at.x, at.y, 60 * at.k, u.hp / u.maxHp, SIDE[u.side]);
+            }
+            continue;
+          }
           const img = towerSprite(u.side as 0 | 1, u.alive, u.tier === "NEXUS");
-          blit(img, u.x, u.y + 2);
-          if (u.alive && u.hp < u.maxHp) bar(sx(u.x), sy(u.y + 2) - img.height * k - 6 * dpr, 16 * k, u.hp / u.maxHp, SIDE[u.side]);
+          const at = P(u.x, u.y + 2);
+          blit(img, at);
+          if (u.alive && u.hp < u.maxHp) bar(at.x, at.y - img.height * at.k - 6 * dpr, 16 * at.k, u.hp / u.maxHp, SIDE[u.side]);
         } else if (u.kind === "NEXUS") {
-          blit(nexusSprite(u.side as 0 | 1, u.alive), u.x, u.y + 4);
-          if (u.alive && u.hp < u.maxHp) bar(sx(u.x), sy(u.y + 4) - 32 * k, 26 * k, u.hp / u.maxHp, SIDE[u.side]);
+          if (use3d) {
+            rift!.setVisible(NEXUS_NODES[u.side as 0 | 1], u.alive);
+            if (u.alive && u.hp < u.maxHp) {
+              const at = P(u.x, u.y, 12);
+              bar(at.x, at.y, 90 * at.k, u.hp / u.maxHp, SIDE[u.side]);
+            }
+            continue;
+          }
+          const at = P(u.x, u.y + 4);
+          blit(nexusSprite(u.side as 0 | 1, u.alive), at);
+          if (u.alive && u.hp < u.maxHp) bar(at.x, at.y - 32 * at.k, 26 * at.k, u.hp / u.maxHp, SIDE[u.side]);
         }
       }
       // quái + lính
@@ -144,10 +205,11 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
         if (!u.alive) continue;
         if (u.kind === "CAMP" || u.kind === "DRAGON" || u.kind === "BARON") {
           const img = monsterSprite(u.kind);
-          blit(img, u.x, u.y + 2);
-          if (u.hp < u.maxHp) bar(sx(u.x), sy(u.y + 2) - img.height * k - 5 * dpr, img.width * k, u.hp / u.maxHp, "#d8a03a");
+          const at = P(u.x, u.y + (use3d ? 0 : 2));
+          blit(img, at);
+          if (u.hp < u.maxHp) bar(at.x, at.y - img.height * at.k - 5 * dpr, img.width * at.k, u.hp / u.maxHp, "#d8a03a");
         } else if (u.kind === "MINION") {
-          blit(minionSprite(u.side as 0 | 1, !!u.ranged, Math.floor(match.t * 4 + u.id) % 2), u.x, u.y + 1);
+          blit(minionSprite(u.side as 0 | 1, !!u.ranged, Math.floor(match.t * 4 + u.id) % 2), P(u.x, u.y + (use3d ? 0 : 1)));
         }
       }
       // tướng (vẽ theo y để người đứng trước che người đứng sau)
@@ -162,24 +224,25 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
         p.x = c.x;
         s.prev.set(c.id, p);
         const img = heroSprite(c.player.id, teamColors(colors[c.side], c.side), c.arch, Math.floor(p.walk * 4) % 2, p.flip);
+        const at = P(c.x, c.y);
+        const k = at.k;
         // vòng chân màu phe
         g.fillStyle = SIDE[c.side] + "88";
         g.beginPath();
-        g.ellipse(sx(c.x), sy(c.y), 8 * k, 3 * k, 0, 0, Math.PI * 2);
+        g.ellipse(at.x, at.y, 8 * k, 3 * k, 0, 0, Math.PI * 2);
         g.fill();
-        blit(img, c.x, c.y);
-        const top = sy(c.y) - img.height * k;
-        bar(sx(c.x), top - 7 * dpr, 20 * k, c.hp / c.maxHp, SIDE[c.side]);
+        blit(img, at);
+        const top = at.y - img.height * k;
+        bar(at.x, top - 7 * dpr, 20 * k, c.hp / c.maxHp, SIDE[c.side]);
         if (match.t < c.stunUntil) {
           g.fillStyle = "#ffe066";
-          g.fillText("✦", sx(c.x), top - 10 * dpr);
+          g.fillText("✦", at.x, top - 10 * dpr);
         }
         g.lineWidth = 3 * dpr;
         g.strokeStyle = "#0b0f1c";
         g.fillStyle = c.side === userSide ? "#e8f1ff" : "#ffe3e6";
-        const label = `${c.player.ign}`;
-        g.strokeText(label, sx(c.x), sy(c.y) + 13 * dpr);
-        g.fillText(label, sx(c.x), sy(c.y) + 13 * dpr);
+        g.strokeText(c.player.ign, at.x, at.y + 13 * dpr);
+        g.fillText(c.player.ign, at.x, at.y + 13 * dpr);
       }
       // hiệu ứng
       for (const f of match.fx) {
@@ -189,22 +252,25 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
           if (age > 0.25) continue;
           const q = age / 0.25;
           g.fillStyle = f.side === 2 ? "#ffd166" : f.side === 0 ? "#bcd4ff" : "#ffc2c9";
-          const x = sx(f.x1 + (f.x2 - f.x1) * q);
-          const y = sy(f.y1 + (f.y2 - f.y1) * q) - 8 * k;
-          g.fillRect(Math.round(x - k), Math.round(y - k), 2 * k, 2 * k);
+          const at = P(f.x1 + (f.x2 - f.x1) * q, f.y1 + (f.y2 - f.y1) * q);
+          const y = at.y - 8 * at.k;
+          g.fillRect(Math.round(at.x - at.k), Math.round(y - at.k), 2 * at.k, 2 * at.k);
         } else if (f.kind === "hit") {
           if (age > 0.15) continue;
+          const at = P(f.x2, f.y2);
           g.strokeStyle = "#ffffffcc";
           g.lineWidth = 2 * dpr;
           g.beginPath();
-          g.arc(sx(f.x2), sy(f.y2) - 8 * k, 6 * k, -0.8, 0.8);
+          g.arc(at.x, at.y - 8 * at.k, 6 * at.k, -0.8, 0.8);
           g.stroke();
         } else {
-          const r = (f.kind === "ult" ? 18 : 9) * unit * Math.min(1, age / 0.3);
+          const at = P(f.x2, f.y2);
+          const r = (f.kind === "ult" ? 18 : 9) * at.u * Math.min(1, age / 0.3);
           g.strokeStyle = (f.kind === "heal" ? "#4fd18b" : ARCH_FX[f.arch ?? "MAGE"]) + (age < 0.3 ? "ff" : "88");
           g.lineWidth = (f.kind === "ult" ? 4 : 2) * dpr;
           g.beginPath();
-          g.arc(sx(f.x2), sy(f.y2), r / (f.kind === "ult" ? 1 : 2), 0, Math.PI * 2);
+          // 3D: vòng nằm trên mặt đất (bị nén theo góc nghiêng camera)
+          g.ellipse(at.x, at.y, r / (f.kind === "ult" ? 1 : 2), (r / (f.kind === "ult" ? 1 : 2)) * (use3d ? 0.6 : 1), 0, 0, Math.PI * 2);
           g.stroke();
         }
       }
@@ -235,7 +301,10 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
       if (!match.isOver) raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      rift?.dispose();
+    };
   }, [match]);
 
   // kéo để di chuyển camera
@@ -287,12 +356,15 @@ export function LiveViewer({ match, names, colors, userSide, orders, onOrders, o
       <div className="arena-body">
         <RosterPanel match={match} side={0} colors={colors[0]} />
         <div className="arena-stage">
+          <canvas ref={gl} className="stage-canvas gl" style={{ visibility: view3d && !loading3d ? "visible" : "hidden" }} aria-hidden="true" />
           <canvas ref={stage} className="stage-canvas" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} aria-label="Trận đấu" />
+          {view3d && loading3d && <div className="loading-3d">Đang tải bản đồ 3D…</div>}
           <div className="stage-controls">
             <button onClick={() => setPaused(!paused)} title={paused ? "Tiếp tục" : "Tạm dừng"}>{paused ? "▶" : "❚❚"}</button>
             {SPEEDS.map((v) => <button key={v} className={speed === v ? "on" : ""} onClick={() => setSpeed(v)}>x{v}</button>)}
             <button onClick={() => setZoomStep(zoomStep + 1)} title="Phóng to">＋</button>
             <button onClick={() => setZoomStep(zoomStep - 1)} title="Thu nhỏ">－</button>
+            <button className={view3d ? "on" : ""} onClick={() => setView3d(!view3d)} title="Đổi bản đồ 3D / pixel 2D">{view3d ? "3D" : "2D"}</button>
           </div>
           {sb[0].baronActive || sb[1].baronActive ? <div className="buff-banner">Baron: {sb[0].baronActive ? names[0] : names[1]}</div> : null}
           <ul className="intent-log">

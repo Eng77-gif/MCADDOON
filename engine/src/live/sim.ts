@@ -79,6 +79,8 @@ export interface Unit {
   ranged?: boolean;
   // trụ
   tier?: TowerTier;
+  /** Tên node trong model 3D (để ẩn khi bị phá) */
+  node?: string;
   // quái
   home?: Vec;
   respawnAt?: number;
@@ -175,7 +177,7 @@ export class LiveMatch {
     this.draft = { breakdown: [da, dbk], pWin: [p, 1 - p] };
 
     for (const spec of towerSpecs())
-      this.add({ kind: "TOWER", side: spec.side, x: spec.pos.x, y: spec.pos.y, hp: spec.hp, maxHp: spec.hp, power: 150, range: 30, aspd: 1, speed: 0, lane: spec.lane, tier: spec.tier });
+      this.add({ kind: "TOWER", side: spec.side, x: spec.pos.x, y: spec.pos.y, hp: spec.hp, maxHp: spec.hp, power: 150, range: 30, aspd: 1, speed: 0, lane: spec.lane, tier: spec.tier, node: spec.node });
     for (const side of [0, 1] as const)
       this.add({ kind: "NEXUS", side, x: NEXUS[side].x, y: NEXUS[side].y, hp: 3000, maxHp: 3000, power: 0, range: 0, aspd: 0, speed: 0 });
     for (const c of CAMPS)

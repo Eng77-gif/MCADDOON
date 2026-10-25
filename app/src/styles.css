@@ -290,3 +290,5 @@ button.proceed.primary { width: 100%; }
 img.portrait, .avatar img { border-radius: 4px; background: var(--panel-3); object-fit: cover; }
 .slot { display: flex; align-items: center; gap: 6px; }
 .slot .avatar { border-radius: 4px; }
+.stage-canvas.gl { pointer-events: none; image-rendering: auto; }
+.loading-3d { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); pointer-events: none; }

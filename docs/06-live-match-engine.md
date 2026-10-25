@@ -99,3 +99,19 @@ Kiểm tra cân bằng: `npm run live-balance [số trận]`.
 | Bảng hai bên | Cấp độ, tên tuyển thủ (tướng), thanh máu, đồng hồ hồi sinh |
 | Nhật ký | Ý định của tuyển thủ ("Giao tranh, mục tiêu Azir!", "Đi gank đường giữa", "Máu thấp, lùi lại", "Tập trung đánh Rồng"…) và các pha hạ gục |
 | Điều khiển | Tạm dừng, tốc độ x1–x16, Xem kết quả ngay, chỉ đạo của HLV ngay trong trận |
+
+## 7. Bản đồ 3D (mặc định)
+
+- **Nguồn model:** Summoner's Rift 3D từ nhánh `ccr-c98a3a35-a9bp5p`, gồm model và `map_data.json`. Chi tiết ở `data/map3d/README.md`.
+- **Đồng bộ với engine:** engine (`live/map.ts`) đọc `map_data.json` nên đường đi, 22 trụ, nhà chính, bệ đá, 12 bãi quái và hang Rồng/Baron trùng đúng vị trí trên model.
+  - Toạ độ đổi: `x = (mx + 96)·200/192`, `y = (mz + 96)·200/192`.
+  - Tên đường phe Đỏ trong file gốc đặt theo đối xứng tâm, engine đổi lại theo đường thật.
+- **Vẽ** (`app/src/rift3d.ts`):
+  - three.js vẽ model, camera nghiêng 56° nhìn từ phía nam như LMHT.
+  - Tuyển thủ, lính, quái và hiệu ứng vẽ trên một lớp 2D phủ lên, chiếu theo camera và đứng đúng cao độ mặt đất. Cao độ lấy từ lưới `Terrain`.
+  - Trụ, nhà lính và nhà chính bị phá thì ẩn node 3D tương ứng.
+- **Dung lượng:** model nén bằng gltf-transform (meshopt + webp), 35 MB → 4,3 MB (`app/public/map3d/rift.glb`).
+- **Chế độ 2D:** nút "3D/2D" trên màn hình trận chuyển về bản đồ pixel. Máy không có WebGL hoặc không tải được model thì game tự dùng 2D.
+- **Cân bằng sau khi đổi bản đồ:**
+  - 60 trận gương: phe xanh thắng 45%, không lệch phe.
+  - Đội +10 mọi chỉ số thắng 81%; GEN thắng FURIA 88% (16 trận).

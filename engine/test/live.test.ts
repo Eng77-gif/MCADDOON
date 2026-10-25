@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { LIVE, LiveMatch, archetypeOf, bestTactic, lanePoint, towerSpecs, type Picks, type TeamSetup } from "../src/index.ts";
+import { CAMPS, INHIBITORS, LIVE, LiveMatch, NEXUS, archetypeOf, bestTactic, lanePoint, towerSpecs, type Picks, type TeamSetup } from "../src/index.ts";
 import { realPack, realTeam } from "./fixtures.ts";
 
 const db = realPack.champions;
@@ -9,18 +9,27 @@ const B: Picks = { TOP: "GNAR", JUNGLE: "LEESIN", MID: "ORIANNA", ADC: "XAYAH", 
 const setup = (id: string, picks: Picks): TeamSetup => ({ team: realTeam(id), picks, tactic: bestTactic(db, picks), orders: { laneFocus: "NONE", objective: "BALANCED", risk: "NORMAL" } });
 const ctx = (seed: number) => ({ patch: "26.21", stagePressure: 0, seed });
 
-test("bản đồ đối xứng tâm: trụ hai bên đối xứng qua tâm, đường nối đúng hai nhà", () => {
+test("bản đồ 3D: 22 trụ gần đối xứng tâm, mỗi đường 3 trụ mỗi phe, đường nối đúng hai nhà chính", () => {
   const towers = towerSpecs();
   assert.equal(towers.length, 22);
-  const blue = towers.filter((t) => t.side === 0);
-  for (const b of blue) {
-    const mirror = towers.find((r) => r.side === 1 && Math.abs(r.pos.x - (200 - b.pos.x)) < 1.5 && Math.abs(r.pos.y - (200 - b.pos.y)) < 1.5);
-    assert.ok(mirror, `${b.lane} ${b.tier}`);
+  for (const side of [0, 1] as const)
+    for (const lane of ["TOP", "MID", "BOT"] as const)
+      assert.deepEqual(towers.filter((t) => t.side === side && t.lane === lane).map((t) => t.tier).sort(), ["INHIB", "INNER", "OUTER"]);
+  for (const b of towers.filter((t) => t.side === 0)) {
+    const mirror = towers.find((r) => r.side === 1 && r.tier === b.tier && Math.hypot(r.pos.x - (200 - b.pos.x), r.pos.y - (200 - b.pos.y)) < 7);
+    assert.ok(mirror, `${b.node}`);
   }
+  // trụ ngoài đường trên của hai phe đều nằm trên đường trên thật (cạnh trái / cạnh trên)
+  const top = towers.filter((t) => t.lane === "TOP" && t.tier === "OUTER");
+  assert.ok(top.every((t) => t.pos.x < 40 || t.pos.y < 40));
   for (const lane of ["TOP", "MID", "BOT"] as const) {
-    assert.deepEqual(lanePoint(lane, 0), { x: 22, y: 178 });
-    assert.deepEqual(lanePoint(lane, 1), { x: 178, y: 22 });
+    for (const [t, n] of [[0, NEXUS[0]], [1, NEXUS[1]]] as const) {
+      const p = lanePoint(lane, t);
+      assert.ok(Math.hypot(p.x - n.x, p.y - n.y) < 1e-6, `${lane} ${t}`);
+    }
   }
+  assert.equal(CAMPS.length, 12);
+  assert.equal(INHIBITORS.length, 6);
 });
 
 test("phân nhóm tướng hợp lý", () => {
