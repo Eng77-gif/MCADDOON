@@ -186,7 +186,7 @@ def write_item_md(items, path):
 
 def write_champ_md(champs, path):
     lines = [f"# Tướng Liên Minh Huyền Thoại — bản {VERSION}", "",
-             f"{len(champs)} tướng. Chỉ số ghi dạng `cấp 1 → cấp 18 (+mỗi cấp)`. Nguồn: Riot Data Dragon ({LOCALE}).", "",
+             f"{len(champs)} tướng. Chỉ số ghi dạng `cấp 1 → cấp 18` (mức tăng mỗi cấp có trong champions.json). Nguồn: Riot Data Dragon ({LOCALE}).", "",
              "| Tướng | Vai trò | Máu | Giáp | Kháng phép | SMCK | Tốc đánh | Tầm | Tốc chạy |",
              "|---|---|---|---|---|---|---|---|---|"]
     for c in champs:

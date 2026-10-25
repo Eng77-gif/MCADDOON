@@ -1,6 +1,6 @@
 # Tướng Liên Minh Huyền Thoại — bản 16.21.1
 
-173 tướng. Chỉ số ghi dạng `cấp 1 → cấp 18 (+mỗi cấp)`. Nguồn: Riot Data Dragon (vi_VN).
+173 tướng. Chỉ số ghi dạng `cấp 1 → cấp 18` (mức tăng mỗi cấp có trong champions.json). Nguồn: Riot Data Dragon (vi_VN).
 
 | Tướng | Vai trò | Máu | Giáp | Kháng phép | SMCK | Tốc đánh | Tầm | Tốc chạy |
 |---|---|---|---|---|---|---|---|---|
